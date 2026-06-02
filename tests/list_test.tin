@@ -1,0 +1,11 @@
+#nop Test for array_tokenize (via #list tokenize)
+
+#list mylist tokenize {a;b;c}
+#showme {LIST 1 SIZE: &mylist[]}
+#showme {LIST 1: $mylist[1] $mylist[2] $mylist[3] $mylist[4] $mylist[5]}
+
+#list mylist tokenize {{alpha}{beta}}
+#showme {LIST 2 SIZE: &mylist[]}
+#showme {LIST 2 ITEMS 1,2,7,8: $mylist[1] $mylist[2] $mylist[7] $mylist[8]}
+
+#end

@@ -143,6 +143,7 @@ void trap_handler(int signal)
 /****************************************************************************/
 
 
+#ifndef ZIG_TEST_RUNNER
 int main(int argc, char **argv)
 {
 	int c, i = 0, greeting = 0;
@@ -457,6 +458,7 @@ int main(int argc, char **argv)
 
 	return 0;
 }
+#endif /* ZIG_TEST_RUNNER */
 
 void init_tintin(int greeting)
 {

@@ -6,3 +6,30 @@ src/config.status
 src/*.o
 src/tt++
 
+.zig-cache/
+**/.DS_Store
+zig-out/
+
+# Zig build artifacts
+*.o
+*.a
+
+# Scratch / test artifacts from migration process
+aliases.zig
+aliases2.zig
+math_funcs.zig
+math_clean.zig
+test_cimport.zig
+test_struct.zig
+test_errors.log
+src/scratch_test.zig
+
+# IDE / editor
+.vscode/
+
+# C backup files (pre-migration originals)
+src/*.c.bak
+
+# Project-local docs (not for remote)
+GEMINI.md
+MIGRATION-TODO.md
