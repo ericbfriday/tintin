@@ -1,40 +1,23 @@
 /******************************************************************************
-*   This file is part of TinTin++                                             *
-*                                                                             *
-*   Copyright 2004-2020 Igor van den Hoven                                    *
-*                                                                             *
-*   TinTin++ is free software; you can redistribute it and/or modify          *
-*   it under the terms of the GNU General Public License as published by      *
-*   the Free Software Foundation; either version 3 of the License, or         *
-*   (at your option) any later version.                                       *
-*                                                                             *
-*   This program is distributed in the hope that it will be useful,           *
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of            *
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             *
-*   GNU General Public License for more details.                              *
-*                                                                             *
-*   You should have received a copy of the GNU General Public License         *
-*   along with TinTin++.  If not, see https://www.gnu.org/licenses.           *
-******************************************************************************/
-
-/******************************************************************************
-*                               T I N T I N + +                               *
-*                                                                             *
-*                      coded by Igor van den Hoven 2019                       *
-******************************************************************************/
+ *   Legacy Dictionary Functions for TinTin++ (Zig Migration)                  *
+ *   Functions requiring complex C macros or that weren't migrated yet.        *
+ ******************************************************************************/
 
 #include "tintin.h"
 
+/* wordlist is defined in dict.zig (via dict.h cImport) — declare extern here */
+extern char *wordlist[];
+
+/* dictionary_data struct — must match the Zig definition in dict.zig */
 struct dictionary_data
 {
 	unsigned int * wordindex[26];
 	unsigned int   listsize[26];
 };
 
+/* Extern references to Zig-exported symbols */
 extern struct dictionary_data *dictionary;
-extern char *wordlist[];
-
-void dictionary_init(void);
+extern void dictionary_init(void);
 
 int cursor_dictionary_tab_add(int flag)
 {
