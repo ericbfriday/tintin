@@ -48,10 +48,10 @@ pub fn build(b: *std.Build) void {
         "src/utf8.c",
         "src/banner.c",
         "src/sort.c",
-        "src/base.c",
+        //"src/base.c",
         //"src/string.c",
         //"src/list.c",
-        "src/edit.c",
+        //"src/edit.c",
         "src/command.c",
         "src/forkpty.c",
         //"src/utils.c",
@@ -218,6 +218,36 @@ pub fn build(b: *std.Build) void {
         .root_module = misc_mod,
     });
 
+    // Base module (Zig)
+    const base_mod = b.createModule(.{
+        .root_source_file = b.path("src/base.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    base_mod.addIncludePath(b.path("src"));
+    base_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    base_mod.link_libc = true;
+
+    const base_zig = b.addObject(.{
+        .name = "base_zig",
+        .root_module = base_mod,
+    });
+
+    // Edit module (Zig)
+    const edit_mod = b.createModule(.{
+        .root_source_file = b.path("src/edit.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    edit_mod.addIncludePath(b.path("src"));
+    edit_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    edit_mod.link_libc = true;
+
+    const edit_zig = b.addObject(.{
+        .name = "edit_zig",
+        .root_module = edit_mod,
+    });
+
     exe.root_module.addObject(math_zig);
     exe.root_module.addObject(memory_zig);
     exe.root_module.addObject(utils_zig);
@@ -226,6 +256,8 @@ pub fn build(b: *std.Build) void {
     exe.root_module.addObject(dict_zig);
     exe.root_module.addObject(system_zig);
     exe.root_module.addObject(misc_zig);
+    exe.root_module.addObject(base_zig);
+    exe.root_module.addObject(edit_zig);
 
     b.installArtifact(exe);
 
@@ -260,6 +292,8 @@ pub fn build(b: *std.Build) void {
     math_test_mod.addObject(dict_zig);
     math_test_mod.addObject(system_zig);
     math_test_mod.addObject(misc_zig);
+    math_test_mod.addObject(base_zig);
+    math_test_mod.addObject(edit_zig);
 
     const math_tests = b.addTest(.{
         .root_module = math_test_mod,
@@ -289,6 +323,8 @@ pub fn build(b: *std.Build) void {
     string_test_mod.addObject(dict_zig);
     string_test_mod.addObject(system_zig);
     string_test_mod.addObject(misc_zig);
+    string_test_mod.addObject(base_zig);
+    string_test_mod.addObject(edit_zig);
 
     const string_tests = b.addTest(.{
         .root_module = string_test_mod,
