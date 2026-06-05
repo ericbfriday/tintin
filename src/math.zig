@@ -1858,7 +1858,766 @@ pub export fn mathexp_compute(arg_ses: [*c]struct_session, arg_node: [*c]struct_
 // /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_stdio.h:87:2: warning: TODO implement function '__builtin___sprintf_chk' in std.zig.c_builtins
 
 // src/math.c:352:5: warning: unable to translate function, demoted to extern
-pub extern fn mathexp_tokenize(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg_seed: c_int, arg_debug: c_int) c_int;
+pub export fn mathexp_tokenize(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg_seed: c_int, arg_debug: c_int) c_int {
+    const ses = arg_ses;
+    const str = arg_str;
+    const seed = arg_seed;
+    const debug = arg_debug;
+
+    tintin_c.push_call(@as([*c]u8, @ptrCast(@constCast("mathexp_tokenize(%p,%s,%d,%d)"))), ses, str, seed, debug);
+
+    const buf3 = tintin_c.str_alloc_stack(0);
+
+    var nest: c_int = 0;
+    var level: c_int = 0;
+    wonky = 0;
+    var point: c_int = -1;
+    var status: c_int = EXP_NUMBER;
+    precision = seed;
+
+    var pta: [*c]u8 = buf3;
+    var pti: [*c]u8 = str;
+
+    while (math_head != null) {
+        del_math_node(math_head);
+    }
+
+    while (pti.* != 0) {
+        switch (status) {
+            EXP_NUMBER => {
+                switch (pti.*) {
+                    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+
+                        if (point >= 0) {
+                            point += 1;
+                            if (precision < point) {
+                                precision = point;
+                            }
+                        }
+                    },
+                    '!' => {
+                        if (pta != buf3) {
+                            pta.* = 0;
+                            add_math_node(EXP_NUMBER, level, EXP_PR_VAR, buf3);
+                            status = EXP_OPERATOR;
+                            pta = buf3;
+                            point = -1;
+                        } else {
+                            add_math_node(EXP_NUMBER, level, EXP_PR_VAR, @as([*c]u8, @ptrCast(@constCast("0"))));
+                            add_math_node(EXP_OPERATOR, level, EXP_PR_CONSTANT, @as([*c]u8, @ptrCast(@constCast("=="))));
+                            pta.* = pti.*;
+                            pta += 1;
+                            pti += 1;
+                            pta = buf3;
+                        }
+                    },
+                    '~' => {
+                        if (pta != buf3) {
+                            pta.* = 0;
+                            add_math_node(EXP_NUMBER, level, EXP_PR_VAR, buf3);
+                            status = EXP_OPERATOR;
+                            pta = buf3;
+                            point = -1;
+                        } else {
+                            add_math_node(EXP_NUMBER, level, EXP_PR_VAR, @as([*c]u8, @ptrCast(@constCast("-1"))));
+                            add_math_node(EXP_OPERATOR, level, EXP_PR_INTADD, @as([*c]u8, @ptrCast(@constCast("-"))));
+                            pta.* = pti.*;
+                            pta += 1;
+                            pti += 1;
+                            pta = buf3;
+                        }
+                    },
+                    '+' => {
+                        if (pta != buf3) {
+                            pta.* = 0;
+                            add_math_node(EXP_NUMBER, level, EXP_PR_VAR, buf3);
+                            status = EXP_OPERATOR;
+                            pta = buf3;
+                            point = -1;
+                        } else {
+                            pti += 1;
+                            pta = buf3;
+                        }
+                    },
+                    '-' => {
+                        if (pta != buf3) {
+                            pta.* = 0;
+                            add_math_node(EXP_NUMBER, level, EXP_PR_VAR, buf3);
+                            status = EXP_OPERATOR;
+                            pta = buf3;
+                            point = -1;
+                        } else {
+                            add_math_node(EXP_NUMBER, level, EXP_PR_VAR, @as([*c]u8, @ptrCast(@constCast("-1"))));
+                            add_math_node(EXP_OPERATOR, level, EXP_PR_INTMUL, @as([*c]u8, @ptrCast(@constCast("*"))));
+                            pta.* = pti.*;
+                            pta += 1;
+                            pti += 1;
+                            pta = buf3;
+                        }
+                    },
+                    '{' => {
+                        if (pta != buf3) {
+                            if (debug != 0) {
+                                tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: \\x7B FOUND INSIDE A NUMBER"))));
+                            }
+                            tintin_c.pop_call();
+                            return 0;
+                        }
+                        pti += 1;
+                        status = EXP_BRACE;
+                        nest += 1;
+                    },
+                    '"' => {
+                        if (pta != buf3) {
+                            if (debug != 0) {
+                                tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: \" FOUND INSIDE A NUMBER"))));
+                            }
+                            tintin_c.pop_call();
+                            return 0;
+                        }
+                        pti += 1;
+                        nest += 1;
+                        status = EXP_STRING;
+                    },
+                    '(' => {
+                        if (pta != buf3) {
+                            if (debug != 0) {
+                                tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: PARANTESES FOUND INSIDE A NUMBER"))));
+                            }
+                            tintin_c.pop_call();
+                            return 0;
+                        } else {
+                            pta.* = pti.*;
+                            pta += 1;
+                            pti += 1;
+                            pta.* = 0;
+                            add_math_node(EXP_PARANTHESES, level, EXP_PR_LVL, buf3);
+                            status = EXP_NUMBER;
+                            pta = buf3;
+                            point = -1;
+                        }
+                        level += 1;
+                    },
+                    ',' => {
+                        pti += 1;
+                    },
+                    ':' => {
+                        if (debug != 0 and wonky == 0) {
+                            tintin_c.show_error(tintin_c.gtd.*.ses, tintin_c.LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#WARNING: COMPUTING {%s}. THE : TIME OPERATOR IN #MATH WILL BE REMOVED IN FUTURE RELEASES."))), str);
+                        }
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+                    },
+                    '.' => {
+                        if (pti[1] == '.') {
+                            if (pta == buf3) {
+                                pta.* = '1';
+                                pta += 1;
+                            }
+                            pta.* = 0;
+                            add_math_node(EXP_NUMBER, level, EXP_PR_VAR, buf3);
+                            status = EXP_OPERATOR;
+                            pta = buf3;
+                            point = -1;
+
+                            if (pti[2] == 0) {
+                                pta.* = pti.*;
+                                pta += 1;
+                                pti += 1;
+                                pta.* = pti.*;
+                                pta += 1;
+                                pti += 1;
+
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_LOGCOMP, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+
+                                pta.* = '-';
+                                pta += 1;
+                                pta.* = '1';
+                                pta += 1;
+                            }
+                        } else {
+                            pta.* = pti.*;
+                            pta += 1;
+                            pti += 1;
+                            if (point >= 0) {
+                                if (debug != 0) {
+                                    tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: MORE THAN ONE POINT FOUND INSIDE A NUMBER"))));
+                                }
+                                precision = 0;
+                                tintin_c.pop_call();
+                                return 0;
+                            }
+                            point += 1;
+                        }
+                    },
+                    ' ', '\t' => {
+                        pti += 1;
+                    },
+                    'd', ')', '*', '/', '%', '<', '>', '&', '^', '|', '=', '?' => {
+                        if (pti == str) {
+                            if (debug != 0) {
+                                tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: EXPRESSION STARTED WITH AN OPERATOR."))));
+                            }
+                            tintin_c.pop_call();
+                            return 0;
+                        }
+
+                        if (pta != buf3) {
+                            pta.* = 0;
+                            add_math_node(EXP_NUMBER, level, EXP_PR_VAR, buf3);
+                            status = EXP_OPERATOR;
+                            pta = buf3;
+                            point = -1;
+
+                            if (pti.* == '?') {
+                                wonky = 1;
+                            }
+                        } else {
+                            pta.* = pti.*;
+                            pta += 1;
+                            pti += 1;
+                            pta.* = 0;
+
+                            if (debug != 0) {
+                                tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast("#DEBUG MATH {%s}: FOUND OPERATOR %s WHILE EXPECTING A VALUE."))), str, buf3);
+                            }
+                            tintin_c.pop_call();
+                            return 0;
+                        }
+                    },
+                    'K', 'M', 'G', 'T' => {
+                        if (pta == buf3) {
+                            pta.* = pti.*;
+                            pta += 1;
+                            pti += 1;
+                            pta.* = 0;
+
+                            if (debug != 0) {
+                                tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast("#DEBUG MATH {%s}: INVALID NUMBER %s."))), str, buf3);
+                            }
+
+                            tintin_c.pop_call();
+                            return 0;
+                        } else {
+                            pta.* = 0;
+                            add_math_node(EXP_NUMBER, level, EXP_PR_VAR, buf3);
+                            status = EXP_OPERATOR;
+                            pta = buf3;
+                            point = -1;
+
+                            pta.* = '*';
+                            pta += 1;
+                            pta.* = 0;
+                            add_math_node(EXP_OPERATOR, level, EXP_PR_CONSTANT, buf3);
+                            status = EXP_NUMBER;
+                            pta = buf3;
+                            point = -1;
+
+                            switch (pti.*) {
+                                'K' => {
+                                    _ = tintin_c.sprintf(pta, "1000");
+                                    pta += 4;
+                                },
+                                'M' => {
+                                    _ = tintin_c.sprintf(pta, "1000000");
+                                    pta += 7;
+                                },
+                                'G' => {
+                                    _ = tintin_c.sprintf(pta, "1000000000");
+                                    pta += 10;
+                                },
+                                'T' => {
+                                    _ = tintin_c.sprintf(pta, "1000000000000");
+                                    pta += 13;
+                                },
+                                else => {},
+                            }
+                            pti += 1;
+                            
+                            pta.* = 0;
+                            add_math_node(EXP_NUMBER, level, EXP_PR_VAR, buf3);
+                            status = EXP_OPERATOR;
+                            pta = buf3;
+                            point = -1;
+                        }
+                    },
+                    'm', 'u', 'n', 'p' => {
+                        if (pta == buf3) {
+                            pta.* = pti.*;
+                            pta += 1;
+                            pti += 1;
+                            pta.* = 0;
+
+                            tintin_c.pop_call();
+                            return 0;
+                        } else {
+                            pta.* = 0;
+                            add_math_node(EXP_NUMBER, level, EXP_PR_VAR, buf3);
+                            status = EXP_OPERATOR;
+                            pta = buf3;
+                            point = -1;
+
+                            pta.* = '/';
+                            pta += 1;
+
+                            pta.* = 0;
+                            add_math_node(EXP_OPERATOR, level, EXP_PR_CONSTANT, buf3);
+                            status = EXP_NUMBER;
+                            pta = buf3;
+                            point = -1;
+
+                            switch (pti.*) {
+                                'm' => {
+                                    _ = tintin_c.sprintf(pta, "1000");
+                                    pta += 4;
+                                },
+                                'u' => {
+                                    _ = tintin_c.sprintf(pta, "1000000");
+                                    pta += 7;
+                                },
+                                'n' => {
+                                    _ = tintin_c.sprintf(pta, "1000000000");
+                                    pta += 10;
+                                },
+                                'p' => {
+                                    _ = tintin_c.sprintf(pta, "1000000000000");
+                                    pta += 13;
+                                },
+                                else => {},
+                            }
+                            pti += 1;
+                            
+                            const val_len = @as(c_int, @intCast(@intFromPtr(pta) - @intFromPtr(buf3) - 1));
+                            precision = if (precision > val_len) precision else val_len;
+
+                            pta.* = 0;
+                            add_math_node(EXP_NUMBER, level, EXP_PR_VAR, buf3);
+                            status = EXP_OPERATOR;
+                            pta = buf3;
+                            point = -1;
+                        }
+                    },
+                    else => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+                        pta.* = 0;
+
+                        if (debug != 0) {
+                            tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast("#DEBUG MATH {%s}: INVALID NUMBER %s."))), str, buf3);
+                        }
+                        tintin_c.pop_call();
+                        return 0;
+                    }
+                }
+            },
+            EXP_STRING => {
+                switch (pti.*) {
+                    '"' => {
+                        nest -= 1;
+                        if (nest == 0) {
+                            pti += 1;
+                            pta.* = 0;
+                            add_math_node(EXP_STRING, level, EXP_PR_VAR, buf3);
+                            status = EXP_OPERATOR;
+                            pta = buf3;
+                            point = -1;
+                        } else {
+                            pta.* = pti.*;
+                            pta += 1;
+                            pti += 1;
+                        }
+                    },
+                    else => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+                    }
+                }
+            },
+            EXP_BRACE => {
+                switch (pti.*) {
+                    '{' => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+                        nest += 1;
+                    },
+                    '}' => {
+                        nest -= 1;
+                        if (nest == 0) {
+                            pti += 1;
+                            pta.* = 0;
+                            add_math_node(EXP_STRING, level, EXP_PR_VAR, buf3);
+                            status = EXP_OPERATOR;
+                            pta = buf3;
+                            point = -1;
+                        } else {
+                            pta.* = pti.*;
+                            pta += 1;
+                            pti += 1;
+                        }
+                    },
+                    else => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+                    }
+                }
+            },
+            EXP_OPERATOR => {
+                switch (pti.*) {
+                    ' ' => {
+                        pti += 1;
+                    },
+                    '.' => {
+                        if (pti[1] == '.') {
+                            pta.* = pti.*;
+                            pta += 1;
+                            pti += 1;
+                            pta.* = pti.*;
+                            pta += 1;
+                            pti += 1;
+
+                            pta.* = 0;
+                            add_math_node(EXP_OPERATOR, level, EXP_PR_LOGCOMP, buf3);
+                            status = EXP_NUMBER;
+                            pta = buf3;
+                            point = -1;
+                        } else {
+                            if (debug != 0) {
+                                tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: UNKNOWN OPERATOR: %c%c"))), pti[0], pti[1]);
+                            }
+                            tintin_c.pop_call();
+                            return 0;
+                        }
+                    },
+                    ')' => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+                        level -= 1;
+                        pta.* = 0;
+                        add_math_node(EXP_PARANTHESES, level, EXP_PR_LVL, buf3);
+                        status = EXP_OPERATOR;
+                        pta = buf3;
+                        point = -1;
+                    },
+                    '?' => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+                        pta.* = 0;
+                        add_math_node(EXP_OPERATOR, level, EXP_PR_TERNARY, buf3);
+                        status = EXP_NUMBER;
+                        pta = buf3;
+                        point = -1;
+                    },
+                    ':' => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+                        pta.* = 0;
+                        add_math_node(EXP_OPERATOR, level, EXP_PR_TERNARY, buf3);
+                        status = EXP_NUMBER;
+                        pta = buf3;
+                        point = -1;
+                    },
+                    'd' => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+                        pta.* = 0;
+                        add_math_node(EXP_OPERATOR, level, EXP_PR_DICE, buf3);
+                        status = EXP_NUMBER;
+                        pta = buf3;
+                        point = -1;
+                    },
+                    '*' => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+
+                        switch (pti.*) {
+                            '*' => {
+                                pta.* = pti.*;
+                                pta += 1;
+                                pti += 1;
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_INTMUL, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+                            },
+                            else => {
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_INTMUL, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+                            }
+                        }
+                    },
+                    '/' => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+
+                        switch (pti.*) {
+                            '/' => {
+                                pta.* = pti.*;
+                                pta += 1;
+                                pti += 1;
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_INTMUL, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+                            },
+                            else => {
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_INTMUL, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+                            }
+                        }
+                    },
+                    '%' => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+                        pta.* = 0;
+                        add_math_node(EXP_OPERATOR, level, EXP_PR_INTMUL, buf3);
+                        status = EXP_NUMBER;
+                        pta = buf3;
+                        point = -1;
+                    },
+                    '+', '-' => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+                        pta.* = 0;
+                        add_math_node(EXP_OPERATOR, level, EXP_PR_INTADD, buf3);
+                        status = EXP_NUMBER;
+                        pta = buf3;
+                        point = -1;
+                    },
+                    '<' => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+
+                        switch (pti.*) {
+                            '<' => {
+                                pta.* = pti.*;
+                                pta += 1;
+                                pti += 1;
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_BITSHIFT, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+                            },
+                            '=' => {
+                                pta.* = pti.*;
+                                pta += 1;
+                                pti += 1;
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_LOGLTGT, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+                            },
+                            else => {
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_LOGLTGT, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+                            }
+                        }
+                    },
+                    '>' => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+
+                        switch (pti.*) {
+                            '>' => {
+                                pta.* = pti.*;
+                                pta += 1;
+                                pti += 1;
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_BITSHIFT, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+                            },
+                            '=' => {
+                                pta.* = pti.*;
+                                pta += 1;
+                                pti += 1;
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_LOGLTGT, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+                            },
+                            else => {
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_LOGLTGT, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+                            }
+                        }
+                    },
+                    '&' => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+
+                        switch (pti.*) {
+                            '&' => {
+                                pta.* = pti.*;
+                                pta += 1;
+                                pti += 1;
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_LOGAND, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+                            },
+                            else => {
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_BITAND, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+                            }
+                        }
+                    },
+                    '^' => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+
+                        switch (pti.*) {
+                            '^' => {
+                                pta.* = pti.*;
+                                pta += 1;
+                                pti += 1;
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_LOGXOR, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+                            },
+                            else => {
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_BITXOR, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+                            }
+                        }
+                    },
+                    '|' => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+
+                        switch (pti.*) {
+                            '|' => {
+                                pta.* = pti.*;
+                                pta += 1;
+                                pti += 1;
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_LOGOR, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+                            },
+                            else => {
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_BITOR, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+                            }
+                        }
+                    },
+                    '=', '!' => {
+                        pta.* = pti.*;
+                        pta += 1;
+                        pti += 1;
+                        switch (pti.*) {
+                            '=' => {
+                                pta.* = pti.*;
+                                pta += 1;
+                                pti += 1;
+                                if (pti.* == '=') {
+                                    pta.* = pti.*;
+                                    pta += 1;
+                                    pti += 1;
+                                }
+                                pta.* = 0;
+                                add_math_node(EXP_OPERATOR, level, EXP_PR_LOGCOMP, buf3);
+                                status = EXP_NUMBER;
+                                pta = buf3;
+                                point = -1;
+                            },
+                            else => {
+                                if (debug != 0) {
+                                    tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: UNKNOWN OPERATOR: %c%c"))), (pti - 1).*, pti.*);
+                                }
+                                tintin_c.pop_call();
+                                return 0;
+                            }
+                        }
+                    },
+                    else => {
+                        if (debug != 0) {
+                            tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: UNKNOWN OPERATOR: %c"))), pti.*);
+                        }
+                        tintin_c.pop_call();
+                        return 0;
+                    }
+                }
+            },
+            else => unreachable,
+        }
+    }
+
+    if (level != 0) {
+        if (debug != 0) {
+            tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: UNMATCHED PARENTHESES, LEVEL: %d"))), level);
+        }
+        tintin_c.pop_call();
+        return 0;
+    }
+
+    if (status != EXP_OPERATOR) {
+        if (pta == buf3) {
+            tintin_c.pop_call();
+            return 0;
+        }
+        pta.* = 0;
+        add_math_node(EXP_NUMBER, level, EXP_PR_VAR, buf3);
+    }
+
+    tintin_c.pop_call();
+    return 1;
+}
 pub export fn tinternary(arg_left: [*c]struct_math_node, arg_right: [*c]struct_math_node) c_longdouble {
     var left = arg_left;
     _ = &left;

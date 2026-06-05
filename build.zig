@@ -25,7 +25,7 @@ pub fn build(b: *std.Build) void {
         "src/trigger.c",
         "src/input.c",
         "src/main.c",
-        "src/misc.c",
+        //"src/misc.c",
         "src/net.c",
         "src/parse.c",
         "src/debug.c",
@@ -37,9 +37,8 @@ pub fn build(b: *std.Build) void {
         
         //"src/memory.c",
         // "src/math.c",
-        "src/math_legacy.c",
         "src/split.c",
-        "src/system.c",
+        //"src/system.c",
         "src/mapper.c",
         "src/tables.c",
         "src/buffer.c",
@@ -51,7 +50,6 @@ pub fn build(b: *std.Build) void {
         "src/sort.c",
         "src/base.c",
         //"src/string.c",
-        "src/list_legacy.c",
         //"src/list.c",
         "src/edit.c",
         "src/command.c",
@@ -190,12 +188,44 @@ pub fn build(b: *std.Build) void {
         .root_module = dict_mod,
     });
 
+    // System module (Zig)
+    const system_mod = b.createModule(.{
+        .root_source_file = b.path("src/system.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    system_mod.addIncludePath(b.path("src"));
+    system_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    system_mod.link_libc = true;
+
+    const system_zig = b.addObject(.{
+        .name = "system_zig",
+        .root_module = system_mod,
+    });
+
+    // Misc module (Zig)
+    const misc_mod = b.createModule(.{
+        .root_source_file = b.path("src/misc.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    misc_mod.addIncludePath(b.path("src"));
+    misc_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    misc_mod.link_libc = true;
+
+    const misc_zig = b.addObject(.{
+        .name = "misc_zig",
+        .root_module = misc_mod,
+    });
+
     exe.root_module.addObject(math_zig);
     exe.root_module.addObject(memory_zig);
     exe.root_module.addObject(utils_zig);
     exe.root_module.addObject(string_zig);
     exe.root_module.addObject(list_zig);
     exe.root_module.addObject(dict_zig);
+    exe.root_module.addObject(system_zig);
+    exe.root_module.addObject(misc_zig);
 
     b.installArtifact(exe);
 
@@ -228,6 +258,8 @@ pub fn build(b: *std.Build) void {
     math_test_mod.addObject(string_zig);
     math_test_mod.addObject(list_zig);
     math_test_mod.addObject(dict_zig);
+    math_test_mod.addObject(system_zig);
+    math_test_mod.addObject(misc_zig);
 
     const math_tests = b.addTest(.{
         .root_module = math_test_mod,
@@ -255,6 +287,8 @@ pub fn build(b: *std.Build) void {
     string_test_mod.addObject(utils_zig);
     string_test_mod.addObject(list_zig);
     string_test_mod.addObject(dict_zig);
+    string_test_mod.addObject(system_zig);
+    string_test_mod.addObject(misc_zig);
 
     const string_tests = b.addTest(.{
         .root_module = string_test_mod,

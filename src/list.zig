@@ -41,6 +41,21 @@ pub const str_cat_printf = tintin_c.str_cat_printf;
 pub const str_cpy_printf = tintin_c.str_cpy_printf;
 pub const str_alloc_stack = tintin_c.str_alloc_stack;
 pub const generate_rand = tintin_c.generate_rand;
+pub const malloc = tintin_c.malloc;
+pub const free = tintin_c.free;
+pub const quadsort = tintin_c.quadsort;
+pub const cmp_num = tintin_c.cmp_num;
+pub const cmp_str = tintin_c.cmp_str;
+pub const str_len = tintin_c.str_len;
+pub const str_resize = tintin_c.str_resize;
+pub const hex_number_32bit = tintin_c.hex_number_32bit;
+pub const is_hex = tintin_c.is_hex;
+pub const sprintf = tintin_c.sprintf;
+pub const strcpy = tintin_c.strcpy;
+pub const is_euc_head = tintin_c.is_euc_head;
+pub const get_euc_size = tintin_c.get_euc_size;
+pub const is_utf8_head = tintin_c.is_utf8_head;
+pub const get_utf8_size = tintin_c.get_utf8_size;
 
 // --- TinTin++ constants ---
 pub const GET_ONE: c_int = 0;
@@ -69,9 +84,6 @@ inline fn URANGE(a: c_int, b: c_int, c_arg: c_int) c_int {
 pub const ARRAY = *const fn ([*c]struct_session, [*c]struct_listnode, [*c]u8, [*c]u8, [*c]u8, [*c]u8) callconv(.c) [*c]struct_session;
 
 // --- Extern declarations for legacy C functions ---
-pub extern fn array_order(ses: [*c]struct_session, list: [*c]struct_listnode, arg: [*c]u8, var_arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8) [*c]struct_session;
-pub extern fn array_sort(ses: [*c]struct_session, list: [*c]struct_listnode, arg: [*c]u8, var_arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8) [*c]struct_session;
-pub extern fn array_tokenize(ses: [*c]struct_session, list: [*c]struct_listnode, arg: [*c]u8, var_arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8) [*c]struct_session;
 
 // --- Dispatch table entry ---
 const array_entry = struct {
@@ -837,5 +849,172 @@ pub export fn array_swap(arg_ses: [*c]struct_session, arg_list: [*c]struct_listn
         return arg_ses;
     }
     show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#LIST SWAP: VARIABLE {%s} IS NOT A LIST."))), arg_var);
+    return arg_ses;
+}
+
+// ---------------------------------------------------------------------------
+// array_order
+// ---------------------------------------------------------------------------
+pub export fn array_order(arg_ses: [*c]struct_session, arg_list: [*c]struct_listnode, arg_arg: [*c]u8, arg_var: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) [*c]struct_session {
+    _ = array_add(arg_ses, arg_list, arg_arg, arg_var, arg_arg1, arg_arg2);
+
+    if (arg_list.*.root != null and arg_list.*.root.*.used > 1) {
+        const used: usize = @intCast(arg_list.*.root.*.used);
+        const list_arr: [*c][*c]struct_listnode = arg_list.*.root.*.list;
+
+        if (list_arr[0].*.root != null) {
+            const root_buffer: [*c][*c]struct_listroot = @ptrCast(@alignCast(malloc(used * @sizeOf([*c]struct_listroot))));
+            const arg2_buffer: [*c][*c]u8 = @ptrCast(@alignCast(malloc(used * @sizeOf([*c]u8))));
+
+            var cnt: usize = 0;
+            while (cnt < used) : (cnt += 1) {
+                const len = str_len(list_arr[cnt].*.arg2);
+
+                root_buffer[cnt] = list_arr[cnt].*.root;
+                arg2_buffer[cnt] = list_arr[cnt].*.arg2;
+
+                _ = str_resize(&arg2_buffer[cnt], 10);
+
+                _ = sprintf(arg2_buffer[cnt] + @as(usize, @intCast(len)) + 1, "%x", @as(c_int, @intCast(cnt)));
+            }
+
+            quadsort(@ptrCast(arg2_buffer), used, @sizeOf([*c]u8), @ptrCast(&cmp_num));
+
+            cnt = 0;
+            while (cnt < used) : (cnt += 1) {
+                const len = str_len(arg2_buffer[cnt]);
+                const val = hex_number_32bit(arg2_buffer[cnt] + @as(usize, @intCast(len)) + 1);
+
+                list_arr[cnt].*.root = root_buffer[val];
+                list_arr[cnt].*.arg2 = arg2_buffer[cnt];
+            }
+
+            free(@ptrCast(arg2_buffer));
+            free(@ptrCast(root_buffer));
+        } else {
+            const arg2_buffer: [*c][*c]u8 = @ptrCast(@alignCast(malloc(used * @sizeOf([*c]u8))));
+
+            var cnt: usize = 0;
+            while (cnt < used) : (cnt += 1) {
+                arg2_buffer[cnt] = list_arr[cnt].*.arg2;
+            }
+
+            quadsort(@ptrCast(arg2_buffer), used, @sizeOf([*c]u8), @ptrCast(&cmp_num));
+
+            cnt = 0;
+            while (cnt < used) : (cnt += 1) {
+                list_arr[cnt].*.arg2 = arg2_buffer[cnt];
+            }
+
+            free(@ptrCast(arg2_buffer));
+        }
+    }
+    return arg_ses;
+}
+
+// ---------------------------------------------------------------------------
+// array_sort
+// ---------------------------------------------------------------------------
+pub export fn array_sort(arg_ses: [*c]struct_session, arg_list: [*c]struct_listnode, arg_arg: [*c]u8, arg_var: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) [*c]struct_session {
+    _ = array_add(arg_ses, arg_list, arg_arg, arg_var, arg_arg1, arg_arg2);
+
+    if (arg_list.*.root != null and arg_list.*.root.*.used > 1) {
+        const used: usize = @intCast(arg_list.*.root.*.used);
+        const list_arr: [*c][*c]struct_listnode = arg_list.*.root.*.list;
+
+        if (list_arr[0].*.root != null) {
+            const root_buffer: [*c][*c]struct_listroot = @ptrCast(@alignCast(malloc(used * @sizeOf([*c]struct_listroot))));
+            const arg2_buffer: [*c][*c]u8 = @ptrCast(@alignCast(malloc(used * @sizeOf([*c]u8))));
+
+            var cnt: usize = 0;
+            while (cnt < used) : (cnt += 1) {
+                const len = str_len(list_arr[cnt].*.arg2);
+
+                root_buffer[cnt] = list_arr[cnt].*.root;
+                arg2_buffer[cnt] = list_arr[cnt].*.arg2;
+
+                _ = str_resize(&arg2_buffer[cnt], 10);
+
+                _ = sprintf(arg2_buffer[cnt] + @as(usize, @intCast(len)) + 1, "%x", @as(c_int, @intCast(cnt)));
+            }
+
+            quadsort(@ptrCast(arg2_buffer), used, @sizeOf([*c]u8), @ptrCast(&cmp_str));
+
+            cnt = 0;
+            while (cnt < used) : (cnt += 1) {
+                const len = str_len(arg2_buffer[cnt]);
+                const val = hex_number_32bit(arg2_buffer[cnt] + @as(usize, @intCast(len)) + 1);
+
+                list_arr[cnt].*.root = root_buffer[val];
+                list_arr[cnt].*.arg2 = arg2_buffer[cnt];
+            }
+
+            free(@ptrCast(arg2_buffer));
+            free(@ptrCast(root_buffer));
+        } else {
+            const arg2_buffer: [*c][*c]u8 = @ptrCast(@alignCast(malloc(used * @sizeOf([*c]u8))));
+
+            var cnt: usize = 0;
+            while (cnt < used) : (cnt += 1) {
+                arg2_buffer[cnt] = list_arr[cnt].*.arg2;
+            }
+
+            quadsort(@ptrCast(arg2_buffer), used, @sizeOf([*c]u8), @ptrCast(&cmp_str));
+
+            cnt = 0;
+            while (cnt < used) : (cnt += 1) {
+                list_arr[cnt].*.arg2 = arg2_buffer[cnt];
+            }
+
+            free(@ptrCast(arg2_buffer));
+        }
+    }
+    return arg_ses;
+}
+
+// ---------------------------------------------------------------------------
+// array_tokenize
+// ---------------------------------------------------------------------------
+pub export fn array_tokenize(arg_ses: [*c]struct_session, arg_list: [*c]struct_listnode, arg_arg: [*c]u8, arg_var: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) [*c]struct_session {
+    _ = arg_var;
+    const buf: [*c]u8 = str_alloc_stack(0);
+    _ = substitute(arg_ses, arg_arg, buf, SUB_VAR | SUB_FUN);
+    var arg = buf;
+
+    if (arg_list.*.root != null) {
+        free_list(arg_list.*.root);
+    }
+    arg_list.*.root = init_list(arg_ses, LIST_VARIABLE, LIST_SIZE);
+
+    var index: c_int = 1;
+    while (arg.* != 0) {
+        arg = get_arg_in_braces(arg_ses, arg, arg_arg1, GET_ALL);
+
+        var i: usize = 0;
+        while (arg_arg1[i] != 0) {
+            if (arg_arg1[i] == '{') {
+                _ = strcpy(arg_arg2, @as([*c]const u8, @ptrCast("\\x7B")));
+                i += 1;
+            } else if (arg_arg1[i] == '}') {
+                _ = strcpy(arg_arg2, @as([*c]const u8, @ptrCast("\\x7D")));
+                i += 1;
+            } else if (arg_arg1[i] == '\\' and arg_arg1[i + 1] == 'x' and is_hex(arg_arg1[i + 2]) != 0 and is_hex(arg_arg1[i + 3]) != 0) {
+                i += @as(usize, @intCast(sprintf(arg_arg2, "%.4s", &arg_arg1[i])));
+            } else if ((arg_ses.*.charset & tintin_c.CHARSET_FLAG_EUC) != 0 and is_euc_head(arg_ses, &arg_arg1[i]) != 0) {
+                i += @as(usize, @intCast(sprintf(arg_arg2, "%.*s", get_euc_size(arg_ses, &arg_arg1[i]), &arg_arg1[i])));
+            } else if ((arg_ses.*.charset & tintin_c.CHARSET_FLAG_UTF8) != 0 and is_utf8_head(&arg_arg1[i]) != 0) {
+                i += @as(usize, @intCast(sprintf(arg_arg2, "%.*s", get_utf8_size(&arg_arg1[i]), &arg_arg1[i])));
+            } else {
+                i += @as(usize, @intCast(sprintf(arg_arg2, "%c", arg_arg1[i])));
+            }
+            
+            _ = set_nest_node(arg_list.*.root, ntos(index), @as([*c]u8, @ptrCast(@constCast("%s"))), arg_arg2);
+            index += 1;
+        }
+
+        if (arg.* == COMMAND_SEPARATOR) {
+            arg += 1;
+        }
+    }
     return arg_ses;
 }
