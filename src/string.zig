@@ -7,6 +7,8 @@ pub const tintin_c = @cImport({
 // --- C standard library aliases ---
 pub const strlen = tintin_c.strlen;
 pub const time_t = tintin_c.time_t;
+pub const memcpy = tintin_c.memcpy;
+pub const memmove = tintin_c.memmove;
 
 // --- TinTin++ struct type aliases ---
 pub const struct_session = tintin_c.struct_session;
@@ -773,22 +775,27 @@ pub const __VT102_H__ = "";
 /// to the display-column `start`, and the raw byte width from `start` to `end`.
 /// Returns the raw offset; writes the raw width to `raw_width`.
 pub export fn get_raw_off_str_range_raw_width(ses: [*c]struct_session, str: [*c]u8, start: c_int, end: c_int, raw_width: [*c]c_int) c_int {
+    if (str == null) {
+        raw_width.* = 0;
+        return 0;
+    }
+    const slice = std.mem.span(str);
     var raw_off: c_int = 0;
-    var raw_cnt: c_int = 0;
+    var raw_cnt: usize = 0;
     var str_cnt: c_int = 0;
     var ret_raw: c_int = 0;
-    const raw_len = str_len(str);
 
-    while (raw_cnt < raw_len) {
+    while (raw_cnt < slice.len) {
         var width: c_int = undefined;
-        const skip = get_vt102_width(ses, &(str + @as(usize, @intCast(raw_cnt))).*, &width);
+        const current_ptr = &slice[raw_cnt];
+        const skip = get_vt102_width(ses, current_ptr, &width);
 
         if (str_cnt >= start) {
             ret_raw += skip;
         } else {
             raw_off += skip;
         }
-        raw_cnt += skip;
+        raw_cnt += @intCast(skip);
 
         if (end >= 0 and (str_cnt + width) > end) break;
         str_cnt += width;
@@ -865,60 +872,217 @@ pub export fn str_len_raw(ses: [*c]struct_session, str: [*c]u8, start: c_int, en
 }
 // /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_string.h:132:3: warning: TODO implement function '__builtin___memmove_chk' in std.zig.c_builtins
 
-// src/string.c:332:7: warning: unable to translate function, demoted to extern
-pub extern fn str_ins_str(arg_ses: [*c]struct_session, arg_str: [*c][*c]u8, arg_ins: [*c]u8, arg_str_start: c_int, arg_str_end: c_int) [*c]u8;
+pub export fn str_ins_str(ses: [*c]struct_session, str: [*c][*c]u8, ins: [*c]u8, str_start: c_int, str_end_in: c_int) [*c]u8 {
+    var str_end = str_end_in;
+    if (str_end == -1) {
+        str_end = str_start + strip_vt102_strlen(ses, ins);
+    }
+
+    const len = str_len_str(ses, str.*, 0, str_end);
+
+    if (len < str_end) {
+        const space_count = @as(usize, @intCast(str_end - len));
+        var spaces_buf: [2048]u8 = undefined;
+        const fill_len = @min(space_count, spaces_buf.len - 1);
+        @memset(spaces_buf[0..fill_len], ' ');
+        spaces_buf[fill_len] = 0;
+        _ = tintin_c.str_cat(str, &spaces_buf);
+    }
+
+    const ins_raw_len = raw_len_str(ses, ins, 0, str_end - str_start);
+    const raw_start = raw_len_str_min(ses, str.*, 0, str_start);
+    const raw_len = str_len(str.*);
+    const raw_end = raw_len_str_opt(ses, str.*, 0, str_end);
+
+    var old_buf: [COLOR_SIZE]u8 = undefined;
+    const old: [*c]u8 = &old_buf;
+
+    const tmp = str.*[@as(usize, @intCast(raw_end))];
+
+    old[0] = 0;
+    str.*[@as(usize, @intCast(raw_end))] = 0;
+
+    get_color_codes(old, str.*, old, GET_ALL);
+
+    str.*[@as(usize, @intCast(raw_end))] = tmp;
+
+    const col_len = @as(c_int, @intCast(std.mem.len(old)));
+
+    _ = tintin_c.str_resize(str, ins_raw_len + col_len + 1);
+
+    if (raw_len < raw_end + ins_raw_len or raw_len > raw_end) {
+        _ = memmove(
+            str.* + @as(usize, @intCast(raw_start + ins_raw_len + col_len)),
+            str.* + @as(usize, @intCast(raw_end)),
+            @as(usize, @intCast(raw_len - raw_end + 1)),
+        );
+        _ = memcpy(
+            str.* + @as(usize, @intCast(raw_start + ins_raw_len)),
+            old,
+            @as(usize, @intCast(col_len)),
+        );
+        _ = memcpy(
+            str.* + @as(usize, @intCast(raw_start)),
+            ins,
+            @as(usize, @intCast(ins_raw_len)),
+        );
+    } else if (raw_len > raw_end) {
+        _ = memmove(
+            str.* + @as(usize, @intCast(raw_start + ins_raw_len)),
+            str.* + @as(usize, @intCast(raw_end)),
+            @as(usize, @intCast(raw_len - raw_end + 1)),
+        );
+        _ = memcpy(
+            str.* + @as(usize, @intCast(raw_start)),
+            ins,
+            @as(usize, @intCast(ins_raw_len)),
+        );
+    } else {
+        _ = memcpy(
+            str.* + @as(usize, @intCast(raw_start)),
+            ins,
+            @as(usize, @intCast(ins_raw_len)),
+        );
+        if (len < str_end) {
+            str.*[@as(usize, @intCast(raw_start + ins_raw_len))] = 0;
+        }
+    }
+    _ = tintin_c.str_fix(str.*);
+
+    return str.*;
+}
 // /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_stdio.h:76:2: warning: TODO implement function '__builtin___snprintf_chk' in std.zig.c_builtins
 
-// src/string.c:399:7: warning: unable to translate function, demoted to extern
-pub extern fn calign(arg_ses: [*c]struct_session, arg_in: [*c]u8, arg_out: [*c]u8, arg_width: c_int) [*c]u8;
-// /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_stdio.h:76:2: warning: TODO implement function '__builtin___snprintf_chk' in std.zig.c_builtins
+pub extern fn space_out(string: [*c]u8) [*c]u8;
 
-// src/string.c:424:7: warning: unable to translate function, demoted to extern
-pub extern fn lalign(arg_ses: [*c]struct_session, arg_in: [*c]u8, arg_out: [*c]u8, arg_width: c_int) [*c]u8;
-// /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_stdio.h:76:2: warning: TODO implement function '__builtin___snprintf_chk' in std.zig.c_builtins
+pub export fn calign(ses: [*c]struct_session, in: [*c]u8, out: [*c]u8, width_in: c_int) [*c]u8 {
+    var in_ptr = space_out(in);
 
-// src/string.c:449:7: warning: unable to translate function, demoted to extern
-pub extern fn ralign(arg_ses: [*c]struct_session, arg_in: [*c]u8, arg_out: [*c]u8, arg_width: c_int) [*c]u8;
-/// Unwrap alignment: replaces single newlines with spaces,
-/// preserves consecutive newlines, and copies everything else verbatim.
+    if (in_ptr[0] != 0) {
+        var len = @as(c_int, @intCast(std.mem.len(in_ptr))) - 1;
+        while (len >= 0 and is_space(in_ptr[@as(usize, @intCast(len))]) != 0) {
+            in_ptr[@as(usize, @intCast(len))] = 0;
+            len -= 1;
+        }
+    }
+
+    var width_val: c_int = 0;
+    _ = strip_vt102_width(ses, in_ptr, &width_val);
+
+    const pad_width = @max(0, width_in - width_val);
+    const left_spaces = @as(usize, @intCast(@divTrunc(pad_width, 2)));
+    const right_spaces = @as(usize, @intCast(pad_width - @divTrunc(pad_width, 2)));
+    const in_len = std.mem.len(in_ptr);
+
+    var out_idx: usize = 0;
+    @memset(out[out_idx..out_idx + left_spaces], ' ');
+    out_idx += left_spaces;
+
+    @memcpy(out[out_idx..out_idx + in_len], in_ptr[0..in_len]);
+    out_idx += in_len;
+
+    @memset(out[out_idx..out_idx + right_spaces], ' ');
+    out_idx += right_spaces;
+
+    out[out_idx] = 0;
+
+    return out;
+}
+
+pub export fn lalign(ses: [*c]struct_session, in: [*c]u8, out: [*c]u8, width_in: c_int) [*c]u8 {
+    var in_ptr = space_out(in);
+
+    if (in_ptr[0] != 0) {
+        var len = @as(c_int, @intCast(std.mem.len(in_ptr))) - 1;
+        while (len >= 0 and is_space(in_ptr[@as(usize, @intCast(len))]) != 0) {
+            in_ptr[@as(usize, @intCast(len))] = 0;
+            len -= 1;
+        }
+    }
+
+    var width_val: c_int = 0;
+    _ = strip_vt102_width(ses, in_ptr, &width_val);
+
+    const pad_width = @as(usize, @intCast(@max(0, width_in - width_val)));
+    const in_len = std.mem.len(in_ptr);
+
+    var out_idx: usize = 0;
+    @memcpy(out[out_idx..out_idx + in_len], in_ptr[0..in_len]);
+    out_idx += in_len;
+
+    @memset(out[out_idx..out_idx + pad_width], ' ');
+    out_idx += pad_width;
+
+    out[out_idx] = 0;
+
+    return out;
+}
+
+pub export fn ralign(ses: [*c]struct_session, in: [*c]u8, out: [*c]u8, width_in: c_int) [*c]u8 {
+    var in_ptr = space_out(in);
+
+    if (in_ptr[0] != 0) {
+        var len = @as(c_int, @intCast(std.mem.len(in_ptr))) - 1;
+        while (len >= 0 and is_space(in_ptr[@as(usize, @intCast(len))]) != 0) {
+            in_ptr[@as(usize, @intCast(len))] = 0;
+            len -= 1;
+        }
+    }
+
+    var width_val: c_int = 0;
+    _ = strip_vt102_width(ses, in_ptr, &width_val);
+
+    const pad_width = @as(usize, @intCast(@max(0, width_in - width_val)));
+    const in_len = std.mem.len(in_ptr);
+
+    var out_idx: usize = 0;
+    @memset(out[out_idx..out_idx + pad_width], ' ');
+    out_idx += pad_width;
+
+    @memcpy(out[out_idx..out_idx + in_len], in_ptr[0..in_len]);
+    out_idx += in_len;
+
+    out[out_idx] = 0;
+
+    return out;
+}
+
 pub export fn ualign(ses: [*c]struct_session, in: [*c]u8, out: [*c]u8, width: c_int) [*c]u8 {
     _ = ses;
     _ = width;
-    var pti: [*c]u8 = in;
-    var pto: [*c]u8 = out;
+    if (in == null or out == null) return out;
+    const in_slice = std.mem.span(in);
+    var in_idx: usize = 0;
+    var out_idx: usize = 0;
 
-    while (pti.* != 0) {
-        if (pti.* == '\n') {
-            switch ((pti + 1).*) {
-                0 => {
-                    // Newline followed by NUL: copy the newline and stop
-                    pto.* = pti.*;
-                    pto += 1;
-                    pti += 1;
-                },
-                '\n' => {
-                    // Consecutive newlines: copy them all
-                    while (pti.* == '\n') {
-                        pto.* = pti.*;
-                        pto += 1;
-                        pti += 1;
-                    }
-                },
-                else => {
-                    // Single newline: replace with space
-                    pti += 1;
-                    pto.* = ' ';
-                    pto += 1;
-                },
+    while (in_idx < in_slice.len) {
+        if (in_slice[in_idx] == '\n') {
+            if (in_idx + 1 == in_slice.len) {
+                // Newline followed by NUL: copy the newline and stop
+                out[out_idx] = '\n';
+                out_idx += 1;
+                in_idx += 1;
+            } else if (in_slice[in_idx + 1] == '\n') {
+                // Consecutive newlines: copy them all
+                while (in_idx < in_slice.len and in_slice[in_idx] == '\n') {
+                    out[out_idx] = '\n';
+                    out_idx += 1;
+                    in_idx += 1;
+                }
+            } else {
+                // Single newline: replace with space
+                in_idx += 1;
+                out[out_idx] = ' ';
+                out_idx += 1;
             }
         } else {
             // Normal character: copy verbatim
-            pto.* = pti.*;
-            pto += 1;
-            pti += 1;
+            out[out_idx] = in_slice[in_idx];
+            out_idx += 1;
+            in_idx += 1;
         }
     }
-    pto.* = 0;
+    out[out_idx] = 0;
     return out;
 }
 /// Case-insensitive character comparison.
@@ -1208,30 +1372,33 @@ pub extern fn catch_vt102_codes(ses: [*c]struct_session, str: [*c]u8, cplen: c_i
 /// Compute the display width of a string between display columns `start` and `end`.
 /// Skips VT102 escape codes and accounts for UTF-8 character widths.
 pub export fn str_len_str(ses: [*c]struct_session, str: [*c]u8, start: c_int, end: c_int) c_int {
-    var ptr: [*c]u8 = str;
+    if (str == null) return 0;
+    const slice = std.mem.span(str);
+    var raw_cnt: usize = 0;
     var str_cnt: c_int = 0;
     var ret_cnt: c_int = 0;
 
-    while (ptr.* != 0) {
+    while (raw_cnt < slice.len) {
         if (end >= 0 and str_cnt >= end) break;
 
-        const tmp_cnt = skip_vt102_codes(ptr);
+        const current_ptr = &slice[raw_cnt];
+        const tmp_cnt = skip_vt102_codes(current_ptr);
         if (tmp_cnt != 0) {
-            ptr += @as(usize, @intCast(tmp_cnt));
-        } else if ((ses.*.charset & CHARSET_FLAG_UTF8) != 0 and is_utf8_head(ptr) != 0) {
+            raw_cnt += @intCast(tmp_cnt);
+        } else if ((ses.*.charset & CHARSET_FLAG_UTF8) != 0 and is_utf8_head(current_ptr) != 0) {
             var width: c_int = undefined;
-            const utf8_len = get_utf8_width(ptr, &width, null);
+            const utf8_len = get_utf8_width(current_ptr, &width, null);
             if (str_cnt >= start) {
                 ret_cnt += width;
             }
             str_cnt += width;
-            ptr += @as(usize, @intCast(utf8_len));
+            raw_cnt += @intCast(utf8_len);
         } else {
             if (str_cnt >= start) {
                 ret_cnt += 1;
             }
             str_cnt += 1;
-            ptr += 1;
+            raw_cnt += 1;
         }
     }
     return ret_cnt;
@@ -1239,30 +1406,31 @@ pub export fn str_len_str(ses: [*c]struct_session, str: [*c]u8, start: c_int, en
 /// Minimum raw byte length: compute the raw byte count for display columns
 /// `start` to `end`. Breaks when str_cnt reaches end BEFORE processing the char.
 pub export fn raw_len_str_min(ses: [*c]struct_session, str: [*c]u8, start: c_int, end: c_int) c_int {
-    var raw_cnt: c_int = 0;
+    if (str == null) return 0;
+    const slice = std.mem.span(str);
+    var raw_cnt: usize = 0;
     var str_cnt: c_int = 0;
     var ret_cnt: c_int = 0;
-    const raw_len: c_int = @as(c_int, @bitCast(@as(c_uint, @truncate(strlen(str)))));
 
-    while (raw_cnt < raw_len) {
+    while (raw_cnt < slice.len) {
         if (str_cnt >= end) break;
 
         var width: c_int = undefined;
-        const ptr = &(str + @as(usize, @intCast(raw_cnt))).*;
-        const tmp_cnt = skip_vt102_codes(ptr);
+        const current_ptr = &slice[raw_cnt];
+        const tmp_cnt = skip_vt102_codes(current_ptr);
 
         if (tmp_cnt != 0) {
-            raw_cnt += tmp_cnt;
+            raw_cnt += @intCast(tmp_cnt);
             if (str_cnt >= start) {
                 ret_cnt += tmp_cnt;
             }
             continue;
-        } else if ((ses.*.charset & CHARSET_FLAG_UTF8) != 0 and is_utf8_head(ptr) != 0) {
-            const utf8_len = get_utf8_width(ptr, &width, null);
+        } else if ((ses.*.charset & CHARSET_FLAG_UTF8) != 0 and is_utf8_head(current_ptr) != 0) {
+            const utf8_len = get_utf8_width(current_ptr, &width, null);
             if (str_cnt >= start) {
                 ret_cnt += utf8_len;
             }
-            raw_cnt += utf8_len;
+            raw_cnt += @intCast(utf8_len);
         } else {
             if (str_cnt >= start) {
                 ret_cnt += 1;
@@ -1280,17 +1448,18 @@ pub export fn raw_len_str_min(ses: [*c]struct_session, str: [*c]u8, start: c_int
 /// Escape codes are always included in the count when past `start`, even after
 /// `str_cnt` reaches `end` — the `end` check happens AFTER escape processing.
 pub export fn raw_len_str_opt(ses: [*c]struct_session, str: [*c]u8, start: c_int, end: c_int) c_int {
-    var raw_cnt: c_int = 0;
+    if (str == null) return 0;
+    const slice = std.mem.span(str);
+    var raw_cnt: usize = 0;
     var str_cnt: c_int = 0;
     var ret_cnt: c_int = 0;
-    const raw_len: c_int = @as(c_int, @bitCast(@as(c_uint, @truncate(strlen(str)))));
 
-    while (raw_cnt < raw_len) {
-        const ptr = &(str + @as(usize, @intCast(raw_cnt))).*;
-        const tmp_cnt = skip_vt102_codes(ptr);
+    while (raw_cnt < slice.len) {
+        const current_ptr = &slice[raw_cnt];
+        const tmp_cnt = skip_vt102_codes(current_ptr);
 
         if (tmp_cnt != 0) {
-            raw_cnt += tmp_cnt;
+            raw_cnt += @intCast(tmp_cnt);
             if (str_cnt >= start) {
                 ret_cnt += tmp_cnt;
             }
@@ -1300,12 +1469,12 @@ pub export fn raw_len_str_opt(ses: [*c]struct_session, str: [*c]u8, start: c_int
         if (str_cnt >= end) break;
 
         var width: c_int = undefined;
-        if ((ses.*.charset & CHARSET_FLAG_UTF8) != 0 and is_utf8_head(ptr) != 0) {
-            const utf8_len = get_utf8_width(ptr, &width, null);
+        if ((ses.*.charset & CHARSET_FLAG_UTF8) != 0 and is_utf8_head(current_ptr) != 0) {
+            const utf8_len = get_utf8_width(current_ptr, &width, null);
             if (str_cnt >= start) {
                 ret_cnt += utf8_len;
             }
-            raw_cnt += utf8_len;
+            raw_cnt += @intCast(utf8_len);
         } else {
             if (str_cnt >= start) {
                 ret_cnt += 1;

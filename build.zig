@@ -51,7 +51,6 @@ pub fn build(b: *std.Build) void {
         "src/dict_legacy.c",
         "src/sort.c",
         "src/base.c",
-        "src/string_legacy.c",
         //"src/string.c",
         "src/list_legacy.c",
         //"src/list.c",

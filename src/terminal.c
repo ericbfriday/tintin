@@ -151,7 +151,7 @@ void init_terminal_size(struct session *ses)
 	{
 		struct winsize screen;
 
-		if (ioctl(1, TIOCGWINSZ, &screen) >= 0)
+		if (ioctl(1, TIOCGWINSZ, &screen) >= 0 && screen.ws_row > 0 && screen.ws_col > 0)
 		{
 			init_resize(gts, screen.ws_row, screen.ws_col, screen.ws_ypixel, screen.ws_xpixel);
 		}
