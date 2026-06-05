@@ -871,7 +871,7 @@ void syserr_fatal(int signal, char *msg)
 	dump_stack();
 
 	print_stdout(0, 0, "%*s", (unsigned char) gtd->screen->cols, "");
-	print_stdout(0, 0, "\n\e[1;31mFATAL ERROR \e[1;32m%s %s\e[0m\n", (unsigned char) gtd->screen->cols, "", msg, errstr);
+	print_stdout(0, 0, "\n\e[1;31mFATAL ERROR \e[1;32m%s %s\e[0m\n", msg, errstr);
 
 	reset_daemon();
 

@@ -34,7 +34,7 @@ pub fn build(b: *std.Build) void {
         "src/vt102.c",
         "src/terminal.c",
         "src/text.c",
-        "src/memory_legacy.c",
+        
         //"src/memory.c",
         // "src/math.c",
         "src/math_legacy.c",
@@ -55,7 +55,6 @@ pub fn build(b: *std.Build) void {
         //"src/list.c",
         "src/edit.c",
         "src/command.c",
-        "src/utils_legacy.c",
         "src/forkpty.c",
         //"src/utils.c",
         "src/line.c",

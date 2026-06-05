@@ -11,7 +11,7 @@ if [ ! -f "$TT_BIN" ]; then
 fi
 
 echo "Running smoke test..."
-OUTPUT=$($TT_BIN "$SMOKE_TEST" 2>&1)
+OUTPUT=$($TT_BIN -H "$SMOKE_TEST" 2>&1)
 
 if echo "$OUTPUT" | grep -q "SMOKE TEST SUCCESS"; then
     echo "Smoke test passed!"
@@ -22,7 +22,7 @@ else
 fi
 
 echo "Running list tokenize test..."
-OUTPUT=$($TT_BIN "tests/list_test.tin" 2>&1)
+OUTPUT=$($TT_BIN -H "tests/list_test.tin" 2>&1)
 
 if echo "$OUTPUT" | grep -q "LIST 1: a ; b ; c" && echo "$OUTPUT" | grep -q "LIST 2 ITEMS 1,2,7,8: { a } {"; then
     echo "List tokenize test passed!"

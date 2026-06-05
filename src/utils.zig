@@ -16,6 +16,13 @@ pub const strcasecmp = tintin_c.strcasecmp;
 pub const rand = tintin_c.rand;
 pub const srand = tintin_c.srand;
 pub const gettimeofday = tintin_c.gettimeofday;
+pub const sprintf = tintin_c.sprintf;
+pub const vsprintf = tintin_c.vsprintf;
+pub const strcat = tintin_c.strcat;
+pub const strcpy = tintin_c.strcpy;
+pub const localtime = tintin_c.localtime;
+pub const strftime = tintin_c.strftime;
+pub const memset = tintin_c.memset;
 
 // --- TinTin++ function aliases ---
 pub const is_digit = tintin_c.is_digit;
@@ -309,4 +316,176 @@ pub export fn is_suffix(arg_str1: [*c]u8, arg_str2: [*c]u8) c_int {
         }
     }
     return FALSE;
+}
+
+// ---------------------------------------------------------------------------
+// cat_sprintf — concatenate formatted string
+// ---------------------------------------------------------------------------
+pub export fn cat_sprintf(arg_dest: [*c]u8, arg_fmt: [*c]const u8, ...) c_int {
+    var buf: [100000]u8 = undefined; // STRING_SIZE
+    var args = @cVaStart();
+    defer @cVaEnd(&args);
+
+    const size = vsprintf(&buf, arg_fmt, @as([*c]u8, @ptrCast(args)));
+    _ = strcat(arg_dest, &buf);
+
+    return size;
+}
+
+// ---------------------------------------------------------------------------
+// ins_sprintf — insert formatted string at the beginning
+// ---------------------------------------------------------------------------
+pub export fn ins_sprintf(arg_dest: [*c]u8, arg_fmt: [*c]const u8, ...) void {
+    var tmp: [100000]u8 = undefined; // STRING_SIZE
+    var args = @cVaStart();
+    defer @cVaEnd(&args);
+
+    _ = strcpy(&tmp, arg_dest);
+    const len = vsprintf(arg_dest, arg_fmt, @as([*c]u8, @ptrCast(args)));
+    _ = strcpy(arg_dest + @as(usize, @intCast(len)), &tmp);
+}
+
+// ---------------------------------------------------------------------------
+// socket_printf — print formatted string to mud socket
+// ---------------------------------------------------------------------------
+pub export fn socket_printf(arg_ses: [*c]struct_session, arg_length: usize, arg_format: [*c]const u8, ...) void {
+    var buf: [100000]u8 = undefined; // STRING_SIZE
+    var args = @cVaStart();
+    defer @cVaEnd(&args);
+
+    const size = vsprintf(&buf, arg_format, @as([*c]u8, @ptrCast(args)));
+
+    if (size != @as(c_int, @intCast(arg_length)) and (arg_ses.*.telopts & tintin_c.TELOPT_FLAG_DEBUG) != 0) {
+        tintin_c.tintin_printf(arg_ses, @as([*c]u8, @ptrCast(@constCast("DEBUG TELNET: socket_printf size difference: %d vs %d"))), size, @as(c_int, @intCast(arg_length)));
+    }
+
+    if ((arg_ses.*.flags & tintin_c.SES_FLAG_CONNECTED) != 0) {
+        tintin_c.write_line_mud(arg_ses, &buf, @as(c_int, @intCast(arg_length)));
+    }
+}
+
+// ---------------------------------------------------------------------------
+// telnet_printf — print formatted string to telnet socket
+// ---------------------------------------------------------------------------
+pub export fn telnet_printf(arg_ses: [*c]struct_session, arg_length: c_int, arg_format: [*c]const u8, ...) void {
+    var buf: [100000]u8 = undefined; // STRING_SIZE
+    var args = @cVaStart();
+    defer @cVaEnd(&args);
+
+    const size = vsprintf(&buf, arg_format, @as([*c]u8, @ptrCast(args)));
+
+    if (arg_length != -1 and size != arg_length and (arg_ses.*.telopts & tintin_c.TELOPT_FLAG_DEBUG) != 0) {
+        tintin_c.tintin_printf(arg_ses, @as([*c]u8, @ptrCast(@constCast("DEBUG TELNET: telnet_printf size difference: %d vs %d"))), size, arg_length);
+    }
+
+    if ((arg_ses.*.flags & tintin_c.SES_FLAG_CONNECTED) != 0) {
+        arg_ses.*.telopts |= tintin_c.TELOPT_FLAG_TELNET;
+        tintin_c.write_line_mud(arg_ses, &buf, size);
+        arg_ses.*.telopts &= @as(c_int, @bitCast(~@as(c_uint, tintin_c.TELOPT_FLAG_TELNET)));
+    }
+}
+
+// ---------------------------------------------------------------------------
+// str_time — format time string
+// ---------------------------------------------------------------------------
+var str_time_buf: [10][256]u8 = undefined; // NAME_SIZE = 256
+var str_time_cnt: usize = 0;
+
+pub export fn str_time(arg_ses: [*c]struct_session, arg_format: [*c]const u8, arg_time: time_t) [*c]u8 {
+    _ = arg_ses; // Unused
+    str_time_cnt = (str_time_cnt + 1) % 10;
+    
+    var time_val = arg_time;
+    const timeval_tm = localtime(&time_val);
+
+    _ = strftime(&str_time_buf[str_time_cnt], 256, arg_format, timeval_tm);
+
+    return &str_time_buf[str_time_cnt];
+}
+
+// ---------------------------------------------------------------------------
+// ftos — float to string
+// ---------------------------------------------------------------------------
+var ftos_outbuf: [10][100]u8 = undefined; // NUMBER_SIZE = 100
+var ftos_cnt: usize = 0;
+
+pub export fn ftos(arg_number: f64) [*c]u8 {
+    ftos_cnt = (ftos_cnt + 1) % 10;
+
+    _ = sprintf(&ftos_outbuf[ftos_cnt], "%f", arg_number);
+
+    var len: usize = strlen(&ftos_outbuf[ftos_cnt]);
+    if (len > 0) {
+        len -= 1;
+        while (len > 0) : (len -= 1) {
+            if (ftos_outbuf[ftos_cnt][len] == '0') {
+                ftos_outbuf[ftos_cnt][len] = 0;
+            } else {
+                if (ftos_outbuf[ftos_cnt][len] == '.') {
+                    ftos_outbuf[ftos_cnt][len] = 0;
+                }
+                break;
+            }
+        }
+    }
+    return &ftos_outbuf[ftos_cnt];
+}
+
+// ---------------------------------------------------------------------------
+// ntos — number to string
+// ---------------------------------------------------------------------------
+var ntos_outbuf: [10][100]u8 = undefined; // NUMBER_SIZE = 100
+var ntos_cnt: usize = 0;
+
+pub export fn ntos(arg_number: c_longlong) [*c]u8 {
+    ntos_cnt = (ntos_cnt + 1) % 10;
+    _ = sprintf(&ntos_outbuf[ntos_cnt], "%lld", arg_number);
+    return &ntos_outbuf[ntos_cnt];
+}
+
+// ---------------------------------------------------------------------------
+// indent_one — pad string with spaces
+// ---------------------------------------------------------------------------
+var indent_one_outbuf: [10][1000]u8 = undefined; // STACK_SIZE = 1000
+var indent_one_cnt: usize = 0;
+
+pub export fn indent_one(arg_len: c_int) [*c]u8 {
+    indent_one_cnt = (indent_one_cnt + 1) % 10;
+
+    const len: usize = @intCast(if (arg_len < 1) 1 else arg_len);
+    
+    _ = memset(&indent_one_outbuf[indent_one_cnt], ' ', len);
+    indent_one_outbuf[indent_one_cnt][len] = 0;
+
+    return &indent_one_outbuf[indent_one_cnt];
+}
+
+// ---------------------------------------------------------------------------
+// indent
+// ---------------------------------------------------------------------------
+var indent_outbuf: [21][101]u8 = std.mem.zeroes([21][101]u8);
+
+pub export fn indent(arg_len: c_int) [*c]u8 {
+    var len = arg_len;
+    if (len < 0) len = 0;
+    if (len > 20) len = 20;
+
+    const ulen: usize = @intCast(len);
+
+    if (indent_outbuf[ulen][0] == 0) {
+        _ = sprintf(&indent_outbuf[ulen], "%*s", len * 4, "");
+    }
+
+    return &indent_outbuf[ulen];
+}
+
+// ---------------------------------------------------------------------------
+// ins_cpy — copy and shift string
+// ---------------------------------------------------------------------------
+pub export fn ins_cpy(arg_dest: [*c]u8, arg_str: [*c]u8) void {
+    var tmp: [100000]u8 = undefined; // STRING_SIZE
+    
+    _ = strcpy(&tmp, arg_dest);
+    _ = strcpy(arg_dest, arg_str);
+    _ = strcat(arg_dest, &tmp);
 }

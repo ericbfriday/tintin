@@ -557,3 +557,91 @@ pub export fn str_alloc_free(arg_str_ptr: [*c]struct_str_data) void {
     free_arr[@as(usize, @intCast(mem.*.free_len))] = str_ptr.*.index;
     mem.*.free_len += 1;
 }
+
+// ---------------------------------------------------------------------------
+// restringf — format string into new duplicated memory
+// ---------------------------------------------------------------------------
+pub export fn restringf(arg_point: [*c]u8, arg_fmt: [*c]const u8, ...) [*c]u8 {
+    var string: [8192]u8 = undefined;
+    var args = @cVaStart();
+    defer @cVaEnd(&args);
+
+    _ = tintin_c.vsprintf(&string, arg_fmt, @as([*c]u8, @ptrCast(args)));
+
+    if (arg_point != null) {
+        free(arg_point);
+    }
+    return strdup(&string);
+}
+
+// ---------------------------------------------------------------------------
+// str_dup_printf — duplicate formatted string
+// ---------------------------------------------------------------------------
+pub export fn str_dup_printf(arg_fmt: [*c]const u8, ...) [*c]u8 {
+    var ptv: [*c]u8 = null;
+    var args = @cVaStart();
+    defer @cVaEnd(&args);
+
+    const len: c_int = @intCast(tintin_c.vasprintf(&ptv, arg_fmt, @as([*c]u8, @ptrCast(args))));
+
+    const str = str_alloc(len);
+    _ = memcpy(str, ptv, @as(usize, @intCast(len)) + 1);
+
+    free(ptv);
+
+    return str;
+}
+
+// ---------------------------------------------------------------------------
+// str_cpy_printf — copy formatted string into managed string
+// ---------------------------------------------------------------------------
+pub export fn str_cpy_printf(arg_str: [*c][*c]u8, arg_fmt: [*c]const u8, ...) [*c]u8 {
+    var ptv: [*c]u8 = null;
+    var args = @cVaStart();
+    defer @cVaEnd(&args);
+
+    const len: c_int = @intCast(tintin_c.vasprintf(&ptv, arg_fmt, @as([*c]u8, @ptrCast(args))));
+
+    var str_ptr = get_str_ptr(arg_str.*);
+    if (str_ptr.*.max <= len) {
+        str_ptr = str_ptr_realloc(str_ptr, len);
+        arg_str.* = get_str_str(str_ptr);
+    }
+
+    _ = memcpy(arg_str.*, ptv, @as(usize, @intCast(len)) + 1);
+    str_ptr.*.len = len;
+
+    free(ptv);
+
+    return arg_str.*;
+}
+
+// ---------------------------------------------------------------------------
+// str_cat_printf — cat formatted string to managed string
+// ---------------------------------------------------------------------------
+pub export fn str_cat_printf(arg_str: [*c][*c]u8, arg_fmt: [*c]const u8, ...) [*c]u8 {
+    var arg: [*c]u8 = null;
+    var args = @cVaStart();
+    defer @cVaEnd(&args);
+
+    const len: c_int = @intCast(tintin_c.vasprintf(&arg, arg_fmt, @as([*c]u8, @ptrCast(args))));
+
+    _ = str_cat_len(arg_str, arg, len);
+    free(arg);
+    return arg_str.*;
+}
+
+// ---------------------------------------------------------------------------
+// str_ins_printf — insert formatted string into managed string
+// ---------------------------------------------------------------------------
+pub export fn str_ins_printf(arg_str: [*c][*c]u8, arg_index: c_int, arg_fmt: [*c]const u8, ...) [*c]u8 {
+    var arg: [*c]u8 = null;
+    var args = @cVaStart();
+    defer @cVaEnd(&args);
+
+    const len: c_int = @intCast(tintin_c.vasprintf(&arg, arg_fmt, @as([*c]u8, @ptrCast(args))));
+
+    _ = str_ins_len(arg_str, arg_index, arg, len);
+    free(arg);
+    return arg_str.*;
+}
