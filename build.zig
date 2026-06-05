@@ -48,7 +48,6 @@ pub fn build(b: *std.Build) void {
         "src/chat.c",
         "src/utf8.c",
         "src/banner.c",
-        "src/dict_legacy.c",
         "src/sort.c",
         "src/base.c",
         //"src/string.c",

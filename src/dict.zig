@@ -213,3 +213,96 @@ pub export fn do_dictionary(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_ar
     }
     return ses;
 }
+
+fn urange(a: c_int, b: c_int, c: c_int) c_int {
+    if (b < a) return a;
+    if (b > c) return c;
+    return b;
+}
+
+pub export fn cursor_dictionary_tab_add(flag: c_int) c_int {
+    const gtd = tintin_c.gtd;
+    if (gtd == null) return 0;
+    const ses = gtd.*.ses;
+    if (ses == null) return 0;
+    const list_array = ses.*.list;
+    const cmd_root = list_array[@intCast(LIST_COMMAND)];
+    if (cmd_root == null) return 0;
+
+    if (dictionary == null) {
+        dictionary_init();
+    }
+
+    if (cmd_root.*.used <= 0) return 0;
+    const node0 = cmd_root.*.list[0];
+    if (node0 == null) return 0;
+    const tail = node0.*.arg1;
+    if (tail == null) return 0;
+
+    if (tail[0] == 0 or is_alpha(tail[0]) == 0) {
+        return 0;
+    }
+
+    const tail_len = @as(usize, @intCast(tintin_c.str_len(tail)));
+
+    const hash: usize = @intCast(tolower(tail[0]) - 'a');
+
+    const last_node = cmd_root.*.list[@intCast(cmd_root.*.used - 1)];
+    if (last_node == null) return 0;
+    const last_node_val = last_node.*;
+    const i_start: usize = @intCast(urange(0, last_node_val.unnamed_0.val32[1], cmd_root.*.used - 1));
+
+    var i = i_start;
+    while (i < dictionary[0].listsize[hash]) : (i += 1) {
+        const offset: usize = dictionary[0].wordindex[hash][i];
+        const word = wordlist[hash] + offset;
+
+        var val: c_int = 0;
+        if ((flag & tintin_c.TAB_FLAG_CASELESS) != 0) {
+            val = tintin_c.strncasecmp(word, tail + 1, @intCast(tail_len - 1));
+        } else {
+            if (word[0] < tail[1]) {
+                continue;
+            }
+            val = tintin_c.strncmp(word, tail + 1, @intCast(tail_len - 1));
+        }
+
+        if (val < 0) {
+            continue;
+        }
+
+        if (val > 0) {
+            return 0;
+        }
+
+        var buf: [50]u8 = undefined;
+        buf[0] = tail[0];
+        const word_len = std.mem.span(word).len;
+        if (word_len + 2 > buf.len) {
+            continue;
+        }
+        @memcpy(buf[1 .. word_len + 1], word[0..word_len]);
+        buf[word_len + 1] = 0;
+
+        if (tintin_c.search_node_list(cmd_root, &buf) != null) {
+            continue;
+        }
+
+        const node = tintin_c.create_node_list(cmd_root, &buf, @constCast(""), @constCast(""), @constCast(""));
+        if (node == null) continue;
+
+        var val32 = node.*.unnamed_0.val32;
+        val32[1] = @intCast(i);
+        node.*.unnamed_0.val32 = val32;
+
+        if ((flag & tintin_c.TAB_FLAG_FORWARD) != 0) {
+            return 1;
+        }
+
+        if (cmd_root.*.used > 100) {
+            return 0;
+        }
+    }
+    return 0;
+}
+
