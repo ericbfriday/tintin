@@ -572,8 +572,7 @@ struct session *connect_session(struct session *ses)
 
 	to.tv_sec = 0;
 
-	reconnect:
-
+	while (1) {
 	sock = connect_mud(ses, ses->session_host, ses->session_port);
 
 	if (sock == -1)
@@ -608,8 +607,8 @@ struct session *connect_session(struct session *ses)
 	{
 		fd_set readfds;
 
-		FD_ZERO(&readfds);
-		FD_SET(0, &readfds);
+		memset(&readfds, 0, sizeof(readfds));
+		readfds.fds_bits[0] |= 1;
 
 		if (select(FD_SETSIZE, &readfds, NULL, NULL, &to) <= 0)
 		{
@@ -620,8 +619,10 @@ struct session *connect_session(struct session *ses)
 				tintin_printf(ses, "#SESSION '%s' FAILED TO CONNECT. RETRYING FOR %d SECONDS.", ses->name, (ses->connect_retry - gtd->utime) / 1000000);
 			}
 
-			goto reconnect;
+			continue;
 		}
+	}
+	break;
 	}
 
 	if (ses->connect_error)

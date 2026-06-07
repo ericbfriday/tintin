@@ -96,18 +96,28 @@ struct iac_type iac_server_table [] =
 	{ 0, NULL,                                                                  NULL}
 };
 
+void server_telopt_debug_inner(struct session *ses, char *buf)
+{
+	if (HAS_BIT(ses->telopts, TELOPT_FLAG_DEBUG))
+	{
+		tintin_puts(ses, buf);
+	}
+}
+
 void server_telopt_debug(struct session *ses, char *format, ...)
 {
 	if (HAS_BIT(ses->telopts, TELOPT_FLAG_DEBUG))
 	{
-		char buf[BUFFER_SIZE];
+		char *buf;
 		va_list args;
 
 		va_start(args, format);
-		vsprintf(buf, format, args);
+		if (vasprintf(&buf, format, args) != -1)
+		{
+			server_telopt_debug_inner(ses, buf);
+			free(buf);
+		}
 		va_end(args);
-
-		tintin_puts(ses, buf);
 	}
 }
 
@@ -190,84 +200,86 @@ int server_translate_telopts(struct session *ses, struct port_data *buddy, unsig
 		buddy->mccp3->next_out   = gtd->mccp_buf;
 		buddy->mccp3->avail_out  = gtd->mccp_len;
 
-		inflate:
-
-		switch (inflate(buddy->mccp3, Z_SYNC_FLUSH))
+		while(1)
 		{
-			case Z_BUF_ERROR:
-				if (buddy->mccp3->avail_out == 0)
-				{
-					gtd->mccp_len *= 2;
-					gtd->mccp_buf  = (unsigned char *) realloc(gtd->mccp_buf, gtd->mccp_len);
+			switch (inflate(buddy->mccp3, Z_SYNC_FLUSH))
+			{
+				case Z_BUF_ERROR:
+					if (buddy->mccp3->avail_out == 0)
+					{
+						gtd->mccp_len *= 2;
+						gtd->mccp_buf  = (unsigned char *) realloc(gtd->mccp_buf, gtd->mccp_len);
 
-					buddy->mccp3->avail_out = gtd->mccp_len / 2;
-					buddy->mccp3->next_out  = gtd->mccp_buf + gtd->mccp_len / 2;
+						buddy->mccp3->avail_out = gtd->mccp_len / 2;
+						buddy->mccp3->next_out  = gtd->mccp_buf + gtd->mccp_len / 2;
 
-					goto inflate;
-				}
-				else
-				{
+						continue;
+					}
+					else
+					{
+						port_socket_printf(ses, buddy, "%c%c%c", IAC, DONT, TELOPT_MCCP3);
+						inflateEnd(buddy->mccp3);
+						free(buddy->mccp3);
+						buddy->mccp3 = NULL;
+						srclen = 0;
+					}
+					break;
+
+				case Z_OK:
+					if (buddy->mccp3->avail_out == 0)
+					{
+						gtd->mccp_len *= 2;
+						gtd->mccp_buf  = (unsigned char *) realloc(gtd->mccp_buf, gtd->mccp_len);
+
+						buddy->mccp3->avail_out = gtd->mccp_len / 2;
+						buddy->mccp3->next_out  = gtd->mccp_buf + gtd->mccp_len / 2;
+
+						continue;
+					}
+					srclen = buddy->mccp3->next_out - gtd->mccp_buf;
+					pti = gtd->mccp_buf;
+
+					if (srclen + outlen > BUFFER_SIZE)
+					{
+						srclen = BUFFER_SIZE - outlen - 1;
+					}
+					break;
+
+				case Z_STREAM_END:
+					port_log_printf(ses, buddy, "MCCP3: Compression end, disabling MCCP3.");
+
+					skip = buddy->mccp3->next_out - gtd->mccp_buf;
+
+					pti += (srclen - buddy->mccp3->avail_in);
+					srclen = buddy->mccp3->avail_in;
+
+					inflateEnd(buddy->mccp3);
+					free(buddy->mccp3);
+					buddy->mccp3 = NULL;
+
+					while (skip + srclen + 1 > gtd->mccp_len)
+					{
+						gtd->mccp_len *= 2;
+						gtd->mccp_buf  = (unsigned char *) realloc(gtd->mccp_buf, gtd->mccp_len);
+					}
+					memcpy(gtd->mccp_buf + skip, pti, srclen);
+					pti = gtd->mccp_buf;
+					srclen += skip;
+					break;
+
+				default:
+					port_log_printf(ses, buddy, "MCCP3: Compression error, disabling MCCP3.");
+
+					syserr_printf(ses, "server_translate_telopts: inflate:");
+
 					port_socket_printf(ses, buddy, "%c%c%c", IAC, DONT, TELOPT_MCCP3);
 					inflateEnd(buddy->mccp3);
 					free(buddy->mccp3);
 					buddy->mccp3 = NULL;
 					srclen = 0;
-				}
-				break;
-
-			case Z_OK:
-				if (buddy->mccp3->avail_out == 0)
-				{
-					gtd->mccp_len *= 2;
-					gtd->mccp_buf  = (unsigned char *) realloc(gtd->mccp_buf, gtd->mccp_len);
-
-					buddy->mccp3->avail_out = gtd->mccp_len / 2;
-					buddy->mccp3->next_out  = gtd->mccp_buf + gtd->mccp_len / 2;
-
-					goto inflate;
-				}
-				srclen = buddy->mccp3->next_out - gtd->mccp_buf;
-				pti = gtd->mccp_buf;
-
-				if (srclen + outlen > BUFFER_SIZE)
-				{
-					srclen = BUFFER_SIZE - outlen - 1;
-				}
-				break;
-
-			case Z_STREAM_END:
-				port_log_printf(ses, buddy, "MCCP3: Compression end, disabling MCCP3.");
-
-				skip = buddy->mccp3->next_out - gtd->mccp_buf;
-
-				pti += (srclen - buddy->mccp3->avail_in);
-				srclen = buddy->mccp3->avail_in;
-
-				inflateEnd(buddy->mccp3);
-				free(buddy->mccp3);
-				buddy->mccp3 = NULL;
-
-				while (skip + srclen + 1 > gtd->mccp_len)
-				{
-					gtd->mccp_len *= 2;
-					gtd->mccp_buf  = (unsigned char *) realloc(gtd->mccp_buf, gtd->mccp_len);
-				}
-				memcpy(gtd->mccp_buf + skip, pti, srclen);
-				pti = gtd->mccp_buf;
-				srclen += skip;
-				break;
-
-			default:
-				port_log_printf(ses, buddy, "MCCP3: Compression error, disabling MCCP3.");
-
-				syserr_printf(ses, "server_translate_telopts: inflate:");
-
-				port_socket_printf(ses, buddy, "%c%c%c", IAC, DONT, TELOPT_MCCP3);
-				inflateEnd(buddy->mccp3);
-				free(buddy->mccp3);
-				buddy->mccp3 = NULL;
-				srclen = 0;
-				break;
+					break;
+			}
+			break;
 		}
 	}
 
@@ -408,18 +420,28 @@ int server_translate_telopts(struct session *ses, struct port_data *buddy, unsig
 	return strlen((char *) out);
 }
 
+void telopt_debug_inner(struct session *ses, char *buf)
+{
+	if (HAS_BIT(ses->telopts, TELOPT_FLAG_DEBUG))
+	{
+		tintin_puts(ses, buf);
+	}
+}
+
 void telopt_debug(struct session *ses, char *format, ...)
 {
-	char buf[BUFFER_SIZE];
+	char *buf;
 	va_list args;
 
 	if (HAS_BIT(ses->telopts, TELOPT_FLAG_DEBUG))
 	{
 		va_start(args, format);
-		vsprintf(buf, format, args);
+		if (vasprintf(&buf, format, args) != -1)
+		{
+			telopt_debug_inner(ses, buf);
+			free(buf);
+		}
 		va_end(args);
-
-		tintin_puts(ses, buf);
 	}
 }
 

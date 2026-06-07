@@ -268,96 +268,97 @@ static int ssl_check_cert(struct session *ses, gnutls_session_t ssl_ses)
 
 	load_cert(ses, &oldcert);
 
-	if (gnutls_certificate_type_get(ssl_ses) != GNUTLS_CRT_X509)
-	{
-		err = "#SSL: SERVER DOES NOT USE x509 -> NO KEY RETENTION.";
-		goto nocert;
-	}
-	
-	if ((cert_list = gnutls_certificate_get_peers(ssl_ses, &cert_list_size)) == NULL)
-	{
-		err = "#SSL: SERVER HAS NO x509 CERTIFICATE -> NO KEY RETENTION.";
-		goto nocert;
-	}
-	
-	gnutls_x509_crt_init(&cert);
-
-	if (gnutls_x509_crt_import(cert, &cert_list[0], GNUTLS_X509_FMT_DER) < 0)
-	{
-		err = "#SSL: SERVER'S CERTIFICATE IS INVALID.";
-		goto badcert;
-	}
-
-	t = time(0);
-
-	if (gnutls_x509_crt_get_activation_time(cert) > t)
-	{
-		sprintf(buf2, "CERTIFICATE ACTIVATION TIME IS IN THE FUTURE (%s)", str_time(ses, "%c", gnutls_x509_crt_get_activation_time(cert)));
-
-		err = buf2;
-	}
-	
-	if (gnutls_x509_crt_get_expiration_time(cert) < t)
-	{
-		sprintf(buf2, "CERTIFICATE HAS EXPIRED (%s)", str_time(ses, "%c", gnutls_x509_crt_get_expiration_time(cert)));
-
-		err = buf2;
-	}
-
-	if (!oldcert)
-	{
-		save_cert(ses, cert, 1);
-	}
-	else if (diff_certs(cert, oldcert))
-	{
-		t -= gnutls_x509_crt_get_expiration_time(oldcert);
-
-		if (err || t < -31*24*3600)
+	do {
+		if (gnutls_certificate_type_get(ssl_ses) != GNUTLS_CRT_X509)
 		{
-			if (err)
+			err = "#SSL: SERVER DOES NOT USE x509 -> NO KEY RETENTION.";
+			break;
+		}
+		
+		if ((cert_list = gnutls_certificate_get_peers(ssl_ses, &cert_list_size)) == NULL)
+		{
+			err = "#SSL: SERVER HAS NO x509 CERTIFICATE -> NO KEY RETENTION.";
+			break;
+		}
+		
+		gnutls_x509_crt_init(&cert);
+
+		if (gnutls_x509_crt_import(cert, &cert_list[0], GNUTLS_X509_FMT_DER) < 0)
+		{
+			err = "#SSL: SERVER'S CERTIFICATE IS INVALID.";
+			gnutls_x509_crt_deinit(cert);
+			break;
+		}
+
+		t = time(0);
+
+		if (gnutls_x509_crt_get_activation_time(cert) > t)
+		{
+			sprintf(buf2, "CERTIFICATE ACTIVATION TIME IS IN THE FUTURE (%s)", str_time(ses, "%c", gnutls_x509_crt_get_activation_time(cert)));
+
+			err = buf2;
+		}
+		
+		if (gnutls_x509_crt_get_expiration_time(cert) < t)
+		{
+			sprintf(buf2, "CERTIFICATE HAS EXPIRED (%s)", str_time(ses, "%c", gnutls_x509_crt_get_expiration_time(cert)));
+
+			err = buf2;
+		}
+
+		if (!oldcert)
+		{
+			save_cert(ses, cert, 1);
+		}
+		else if (diff_certs(cert, oldcert))
+		{
+			t -= gnutls_x509_crt_get_expiration_time(oldcert);
+
+			if (err || t < -31*24*3600)
 			{
-				char temp[BUFFER_SIZE];
+				if (err)
+				{
+					char temp[BUFFER_SIZE];
 
-				sprintf(temp, "CERTIFICATE MISMATCH, AND NEW ");
-				strcat(temp, err);
+					sprintf(temp, "CERTIFICATE MISMATCH, AND NEW ");
+					strcat(temp, err);
 
-				strcpy(buf2, temp);
+					strcpy(buf2, temp);
+				}
+				else
+				{
+					sprintf(buf2, "SERVER CERTIFICATE IS DIFFERENT FROM THE SAVED ONE.");
+				}
+				err = buf2;
 			}
 			else
 			{
-				sprintf(buf2, "SERVER CERTIFICATE IS DIFFERENT FROM THE SAVED ONE.");
+				if (t > 0)
+				{
+					tintin_printf(ses, "#SSL: SERVER CERTIFICATE HAS CHANGED, BUT THE OLD ONE WAS EXPIRED.");
+				}
+				else
+				{
+					tintin_printf(ses, "#SSL: SERVER CERTIFICATE HAS CHANGED, BUT THE OLD ONE WAS ABOUT TO EXPIRE.");
+				}
+
+				/* Replace the old cert */
+
+				save_cert(ses, cert, 0);
+				gnutls_x509_crt_deinit(oldcert);
+				oldcert = 0;
 			}
-			err = buf2;
 		}
 		else
 		{
-			if (t > 0)
-			{
-				tintin_printf(ses, "#SSL: SERVER CERTIFICATE HAS CHANGED, BUT THE OLD ONE WAS EXPIRED.");
-			}
-			else
-			{
-				tintin_printf(ses, "#SSL: SERVER CERTIFICATE HAS CHANGED, BUT THE OLD ONE WAS ABOUT TO EXPIRE.");
-			}
-
-			/* Replace the old cert */
-
-			save_cert(ses, cert, 0);
+			/* All is well */
 			gnutls_x509_crt_deinit(oldcert);
 			oldcert = 0;
 		}
-	}
-	else
-	{
-		/* All is well */
-		gnutls_x509_crt_deinit(oldcert);
-		oldcert = 0;
-	}
 
-badcert:
-	gnutls_x509_crt_deinit(cert);
+		gnutls_x509_crt_deinit(cert);
+	} while(0);
 	
-nocert:
 	if (oldcert)
 	{
 		gnutls_x509_crt_deinit(oldcert);

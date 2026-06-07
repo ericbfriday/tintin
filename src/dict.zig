@@ -181,7 +181,7 @@ pub export fn do_dictionary(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_ar
     _ = sub_arg_in_braces(ses, arg_arg, arg_arg1, GET_ALL, SUB_VAR | SUB_FUN);
 
     if (arg_arg1.* == 0 or is_alpha(arg_arg1.*) == 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #DICTIONARY {WORD}"))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #DICTIONARY {WORD}"))))))))))));
 
         var hash: c_int = 0;
         while (hash < 26) : (hash += 1) {
@@ -201,9 +201,9 @@ pub export fn do_dictionary(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_ar
             const index = dictionary_search(hash, arg_arg3 + 1);
 
             if (index == -1) {
-                tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("\x1b[1;31m%s"))), arg_arg2);
+                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31m%s"))))))))))), arg_arg2);
             } else {
-                tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("\x1b[1;32m%s"))), arg_arg2);
+                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;32m%s"))))))))))), arg_arg2);
             }
         }
 
@@ -250,7 +250,7 @@ pub export fn cursor_dictionary_tab_add(flag: c_int) c_int {
     const last_node = cmd_root.*.list[@intCast(cmd_root.*.used - 1)];
     if (last_node == null) return 0;
     const last_node_val = last_node.*;
-    const i_start: usize = @intCast(urange(0, last_node_val.unnamed_0.val32[1], cmd_root.*.used - 1));
+    const i_start: usize = @intCast(urange(0, @as([*c]c_int, @ptrCast(@constCast(&last_node_val.unnamed_0.val32)))[1], cmd_root.*.used - 1));
 
     var i = i_start;
     while (i < dictionary[0].listsize[hash]) : (i += 1) {
@@ -288,7 +288,7 @@ pub export fn cursor_dictionary_tab_add(flag: c_int) c_int {
             continue;
         }
 
-        const node = tintin_c.create_node_list(cmd_root, &buf, @constCast(""), @constCast(""), @constCast(""));
+        const node = tintin_c.create_node_list(cmd_root, &buf, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))));
         if (node == null) continue;
 
         var val32 = node.*.unnamed_0.val32;

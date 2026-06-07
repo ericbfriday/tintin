@@ -100,18 +100,28 @@ struct iac_type iac_client_table [] =
 };
 
 
+void client_telopt_debug_inner(struct session *ses, char *buf)
+{
+	if (HAS_BIT(ses->telopts, TELOPT_FLAG_DEBUG))
+	{
+		tintin_puts(ses, buf);
+	}
+}
+
 void client_telopt_debug(struct session *ses, char *format, ...)
 {
-	char buf[BUFFER_SIZE];
+	char *buf;
 	va_list args;
 
 	if (HAS_BIT(ses->telopts, TELOPT_FLAG_DEBUG))
 	{
 		va_start(args, format);
-		vsprintf(buf, format, args);
+		if (vasprintf(&buf, format, args) != -1)
+		{
+			client_telopt_debug_inner(ses, buf);
+			free(buf);
+		}
 		va_end(args);
-
-		tintin_puts(ses, buf);
 	}
 }
 
@@ -139,76 +149,77 @@ int client_translate_telopts(struct session *ses, unsigned char *src, int cplen)
 		ses->mccp2->next_out  = gtd->mccp_buf;
 		ses->mccp2->avail_out = gtd->mccp_len;
 
-		inflate:
+		while (1) {
+			retval = inflate(ses->mccp2, Z_SYNC_FLUSH);
 
-		retval = inflate(ses->mccp2, Z_SYNC_FLUSH);
+			switch (retval)
+			{
+				case Z_BUF_ERROR:
+					if (ses->mccp2->avail_out == 0)
+					{
+						gtd->mccp_len *= 2;
+						gtd->mccp_buf  = (unsigned char *) realloc(gtd->mccp_buf, gtd->mccp_len);
 
-		switch (retval)
-		{
-			case Z_BUF_ERROR:
-				if (ses->mccp2->avail_out == 0)
-				{
-					gtd->mccp_len *= 2;
-					gtd->mccp_buf  = (unsigned char *) realloc(gtd->mccp_buf, gtd->mccp_len);
+						ses->mccp2->avail_out = gtd->mccp_len / 2;
+						ses->mccp2->next_out  = gtd->mccp_buf + gtd->mccp_len / 2;
 
-					ses->mccp2->avail_out = gtd->mccp_len / 2;
-					ses->mccp2->next_out  = gtd->mccp_buf + gtd->mccp_len / 2;
+						continue;
+					}
+					else
+					{
+						tintin_puts2(ses, "");
+						tintin_puts2(ses, "#COMPRESSION ERROR, Z_BUF_ERROR, DISABLING MCCP2.");
+						client_send_dont_mccp2(ses, 0, NULL);
+						inflateEnd(ses->mccp2);
+						free(ses->mccp2);
+						ses->mccp2 = NULL;
+						cpsrc = src;
+						cplen = 0;
+					}
+					break;
 
-					goto inflate;
-				}
-				else
-				{
+				case Z_OK:
+					if (ses->mccp2->avail_out == 0)
+					{
+						gtd->mccp_len *= 2;
+						gtd->mccp_buf  = (unsigned char *) realloc(gtd->mccp_buf, gtd->mccp_len);
+
+						ses->mccp2->avail_out = gtd->mccp_len / 2;
+						ses->mccp2->next_out  = gtd->mccp_buf + gtd->mccp_len / 2;
+
+						continue;
+					}
+					cplen = ses->mccp2->next_out - gtd->mccp_buf;
+					cpsrc = gtd->mccp_buf;
+					break;
+
+				case Z_STREAM_END:
+					client_telopt_debug(ses, "#COMPRESSION END, DISABLING MCCP2.");
+
+					cnt = ses->mccp2->next_out - gtd->mccp_buf;
+
+					cpsrc = src + (cplen - ses->mccp2->avail_in);
+					cplen = ses->mccp2->avail_in;
+
+					inflateEnd(ses->mccp2);
+					free(ses->mccp2);
+					ses->mccp2 = NULL;
+
+					client_translate_telopts(ses, gtd->mccp_buf, cnt);
+					break;
+
+				default:
 					tintin_puts2(ses, "");
-					tintin_puts2(ses, "#COMPRESSION ERROR, Z_BUF_ERROR, DISABLING MCCP2.");
+					tintin_printf2(ses, "#COMPRESSION ERROR, DISABLING MCCP2, RETVAL %d.", retval);
 					client_send_dont_mccp2(ses, 0, NULL);
 					inflateEnd(ses->mccp2);
 					free(ses->mccp2);
 					ses->mccp2 = NULL;
 					cpsrc = src;
 					cplen = 0;
-				}
-				break;
-
-			case Z_OK:
-				if (ses->mccp2->avail_out == 0)
-				{
-					gtd->mccp_len *= 2;
-					gtd->mccp_buf  = (unsigned char *) realloc(gtd->mccp_buf, gtd->mccp_len);
-
-					ses->mccp2->avail_out = gtd->mccp_len / 2;
-					ses->mccp2->next_out  = gtd->mccp_buf + gtd->mccp_len / 2;
-
-					goto inflate;
-				}
-				cplen = ses->mccp2->next_out - gtd->mccp_buf;
-				cpsrc = gtd->mccp_buf;
-				break;
-
-			case Z_STREAM_END:
-				client_telopt_debug(ses, "#COMPRESSION END, DISABLING MCCP2.");
-
-				cnt = ses->mccp2->next_out - gtd->mccp_buf;
-
-				cpsrc = src + (cplen - ses->mccp2->avail_in);
-				cplen = ses->mccp2->avail_in;
-
-				inflateEnd(ses->mccp2);
-				free(ses->mccp2);
-				ses->mccp2 = NULL;
-
-				client_translate_telopts(ses, gtd->mccp_buf, cnt);
-				break;
-
-			default:
-				tintin_puts2(ses, "");
-				tintin_printf2(ses, "#COMPRESSION ERROR, DISABLING MCCP2, RETVAL %d.", retval);
-				client_send_dont_mccp2(ses, 0, NULL);
-				inflateEnd(ses->mccp2);
-				free(ses->mccp2);
-				ses->mccp2 = NULL;
-				cpsrc = src;
-				cplen = 0;
-				break;
+					break;
+			}
+			break;
 		}
 	}
 	else
@@ -1491,118 +1502,126 @@ int client_recv_sb_new_environ(struct session *ses, int cplen, unsigned char *sr
 
 	i = 4;
 
+	int do_shortcut = 0;
+
 	if (src[3] == ENV_SEND && src[4] == IAC)
 	{
 		strcpy(sub2, "VAR");
 
-		goto shortcut;
+		do_shortcut = 1;
 	}
 
-	while (i < cplen && src[i] != IAC)
+	if (!do_shortcut)
 	{
-		switch (src[i])
+		while (i < cplen && src[i] != IAC)
 		{
-			case ENV_VAR:
-				strcpy(sub2, "VAR");
-				break;
-			case ENV_VAL:
-				strcpy(sub2, "VAL");
-				break;
-			case ENV_USR:
-				strcpy(sub2, "USERVAR");
-				break;
-			default:
-				strcpy(sub2, "UNKNOWN");
-				break;
-		}
+			switch (src[i])
+			{
+				case ENV_VAR:
+					strcpy(sub2, "VAR");
+					break;
+				case ENV_VAL:
+					strcpy(sub2, "VAL");
+					break;
+				case ENV_USR:
+					strcpy(sub2, "USERVAR");
+					break;
+				default:
+					strcpy(sub2, "UNKNOWN");
+					break;
+			}
 
-		switch (src[i])
-		{
-			case ENV_VAR:
-			case ENV_USR:
-				i++;
+			switch (src[i])
+			{
+				case ENV_VAR:
+				case ENV_USR:
+					i++;
+					do_shortcut = 1;
+					break;
 
-				shortcut:
+				case ENV_VAL:
+					i++;
+					pto = buf;
 
-				pto = buf;
-
-				while (i < cplen && src[i] >= 4 && src[i] != IAC)
-				{
-					*pto++ = src[i++];
-				}
-				*pto = 0;
-
-				substitute(ses, buf, var, SUB_SEC);
-
-				client_telopt_debug(ses, "RCVD IAC SB NEW-ENVIRON %s %s %s", sub1, sub2, var);
-
-				check_all_events(ses, EVENT_FLAG_TELNET, 0, 4, "IAC SB NEW-ENVIRON", sub1, sub2, var, src[4] == IAC ? "USERVAR" : "");
-
-				if (src[3] == ENV_SEND && !strcmp(sub2, "VAR"))
-				{
-					if (!check_all_events(ses, EVENT_FLAG_CATCH, 0, 4, "CATCH IAC SB NEW-ENVIRON", sub1, sub2, var, ""))
+					while (i < cplen && src[i] >= 4 && src[i] != IAC)
 					{
-						check_all_events(ses, EVENT_FLAG_TELNET, 1, 4, "IAC SB NEW-ENVIRON SEND %s", var, sub1, sub2, var, "");
+						*pto++ = src[i++];
+					}
+					*pto = 0;
 
-						if (!check_all_events(ses, EVENT_FLAG_CATCH, 1, 4, "CATCH IAC SB NEW-ENVIRON SEND %s", var, sub1, sub2, var, ""))
-						{
-							if (*var == 0 || !strcmp(var, "CHARSET"))
-							{
-								telnet_printf(ses, -1, "%c%c%c%c%c%s%c%s%c%c", IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, "CHARSET", ENV_VAL, get_charset_mnes(ses), IAC, SE);
+					substitute(ses, buf, val, SUB_SEC);
 
-								client_telopt_debug(ses, "SENT IAC SB NEW-ENVIRON IS VAR %s VAL %s", "CHARSET", get_charset(ses));
-							}
-							if (*var == 0 || !strcmp(var, "CLIENT_NAME"))
-							{
-								telnet_printf(ses, -1, "%c%c%c%c%c%s%c%s%c%c", IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, "CLIENT_NAME", ENV_VAL, CLIENT_NAME, IAC, SE);
+					client_telopt_debug(ses, "RCVD IAC SB NEW-ENVIRON %s %s VAR %s VAL %s", sub1, sub2, var, val);
 
-								client_telopt_debug(ses, "SENT IAC SB NEW-ENVIRON IS VAR %s VAL %s", "CLIENT_NAME", CLIENT_NAME);
-							}
-							if (*var == 0 || !strcmp(var, "CLIENT_VERSION"))
-							{
-								telnet_printf(ses, -1, "%c%c%c%c%c%s%c%s%c%c", IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, "CLIENT_VERSION", ENV_VAL, CLIENT_VERSION, IAC, SE);
+					check_all_events(ses, EVENT_FLAG_TELNET, 0, 4, "IAC SB NEW-ENVIRON", sub1, sub2, var, val);
+					check_all_events(ses, EVENT_FLAG_TELNET, 2, 4, "IAC SB NEW-ENVIRON %s %s", sub1, sub2, sub1, sub2, var, val);
+					break;
 
-								client_telopt_debug(ses, "SENT IAC SB NEW-ENVIRON IS VAR %s VAL %s", "CLIENT_VERSION", CLIENT_VERSION);
-							}
-							if (*var == 0 || !strcmp(var, "MTTS") || *var == 0)
-							{
-								telnet_printf(ses, -1, "%c%c%c%c%c%s%c%d%c%c", IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, "MTTS", ENV_VAL, get_mtts_val(ses), IAC, SE);
+				default:
+					client_telopt_debug(ses, "RCVD IAC SB NEW-ENVIRON %s (ERROR) %03d %c", sub1, src[i], src[i]);
+					i++;
+					break;
+			}
+			if (do_shortcut) break;
+		}
+	}
 
-								client_telopt_debug(ses, "SENT IAC SB NEW-ENVIRON IS VAR MTTS VAL %d", get_mtts_val(ses));
-							}
-							if (*var == 0 || !strcmp(var, "TERMINAL_TYPE"))
-							{
-								telnet_printf(ses, -1, "%c%c%c%c%c%s%c%s%c%c", IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, "TERMINAL_TYPE", ENV_VAL, gtd->system->term, IAC, SE);
+	if (do_shortcut)
+	{
+		pto = buf;
 
-								client_telopt_debug(ses, "SENT IAC SB NEW-ENVIRON IS VAR TERMINAL_TYPE VAL %s", gtd->system->term);
-							}
-						}
+		while (i < cplen && src[i] >= 4 && src[i] != IAC)
+		{
+			*pto++ = src[i++];
+		}
+		*pto = 0;
+
+		substitute(ses, buf, var, SUB_SEC);
+
+		client_telopt_debug(ses, "RCVD IAC SB NEW-ENVIRON %s %s %s", sub1, sub2, var);
+
+		check_all_events(ses, EVENT_FLAG_TELNET, 0, 4, "IAC SB NEW-ENVIRON", sub1, sub2, var, src[4] == IAC ? "USERVAR" : "");
+
+		if (src[3] == ENV_SEND && !strcmp(sub2, "VAR"))
+		{
+			if (!check_all_events(ses, EVENT_FLAG_CATCH, 0, 4, "CATCH IAC SB NEW-ENVIRON", sub1, sub2, var, ""))
+			{
+				check_all_events(ses, EVENT_FLAG_TELNET, 1, 4, "IAC SB NEW-ENVIRON SEND %s", var, sub1, sub2, var, "");
+
+				if (!check_all_events(ses, EVENT_FLAG_CATCH, 1, 4, "CATCH IAC SB NEW-ENVIRON SEND %s", var, sub1, sub2, var, ""))
+				{
+					if (*var == 0 || !strcmp(var, "CHARSET"))
+					{
+						telnet_printf(ses, -1, "%c%c%c%c%c%s%c%s%c%c", IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, "CHARSET", ENV_VAL, get_charset_mnes(ses), IAC, SE);
+
+						client_telopt_debug(ses, "SENT IAC SB NEW-ENVIRON IS VAR %s VAL %s", "CHARSET", get_charset(ses));
+					}
+					if (*var == 0 || !strcmp(var, "CLIENT_NAME"))
+					{
+						telnet_printf(ses, -1, "%c%c%c%c%c%s%c%s%c%c", IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, "CLIENT_NAME", ENV_VAL, CLIENT_NAME, IAC, SE);
+
+						client_telopt_debug(ses, "SENT IAC SB NEW-ENVIRON IS VAR %s VAL %s", "CLIENT_NAME", CLIENT_NAME);
+					}
+					if (*var == 0 || !strcmp(var, "CLIENT_VERSION"))
+					{
+						telnet_printf(ses, -1, "%c%c%c%c%c%s%c%s%c%c", IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, "CLIENT_VERSION", ENV_VAL, CLIENT_VERSION, IAC, SE);
+
+						client_telopt_debug(ses, "SENT IAC SB NEW-ENVIRON IS VAR %s VAL %s", "CLIENT_VERSION", CLIENT_VERSION);
+					}
+					if (*var == 0 || !strcmp(var, "MTTS") || *var == 0)
+					{
+						telnet_printf(ses, -1, "%c%c%c%c%c%s%c%d%c%c", IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, "MTTS", ENV_VAL, get_mtts_val(ses), IAC, SE);
+
+						client_telopt_debug(ses, "SENT IAC SB NEW-ENVIRON IS VAR MTTS VAL %d", get_mtts_val(ses));
+					}
+					if (*var == 0 || !strcmp(var, "TERMINAL_TYPE"))
+					{
+						telnet_printf(ses, -1, "%c%c%c%c%c%s%c%s%c%c", IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, "TERMINAL_TYPE", ENV_VAL, gtd->system->term, IAC, SE);
+
+						client_telopt_debug(ses, "SENT IAC SB NEW-ENVIRON IS VAR TERMINAL_TYPE VAL %s", gtd->system->term);
 					}
 				}
-				break;
-
-			case ENV_VAL:
-				i++;
-				pto = buf;
-
-				while (i < cplen && src[i] >= 4 && src[i] != IAC)
-				{
-					*pto++ = src[i++];
-				}
-				*pto = 0;
-
-				substitute(ses, buf, val, SUB_SEC);
-
-				client_telopt_debug(ses, "RCVD IAC SB NEW-ENVIRON %s %s VAR %s VAL %s", sub1, sub2, var, val);
-
-				check_all_events(ses, EVENT_FLAG_TELNET, 0, 4, "IAC SB NEW-ENVIRON", sub1, sub2, var, val);
-				check_all_events(ses, EVENT_FLAG_TELNET, 2, 4, "IAC SB NEW-ENVIRON %s %s", sub1, sub2, sub1, sub2, var, val);
-				break;
-
-			default:
-				client_telopt_debug(ses, "RCVD IAC SB NEW-ENVIRON %s (ERROR) %03d %c", sub1, src[i], src[i]);
-				i++;
-				break;
+			}
 		}
 	}
 

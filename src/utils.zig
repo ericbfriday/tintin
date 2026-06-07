@@ -356,7 +356,7 @@ pub export fn socket_printf(arg_ses: [*c]struct_session, arg_length: usize, arg_
     const size = vsprintf(&buf, arg_format, @as([*c]u8, @ptrCast(args)));
 
     if (size != @as(c_int, @intCast(arg_length)) and (arg_ses.*.telopts & tintin_c.TELOPT_FLAG_DEBUG) != 0) {
-        tintin_c.tintin_printf(arg_ses, @as([*c]u8, @ptrCast(@constCast("DEBUG TELNET: socket_printf size difference: %d vs %d"))), size, @as(c_int, @intCast(arg_length)));
+        tintin_c.tintin_printf(arg_ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DEBUG TELNET: socket_printf size difference: %d vs %d"))))))))), size, @as(c_int, @intCast(arg_length)));
     }
 
     if ((arg_ses.*.flags & tintin_c.SES_FLAG_CONNECTED) != 0) {
@@ -375,7 +375,7 @@ pub export fn telnet_printf(arg_ses: [*c]struct_session, arg_length: c_int, arg_
     const size = vsprintf(&buf, arg_format, @as([*c]u8, @ptrCast(args)));
 
     if (arg_length != -1 and size != arg_length and (arg_ses.*.telopts & tintin_c.TELOPT_FLAG_DEBUG) != 0) {
-        tintin_c.tintin_printf(arg_ses, @as([*c]u8, @ptrCast(@constCast("DEBUG TELNET: telnet_printf size difference: %d vs %d"))), size, arg_length);
+        tintin_c.tintin_printf(arg_ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DEBUG TELNET: telnet_printf size difference: %d vs %d"))))))))), size, arg_length);
     }
 
     if ((arg_ses.*.flags & tintin_c.SES_FLAG_CONNECTED) != 0) {

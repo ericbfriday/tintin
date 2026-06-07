@@ -17,23 +17,23 @@ pub fn build(b: *std.Build) void {
     const c_flags = &.{
         "-D_GNU_SOURCE",
         "-DHAVE_CONFIG_H",
+        "-Wno-deprecated-declarations",
     };
 
     const src_files = &.{
+        "src/missing_phase5.c",
         "src/files.c",
         "src/help.c",
         "src/trigger.c",
-        "src/input.c",
+        //"src/input.c",
         "src/main.c",
         //"src/misc.c",
-        "src/net.c",
-        "src/parse.c",
         "src/debug.c",
-        "src/update.c",
-        "src/history.c",
-        "src/vt102.c",
-        "src/terminal.c",
-        "src/text.c",
+        //"src/update.c",
+        //"src/history.c",
+        //"src/vt102.c",
+        //"src/terminal.c",
+        //"src/text.c",
         
         //"src/memory.c",
         // "src/math.c",
@@ -41,7 +41,7 @@ pub fn build(b: *std.Build) void {
         //"src/system.c",
         "src/mapper.c",
         "src/tables.c",
-        "src/buffer.c",
+        //"src/buffer.c",
         "src/event.c",
         "src/tokenize.c",
         "src/chat.c",
@@ -52,29 +52,25 @@ pub fn build(b: *std.Build) void {
         //"src/string.c",
         //"src/list.c",
         //"src/edit.c",
-        "src/command.c",
         "src/forkpty.c",
         //"src/utils.c",
-        "src/line.c",
+        //"src/line.c",
         "src/data.c",
-        "src/variable.c",
         "src/msdp.c",
         "src/port.c",
         "src/scan.c",
-        "src/telopt_client.c",
-        "src/screen.c",
-        "src/cursor.c",
-        "src/nest.c",
-        "src/show.c",
+        //"src/telopt_client.c",
+        //"src/screen.c",
+        //"src/cursor.c",
+        //"src/show.c",
         "src/mccp.c",
-        "src/telopt_server.c",
+        //"src/telopt_server.c",
         "src/draw.c",
         "src/log.c",
         "src/path.c",
         "src/session.c",
         "src/class.c",
         "src/config.c",
-        "src/ssl.c",
         "src/regex.c",
         "src/substitute.c",
         "src/daemon.c",
@@ -99,7 +95,92 @@ pub fn build(b: *std.Build) void {
     exe.root_module.linkSystemLibrary("util", .{}); // usage for forkpty, might be needed on linux, checking compilation on mac
 
     // Math module (Zig)
-    const math_mod = b.createModule(.{
+    
+    const variable_mod = b.createModule(.{
+        .root_source_file = b.path("src/variable.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    variable_mod.addIncludePath(b.path("src"));
+    variable_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    variable_mod.link_libc = true;
+    const variable_zig = b.addObject(.{
+        .name = "variable_zig",
+        .root_module = variable_mod,
+    });
+    exe.root_module.addObject(variable_zig);
+
+    const nest_mod = b.createModule(.{
+        .root_source_file = b.path("src/nest.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    nest_mod.addIncludePath(b.path("src"));
+    nest_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    nest_mod.link_libc = true;
+    const nest_zig = b.addObject(.{
+        .name = "nest_zig",
+        .root_module = nest_mod,
+    });
+    exe.root_module.addObject(nest_zig);
+
+    const parse_mod = b.createModule(.{
+        .root_source_file = b.path("src/parse.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    parse_mod.addIncludePath(b.path("src"));
+    parse_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    parse_mod.link_libc = true;
+    const parse_zig = b.addObject(.{
+        .name = "parse_zig",
+        .root_module = parse_mod,
+    });
+    exe.root_module.addObject(parse_zig);
+
+    const command_mod = b.createModule(.{
+        .root_source_file = b.path("src/command.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    command_mod.addIncludePath(b.path("src"));
+    command_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    command_mod.link_libc = true;
+    const command_zig = b.addObject(.{
+        .name = "command_zig",
+        .root_module = command_mod,
+    });
+    exe.root_module.addObject(command_zig);
+
+    const net_mod = b.createModule(.{
+        .root_source_file = b.path("src/net.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    net_mod.addIncludePath(b.path("src"));
+    net_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    net_mod.link_libc = true;
+    const net_zig = b.addObject(.{
+        .name = "net_zig",
+        .root_module = net_mod,
+    });
+    exe.root_module.addObject(net_zig);
+
+    const ssl_mod = b.createModule(.{
+        .root_source_file = b.path("src/ssl.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    ssl_mod.addIncludePath(b.path("src"));
+    ssl_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    ssl_mod.link_libc = true;
+    const ssl_zig = b.addObject(.{
+        .name = "ssl_zig",
+        .root_module = ssl_mod,
+    });
+    exe.root_module.addObject(ssl_zig);
+
+const math_mod = b.createModule(.{
         .root_source_file = b.path("src/math.zig"),
         .target = target,
         .optimize = optimize,
@@ -248,6 +329,81 @@ pub fn build(b: *std.Build) void {
         .root_module = edit_mod,
     });
 
+    // Update module (Zig)
+    const update_a_mod = b.createModule(.{
+        .root_source_file = b.path("src/update_a.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    update_a_mod.addIncludePath(b.path("src"));
+    update_a_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    update_a_mod.link_libc = true;
+    const update_a_zig = b.addObject(.{ .name = "update_a_zig", .root_module = update_a_mod });
+
+    const update_b_mod = b.createModule(.{
+        .root_source_file = b.path("src/update_b.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    update_b_mod.addIncludePath(b.path("src"));
+    update_b_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    update_b_mod.link_libc = true;
+    const update_b_zig = b.addObject(.{ .name = "update_b_zig", .root_module = update_b_mod });
+
+    // VT102 module (Zig)
+    const vt102_a_mod = b.createModule(.{
+        .root_source_file = b.path("src/vt102_a.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    vt102_a_mod.addIncludePath(b.path("src"));
+    vt102_a_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    vt102_a_mod.link_libc = true;
+    const vt102_a_zig = b.addObject(.{ .name = "vt102_a_zig", .root_module = vt102_a_mod });
+
+    const vt102_b_mod = b.createModule(.{
+        .root_source_file = b.path("src/vt102_b.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    vt102_b_mod.addIncludePath(b.path("src"));
+    vt102_b_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    vt102_b_mod.link_libc = true;
+    const vt102_b_zig = b.addObject(.{ .name = "vt102_b_zig", .root_module = vt102_b_mod });
+
+    // Terminal module (Zig)
+    const terminal_mod = b.createModule(.{
+        .root_source_file = b.path("src/terminal.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    terminal_mod.addIncludePath(b.path("src"));
+    terminal_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    terminal_mod.link_libc = true;
+    const terminal_zig = b.addObject(.{ .name = "terminal_zig", .root_module = terminal_mod });
+
+    // Telopt Client module (Zig)
+    const telopt_client_mod = b.createModule(.{
+        .root_source_file = b.path("src/telopt_client.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    telopt_client_mod.addIncludePath(b.path("src"));
+    telopt_client_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    telopt_client_mod.link_libc = true;
+    const telopt_client_zig = b.addObject(.{ .name = "telopt_client_zig", .root_module = telopt_client_mod });
+
+    // Telopt Server module (Zig)
+    const telopt_server_mod = b.createModule(.{
+        .root_source_file = b.path("src/telopt_server.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    telopt_server_mod.addIncludePath(b.path("src"));
+    telopt_server_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    telopt_server_mod.link_libc = true;
+    const telopt_server_zig = b.addObject(.{ .name = "telopt_server_zig", .root_module = telopt_server_mod });
+
     exe.root_module.addObject(math_zig);
     exe.root_module.addObject(memory_zig);
     exe.root_module.addObject(utils_zig);
@@ -258,6 +414,123 @@ pub fn build(b: *std.Build) void {
     exe.root_module.addObject(misc_zig);
     exe.root_module.addObject(base_zig);
     exe.root_module.addObject(edit_zig);
+    exe.root_module.addObject(update_a_zig);
+    exe.root_module.addObject(update_b_zig);
+    exe.root_module.addObject(vt102_a_zig);
+    exe.root_module.addObject(vt102_b_zig);
+    exe.root_module.addObject(terminal_zig);
+    exe.root_module.addObject(telopt_client_zig);
+    exe.root_module.addObject(telopt_server_zig);
+
+
+    // Input module (Zig)
+    const input_mod = b.createModule(.{
+        .root_source_file = b.path("src/input.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    input_mod.addIncludePath(b.path("src"));
+    input_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    input_mod.link_libc = true;
+    const input_zig = b.addObject(.{ .name = "input_zig", .root_module = input_mod });
+
+    // History module (Zig)
+    const history_mod = b.createModule(.{
+        .root_source_file = b.path("src/history.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    history_mod.addIncludePath(b.path("src"));
+    history_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    history_mod.link_libc = true;
+    const history_zig = b.addObject(.{ .name = "history_zig", .root_module = history_mod });
+
+    // Text module (Zig)
+    const text_mod = b.createModule(.{
+        .root_source_file = b.path("src/text.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    text_mod.addIncludePath(b.path("src"));
+    text_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    text_mod.link_libc = true;
+    const text_zig = b.addObject(.{ .name = "text_zig", .root_module = text_mod });
+
+    // Buffer module (Zig)
+    const buffer_mod = b.createModule(.{
+        .root_source_file = b.path("src/buffer.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    buffer_mod.addIncludePath(b.path("src"));
+    buffer_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    buffer_mod.link_libc = true;
+    const buffer_zig = b.addObject(.{ .name = "buffer_zig", .root_module = buffer_mod });
+
+    // Line module (Zig)
+    const line_mod = b.createModule(.{
+        .root_source_file = b.path("src/line.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    line_mod.addIncludePath(b.path("src"));
+    line_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    line_mod.link_libc = true;
+    const line_zig = b.addObject(.{ .name = "line_zig", .root_module = line_mod });
+
+    // Screen module (Zig)
+    const screen_mod = b.createModule(.{
+        .root_source_file = b.path("src/screen.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    screen_mod.addIncludePath(b.path("src"));
+    screen_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    screen_mod.link_libc = true;
+    const screen_zig = b.addObject(.{ .name = "screen_zig", .root_module = screen_mod });
+
+    // Cursor module (Zig)
+    const cursor_mod = b.createModule(.{
+        .root_source_file = b.path("src/cursor.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    cursor_mod.addIncludePath(b.path("src"));
+    cursor_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    cursor_mod.link_libc = true;
+    const cursor_zig = b.addObject(.{ .name = "cursor_zig", .root_module = cursor_mod });
+
+    // Show module (Zig)
+    const show_mod = b.createModule(.{
+        .root_source_file = b.path("src/show.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    show_mod.addIncludePath(b.path("src"));
+    show_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    show_mod.link_libc = true;
+    const show_zig = b.addObject(.{ .name = "show_zig", .root_module = show_mod });
+
+    // Draw module (Zig)
+    const draw_mod = b.createModule(.{
+        .root_source_file = b.path("src/draw.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    draw_mod.addIncludePath(b.path("src"));
+    draw_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    draw_mod.link_libc = true;
+    const draw_zig = b.addObject(.{ .name = "draw_zig", .root_module = draw_mod });
+
+    exe.root_module.addObject(input_zig);
+    exe.root_module.addObject(history_zig);
+    exe.root_module.addObject(text_zig);
+    exe.root_module.addObject(buffer_zig);
+    exe.root_module.addObject(line_zig);
+    exe.root_module.addObject(screen_zig);
+    exe.root_module.addObject(cursor_zig);
+    exe.root_module.addObject(show_zig);
+    exe.root_module.addObject(draw_zig);
 
     b.installArtifact(exe);
 
@@ -285,6 +558,12 @@ pub fn build(b: *std.Build) void {
     math_test_mod.linkSystemLibrary("gnutls", .{});
     math_test_mod.linkSystemLibrary("m", .{});
     math_test_mod.linkSystemLibrary("util", .{});
+    math_test_mod.addObject(variable_zig);
+    math_test_mod.addObject(nest_zig);
+    math_test_mod.addObject(parse_zig);
+    math_test_mod.addObject(command_zig);
+    math_test_mod.addObject(net_zig);
+    math_test_mod.addObject(ssl_zig);
     math_test_mod.addObject(memory_zig);
     math_test_mod.addObject(utils_zig);
     math_test_mod.addObject(string_zig);
@@ -294,6 +573,22 @@ pub fn build(b: *std.Build) void {
     math_test_mod.addObject(misc_zig);
     math_test_mod.addObject(base_zig);
     math_test_mod.addObject(edit_zig);
+    math_test_mod.addObject(update_a_zig);
+    math_test_mod.addObject(update_b_zig);
+    math_test_mod.addObject(vt102_a_zig);
+    math_test_mod.addObject(vt102_b_zig);
+    math_test_mod.addObject(terminal_zig);
+    math_test_mod.addObject(telopt_client_zig);
+    math_test_mod.addObject(telopt_server_zig);
+    math_test_mod.addObject(input_zig);
+    math_test_mod.addObject(history_zig);
+    math_test_mod.addObject(text_zig);
+    math_test_mod.addObject(buffer_zig);
+    math_test_mod.addObject(line_zig);
+    math_test_mod.addObject(screen_zig);
+    math_test_mod.addObject(cursor_zig);
+    math_test_mod.addObject(show_zig);
+    math_test_mod.addObject(draw_zig);
 
     const math_tests = b.addTest(.{
         .root_module = math_test_mod,
@@ -317,6 +612,12 @@ pub fn build(b: *std.Build) void {
     string_test_mod.linkSystemLibrary("m", .{});
     string_test_mod.linkSystemLibrary("util", .{});
     string_test_mod.addObject(math_zig);
+    string_test_mod.addObject(variable_zig);
+    string_test_mod.addObject(nest_zig);
+    string_test_mod.addObject(parse_zig);
+    string_test_mod.addObject(command_zig);
+    string_test_mod.addObject(net_zig);
+    string_test_mod.addObject(ssl_zig);
     string_test_mod.addObject(memory_zig);
     string_test_mod.addObject(utils_zig);
     string_test_mod.addObject(list_zig);
@@ -325,6 +626,22 @@ pub fn build(b: *std.Build) void {
     string_test_mod.addObject(misc_zig);
     string_test_mod.addObject(base_zig);
     string_test_mod.addObject(edit_zig);
+    string_test_mod.addObject(update_a_zig);
+    string_test_mod.addObject(update_b_zig);
+    string_test_mod.addObject(vt102_a_zig);
+    string_test_mod.addObject(vt102_b_zig);
+    string_test_mod.addObject(terminal_zig);
+    string_test_mod.addObject(telopt_client_zig);
+    string_test_mod.addObject(telopt_server_zig);
+    string_test_mod.addObject(input_zig);
+    string_test_mod.addObject(history_zig);
+    string_test_mod.addObject(text_zig);
+    string_test_mod.addObject(buffer_zig);
+    string_test_mod.addObject(line_zig);
+    string_test_mod.addObject(screen_zig);
+    string_test_mod.addObject(cursor_zig);
+    string_test_mod.addObject(show_zig);
+    string_test_mod.addObject(draw_zig);
 
     const string_tests = b.addTest(.{
         .root_module = string_test_mod,

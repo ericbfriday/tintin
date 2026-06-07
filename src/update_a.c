@@ -1,3 +1,4 @@
+#define TINTIN_FD_ZERO(p) memset((p), 0, sizeof(*(p)))
 /******************************************************************************
 *   This file is part of TinTin++                                             *
 *                                                                             *
@@ -319,7 +320,7 @@ void update_input(void)
 
 	while (TRUE)
 	{
-		FD_ZERO(&read_fd);
+		TINTIN_FD_ZERO(&read_fd);
 		FD_SET(STDIN_FILENO, &read_fd);
 
 		if (select(FD_SETSIZE, &read_fd, NULL, NULL, &timeout) <= 0)
@@ -369,7 +370,7 @@ void update_sessions(void)
 
 		init_terminal_size(gts);
 
-		for (ses = gts->next ; ses ; ses = ses->next)
+		for (ses = gts->next ; ses != NULL ; ses = ses->next)
 		{
 			init_terminal_size(ses);
 
@@ -383,10 +384,10 @@ void update_sessions(void)
 
 	if (gts->next)
 	{
-		FD_ZERO(&read_fd);
-		FD_ZERO(&error_fd);
+		TINTIN_FD_ZERO(&read_fd);
+		TINTIN_FD_ZERO(&error_fd);
 
-		for (ses = gts->next ; ses ; ses = gtd->update)
+		for (ses = gts->next ; ses != NULL ; ses = gtd->update)
 		{
 			gtd->update = ses->next;
 
@@ -454,7 +455,7 @@ void update_sessions(void)
 	{
 		DEL_BIT(gtd->flags, TINTIN_FLAG_SESSIONUPDATE);
 
-		for (ses = gts ; ses ; ses = gtd->update)
+		for (ses = gts ; ses != NULL ; ses = gtd->update)
 		{
 			gtd->update = ses->next;
 
@@ -534,9 +535,9 @@ void update_daemon(void)
 
 	if (gtd->detach_port)
 	{
-		if (TRUE)
+		do
 		{
-			FD_ZERO(&read_fd);
+			TINTIN_FD_ZERO(&read_fd);
 
 			FD_SET(gtd->detach_port, &read_fd);
 
@@ -563,7 +564,7 @@ void update_daemon(void)
 						
 						gtd->detach_sock = close(gtd->detach_sock);
 						
-						goto attach;
+						break;
 					}
 
 					if (fcntl(gtd->detach_sock, F_SETFL, O_NDELAY|O_NONBLOCK) == -1)
@@ -572,7 +573,7 @@ void update_daemon(void)
 
 						gtd->detach_sock = close(gtd->detach_sock);
 						
-						goto attach;
+						break;
 					}
 
 					len = sizeof(struct process_data);
@@ -583,7 +584,7 @@ void update_daemon(void)
 
 						gtd->detach_sock = close(gtd->detach_sock);
 
-						goto attach;
+						break;
 					}
 
 					if (geteuid() != gtd->detach_info.uid)
@@ -592,7 +593,7 @@ void update_daemon(void)
 
 						gtd->detach_sock = close(gtd->detach_sock);
 
-						goto attach;
+						break;
 					}
 
 //					tintin_printf2(gtd->ses, "sock=%d pid=%d, euid=%d, egid=%d", gtd->detach_port, getpid(), geteuid(), getegid());
@@ -614,15 +615,15 @@ void update_daemon(void)
 					syserr_printf(gtd->ses, "update_daemon: select:");
 				}
 			}
-		}
+		} while(0);
 
 		if (gtd->detach_sock > 0)
 		{
 			while (gtd->detach_sock)
 			{
-				FD_ZERO(&read_fd);
-//				FD_ZERO(&write_fd);
-				FD_ZERO(&error_fd);
+				TINTIN_FD_ZERO(&read_fd);
+//				TINTIN_FD_ZERO(&write_fd);
+				TINTIN_FD_ZERO(&error_fd);
 
 				FD_SET(gtd->detach_sock, &read_fd);
 //				FD_SET(gtd->detach_sock, &write_fd);
@@ -656,7 +657,7 @@ void update_daemon(void)
 
 						show_error(gtd->ses, LIST_COMMAND, "update_daemon: detach_sock: error_fd");
 
-						goto attach;
+						break;
 					}
 
 /*					if (!FD_ISSET(gtd->detach_sock, &write_fd))
@@ -667,7 +668,7 @@ void update_daemon(void)
 
 						show_error(gtd->ses, LIST_COMMAND, "update_daemon: detach_sock: write_fd");
 
-						goto attach;
+						break;
 					}
 */
 					if (!FD_ISSET(gtd->detach_sock, &read_fd))
@@ -683,12 +684,10 @@ void update_daemon(void)
 		}
 	}
 
-	attach:
-
 	if (gtd->attach_sock)
 	{
-		FD_ZERO(&read_fd);
-		FD_ZERO(&error_fd);
+		TINTIN_FD_ZERO(&read_fd);
+		TINTIN_FD_ZERO(&error_fd);
 
 		FD_SET(gtd->attach_sock, &read_fd);
 		FD_SET(gtd->attach_sock, &error_fd);
@@ -775,7 +774,7 @@ void update_chat(void)
 
 	if (gtd->chat)
 	{
-		for (buddy = gtd->chat->next ; buddy ; buddy = buddy_next)
+		for (buddy = gtd->chat->next ; buddy != NULL ; buddy = buddy_next)
 		{
 			buddy_next = buddy->next;
 
@@ -792,13 +791,13 @@ void update_chat(void)
 			chat_paste(NULL, NULL);
 		}
 
-		FD_ZERO(&read_fd);
-		FD_ZERO(&write_fd);
-		FD_ZERO(&error_fd);
+		TINTIN_FD_ZERO(&read_fd);
+		TINTIN_FD_ZERO(&write_fd);
+		TINTIN_FD_ZERO(&error_fd);
 
 		FD_SET(gtd->chat->fd, &read_fd);
 
-		for (buddy = gtd->chat->next ; buddy ; buddy = buddy->next)
+		for (buddy = gtd->chat->next ; buddy != NULL ; buddy = buddy->next)
 		{
 			FD_SET(buddy->fd, &read_fd);
 			FD_SET(buddy->fd, &write_fd);
@@ -828,19 +827,19 @@ void update_port(void)
 	struct port_data *buddy;
 	int rv;
 
-	for (ses = gts->next ; ses ; ses = gtd->update)
+	for (ses = gts->next ; ses != NULL ; ses = gtd->update)
 	{
 		gtd->update = ses->next;
 
 		if (ses->port && ses->port->port)
 		{
-			FD_ZERO(&read_fd);
-			FD_ZERO(&write_fd);
-			FD_ZERO(&error_fd);
+			TINTIN_FD_ZERO(&read_fd);
+			TINTIN_FD_ZERO(&write_fd);
+			TINTIN_FD_ZERO(&error_fd);
 
 			FD_SET(ses->port->fd, &read_fd);
 
-			for (buddy = ses->port->next ; buddy ; buddy = buddy->next)
+			for (buddy = ses->port->next ; buddy != NULL ; buddy = buddy->next)
 			{
 				FD_SET(buddy->fd, &read_fd);
 				FD_SET(buddy->fd, &write_fd);
@@ -876,7 +875,7 @@ void tick_update(void)
 
 	gtd->utime_next_tick = gtd->utime + 1000000000;
 
-	for (ses = gts ; ses ; ses = gtd->update)
+	for (ses = gts ; ses != NULL ; ses = gtd->update)
 	{
 		gtd->update = ses->next;
 
@@ -942,7 +941,7 @@ void delay_update(void)
 
 	gtd->utime_next_delay = gtd->utime + 1000000000;
 
-	for (ses = gts ; ses ; ses = gtd->update)
+	for (ses = gts ; ses != NULL ; ses = gtd->update)
 	{
 		gtd->update = ses->next;
 
@@ -978,7 +977,7 @@ void path_update(void)
 	struct listnode *node;
 	struct listroot *root;
 
-	for (ses = gts ; ses ; ses = gtd->update)
+	for (ses = gts ; ses != NULL ; ses = gtd->update)
 	{
 		gtd->update = ses->next;
 
@@ -1015,7 +1014,7 @@ void packet_update(void)
 {
 	struct session *ses;
 
-	for (ses = gts->next ; ses ; ses = gtd->update)
+	for (ses = gts->next ; ses != NULL ; ses = gtd->update)
 	{
 		gtd->update = ses->next;
 
@@ -1050,7 +1049,7 @@ void terminal_update(void)
 {
 	struct session *ses;
 
-	for (ses = gts ; ses ; ses = ses->next)
+	for (ses = gts ; ses != NULL ; ses = ses->next)
 	{
 		if (HAS_BIT(ses->flags, SES_FLAG_UPDATEVTMAP))
 		{
@@ -1144,102 +1143,75 @@ void time_update(void)
 	str_sec[1] = '0' + calendar.tm_sec % 10;
 	old_calendar.tm_sec = calendar.tm_sec;
 
-	if (calendar.tm_min == old_calendar.tm_min)
+	if (calendar.tm_min != old_calendar.tm_min)
 	{
-		goto time_event_sec;
+		// localtime() is slow, so only update it once a minute
+		calendar = *localtime(&gtd->time);
+
+		str_min[0] = '0' + calendar.tm_min / 10;
+		str_min[1] = '0' + calendar.tm_min % 10;
+		old_calendar.tm_min = calendar.tm_min;
+
+		if (calendar.tm_hour != old_calendar.tm_hour)
+		{
+			strftime(str_hour, 9, "%H", &calendar);
+			old_calendar.tm_hour = calendar.tm_hour;
+
+			if (calendar.tm_mday != old_calendar.tm_mday)
+			{
+				strftime(str_wday, 9, "%w", &calendar);
+				old_calendar.tm_wday = calendar.tm_wday;
+
+				strftime(str_mday, 9, "%d", &calendar);
+				old_calendar.tm_mday = calendar.tm_mday;
+
+				if (calendar.tm_mon != old_calendar.tm_mon)
+				{
+					strftime(str_mon, 9, "%m", &calendar);
+					old_calendar.tm_mon = calendar.tm_mon;
+
+					if (calendar.tm_year != old_calendar.tm_year)
+					{
+						strftime(str_year, 9, "%Y", &calendar);
+						old_calendar.tm_year = calendar.tm_year;
+
+						check_all_events(NULL, EVENT_FLAG_TIME, 0, 7, "YEAR", str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
+						check_all_events(NULL, EVENT_FLAG_TIME, 1, 7, "YEAR %s", str_year, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
+					}
+
+					check_all_events(NULL, EVENT_FLAG_TIME, 0, 7, "MONTH", str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
+					check_all_events(NULL, EVENT_FLAG_TIME, 1, 7, "MONTH %s", str_mon, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
+				}
+
+				check_all_events(NULL, EVENT_FLAG_TIME, 0, 7, "WEEK", str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
+				check_all_events(NULL, EVENT_FLAG_TIME, 1, 7, "WEEK %s", str_wday, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
+
+				check_all_events(NULL, EVENT_FLAG_TIME, 2, 7, "DATE %s-%s", str_mon, str_mday, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
+
+				check_all_events(NULL, EVENT_FLAG_TIME, 0, 7, "DAY", str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
+				check_all_events(NULL, EVENT_FLAG_TIME, 1, 7, "DAY %s", str_mday, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
+			}
+
+			check_all_events(NULL, EVENT_FLAG_TIME, 0, 7, "HOUR", str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
+			check_all_events(NULL, EVENT_FLAG_TIME, 1, 7, "HOUR %s", str_hour, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
+		}
+
+		if (event_table[event_date].level)
+		{
+			check_all_events(NULL, EVENT_FLAG_TIME, 4, 7, "DATE %s-%s %s:%s", str_mon, str_mday, str_hour, str_min, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
+		}
+
+		if (event_table[event_time].level)
+		{
+			check_all_events(NULL, EVENT_FLAG_TIME, 2, 7, "TIME %s:%s", str_hour, str_min, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
+		}
+
+		if (event_table[event_minute].level)
+		{
+			check_all_events(NULL, EVENT_FLAG_TIME, 0, 7, "MINUTE", str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
+			check_all_events(NULL, EVENT_FLAG_TIME, 1, 7, "MINUTE %s", str_min, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
+		}
 	}
-
-	// localtime() is slow, so only update it once a minute
-
-	calendar = *localtime(&gtd->time);
-
-//	strftime(str_min, 9, "%M", &calendar);
-
-	str_min[0] = '0' + calendar.tm_min / 10;
-	str_min[1] = '0' + calendar.tm_min % 10;
-	old_calendar.tm_min = calendar.tm_min;
-
-	if (calendar.tm_hour == old_calendar.tm_hour)
-	{
-		goto time_event_min;
-	}
-
-	strftime(str_hour, 9, "%H", &calendar);
-	old_calendar.tm_hour = calendar.tm_hour;
-
-	if (calendar.tm_mday == old_calendar.tm_mday)
-	{
-		goto time_event_hour;
-	}
-
-	strftime(str_wday, 9, "%w", &calendar);
-	old_calendar.tm_wday = calendar.tm_wday;
-
-	strftime(str_mday, 9, "%d", &calendar);
-	old_calendar.tm_mday = calendar.tm_mday;
-
-	if (calendar.tm_mon == old_calendar.tm_mon)
-	{
-		goto time_event_mday;
-	}
-
-	strftime(str_mon, 9, "%m", &calendar);
-	old_calendar.tm_mon = calendar.tm_mon;
-
-	if (calendar.tm_year == old_calendar.tm_year)
-	{
-		goto time_event_mon;
-	}
-
-	strftime(str_year, 9, "%Y", &calendar);
-	old_calendar.tm_year = calendar.tm_year;
-
-	check_all_events(NULL, EVENT_FLAG_TIME, 0, 7, "YEAR", str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
-	check_all_events(NULL, EVENT_FLAG_TIME, 1, 7, "YEAR %s", str_year, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
-
-
-	time_event_mon:
-
-	check_all_events(NULL, EVENT_FLAG_TIME, 0, 7, "MONTH", str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
-	check_all_events(NULL, EVENT_FLAG_TIME, 1, 7, "MONTH %s", str_mon, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
-
-
-	time_event_mday:
-
-	check_all_events(NULL, EVENT_FLAG_TIME, 0, 7, "WEEK", str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
-	check_all_events(NULL, EVENT_FLAG_TIME, 1, 7, "WEEK %s", str_wday, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
-
-	check_all_events(NULL, EVENT_FLAG_TIME, 2, 7, "DATE %s-%s", str_mon, str_mday, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
-
-	check_all_events(NULL, EVENT_FLAG_TIME, 0, 7, "DAY", str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
-	check_all_events(NULL, EVENT_FLAG_TIME, 1, 7, "DAY %s", str_mday, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
-
-
-	time_event_hour:
-
-	check_all_events(NULL, EVENT_FLAG_TIME, 0, 7, "HOUR", str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
-	check_all_events(NULL, EVENT_FLAG_TIME, 1, 7, "HOUR %s", str_hour, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
-
-
-	time_event_min:
-
-	if (event_table[event_date].level)
-	{
-		check_all_events(NULL, EVENT_FLAG_TIME, 4, 7, "DATE %s-%s %s:%s", str_mon, str_mday, str_hour, str_min, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
-	}
-
-	if (event_table[event_time].level)
-	{
-		check_all_events(NULL, EVENT_FLAG_TIME, 2, 7, "TIME %s:%s", str_hour, str_min, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
-	}
-
-	if (event_table[event_minute].level)
-	{
-		check_all_events(NULL, EVENT_FLAG_TIME, 0, 7, "MINUTE", str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
-		check_all_events(NULL, EVENT_FLAG_TIME, 1, 7, "MINUTE %s", str_min, str_year, str_mon, str_wday, str_mday, str_hour, str_min, str_sec);
-	}
-
-	time_event_sec:
 
 	old_calendar.tm_sec = calendar.tm_sec;
 

@@ -46,11 +46,11 @@ int wait_on_connect(struct session *ses, int sock, int connect_error)
 	static fd_set wfd;
 	socklen_t len, val;
 
-	FD_ZERO(&rfd);
-	FD_ZERO(&wfd);
+	memset(&rfd, 0, sizeof(rfd));
+	memset(&wfd, 0, sizeof(wfd));
 
-	FD_SET(sock, &rfd);
-	FD_SET(sock, &wfd);
+	rfd.fds_bits[sock / 32] |= (1 << (sock % 32));
+	wfd.fds_bits[sock / 32] |= (1 << (sock % 32));
 
 	timeout.tv_sec = 4;
 

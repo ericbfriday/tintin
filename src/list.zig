@@ -139,19 +139,19 @@ pub export fn do_list(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
     arg = sub_arg_in_braces(ses, arg, arg_arg2, GET_ONE, SUB_VAR | SUB_FUN);
 
     if (arg_arg1.* == 0) {
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@constCast(" LIST OPTIONS "))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" LIST OPTIONS "))))))))));
 
         for (array_table) |entry| {
             if (entry.fun == null) break;
             if (entry.desc) |desc| {
                 if (entry.name.* != 0) {
-                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("  [%-24s] %s"))), entry.name, desc);
+                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-24s] %s"))))))))), entry.name, desc);
                 }
             }
         }
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@constCast(""))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))));
     } else if (arg_arg2.* == 0) {
-        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LIST <VARIABLE> <OPTION> <ARGUMENT>"))));
+        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LIST <VARIABLE> <OPTION> <ARGUMENT>"))))))))));
     } else {
         var found_idx: ?usize = null;
         for (array_table, 0..) |entry, idx| {
@@ -163,18 +163,18 @@ pub export fn do_list(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
         }
 
         if (found_idx == null) {
-            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#ERROR: #LIST {%s} {%s}: INVALID LIST OPTION."))), arg_arg1, arg_arg2);
+            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #LIST {%s} {%s}: INVALID LIST OPTION."))))))))), arg_arg1, arg_arg2);
             return ses;
         }
 
         if (valid_variable(ses, arg_arg1) == 0) {
-            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#ERROR: #LIST {%s} {%s}: INVALID VARIABLE NAME."))), arg_arg1, arg_arg2);
+            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #LIST {%s} {%s}: INVALID VARIABLE NAME."))))))))), arg_arg1, arg_arg2);
             return ses;
         }
 
         var node: [*c]struct_listnode = search_nest_node_ses(ses, arg_arg1);
         if (node == null) {
-            node = set_nest_node_ses(ses, arg_arg1, @as([*c]u8, @ptrCast(@constCast(""))));
+            node = set_nest_node_ses(ses, arg_arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))));
         }
 
         if (array_table[found_idx.?].fun) |fun| {
@@ -227,7 +227,7 @@ pub export fn array_add(arg_ses: [*c]struct_session, arg_list: [*c]struct_listno
             while (index < used) : (index += 1) {
                 if (atoi(list_arr[@as(usize, @intCast(index))].*.arg1) != index + 1) break;
             }
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#ERROR: #LIST {%s} ADD: INVALID LIST. INDEX %d IS SET TO {%s}."))), arg_var, index + 1, list_arr[@as(usize, @intCast(index))].*.arg1);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #LIST {%s} ADD: INVALID LIST. INDEX %d IS SET TO {%s}."))))))))), arg_var, index + 1, list_arr[@as(usize, @intCast(index))].*.arg1);
             return ses;
         }
     }
@@ -240,7 +240,7 @@ pub export fn array_add(arg_ses: [*c]struct_session, arg_list: [*c]struct_listno
         var str: [*c]u8 = arg_arg1;
         while (str.* != 0) {
             str = get_arg_in_braces(ses, str, arg_arg2, GET_ALL);
-            _ = set_nest_node(list.*.root, ntos(index), @as([*c]u8, @ptrCast(@constCast("%s"))), arg_arg2);
+            _ = set_nest_node(list.*.root, ntos(index), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))))), arg_arg2);
             index += 1;
 
             if (str.* == COMMAND_SEPARATOR) str += 1;
@@ -261,7 +261,7 @@ pub export fn array_clear(arg_ses: [*c]struct_session, arg_list: [*c]struct_list
         free_list(arg_list.*.root);
         arg_list.*.root = null;
     }
-    _ = set_nest_node_ses(arg_ses, arg_var, @as([*c]u8, @ptrCast(@constCast(""))));
+    _ = set_nest_node_ses(arg_ses, arg_var, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))));
     return arg_ses;
 }
 
@@ -297,13 +297,13 @@ pub export fn array_copy(arg_ses: [*c]struct_session, arg_list: [*c]struct_listn
     _ = sub_arg_in_braces(arg_ses, arg_arg, arg_arg1, GET_ALL, SUB_VAR | SUB_FUN);
 
     if (arg_arg1.* == 0) {
-        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LIST {%s} COPY <VARIABLE>."))), arg_var);
+        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LIST {%s} COPY <VARIABLE>."))))))))), arg_var);
         return arg_ses;
     }
 
     const from: [*c]struct_listnode = search_nest_node_ses(arg_ses, arg_arg1);
     if (from == null) {
-        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#LIST COPY: VARIABLE {%s} NOT FOUND."))), arg_arg1);
+        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#LIST COPY: VARIABLE {%s} NOT FOUND."))))))))), arg_arg1);
         return arg_ses;
     }
 
@@ -333,7 +333,7 @@ pub export fn array_create(arg_ses: [*c]struct_session, arg_list: [*c]struct_lis
     var arg: [*c]u8 = buf;
 
     if (arg.* == 0) {
-        _ = set_nest_node_ses(arg_ses, arg_arg1, @as([*c]u8, @ptrCast(@constCast(""))));
+        _ = set_nest_node_ses(arg_ses, arg_arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))));
         return arg_ses;
     }
 
@@ -346,7 +346,7 @@ pub export fn array_create(arg_ses: [*c]struct_session, arg_list: [*c]struct_lis
         var str: [*c]u8 = arg_arg1;
         while (str.* != 0) {
             str = get_arg_in_braces(arg_ses, str, arg_arg2, GET_ALL);
-            _ = set_nest_node(arg_list.*.root, ntos(index), @as([*c]u8, @ptrCast(@constCast("%s"))), arg_arg2);
+            _ = set_nest_node(arg_list.*.root, ntos(index), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))))), arg_arg2);
             index += 1;
             if (str.* == COMMAND_SEPARATOR) str.* = ' ';
         }
@@ -373,14 +373,14 @@ pub export fn array_delete(arg_ses: [*c]struct_session, arg_list: [*c]struct_lis
         }
 
         if (index == -1) {
-            show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#LIST {%s} DELETE: INVALID INDEX {%s}."))), arg_var, arg_arg1);
+            show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#LIST {%s} DELETE: INVALID INDEX {%s}."))))))))), arg_var, arg_arg1);
             return arg_ses;
         }
 
         const list_arr: [*c][*c]struct_listnode = arg_list.*.root.*.list;
         var cnt = index + loop;
         while (cnt < arg_list.*.root.*.used) : (cnt += 1) {
-            _ = str_cpy_printf(&list_arr[@as(usize, @intCast(cnt))].*.arg1, @as([*c]u8, @ptrCast(@constCast("%d"))), cnt + 1 - loop);
+            _ = str_cpy_printf(&list_arr[@as(usize, @intCast(cnt))].*.arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))))), cnt + 1 - loop);
         }
 
         while (loop > 0) {
@@ -392,7 +392,7 @@ pub export fn array_delete(arg_ses: [*c]struct_session, arg_list: [*c]struct_lis
             _ = array_clear(arg_ses, arg_list, arg_arg, arg_var, arg_arg1, arg_arg2);
         }
     } else {
-        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#LIST DELETE: VARIABLE {%s} IS NOT A LIST."))), arg_var);
+        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#LIST DELETE: VARIABLE {%s} IS NOT A LIST."))))))))), arg_var);
     }
     return arg_ses;
 }
@@ -405,13 +405,13 @@ pub export fn array_explode(arg_ses: [*c]struct_session, arg_list: [*c]struct_li
     _ = sub_arg_in_braces(arg_ses, arg, arg_arg2, GET_ALL, SUB_VAR | SUB_FUN);
 
     if (arg_arg1.* == 0) {
-        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LIST {%s} EXPLODE <SEPARATOR>"))), arg_var);
+        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LIST {%s} EXPLODE <SEPARATOR>"))))))))), arg_var);
         return arg_ses;
     }
 
     if (arg_list.*.root != null) {
         if (arg_arg2.* == 0) {
-            show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#LIST {%s} EXPLODE: VARIABLE {%s} IS ALREADY A LIST."))), arg_var, arg_var);
+            show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#LIST {%s} EXPLODE: VARIABLE {%s} IS ALREADY A LIST."))))))))), arg_var, arg_var);
             return arg_ses;
         }
         free_list(arg_list.*.root);
@@ -429,13 +429,13 @@ pub export fn array_explode(arg_ses: [*c]struct_session, arg_list: [*c]struct_li
         const found: [*c]u8 = strstr(ptr, arg_arg1);
         if (found == null) {
             if (ptr.* != 0) {
-                _ = set_nest_node(arg_list.*.root, ntos(index), @as([*c]u8, @ptrCast(@constCast("%s"))), ptr);
+                _ = set_nest_node(arg_list.*.root, ntos(index), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))))), ptr);
                 index += 1;
             }
             break;
         }
         found.* = 0;
-        _ = set_nest_node(arg_list.*.root, ntos(index), @as([*c]u8, @ptrCast(@constCast("%s"))), ptr);
+        _ = set_nest_node(arg_list.*.root, ntos(index), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))))), ptr);
         index += 1;
         ptr = found + strlen(arg_arg1);
     }
@@ -450,7 +450,7 @@ pub export fn array_filter(arg_ses: [*c]struct_session, arg_list: [*c]struct_lis
     _ = sub_arg_in_braces(arg_ses, arg_arg, arg_arg2, GET_ONE, SUB_VAR | SUB_FUN);
 
     if (arg_arg1.* == 0 and arg_arg2.* == 0) {
-        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LIST <VARIABLE> FILTER <KEEP> [REMOVE]"))));
+        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LIST <VARIABLE> FILTER <KEEP> [REMOVE]"))))))))));
         return arg_ses;
     }
 
@@ -504,7 +504,7 @@ pub export fn array_find(arg_ses: [*c]struct_session, arg_list: [*c]struct_listn
     _ = sub_arg_in_braces(arg_ses, arg, arg_arg2, GET_ONE, SUB_VAR | SUB_FUN);
 
     if (arg_arg2.* == 0) {
-        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LIST <VARIABLE> FIND <TEXT> <VARIABLE>"))));
+        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LIST <VARIABLE> FIND <TEXT> <VARIABLE>"))))))))));
         return arg_ses;
     }
 
@@ -513,12 +513,12 @@ pub export fn array_find(arg_ses: [*c]struct_session, arg_list: [*c]struct_listn
         while (index < arg_list.*.root.*.used) : (index += 1) {
             const li: [*c][*c]struct_listnode = arg_list.*.root.*.list;
             if (match(arg_ses, li[@as(usize, @intCast(index))].*.arg2, arg_arg1, SUB_NONE) != 0) {
-                _ = set_nest_node_ses(arg_ses, arg_arg2, @as([*c]u8, @ptrCast(@constCast("%d"))), index + 1);
+                _ = set_nest_node_ses(arg_ses, arg_arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))))), index + 1);
                 return arg_ses;
             }
         }
     }
-    _ = set_nest_node_ses(arg_ses, arg_arg2, @as([*c]u8, @ptrCast(@constCast("0"))));
+    _ = set_nest_node_ses(arg_ses, arg_arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("0"))))))))));
     return arg_ses;
 }
 
@@ -531,7 +531,7 @@ pub export fn array_get(arg_ses: [*c]struct_session, arg_list: [*c]struct_listno
     _ = sub_arg_in_braces(arg_ses, arg, arg_arg2, GET_ALL, SUB_VAR | SUB_FUN);
 
     if (arg_arg2.* == 0) {
-        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LIST <VARIABLE> GET <INDEX> <VARIABLE>"))));
+        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LIST <VARIABLE> GET <INDEX> <VARIABLE>"))))))))));
         return arg_ses;
     }
 
@@ -539,11 +539,11 @@ pub export fn array_get(arg_ses: [*c]struct_session, arg_list: [*c]struct_listno
         const index = get_list_index(arg_ses, arg_list.*.root, arg_arg1);
         if (index != -1) {
             const li: [*c][*c]struct_listnode = arg_list.*.root.*.list;
-            _ = set_nest_node_ses(arg_ses, arg_arg2, @as([*c]u8, @ptrCast(@constCast("%s"))), li[@as(usize, @intCast(index))].*.arg2);
+            _ = set_nest_node_ses(arg_ses, arg_arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))))), li[@as(usize, @intCast(index))].*.arg2);
             return arg_ses;
         }
     }
-    _ = set_nest_node_ses(arg_ses, arg_arg2, @as([*c]u8, @ptrCast(@constCast("0"))));
+    _ = set_nest_node_ses(arg_ses, arg_arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("0"))))))))));
     return arg_ses;
 }
 
@@ -555,7 +555,7 @@ pub export fn array_indexate(arg_ses: [*c]struct_session, arg_list: [*c]struct_l
     _ = sub_arg_in_braces(arg_ses, arg_arg, arg_arg1, GET_ALL, SUB_VAR | SUB_FUN);
 
     if (arg_list.*.root == null or arg_list.*.root.*.used == 0 or arg_list.*.root.*.list[0].*.root == null) {
-        show_error(arg_ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#ERROR: #LIST {%s} INDEXATE: NOT AN INDEXABLE LIST TABLE."))), arg_var);
+        show_error(arg_ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #LIST {%s} INDEXATE: NOT AN INDEXABLE LIST TABLE."))))))))), arg_var);
         return arg_ses;
     }
 
@@ -567,7 +567,7 @@ pub export fn array_indexate(arg_ses: [*c]struct_session, arg_list: [*c]struct_l
             if (list_arr[@as(usize, @intCast(cnt))].*.root != null) {
                 _ = str_cpy(&list_arr[@as(usize, @intCast(cnt))].*.arg2, list_arr[@as(usize, @intCast(cnt))].*.arg1);
             } else {
-                show_error(arg_ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#ERROR: #LIST {%s} INDEXATE: ABORTED DUE TO INVALID INDEX {%s}."))), arg_var, list_arr[@as(usize, @intCast(cnt))].*.arg1);
+                show_error(arg_ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #LIST {%s} INDEXATE: ABORTED DUE TO INVALID INDEX {%s}."))))))))), arg_var, list_arr[@as(usize, @intCast(cnt))].*.arg1);
                 break;
             }
         }
@@ -577,13 +577,13 @@ pub export fn array_indexate(arg_ses: [*c]struct_session, arg_list: [*c]struct_l
     var cnt: c_int = 0;
     while (cnt < arg_list.*.root.*.used) : (cnt += 1) {
         if (list_arr[@as(usize, @intCast(cnt))].*.root == null) {
-            show_error(arg_ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#ERROR: #LIST %s[%s] INDEXATE: FAILED TO FIND NEST {%s}."))), arg_var, list_arr[@as(usize, @intCast(cnt))].*.arg1, arg_arg1);
+            show_error(arg_ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #LIST %s[%s] INDEXATE: FAILED TO FIND NEST {%s}."))))))))), arg_var, list_arr[@as(usize, @intCast(cnt))].*.arg1, arg_arg1);
             return arg_ses;
         }
 
-        const idx = search_index_list(list_arr[@as(usize, @intCast(cnt))].*.root, arg_arg1, @as([*c]u8, @ptrCast(@constCast(""))));
+        const idx = search_index_list(list_arr[@as(usize, @intCast(cnt))].*.root, arg_arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))));
         if (idx == -1) {
-            show_error(arg_ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#ERROR: #LIST %s[%s] INDEXATE: FAILED TO FIND NEST {%s}."))), arg_var, list_arr[@as(usize, @intCast(cnt))].*.arg1, arg_arg1);
+            show_error(arg_ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #LIST %s[%s] INDEXATE: FAILED TO FIND NEST {%s}."))))))))), arg_var, list_arr[@as(usize, @intCast(cnt))].*.arg1, arg_arg1);
             return arg_ses;
         }
         const inner: [*c][*c]struct_listnode = list_arr[@as(usize, @intCast(cnt))].*.root.*.list;
@@ -606,7 +606,7 @@ pub export fn array_insert(arg_ses: [*c]struct_session, arg_list: [*c]struct_lis
 
     const toi: c_int = @intFromFloat(get_number(arg_ses, arg_arg1));
     if (toi == 0) {
-        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#LIST INSERT: INVALID INDEX {%s}."))), arg_arg1);
+        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#LIST INSERT: INVALID INDEX {%s}."))))))))), arg_arg1);
         return arg_ses;
     }
 
@@ -616,10 +616,10 @@ pub export fn array_insert(arg_ses: [*c]struct_session, arg_list: [*c]struct_lis
     const list_arr: [*c][*c]struct_listnode = arg_list.*.root.*.list;
     var cnt = index;
     while (cnt < arg_list.*.root.*.used) : (cnt += 1) {
-        _ = str_cpy_printf(&list_arr[@as(usize, @intCast(cnt))].*.arg1, @as([*c]u8, @ptrCast(@constCast("%d"))), cnt + 2);
+        _ = str_cpy_printf(&list_arr[@as(usize, @intCast(cnt))].*.arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))))), cnt + 2);
     }
 
-    _ = set_nest_node(arg_list.*.root, ntos(index + 1), @as([*c]u8, @ptrCast(@constCast("%s"))), arg_arg2);
+    _ = set_nest_node(arg_list.*.root, ntos(index + 1), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))))), arg_arg2);
     return arg_ses;
 }
 
@@ -631,14 +631,14 @@ pub export fn array_numerate(arg_ses: [*c]struct_session, arg_list: [*c]struct_l
     _ = arg_arg1;
     _ = arg_arg2;
     if (arg_list.*.root == null) {
-        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#LIST {%s} NUMERATE: VARIABLE IS NOT A TABLE."))), arg_var);
+        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#LIST {%s} NUMERATE: VARIABLE IS NOT A TABLE."))))))))), arg_var);
         return arg_ses;
     }
 
     const list_arr: [*c][*c]struct_listnode = arg_list.*.root.*.list;
     var index: c_int = 0;
     while (index < arg_list.*.root.*.used) : (index += 1) {
-        _ = str_cpy_printf(&list_arr[@as(usize, @intCast(index))].*.arg1, @as([*c]u8, @ptrCast(@constCast("%d"))), index + 1);
+        _ = str_cpy_printf(&list_arr[@as(usize, @intCast(index))].*.arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))))), index + 1);
     }
     return arg_ses;
 }
@@ -654,7 +654,7 @@ pub export fn array_refine(arg_ses: [*c]struct_session, arg_list: [*c]struct_lis
     _ = sub_arg_in_braces(arg_ses, arg, arg_arg2, GET_ONE, SUB_VAR | SUB_FUN);
 
     if (arg_arg1.* == 0 and arg_arg2.* == 0) {
-        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LIST <VARIABLE> REFINE <KEEP> [REMOVE]"))));
+        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LIST <VARIABLE> REFINE <KEEP> [REMOVE]"))))))))));
         return arg_ses;
     }
 
@@ -737,14 +737,14 @@ pub export fn array_set(arg_ses: [*c]struct_session, arg_list: [*c]struct_listno
     if (arg_list.*.root != null) {
         const index = get_list_index(arg_ses, arg_list.*.root, arg_arg1);
         if (index == -1) {
-            show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#LIST {%s} SET: INVALID INDEX {%s}."))), arg_var, arg_arg1);
+            show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#LIST {%s} SET: INVALID INDEX {%s}."))))))))), arg_var, arg_arg1);
             return arg_ses;
         }
         const list_arr: [*c][*c]struct_listnode = arg_list.*.root.*.list;
-        _ = set_nest_node(arg_list.*.root, list_arr[@as(usize, @intCast(index))].*.arg1, @as([*c]u8, @ptrCast(@constCast("%s"))), arg_arg2);
+        _ = set_nest_node(arg_list.*.root, list_arr[@as(usize, @intCast(index))].*.arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))))), arg_arg2);
         return arg_ses;
     }
-    show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#LIST SET: VARIABLE {%s} IS NOT A LIST."))), arg_var);
+    show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#LIST SET: VARIABLE {%s} IS NOT A LIST."))))))))), arg_var);
     return arg_ses;
 }
 
@@ -787,12 +787,12 @@ pub export fn array_simplify(arg_ses: [*c]struct_session, arg_list: [*c]struct_l
         }
         var index: c_int = 1;
         while (index < arg_list.*.root.*.used) : (index += 1) {
-            _ = str_cat_printf(&str, @as([*c]u8, @ptrCast(@constCast(";%s"))), list_arr[@as(usize, @intCast(index))].*.arg2);
+            _ = str_cat_printf(&str, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(";%s"))))))))), list_arr[@as(usize, @intCast(index))].*.arg2);
         }
-        _ = set_nest_node_ses(arg_ses, arg_var, @as([*c]u8, @ptrCast(@constCast("%s"))), str);
+        _ = set_nest_node_ses(arg_ses, arg_var, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))))), str);
         return arg_ses;
     } else {
-        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#LIST SIMPLIFY: VARIABLE {%s} IS NOT A LIST."))), arg_list.*.arg1);
+        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#LIST SIMPLIFY: VARIABLE {%s} IS NOT A LIST."))))))))), arg_list.*.arg1);
     }
     return arg_ses;
 }
@@ -806,14 +806,14 @@ pub export fn array_size(arg_ses: [*c]struct_session, arg_list: [*c]struct_listn
     _ = sub_arg_in_braces(arg_ses, arg_arg, arg_arg1, GET_ALL, SUB_VAR | SUB_FUN);
 
     if (arg_arg1.* == 0) {
-        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LIST <VARIABLE> SIZE <VARIABLE>"))));
+        show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LIST <VARIABLE> SIZE <VARIABLE>"))))))))));
         return arg_ses;
     }
 
     if (arg_list.*.root != null) {
-        _ = set_nest_node_ses(arg_ses, arg_arg1, @as([*c]u8, @ptrCast(@constCast("%d"))), arg_list.*.root.*.used);
+        _ = set_nest_node_ses(arg_ses, arg_arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))))), arg_list.*.root.*.used);
     } else {
-        _ = set_nest_node_ses(arg_ses, arg_arg1, @as([*c]u8, @ptrCast(@constCast("0"))));
+        _ = set_nest_node_ses(arg_ses, arg_arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("0"))))))))));
     }
     return arg_ses;
 }
@@ -830,7 +830,7 @@ pub export fn array_swap(arg_ses: [*c]struct_session, arg_list: [*c]struct_listn
         const index2 = get_list_index(arg_ses, arg_list.*.root, arg_arg2);
 
         if (index1 == -1 or index2 == -1) {
-            show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#LIST {%s} SWAP: INVALID INDEX {%s} {%s}."))), arg_var, arg_arg1, arg_arg2);
+            show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#LIST {%s} SWAP: INVALID INDEX {%s} {%s}."))))))))), arg_var, arg_arg1, arg_arg2);
             return arg_ses;
         }
 
@@ -848,7 +848,7 @@ pub export fn array_swap(arg_ses: [*c]struct_session, arg_list: [*c]struct_listn
 
         return arg_ses;
     }
-    show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#LIST SWAP: VARIABLE {%s} IS NOT A LIST."))), arg_var);
+    show_error(arg_ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#LIST SWAP: VARIABLE {%s} IS NOT A LIST."))))))))), arg_var);
     return arg_ses;
 }
 
@@ -1008,7 +1008,7 @@ pub export fn array_tokenize(arg_ses: [*c]struct_session, arg_list: [*c]struct_l
                 i += @as(usize, @intCast(sprintf(arg_arg2, "%c", arg_arg1[i])));
             }
             
-            _ = set_nest_node(arg_list.*.root, ntos(index), @as([*c]u8, @ptrCast(@constCast("%s"))), arg_arg2);
+            _ = set_nest_node(arg_list.*.root, ntos(index), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))))), arg_arg2);
             index += 1;
         }
 
