@@ -24,8 +24,8 @@ pub const memcpy = tintin_c.memcpy;
 pub const printf = tintin_c.printf;
 
 // --- TinTin++ function aliases ---
-pub const tintin_printf2 = tintin_c.tintin_printf2;
-pub const show_error = tintin_c.show_error;
+pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
 pub const dump_stack = tintin_c.dump_stack;
 
 // --- TinTin++ constants ---
@@ -343,7 +343,7 @@ pub export fn str_cap(arg_str: [*c][*c]u8, arg_index_1: c_int, arg_buf: [*c]u8) 
     if (arg_index_1 <= str_ptr.*.len) {
         _ = strcpy(arg_str.* + @as(usize, @intCast(arg_index_1)), arg_buf);
     } else {
-        tintin_printf2(gtd.*.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("debug: str_cap: index=%d str_len=%d cap=%s"))))))))), arg_index_1, str_ptr.*.len, arg_buf);
+        tintin_printf2(gtd.*.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("debug: str_cap: index=%d str_len=%d cap=%s"))))))))), .{arg_index_1, str_ptr.*.len, arg_buf});
     }
 
     str_ptr.*.len = arg_index_1 + buf_len;
@@ -399,14 +399,14 @@ pub export fn str_ins(arg_str: [*c][*c]u8, arg_index_1: c_int, arg_buf: [*c]u8) 
 // ---------------------------------------------------------------------------
 pub export fn str_mov(arg_str: [*c][*c]u8, arg_dst: c_int, arg_src: c_int) [*c]u8 {
     if (arg_dst >= arg_src) {
-        show_error(gtd.*.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("str_mov: dst (%d) >= src (%d)"))))))))), arg_dst, arg_src);
+        show_error(gtd.*.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("str_mov: dst (%d) >= src (%d)"))))))))), .{arg_dst, arg_src});
         return arg_str.*;
     }
 
     const str_ptr = get_str_ptr(arg_str.*);
 
     if (arg_src > str_ptr.*.len) {
-        show_error(gtd.*.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("str_mov: src (%d) >= len (%d)"))))))))), arg_src, str_ptr.*.len);
+        show_error(gtd.*.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("str_mov: src (%d) >= len (%d)"))))))))), .{arg_src, str_ptr.*.len});
         return arg_str.*;
     }
 
@@ -483,7 +483,7 @@ pub export fn str_alloc_list(arg_size: c_int) [*c]struct_str_data {
     const mem = gtd.*.*.memory;
 
     if (size < 0) {
-        tintin_printf2(gtd.*.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("str_alloc_list: negative size: %d"))))))))), size);
+        tintin_printf2(gtd.*.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("str_alloc_list: negative size: %d"))))))))), .{size});
         dump_stack();
         size = BUFFER_SIZE;
     }
@@ -537,7 +537,7 @@ pub export fn str_alloc_free(arg_str_ptr: [*c]struct_str_data) void {
     const str_ptr = arg_str_ptr;
 
     if (HAS_BIT(str_ptr.*.flags, STR_FLAG_STACK | STR_FLAG_FREE) != 0) {
-        tintin_printf2(gtd.*.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31mstr_alloc_free: trying to free invalid memory: %d"))))))))), str_ptr.*.flags);
+        tintin_printf2(gtd.*.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31mstr_alloc_free: trying to free invalid memory: %d"))))))))), .{str_ptr.*.flags});
         dump_stack();
         return;
     }

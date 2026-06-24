@@ -6265,7 +6265,7 @@ pub const struct_session = extern struct {
     pub const edit_suspend = __root.edit_suspend;
     pub const edit_write = __root.edit_write;
     pub const do_draw = __root.do_draw;
-    pub const check_all_events = __root.check_all_events;
+    pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
     pub const mouse_handler = __root.mouse_handler;
     pub const do_read = __root.do_read;
     pub const do_write = __root.do_write;
@@ -6311,14 +6311,14 @@ pub const struct_session = extern struct {
     pub const logit = __root.logit;
     pub const write_html_header = __root.write_html_header;
     pub const vt102_to_html = __root.vt102_to_html;
-    pub const syserr_printf = __root.syserr_printf;
+    pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
     pub const do_end = __root.do_end;
     pub const do_nop = __root.do_nop;
     pub const do_test = __root.do_test;
-    pub const arachnos_devel = __root.arachnos_devel;
-    pub const arachnos_mudlist = __root.arachnos_mudlist;
+    pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+    pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
     pub const msdp_update_var = __root.msdp_update_var;
-    pub const msdp_update_varf = __root.msdp_update_varf;
+    pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
     pub const msdp_update_var_instant = __root.msdp_update_var_instant;
     pub const msdp_send_update = __root.msdp_send_update;
     pub const msdp_get_var = __root.msdp_get_var;
@@ -6332,16 +6332,16 @@ pub const struct_session = extern struct {
     pub const write_msdp_to_descriptor = __root.write_msdp_to_descriptor;
     pub const search_nest_base_ses = __root.search_nest_base_ses;
     pub const search_nest_node_ses = __root.search_nest_node_ses;
-    pub const set_nest_node_ses = __root.set_nest_node_ses;
-    pub const add_nest_node_ses = __root.add_nest_node_ses;
+    pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
     pub const connect_mud = __root.connect_mud;
     pub const write_line_mud = __root.write_line_mud;
     pub const read_buffer_mud = __root.read_buffer_mud;
     pub const readmud = __root.readmud;
     pub const process_more_output = __root.process_more_output;
     pub const process_one_line = __root.process_one_line;
-    pub const execute = __root.execute;
-    pub const command = __root.command;
+    pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+    pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
     pub const parse_input = __root.parse_input;
     pub const parse_command = __root.parse_command;
     pub const is_speedwalk = __root.is_speedwalk;
@@ -6410,10 +6410,10 @@ pub const struct_session = extern struct {
     pub const close_port = __root.close_port;
     pub const process_port_connections = __root.process_port_connections;
     pub const port_forward_session = __root.port_forward_session;
-    pub const port_socket_printf = __root.port_socket_printf;
-    pub const port_telnet_printf = __root.port_telnet_printf;
-    pub const port_log_printf = __root.port_log_printf;
-    pub const port_printf = __root.port_printf;
+    pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+    pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+    pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+    pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
     pub const process_port_input = __root.process_port_input;
     pub const get_port_commands = __root.get_port_commands;
     pub const port_name_change = __root.port_name_change;
@@ -6455,18 +6455,18 @@ pub const struct_session = extern struct {
     pub const connect_session = __root.connect_session;
     pub const cleanup_session = __root.cleanup_session;
     pub const dispose_session = __root.dispose_session;
-    pub const show_message = __root.show_message;
-    pub const show_error = __root.show_error;
-    pub const show_debug = __root.show_debug;
-    pub const show_info = __root.show_info;
-    pub const tintin_header = __root.tintin_header;
+    pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+    pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+    pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+    pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+    pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
     pub const socket_printf = __root.socket_printf;
     pub const telnet_printf = __root.telnet_printf;
-    pub const print_lines = __root.print_lines;
+    pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
     pub const show_lines = __root.show_lines;
-    pub const tintin_printf = __root.tintin_printf;
-    pub const tintin_printf2 = __root.tintin_printf2;
-    pub const tintin_printf3 = __root.tintin_printf3;
+    pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+    pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+    pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
     pub const tintin_puts = __root.tintin_puts;
     pub const tintin_puts2 = __root.tintin_puts2;
     pub const tintin_puts3 = __root.tintin_puts3;
@@ -6884,8 +6884,8 @@ pub const struct_listroot = extern struct {
     pub const get_nest_node_key = __root.get_nest_node_key;
     pub const get_nest_node_val = __root.get_nest_node_val;
     pub const get_nest_index = __root.get_nest_index;
-    pub const set_nest_node = __root.set_nest_node;
-    pub const add_nest_node = __root.add_nest_node;
+    pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
     pub const copy_nest_node = __root.copy_nest_node;
     pub const node = __root.show_node;
     pub const root = __root.search_nest_root;
@@ -6932,7 +6932,7 @@ pub const struct_chat_data = extern struct {
     file_block_tot: c_int = 0,
     file_block_patch: c_int = 0,
     file_start_time: c_ulonglong = 0,
-    pub const chat_socket_printf = __root.chat_socket_printf;
+    pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
     pub const close_chat = __root.close_chat;
     pub const chat = __root.close_chat;
 };
@@ -7280,7 +7280,7 @@ pub extern fn buffer_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, a
 pub extern fn buffer_info(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8) void;
 pub extern fn do_chat(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn process_chat_connections(read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
-pub extern fn chat_socket_printf(buddy: [*c]struct_chat_data, format: [*c]u8, ...) void;
+pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
 pub extern fn close_chat(buddy: [*c]struct_chat_data, unlink: c_int) void;
 pub extern fn chat_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
 pub extern fn chat_accept(arg1: [*c]u8, arg2: [*c]u8) void;
@@ -7390,7 +7390,7 @@ pub extern fn str_convert_meta(input: [*c]u8, eol: c_int) [*c]u8;
 pub extern fn echo_command(ses: [*c]struct_session, line: [*c]u8) void;
 pub extern fn init_input(ses: [*c]struct_session, top_row: c_int, top_col: c_int, bot_row: c_int, bot_col: c_int) void;
 pub extern fn free_input(ses: [*c]struct_session) void;
-pub extern fn input_printf(format: [*c]u8, ...) void;
+pub fn input_printf(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").input_printf(arg_format, args); }
 pub extern fn modified_input() void;
 pub extern fn do_map(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn delete_room_data(room: [*c]struct_room_data) void;
@@ -7491,8 +7491,8 @@ pub extern fn insert_node_list(root: [*c]struct_listroot, node: [*c]struct_listn
 pub extern fn insert_index_list(root: [*c]struct_listroot, node: [*c]struct_listnode, index: c_int) [*c]struct_listnode;
 pub extern fn update_node_list(root: [*c]struct_listroot, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_listnode;
 pub extern fn search_node_list(root: [*c]struct_listroot, text: [*c]u8) [*c]struct_listnode;
-pub extern fn push_call(format: [*c]u8, ...) void;
-pub extern fn push_call_printf(format: [*c]u8, ...) c_int;
+pub fn push_call(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").push_call(arg_format, args); }
+pub fn push_call_printf(arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").push_call_printf(arg_format, args)); }
 pub extern fn pop_call() void;
 pub extern fn dump_stack() void;
 pub extern fn do_dictionary(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -7518,7 +7518,7 @@ pub extern fn delete_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn insert_line(edit: [*c]struct_edit_data, index: c_int, str: [*c]u8) void;
 pub extern fn remove_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn do_draw(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
-pub extern fn check_all_events(ses: [*c]struct_session, flags: c_int, args: c_int, vars: c_int, fmt: [*c]u8, ...) c_int;
+pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
 pub extern fn mouse_handler(ses: [*c]struct_session, val1: c_int, val2: c_int, val3: c_int) void;
 pub extern fn do_read(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn do_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -7576,7 +7576,7 @@ pub extern fn main(argc: c_int, argv: [*c][*c]u8) c_int;
 pub extern fn init_tintin(greeting: c_int) void;
 pub extern fn quitmsg(message: [*c]u8) void;
 pub extern fn syserr_fatal(signal: c_int, msg: [*c]u8) void;
-pub extern fn syserr_printf(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
+pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
 pub extern fn zlib_alloc(@"opaque": ?*anyopaque, items: c_uint, size: c_uint) ?*anyopaque;
 pub extern fn zlib_free(@"opaque": ?*anyopaque, address: ?*anyopaque) void;
 pub extern fn restring(point: [*c]u8, string: [*c]u8) [*c]u8;
@@ -7614,11 +7614,11 @@ pub extern fn do_nop(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [
 pub extern fn do_test(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn init_msdp_table() void;
 pub extern fn msdp_find(@"var": [*c]u8) c_int;
-pub extern fn arachnos_devel(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn arachnos_mudlist(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn msdp_update_all(@"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
+pub fn msdp_update_all(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_all(arg0, arg_format, args); }
 pub extern fn msdp_update_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, str: [*c]u8) void;
-pub extern fn msdp_update_varf(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
 pub extern fn msdp_update_var_instant(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
 pub extern fn msdp_send_update(ses: [*c]struct_session, buddy: [*c]struct_port_data) void;
 pub extern fn msdp_get_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8) [*c]u8;
@@ -7655,10 +7655,10 @@ pub extern fn get_nest_index(root: [*c]struct_listroot, variable: [*c]u8, result
 pub extern fn show_nest_node(node: [*c]struct_listnode, result: [*c][*c]u8, initialize: c_int) void;
 pub extern fn view_nest_node_json(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int) void;
 pub extern fn view_nest_node(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int, color: c_int) void;
-pub extern fn set_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn set_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
+pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
 pub extern fn copy_nest_node(dst_root: [*c]struct_listroot, dst: [*c]struct_listnode, src: [*c]struct_listnode) void;
 pub extern fn connect_mud(ses: [*c]struct_session, host: [*c]u8, port: [*c]u8) c_int;
 pub extern fn write_line_mud(ses: [*c]struct_session, line: [*c]u8, size: c_int) void;
@@ -7671,8 +7671,8 @@ pub extern fn is_abbrev_cmp(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_member(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_vowel(str: [*c]u8) c_int;
 pub extern fn filename_string(input: [*c]u8, output: [*c]u8) void;
-pub extern fn execute(ses: [*c]struct_session, format: [*c]u8, ...) [*c]struct_session;
-pub extern fn command(ses: [*c]struct_session, cmd: ?*const COMMAND, format: [*c]u8, ...) [*c]struct_session;
+pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
 pub extern fn parse_input(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn parse_command(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn is_speedwalk(ses: [*c]struct_session, input: [*c]u8) c_int;
@@ -7743,10 +7743,10 @@ pub extern fn port_new(ses: [*c]struct_session, s: c_int) c_int;
 pub extern fn close_port(ses: [*c]struct_session, buddy: [*c]struct_port_data, unlink: c_int) void;
 pub extern fn process_port_connections(ses: [*c]struct_session, read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
 pub extern fn port_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
-pub extern fn port_socket_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_telnet_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, length: usize, format: [*c]u8, ...) void;
-pub extern fn port_log_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
 pub extern fn process_port_input(ses: [*c]struct_session, buddy: [*c]struct_port_data) c_int;
 pub extern fn get_port_commands(ses: [*c]struct_session, buddy: [*c]struct_port_data, buf: [*c]u8, len: c_int) void;
 pub extern fn port_name_change(ses: [*c]struct_session, buddy: [*c]struct_port_data, txt: [*c]u8) void;
@@ -7802,18 +7802,18 @@ pub extern fn new_session(ses: [*c]struct_session, name: [*c]u8, address: [*c]u8
 pub extern fn connect_session(ses: [*c]struct_session) [*c]struct_session;
 pub extern fn cleanup_session(ses: [*c]struct_session) void;
 pub extern fn dispose_session(ses: [*c]struct_session) void;
-pub extern fn show_message(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_error(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_debug(ses: [*c]struct_session, index: c_int, node: [*c]struct_listnode, format: [*c]u8, ...) void;
-pub extern fn show_info(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn tintin_header(ses: [*c]struct_session, width: c_int, format: [*c]u8, ...) void;
+pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
 pub extern fn socket_printf(ses: [*c]struct_session, length: usize, format: [*c]u8, ...) void;
 pub extern fn telnet_printf(ses: [*c]struct_session, length: c_int, format: [*c]u8, ...) void;
-pub extern fn print_lines(ses: [*c]struct_session, flags: c_int, color: [*c]u8, format: [*c]u8, ...) void;
+pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
 pub extern fn show_lines(ses: [*c]struct_session, color: [*c]u8, str: [*c]u8) void;
-pub extern fn tintin_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf2(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf3(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
 pub extern fn tintin_puts(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts2(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts3(ses: [*c]struct_session, string: [*c]u8, prompt: c_int) void;
@@ -7995,7 +7995,7 @@ pub export fn do_delay(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
         show_list(ses[0].list[LIST_DELAY], 0);
     } else if (@as(c_int, arg2.*) == @as(c_int, 0)) {
         if (show_node_with_wild(ses, arg1, ses[0].list[LIST_DELAY]) == FALSE) {
-            show_message(ses, LIST_DELAY, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DELAY: NO MATCHES FOUND FOR {%s}."))))), arg1);
+            show_message(ses, LIST_DELAY, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DELAY: NO MATCHES FOUND FOR {%s}."))))), .{arg1});
         }
     } else {
         if (@as(c_int, arg3.*) == @as(c_int, 0)) {
@@ -8003,7 +8003,7 @@ pub export fn do_delay(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
             _ = sprintf(arg3, "%lld", gtd.*.utime);
             _ = sprintf(@ptrCast(@alignCast(&time_1)), "%llu.%010llu", gtd.*.utime +% @as(c_ulonglong, @intFromFloat(number * @as(c_longdouble, @floatFromInt(@as(c_int, 1000000))))), @as(c_ulonglong, @intFromFloat(number * @as(c_longdouble, @floatFromInt(@as(c_long, 10000000000))))) % @as(c_ulonglong, 10000000000));
             _ = create_node_list(ses[0].list[LIST_DELAY], @ptrCast(@alignCast(&time_1)), arg2, arg1, arg3);
-            show_message(ses, LIST_DELAY, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DELAY: IN {%s} SECONDS {%s} IS EXECUTED."))))), arg1, arg2);
+            show_message(ses, LIST_DELAY, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DELAY: IN {%s} SECONDS {%s} IS EXECUTED."))))), .{arg1, arg2});
         } else {
             var node: [*c]struct_listnode = undefined;
             _ = &node;
@@ -8011,7 +8011,7 @@ pub export fn do_delay(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
             _ = sprintf(arg3, "%lld", gtd.*.utime);
             node = update_node_list(ses[0].list[LIST_TICKER], arg1, arg2, @ptrCast(@alignCast(&time_1)), arg3);
             node.*.shots = 1;
-            show_message(ses, LIST_TICKER, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ONESHOT: #TICKER {%s} WILL EXECUTE {%s} IN {%s} SECONDS."))))), arg1, arg2, @as([*c]u8, @ptrCast(@alignCast(&time_1))));
+            show_message(ses, LIST_TICKER, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ONESHOT: #TICKER {%s} WILL EXECUTE {%s} IN {%s} SECONDS."))))), .{arg1, arg2, @as([*c]u8, @ptrCast(@alignCast(&time_1)))});
         }
     }
     return ses;
@@ -8035,11 +8035,11 @@ pub export fn do_function(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
         show_list(ses[0].list[LIST_FUNCTION], 0);
     } else if ((@as(c_int, arg1.*) != 0) and (@as(c_int, arg2.*) == @as(c_int, 0))) {
         if (show_node_with_wild(ses, arg1, ses[0].list[LIST_FUNCTION]) == FALSE) {
-            show_message(ses, LIST_FUNCTION, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FUNCTION: NO MATCHES FOUND FOR {%s}."))))), arg1);
+            show_message(ses, LIST_FUNCTION, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FUNCTION: NO MATCHES FOUND FOR {%s}."))))), .{arg1});
         }
     } else {
         _ = update_node_list(ses[0].list[LIST_FUNCTION], arg1, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
-        show_message(ses, LIST_FUNCTION, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: FUNCTION {%s} NOW TRIGGERS {%s}."))))), arg1, arg2);
+        show_message(ses, LIST_FUNCTION, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: FUNCTION {%s} NOW TRIGGERS {%s}."))))), .{arg1, arg2});
     }
     return ses;
 }
@@ -8064,7 +8064,7 @@ pub export fn check_all_actions(arg_ses: [*c]struct_session, arg_original: [*c]u
                 continue;
             }
             if (check_one_regexp(ses, node, line, original, 0) != 0) {
-                show_debug(ses, LIST_ACTION, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG ACTION \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))))), node.*.arg1);
+                show_debug(ses, LIST_ACTION, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG ACTION \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))))), .{node.*.arg1});
                 _ = substitute(ses, node.*.arg2, buf, (@as(c_int, 1) << @intCast(@as(c_int, 0))) | (@as(c_int, 1) << @intCast(@as(c_int, 1))));
                 if ((node.*.shots != 0) and (@as(c_uint, @bitCast(@as(c_int, @intFromBool((blk: {
                     const ref = &node.*.shots;
@@ -8111,7 +8111,7 @@ pub export fn check_all_actions_multi(arg_ses: [*c]struct_session, arg_original:
                 if (!(check_one_regexp(ses, node, pts, pto, 0) != 0)) {
                     break;
                 }
-                show_debug(ses, LIST_ACTION, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG MULTI ACTION \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))))), node.*.arg1);
+                show_debug(ses, LIST_ACTION, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG MULTI ACTION \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))))), .{node.*.arg1});
                 _ = substitute(ses, node.*.arg2, buf, (@as(c_int, 1) << @intCast(@as(c_int, 0))) | (@as(c_int, 1) << @intCast(@as(c_int, 1))));
                 if ((node.*.shots != 0) and (@as(c_uint, @bitCast(@as(c_int, @intFromBool((blk: {
                     const ref = &node.*.shots;
@@ -8176,7 +8176,7 @@ pub export fn check_all_aliases(arg_ses: [*c]struct_session, arg_input: [*c]u8) 
     if ((gtd.*.level.*.ignore != 0) or (@as(c_uint, @bitCast(@as(c_int, @as(c_int, root.*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 0)))))) != 0)) {
         return null;
     }
-    if (push_call_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("check_all_aliases(%s,%s)"))))), ses.*.name, input) == @as(c_int, 0)) {
+    if (push_call_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("check_all_aliases(%s,%s)"))))), .{ses.*.name, input}) == @as(c_int, 0)) {
         pop_call();
         return null;
     }
@@ -8233,12 +8233,12 @@ pub export fn check_all_aliases(arg_ses: [*c]struct_session, arg_input: [*c]u8) 
                 }
                 _ = substitute(ses, node.*.arg2, buf, @as(c_int, 1) << @intCast(@as(c_int, 0)));
                 if ((!(strncmp(node.*.arg1, line, strlen(node.*.arg1)) != 0) and !(strcmp(node.*.arg2, buf) != 0)) and (@as(c_int, gtd[0].vars[@as(c_int, 0)].*) != 0)) {
-                    show_error(ses, LIST_ACTION, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#WARNING: #ALIAS {%s} CONTAINS NO %%0-%%99 BUT IS CALLED WITH ARGUMENT {%s}."))))), node.*.arg1, gtd[0].vars[@as(c_int, 0)]);
+                    show_error(ses, LIST_ACTION, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#WARNING: #ALIAS {%s} CONTAINS NO %%0-%%99 BUT IS CALLED WITH ARGUMENT {%s}."))))), .{node.*.arg1, gtd[0].vars[@as(c_int, 0)]});
                     _ = sprintf(input, "%s %s", buf, gtd[0].vars[@as(c_int, 0)]);
                 } else {
                     _ = sprintf(input, "%s", buf);
                 }
-                show_debug(ses, LIST_ALIAS, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG ALIAS \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}"))))), node.*.arg1, gtd[0].vars[@as(c_int, 0)]);
+                show_debug(ses, LIST_ALIAS, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG ALIAS \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}"))))), .{node.*.arg1, gtd[0].vars[@as(c_int, 0)]});
                 if ((node.*.shots != 0) and (@as(c_uint, @bitCast(@as(c_int, @intFromBool((blk: {
                     const ref = &node.*.shots;
                     ref.* -%= 1;
@@ -8283,11 +8283,11 @@ pub export fn check_all_buttons(arg_ses: [*c]struct_session, arg_row: c_short, a
     if ((@as(c_int, root.*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) {
         return;
     }
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("check_all_buttons(%p,%d,%d,%p,%p,%p,%p)"))))), ses, row, col, arg1, arg2, word, line);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("check_all_buttons(%p,%d,%d,%p,%p,%p,%p)"))))), .{ses, row, col, arg1, arg2, word, line});
     buf = str_alloc_stack(0);
     arg4 = str_alloc_stack(0);
     _ = sprintf(arg4, "%s %s", arg1, arg2);
-    show_info(ses, LIST_BUTTON, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO BUTTON {%d;%d;%d;%d;%s}"))))), row, col, -@as(c_int, 1) - (gtd.*.screen.*.rows - @as(c_int, row)), -@as(c_int, 1) - (gtd.*.screen.*.cols - @as(c_int, col)), arg4);
+    show_info(ses, LIST_BUTTON, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO BUTTON {%d;%d;%d;%d;%s}"))))), .{row, col, -@as(c_int, 1) - (gtd.*.screen.*.rows - @as(c_int, row)), -@as(c_int, 1) - (gtd.*.screen.*.cols - @as(c_int, col)), arg4});
     {
         root.*.update = 0;
         while (root.*.update < root.*.used) : (root.*.update += 1) {
@@ -8303,7 +8303,7 @@ pub export fn check_all_buttons(arg_ses: [*c]struct_session, arg_row: c_short, a
                 continue;
             }
             if (!(strcmp(arg4, node.*.arg4) != 0)) {
-                show_debug(ses, LIST_BUTTON, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG BUTTON \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))))), node.*.arg1);
+                show_debug(ses, LIST_BUTTON, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG BUTTON \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))))), .{node.*.arg1});
                 {
                     if (gtd[0].vars[@as(c_int, 0)] != null) {
                         free(@ptrCast(@alignCast(gtd[0].vars[@as(c_int, 0)])));
@@ -8414,7 +8414,7 @@ pub export fn check_all_highlights(arg_ses: [*c]struct_session, arg_original: [*
     _ = &plain;
     var len: c_int = undefined;
     _ = &len;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("check_all_highlights(%p,%p,%p)"))))), ses, original, line);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("check_all_highlights(%p,%p,%p)"))))), .{ses, original, line});
     match_1 = str_alloc_stack(0);
     color = str_alloc_stack(0);
     output = str_alloc_stack(0);
@@ -8449,7 +8449,7 @@ pub export fn check_all_highlights(arg_ses: [*c]struct_session, arg_original: [*
                     get_color_codes(@ptrCast(@alignCast(&gtd.*.color_reset)), pto, @ptrCast(@alignCast(&gtd.*.color_reset)), GET_ALL);
                     _ = cat_sprintf(output, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s%s%s\x1b[0m%s"))))), pto, color, plain, @as([*c]u8, @ptrCast(@alignCast(&gtd.*.color_reset))));
                     pto = ptm + @as(usize, @bitCast(@as(isize, @intCast(len))));
-                    show_debug(ses, LIST_HIGHLIGHT, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG HIGHLIGHT \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))))), node.*.arg1);
+                    show_debug(ses, LIST_HIGHLIGHT, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG HIGHLIGHT \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))))), .{node.*.arg1});
                     if (!(check_one_regexp(ses, node, ptl, pto, 0) != 0)) break;
                 }
                 if ((node.*.shots != 0) and (@as(c_uint, @bitCast(@as(c_int, @intFromBool((blk: {
@@ -8491,7 +8491,7 @@ pub export fn check_all_prompts(arg_ses: [*c]struct_session, arg_original: [*c]u
                     _ = substitute(ses, line, original, (((@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5)))) | (@as(c_int, 1) << @intCast(@as(c_int, 6)))) | (@as(c_int, 1) << @intCast(@as(c_int, 7))));
                     _ = strip_vt102_codes(original, line);
                 }
-                show_debug(ses, LIST_PROMPT, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG PROMPT \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))))), node.*.arg1);
+                show_debug(ses, LIST_PROMPT, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG PROMPT \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))))), .{node.*.arg1});
                 if (strcmp(node.*.arg3, "0") != 0) {
                     split_show(ses, original, node.*.arg3, node.*.arg4);
                     if (ses.*.gagline == @as(c_int, 0)) {
@@ -8539,7 +8539,7 @@ pub export fn check_all_substitutions(arg_ses: [*c]struct_session, arg_original:
     _ = &node;
     var len: c_int = undefined;
     _ = &len;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("check_all_substitutions(%p,%p,%p)"))))), ses, original, line);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("check_all_substitutions(%p,%p,%p)"))))), .{ses, original, line});
     match_1 = str_alloc_stack(0);
     subst = str_alloc_stack(0);
     result = str_alloc_stack(0);
@@ -8578,7 +8578,7 @@ pub export fn check_all_substitutions(arg_ses: [*c]struct_session, arg_original:
                     _ = substitute(ses, temp, subst, (((@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5)))) | (@as(c_int, 1) << @intCast(@as(c_int, 6)))) | (@as(c_int, 1) << @intCast(@as(c_int, 7))));
                     ptr += @as(usize, @bitCast(@as(isize, @intCast(sprintf(ptr, "%s%s", pto, subst)))));
                     pto = ptm + @as(usize, @bitCast(@as(isize, @intCast(len))));
-                    show_debug(ses, LIST_SUBSTITUTE, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG SUBSTITUTE \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}"))))), node.*.arg1, match_1);
+                    show_debug(ses, LIST_SUBSTITUTE, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG SUBSTITUTE \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}"))))), .{node.*.arg1, match_1});
                     ptm = node.*.arg1 + @as(usize, @bitCast(@as(isize, @intFromBool(node.*.arg1.* == '~'))));
                     if ((@as(c_int, ptm[@as(c_int, 0)]) == @as(c_int, '\\')) and (@as(c_int, ptm[@as(c_int, 1)]) == @as(c_int, 'A'))) {
                         break;
@@ -8630,7 +8630,7 @@ pub export fn check_all_substitutions_multi(arg_ses: [*c]struct_session, arg_ori
     _ = &node;
     var len: c_int = undefined;
     _ = &len;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("check_all_substitutions(%p,%p,%p)"))))), ses, original, line);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("check_all_substitutions(%p,%p,%p)"))))), .{ses, original, line});
     match_1 = str_alloc_stack(0);
     subst = str_alloc_stack(0);
     result = str_alloc_stack(0);
@@ -8669,7 +8669,7 @@ pub export fn check_all_substitutions_multi(arg_ses: [*c]struct_session, arg_ori
                     _ = substitute(ses, temp, subst, (((@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5)))) | (@as(c_int, 1) << @intCast(@as(c_int, 6)))) | (@as(c_int, 1) << @intCast(@as(c_int, 7))));
                     ptr += @as(usize, @bitCast(@as(isize, @intCast(sprintf(ptr, "%s%s", pto, subst)))));
                     pto = ptm + @as(usize, @bitCast(@as(isize, @intCast(len))));
-                    show_debug(ses, LIST_SUBSTITUTE, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG SUBSTITUTE \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}"))))), node.*.arg1, match_1);
+                    show_debug(ses, LIST_SUBSTITUTE, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG SUBSTITUTE \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}"))))), .{node.*.arg1, match_1});
                     ptm = node.*.arg1 + @as(usize, @bitCast(@as(isize, @intFromBool(node.*.arg1.* == '~'))));
                     if ((@as(c_int, ptm[@as(c_int, 0)]) == @as(c_int, '\\')) and (@as(c_int, ptm[@as(c_int, 1)]) == @as(c_int, 'A'))) {
                         break;
@@ -8815,14 +8815,14 @@ pub export fn do_action(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
         show_list(ses[0].list[LIST_ACTION], 0);
     } else if ((@as(c_int, arg1.*) != 0) and (@as(c_int, arg2.*) == @as(c_int, 0))) {
         if (show_node_with_wild(ses, arg1, ses[0].list[LIST_ACTION]) == FALSE) {
-            show_message(ses, LIST_ACTION, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ACTION: NO MATCHES FOUND FOR {%s}."))))), arg1);
+            show_message(ses, LIST_ACTION, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ACTION: NO MATCHES FOUND FOR {%s}."))))), .{arg1});
         }
     } else {
         if ((@as(c_int, arg3.*) != 0) and ((atof(arg3) < @as(f64, @floatFromInt(@as(c_int, 1)))) or (atof(arg3) >= @as(f64, @floatFromInt(@as(c_int, 10)))))) {
-            show_error(ses, LIST_ACTION, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#WARNING: #ACTION {%s} {..} {%s} SHOULD HAVE A PRIORITY BETWEEN 1.000 and 9.999."))))), arg1, arg3);
+            show_error(ses, LIST_ACTION, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#WARNING: #ACTION {%s} {..} {%s} SHOULD HAVE A PRIORITY BETWEEN 1.000 and 9.999."))))), .{arg1, arg3});
         }
         _ = update_node_list(ses[0].list[LIST_ACTION], arg1, arg2, arg3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
-        show_message(ses, LIST_ACTION, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: #ACTION {%s} NOW TRIGGERS {%s} @ {%s}."))))), arg1, arg2, arg3);
+        show_message(ses, LIST_ACTION, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: #ACTION {%s} NOW TRIGGERS {%s} @ {%s}."))))), .{arg1, arg2, arg3});
     }
     return ses;
 }
@@ -8862,11 +8862,11 @@ pub export fn do_alias(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
         show_list(ses[0].list[LIST_ALIAS], 0);
     } else if (@as(c_int, arg2.*) == @as(c_int, 0)) {
         if (show_node_with_wild(ses, arg1, ses[0].list[LIST_ALIAS]) == FALSE) {
-            show_message(ses, LIST_ALIAS, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ALIAS: NO MATCHES FOUND FOR {%s}."))))), arg1);
+            show_message(ses, LIST_ALIAS, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ALIAS: NO MATCHES FOUND FOR {%s}."))))), .{arg1});
         }
     } else {
         _ = update_node_list(ses[0].list[LIST_ALIAS], arg1, arg2, arg3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
-        show_message(ses, LIST_ALIAS, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ALIAS {%s} NOW TRIGGERS {%s} @ {%s}."))))), arg1, arg2, arg3);
+        show_message(ses, LIST_ALIAS, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ALIAS {%s} NOW TRIGGERS {%s} @ {%s}."))))), .{arg1, arg2, arg3});
     }
     return ses;
 }
@@ -8910,13 +8910,13 @@ pub export fn do_button(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
         show_list(ses[0].list[LIST_BUTTON], 0);
     } else if ((@as(c_int, arg1.*) != 0) and (@as(c_int, arg2.*) == @as(c_int, 0))) {
         if (show_node_with_wild(ses, arg1, ses[0].list[LIST_BUTTON]) == FALSE) {
-            show_message(ses, LIST_BUTTON, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUTTON: NO MATCHES FOUND FOR {%s}."))))), arg1);
+            show_message(ses, LIST_BUTTON, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUTTON: NO MATCHES FOUND FOR {%s}."))))), .{arg1});
         }
     } else {
         gtd.*.event_flags |= @as(c_int, 1) << @intCast(@as(c_int, 8));
         ses.*.event_flags |= @as(c_int, 1) << @intCast(@as(c_int, 8));
         node = update_node_list(ses[0].list[LIST_BUTTON], arg1, arg2, arg3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
-        show_message(ses, LIST_BUTTON, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: BUTTON {%s} NOW TRIGGERS {%s} @ {%s}."))))), arg1, arg2, arg3);
+        show_message(ses, LIST_BUTTON, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: BUTTON {%s} NOW TRIGGERS {%s} @ {%s}."))))), .{arg1, arg2, arg3});
         arg = arg1;
         {
             index_1 = 0;
@@ -8924,7 +8924,7 @@ pub export fn do_button(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
                 arg = sub_arg_in_braces(ses, arg, arg2, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
                 @as([*c]c_short, @ptrCast(@constCast(&node[0].unnamed_0.val16)))[@bitCast(@as(isize, @intCast(index_1)))] = @intFromFloat(get_number(ses, arg2));
                 if (@as(c_int, @as([*c]c_short, @ptrCast(@constCast(&node[0].unnamed_0.val16)))[@bitCast(@as(isize, @intCast(index_1)))]) == @as(c_int, 0)) {
-                    show_error(ses, LIST_BUTTON, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #BUTTON {%s} IS NOT A VALID SQUARE COORDINATE."))))), arg1);
+                    show_error(ses, LIST_BUTTON, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #BUTTON {%s} IS NOT A VALID SQUARE COORDINATE."))))), .{arg1});
                     delete_node_list(ses, LIST_BUTTON, node);
                     return ses;
                 }
@@ -9013,7 +9013,7 @@ pub export fn do_gag(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c
         show_list(ses[0].list[LIST_GAG], 0);
     } else {
         _ = update_node_list(ses[0].list[LIST_GAG], arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
-        show_message(ses, LIST_GAG, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: {%s} IS NOW GAGGED."))))), arg1);
+        show_message(ses, LIST_GAG, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: {%s} IS NOW GAGGED."))))), .{arg1});
     }
     return ses;
 }
@@ -9053,15 +9053,15 @@ pub export fn do_highlight(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
         show_list(ses[0].list[LIST_HIGHLIGHT], 0);
     } else if ((@as(c_int, arg1.*) != 0) and (@as(c_int, arg2.*) == @as(c_int, 0))) {
         if (show_node_with_wild(ses, arg1, ses[0].list[LIST_HIGHLIGHT]) == FALSE) {
-            show_message(ses, LIST_HIGHLIGHT, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#HIGHLIGHT: NO MATCHES FOUND FOR {%s}."))))), arg1);
+            show_message(ses, LIST_HIGHLIGHT, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#HIGHLIGHT: NO MATCHES FOUND FOR {%s}."))))), .{arg1});
         }
     } else {
         if (!(is_color_name(arg2) != 0)) {
-            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#HIGHLIGHT: INVALID COLOR {%s}. VALID COLORS ARE:\n"))))), arg2);
-            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("reset, light, dark, underscore, blink, reverse, black, red, green, yellow, blue, magenta, cyan, white, b black, b red, b green, b yellow, b blue, b magenta, b cyan, b white, azure, ebony, jade, lime, orange, pink, silver, tan, violet."))))));
+            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#HIGHLIGHT: INVALID COLOR {%s}. VALID COLORS ARE:\n"))))), .{arg2});
+            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("reset, light, dark, underscore, blink, reverse, black, red, green, yellow, blue, magenta, cyan, white, b black, b red, b green, b yellow, b blue, b magenta, b cyan, b white, azure, ebony, jade, lime, orange, pink, silver, tan, violet."))))), .{});
         } else {
             _ = update_node_list(ses[0].list[LIST_HIGHLIGHT], arg1, arg2, arg3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
-            show_message(ses, LIST_HIGHLIGHT, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: {%s} NOW HIGHLIGHTS {%s} @ {%s}."))))), arg1, arg2, arg3);
+            show_message(ses, LIST_HIGHLIGHT, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: {%s} NOW HIGHLIGHTS {%s} @ {%s}."))))), .{arg1, arg2, arg3});
         }
     }
     return ses;
@@ -9101,12 +9101,12 @@ pub export fn do_macro(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
         show_list(ses[0].list[LIST_MACRO], 0);
     } else if ((@as(c_int, arg1.*) != 0) and (@as(c_int, arg2.*) == @as(c_int, 0))) {
         if (show_node_with_wild(ses, arg1, ses[0].list[LIST_MACRO]) == FALSE) {
-            show_message(ses, LIST_MACRO, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MACRO: NO MATCHES FOUND FOR {%s}."))))), arg1);
+            show_message(ses, LIST_MACRO, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MACRO: NO MATCHES FOUND FOR {%s}."))))), .{arg1});
         }
     } else {
         tintin_macro_compile(arg1, arg3);
         _ = update_node_list(ses[0].list[LIST_MACRO], arg1, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), arg3);
-        show_message(ses, LIST_MACRO, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: MACRO {%s} NOW TRIGGERS {%s}."))))), arg1, arg2);
+        show_message(ses, LIST_MACRO, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: MACRO {%s} NOW TRIGGERS {%s}."))))), .{arg1, arg2});
     }
     return ses;
 }
@@ -9145,7 +9145,7 @@ pub export fn do_prompt(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
         show_list(ses[0].list[LIST_PROMPT], 0);
     } else if (((@as(c_int, arg1.*) != 0) and (@as(c_int, arg2.*) == @as(c_int, 0))) and (@as(c_int, arg.*) == @as(c_int, 0))) {
         if (show_node_with_wild(ses, arg1, ses[0].list[LIST_PROMPT]) == FALSE) {
-            show_message(ses, LIST_PROMPT, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#PROMPT: NO MATCHES FOUND FOR {%s}."))))), arg1);
+            show_message(ses, LIST_PROMPT, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#PROMPT: NO MATCHES FOUND FOR {%s}."))))), .{arg1});
         }
     } else {
         arg3 = str_alloc_stack(0);
@@ -9153,7 +9153,7 @@ pub export fn do_prompt(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
         arg = sub_arg_in_braces(ses, arg, arg3, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
         arg = sub_arg_in_braces(ses, arg, arg4, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
         _ = update_node_list(ses[0].list[LIST_PROMPT], arg1, arg2, arg3, arg4);
-        show_message(ses, LIST_PROMPT, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: {%s} NOW PROMPTS {%s} @ {%s} {%s}."))))), arg1, arg2, arg3, arg4);
+        show_message(ses, LIST_PROMPT, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: {%s} NOW PROMPTS {%s} @ {%s} {%s}."))))), .{arg1, arg2, arg3, arg4});
     }
     return ses;
 }
@@ -9195,11 +9195,11 @@ pub export fn do_substitute(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_ar
         show_list(ses[0].list[LIST_SUBSTITUTE], 0);
     } else if (@as(c_int, str.*) == @as(c_int, 0)) {
         if (show_node_with_wild(ses, arg1, ses[0].list[LIST_SUBSTITUTE]) == FALSE) {
-            show_message(ses, LIST_SUBSTITUTE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SUBSTITUTE: NO MATCHES FOUND FOR {%s}."))))), arg1);
+            show_message(ses, LIST_SUBSTITUTE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SUBSTITUTE: NO MATCHES FOUND FOR {%s}."))))), .{arg1});
         }
     } else {
         _ = update_node_list(ses[0].list[LIST_SUBSTITUTE], arg1, arg2, arg3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
-        show_message(ses, LIST_SUBSTITUTE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: {%s} IS NOW SUBSTITUTED AS {%s} @ {%s}."))))), arg1, arg2, arg3);
+        show_message(ses, LIST_SUBSTITUTE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: {%s} IS NOW SUBSTITUTED AS {%s} @ {%s}."))))), .{arg1, arg2, arg3});
     }
     return ses;
 }
@@ -9237,7 +9237,7 @@ pub export fn do_tab(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c
         show_list(ses[0].list[LIST_TAB], 0);
     } else {
         _ = update_node_list(ses[0].list[LIST_TAB], arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
-        show_message(ses, LIST_TAB, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: {%s} IS NOW A TAB."))))), arg1);
+        show_message(ses, LIST_TAB, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: {%s} IS NOW A TAB."))))), .{arg1});
     }
     return ses;
 }
@@ -9289,11 +9289,11 @@ pub export fn do_tick(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
         show_list(ses[0].list[LIST_TICKER], 0);
     } else if ((@as(c_int, arg1.*) != 0) and (@as(c_int, arg2.*) == @as(c_int, 0))) {
         if (show_node_with_wild(ses, arg1, ses[0].list[LIST_TICKER]) == FALSE) {
-            show_message(ses, LIST_TICKER, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#TICKER: NO MATCHES FOUND FOR {%s}."))))), arg1);
+            show_message(ses, LIST_TICKER, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#TICKER: NO MATCHES FOUND FOR {%s}."))))), .{arg1});
         }
     } else {
         _ = update_node_list(ses[0].list[LIST_TICKER], arg1, arg2, @ptrCast(@alignCast(&time_1)), arg3);
-        show_message(ses, LIST_TICKER, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: #TICKER {%s} NOW EXECUTES {%s} EVERY {%s} SECONDS."))))), arg1, arg2, @as([*c]u8, @ptrCast(@alignCast(&time_1))));
+        show_message(ses, LIST_TICKER, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: #TICKER {%s} NOW EXECUTES {%s} EVERY {%s} SECONDS."))))), .{arg1, arg2, @as([*c]u8, @ptrCast(@alignCast(&time_1)))});
     }
     return ses;
 }

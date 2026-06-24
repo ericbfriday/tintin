@@ -1023,8 +1023,8 @@ pub extern fn insert_node_list(root: [*c]struct_listroot, node: [*c]struct_listn
 pub extern fn insert_index_list(root: [*c]struct_listroot, node: [*c]struct_listnode, index: c_int) [*c]struct_listnode;
 pub extern fn update_node_list(root: [*c]struct_listroot, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_listnode;
 pub extern fn search_node_list(root: [*c]struct_listroot, text: [*c]u8) [*c]struct_listnode;
-pub extern fn push_call(format: [*c]u8, ...) void;
-pub extern fn push_call_printf(format: [*c]u8, ...) c_int;
+pub fn push_call(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").push_call(arg_format, args); }
+pub fn push_call_printf(arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").push_call_printf(arg_format, args)); }
 pub extern fn pop_call() void;
 pub extern fn dump_stack() void;
 pub extern fn do_dictionary(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -1050,7 +1050,7 @@ pub extern fn delete_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn insert_line(edit: [*c]struct_edit_data, index: c_int, str: [*c]u8) void;
 pub extern fn remove_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn do_draw(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
-pub extern fn check_all_events(ses: [*c]struct_session, flags: c_int, args: c_int, vars: c_int, fmt: [*c]u8, ...) c_int;
+pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
 pub extern fn mouse_handler(ses: [*c]struct_session, val1: c_int, val2: c_int, val3: c_int) void;
 pub extern fn do_read(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn do_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -1108,7 +1108,7 @@ pub extern fn main(argc: c_int, argv: [*c][*c]u8) c_int;
 pub extern fn init_tintin(greeting: c_int) void;
 pub extern fn quitmsg(message: [*c]u8) void;
 pub extern fn syserr_fatal(signal: c_int, msg: [*c]u8) void;
-pub extern fn syserr_printf(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
+pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
 pub extern fn zlib_alloc(@"opaque": ?*anyopaque, items: c_uint, size: c_uint) ?*anyopaque;
 pub extern fn zlib_free(@"opaque": ?*anyopaque, address: ?*anyopaque) void;
 pub extern fn restring(point: [*c]u8, string: [*c]u8) [*c]u8;
@@ -1146,11 +1146,11 @@ pub extern fn do_nop(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [
 pub extern fn do_test(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn init_msdp_table() void;
 pub extern fn msdp_find(@"var": [*c]u8) c_int;
-pub extern fn arachnos_devel(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn arachnos_mudlist(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn msdp_update_all(@"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
+pub fn msdp_update_all(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_all(arg0, arg_format, args); }
 pub extern fn msdp_update_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, str: [*c]u8) void;
-pub extern fn msdp_update_varf(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
 pub extern fn msdp_update_var_instant(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
 pub extern fn msdp_send_update(ses: [*c]struct_session, buddy: [*c]struct_port_data) void;
 pub extern fn msdp_get_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8) [*c]u8;
@@ -1187,10 +1187,10 @@ pub extern fn get_nest_index(root: [*c]struct_listroot, variable: [*c]u8, result
 pub extern fn show_nest_node(node: [*c]struct_listnode, result: [*c][*c]u8, initialize: c_int) void;
 pub extern fn view_nest_node_json(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int) void;
 pub extern fn view_nest_node(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int, color: c_int) void;
-pub extern fn set_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn set_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
+pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
 pub extern fn copy_nest_node(dst_root: [*c]struct_listroot, dst: [*c]struct_listnode, src: [*c]struct_listnode) void;
 pub extern fn connect_mud(ses: [*c]struct_session, host: [*c]u8, port: [*c]u8) c_int;
 pub extern fn write_line_mud(ses: [*c]struct_session, line: [*c]u8, size: c_int) void;
@@ -1203,8 +1203,8 @@ pub extern fn is_abbrev_cmp(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_member(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_vowel(str: [*c]u8) c_int;
 pub extern fn filename_string(input: [*c]u8, output: [*c]u8) void;
-pub extern fn execute(ses: [*c]struct_session, format: [*c]u8, ...) [*c]struct_session;
-pub extern fn command(ses: [*c]struct_session, cmd: ?*const COMMAND, format: [*c]u8, ...) [*c]struct_session;
+pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
 pub extern fn parse_input(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn parse_command(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn is_speedwalk(ses: [*c]struct_session, input: [*c]u8) c_int;
@@ -1275,10 +1275,10 @@ pub extern fn port_new(ses: [*c]struct_session, s: c_int) c_int;
 pub extern fn close_port(ses: [*c]struct_session, buddy: [*c]struct_port_data, unlink: c_int) void;
 pub extern fn process_port_connections(ses: [*c]struct_session, read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
 pub extern fn port_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
-pub extern fn port_socket_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_telnet_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, length: usize, format: [*c]u8, ...) void;
-pub extern fn port_log_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
 pub extern fn process_port_input(ses: [*c]struct_session, buddy: [*c]struct_port_data) c_int;
 pub extern fn get_port_commands(ses: [*c]struct_session, buddy: [*c]struct_port_data, buf: [*c]u8, len: c_int) void;
 pub extern fn port_name_change(ses: [*c]struct_session, buddy: [*c]struct_port_data, txt: [*c]u8) void;
@@ -1334,18 +1334,18 @@ pub extern fn new_session(ses: [*c]struct_session, name: [*c]u8, address: [*c]u8
 pub extern fn connect_session(ses: [*c]struct_session) [*c]struct_session;
 pub extern fn cleanup_session(ses: [*c]struct_session) void;
 pub extern fn dispose_session(ses: [*c]struct_session) void;
-pub extern fn show_message(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_error(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_debug(ses: [*c]struct_session, index: c_int, node: [*c]struct_listnode, format: [*c]u8, ...) void;
-pub extern fn show_info(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn tintin_header(ses: [*c]struct_session, width: c_int, format: [*c]u8, ...) void;
+pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
 pub extern fn socket_printf(ses: [*c]struct_session, length: usize, format: [*c]u8, ...) void;
 pub extern fn telnet_printf(ses: [*c]struct_session, length: c_int, format: [*c]u8, ...) void;
-pub extern fn print_lines(ses: [*c]struct_session, flags: c_int, color: [*c]u8, format: [*c]u8, ...) void;
+pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
 pub extern fn show_lines(ses: [*c]struct_session, color: [*c]u8, str: [*c]u8) void;
-pub extern fn tintin_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf2(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf3(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
 pub extern fn tintin_puts(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts2(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts3(ses: [*c]struct_session, string: [*c]u8, prompt: c_int) void;
@@ -1718,7 +1718,7 @@ pub export fn mathexp_compute(arg_ses: [*c]struct_session, arg_node: [*c]struct_
             },
             @as(c_int, 100) => {
                 if (node.*.next.*.val <= @as(c_longdouble, @floatFromInt(@as(c_int, 0)))) {
-                    show_debug(ses, LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast(@volatileCast("#DEBUG MATH: INVALID DICE: %lld")))), @as(c_longlong, @intFromFloat(node.*.next.*.val)));
+                    show_debug(ses, LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast(@volatileCast("#DEBUG MATH: INVALID DICE: %lld")))), .{@as(c_longlong, @intFromFloat(node.*.next.*.val))});
                     value = 0;
                 } else {
                     value = tindice(ses, node.*.prev, node.*.next);
@@ -1739,7 +1739,7 @@ pub export fn mathexp_compute(arg_ses: [*c]struct_session, arg_node: [*c]struct_
             },
             @as(c_int, 47) => {
                 if (node.*.next.*.val == @as(c_longdouble, @floatFromInt(@as(c_int, 0)))) {
-                    show_debug(ses, LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast(@volatileCast("#DEBUG MATH: DIVISION BY ZERO.")))));
+                    show_debug(ses, LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast(@volatileCast("#DEBUG MATH: DIVISION BY ZERO.")))), .{});
                     value = 0;
                     precision = 0;
                 } else {
@@ -1836,7 +1836,7 @@ pub export fn mathexp_compute(arg_ses: [*c]struct_session, arg_node: [*c]struct_
                 break;
             },
             else => {
-                show_debug(ses, LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast(@volatileCast("#DEBUG MATH: UNKNOWN OPERATOR: %c%c%c")))), @rem(@as(c_int, @intFromFloat(node.*.val)), @as(c_int, 128)), @divTrunc(@rem(@as(c_int, @intFromFloat(node.*.val)), @as(c_int, 16384)), @as(c_int, 128)), @divTrunc(@rem(@as(c_int, @intFromFloat(node.*.val)), @as(c_int, 2097152)), @as(c_int, 16384)));
+                show_debug(ses, LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast(@volatileCast("#DEBUG MATH: UNKNOWN OPERATOR: %c%c%c")))), .{@rem(@as(c_int, @intFromFloat(node.*.val)), @as(c_int, 128)), @divTrunc(@rem(@as(c_int, @intFromFloat(node.*.val)), @as(c_int, 16384)), @as(c_int, 128)), @divTrunc(@rem(@as(c_int, @intFromFloat(node.*.val)), @as(c_int, 2097152)), @as(c_int, 16384))});
                 value = 0;
                 break;
             },
@@ -1864,7 +1864,7 @@ pub export fn mathexp_tokenize(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg
     const seed = arg_seed;
     const debug = arg_debug;
 
-    tintin_c.push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("mathexp_tokenize(%p,%s,%d,%d)"))))))))), ses, str, seed, debug);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("mathexp_tokenize(%p,%s,%d,%d)"))))))))), .{ses, str, seed, debug});
 
     const buf3 = tintin_c.str_alloc_stack(0);
 
@@ -1961,7 +1961,7 @@ pub export fn mathexp_tokenize(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg
                     '{' => {
                         if (pta != buf3) {
                             if (debug != 0) {
-                                tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: \\x7B FOUND INSIDE A NUMBER"))))))))));
+                                show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: \\x7B FOUND INSIDE A NUMBER"))))))))), .{});
                             }
                             tintin_c.pop_call();
                             return 0;
@@ -1973,7 +1973,7 @@ pub export fn mathexp_tokenize(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg
                     '"' => {
                         if (pta != buf3) {
                             if (debug != 0) {
-                                tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: \" FOUND INSIDE A NUMBER"))));
+                                show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: \" FOUND INSIDE A NUMBER"))), .{});
                             }
                             tintin_c.pop_call();
                             return 0;
@@ -1985,7 +1985,7 @@ pub export fn mathexp_tokenize(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg
                     '(' => {
                         if (pta != buf3) {
                             if (debug != 0) {
-                                tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: PARANTESES FOUND INSIDE A NUMBER"))))))))));
+                                show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: PARANTESES FOUND INSIDE A NUMBER"))))))))), .{});
                             }
                             tintin_c.pop_call();
                             return 0;
@@ -2006,7 +2006,7 @@ pub export fn mathexp_tokenize(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg
                     },
                     ':' => {
                         if (debug != 0 and wonky == 0) {
-                            tintin_c.show_error(tintin_c.gtd.*.ses, tintin_c.LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#WARNING: COMPUTING {%s}. THE : TIME OPERATOR IN #MATH WILL BE REMOVED IN FUTURE RELEASES."))))))))), str);
+                            show_error(tintin_c.gtd.*.ses, tintin_c.LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#WARNING: COMPUTING {%s}. THE : TIME OPERATOR IN #MATH WILL BE REMOVED IN FUTURE RELEASES."))))))))), .{str});
                         }
                         pta.* = pti.*;
                         pta += 1;
@@ -2049,7 +2049,7 @@ pub export fn mathexp_tokenize(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg
                             pti += 1;
                             if (point >= 0) {
                                 if (debug != 0) {
-                                    tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: MORE THAN ONE POINT FOUND INSIDE A NUMBER"))))))))));
+                                    show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: MORE THAN ONE POINT FOUND INSIDE A NUMBER"))))))))), .{});
                                 }
                                 precision = 0;
                                 tintin_c.pop_call();
@@ -2064,7 +2064,7 @@ pub export fn mathexp_tokenize(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg
                     'd', ')', '*', '/', '%', '<', '>', '&', '^', '|', '=', '?' => {
                         if (pti == str) {
                             if (debug != 0) {
-                                tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: EXPRESSION STARTED WITH AN OPERATOR."))))))))));
+                                show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: EXPRESSION STARTED WITH AN OPERATOR."))))))))), .{});
                             }
                             tintin_c.pop_call();
                             return 0;
@@ -2087,7 +2087,7 @@ pub export fn mathexp_tokenize(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg
                             pta.* = 0;
 
                             if (debug != 0) {
-                                tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH {%s}: FOUND OPERATOR %s WHILE EXPECTING A VALUE."))))))))), str, buf3);
+                                show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH {%s}: FOUND OPERATOR %s WHILE EXPECTING A VALUE."))))))))), .{str, buf3});
                             }
                             tintin_c.pop_call();
                             return 0;
@@ -2101,7 +2101,7 @@ pub export fn mathexp_tokenize(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg
                             pta.* = 0;
 
                             if (debug != 0) {
-                                tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH {%s}: INVALID NUMBER %s."))))))))), str, buf3);
+                                show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH {%s}: INVALID NUMBER %s."))))))))), .{str, buf3});
                             }
 
                             tintin_c.pop_call();
@@ -2212,7 +2212,7 @@ pub export fn mathexp_tokenize(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg
                         pta.* = 0;
 
                         if (debug != 0) {
-                            tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH {%s}: INVALID NUMBER %s."))))))))), str, buf3);
+                            show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH {%s}: INVALID NUMBER %s."))))))))), .{str, buf3});
                         }
                         tintin_c.pop_call();
                         return 0;
@@ -2294,7 +2294,7 @@ pub export fn mathexp_tokenize(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg
                             point = -1;
                         } else {
                             if (debug != 0) {
-                                tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: UNKNOWN OPERATOR: %c%c"))))))))), pti[0], pti[1]);
+                                show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: UNKNOWN OPERATOR: %c%c"))))))))), .{pti[0], pti[1]});
                             }
                             tintin_c.pop_call();
                             return 0;
@@ -2578,7 +2578,7 @@ pub export fn mathexp_tokenize(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg
                             },
                             else => {
                                 if (debug != 0) {
-                                    tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: UNKNOWN OPERATOR: %c%c"))))))))), (pti - 1).*, pti.*);
+                                    show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: UNKNOWN OPERATOR: %c%c"))))))))), .{(pti - 1).*, pti.*});
                                 }
                                 tintin_c.pop_call();
                                 return 0;
@@ -2587,7 +2587,7 @@ pub export fn mathexp_tokenize(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg
                     },
                     else => {
                         if (debug != 0) {
-                            tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: UNKNOWN OPERATOR: %c"))))))))), pti.*);
+                            show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: UNKNOWN OPERATOR: %c"))))))))), .{pti.*});
                         }
                         tintin_c.pop_call();
                         return 0;
@@ -2600,7 +2600,7 @@ pub export fn mathexp_tokenize(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg
 
     if (level != 0) {
         if (debug != 0) {
-            tintin_c.show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: UNMATCHED PARENTHESES, LEVEL: %d"))))))))), level);
+            show_debug(ses, tintin_c.LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG MATH: UNMATCHED PARENTHESES, LEVEL: %d"))))))))), .{level});
         }
         tintin_c.pop_call();
         return 0;
@@ -2647,7 +2647,7 @@ pub export fn tincmp(arg_left: [*c]struct_math_node, arg_right: [*c]struct_math_
     var right = arg_right;
     _ = &right;
     if (@as(c_int, @bitCast(@as(c_uint, left.*.type))) != @as(c_int, @bitCast(@as(c_uint, right.*.type)))) {
-        show_debug(gtd.*.ses, LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast(@volatileCast("#DEBUG MATH: COMPARING STRING WITH A NUMBER.")))));
+        show_debug(gtd.*.ses, LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast(@volatileCast("#DEBUG MATH: COMPARING STRING WITH A NUMBER.")))), .{});
         return 0;
     }
     while (true) {
@@ -2667,7 +2667,7 @@ pub export fn tineval(arg_ses: [*c]struct_session, arg_left: [*c]struct_math_nod
     var right = arg_right;
     _ = &right;
     if (@as(c_int, @bitCast(@as(c_uint, left.*.type))) != @as(c_int, @bitCast(@as(c_uint, right.*.type)))) {
-        show_debug(ses, LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast(@volatileCast("#DEBUG MATH: COMPARING %s WITH %s.")))), if (@as(c_int, @bitCast(@as(c_uint, left.*.type))) == @as(c_int, 0)) "NUMBER" else "STRING", if (@as(c_int, @bitCast(@as(c_uint, right.*.type))) == @as(c_int, 0)) "NUMBER" else "STRING");
+        show_debug(ses, LIST_VARIABLE, null, @as([*c]u8, @ptrCast(@constCast(@volatileCast("#DEBUG MATH: COMPARING %s WITH %s.")))), .{if (@as(c_int, @bitCast(@as(c_uint, left.*.type))) == @as(c_int, 0)) "NUMBER" else "STRING", if (@as(c_int, @bitCast(@as(c_uint, right.*.type))) == @as(c_int, 0)) "NUMBER" else "STRING"});
         return 0;
     }
     while (true) {
@@ -2740,11 +2740,11 @@ pub export fn do_math(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
     arg = sub_arg_in_braces(ses, arg, arg1, @as(c_int, 2), (@as(c_int, 1) << @intCast(4)) | (@as(c_int, 1) << @intCast(5)));
     arg = get_arg_in_braces(ses, arg, arg2, @as(c_int, 1));
     if ((@as(c_int, @bitCast(@as(c_uint, arg1.*))) == @as(c_int, 0)) or (@as(c_int, @bitCast(@as(c_uint, arg2.*))) == @as(c_int, 0))) {
-        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast(@volatileCast("#SYNTAX: #MATH <VARIABLE> <EXPRESSION>")))));
+        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast(@volatileCast("#SYNTAX: #MATH <VARIABLE> <EXPRESSION>")))), .{});
     } else {
         result = get_number(ses, arg2);
-        node = set_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@constCast(@volatileCast("%.*Lf")))), precision, result);
-        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast(@volatileCast("#MATH: VARIABLE {%s} HAS BEEN SET TO {%s}.")))), arg1, node.*.arg2);
+        node = set_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@constCast(@volatileCast("%.*Lf")))), .{precision, result});
+        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast(@volatileCast("#MATH: VARIABLE {%s} HAS BEEN SET TO {%s}.")))), .{arg1, node.*.arg2});
     }
     return ses;
 }

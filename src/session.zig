@@ -6302,7 +6302,7 @@ pub const struct_session = extern struct {
     pub const edit_suspend = __root.edit_suspend;
     pub const edit_write = __root.edit_write;
     pub const do_draw = __root.do_draw;
-    pub const check_all_events = __root.check_all_events;
+    pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
     pub const mouse_handler = __root.mouse_handler;
     pub const do_read = __root.do_read;
     pub const do_write = __root.do_write;
@@ -6348,14 +6348,14 @@ pub const struct_session = extern struct {
     pub const logit = __root.logit;
     pub const write_html_header = __root.write_html_header;
     pub const vt102_to_html = __root.vt102_to_html;
-    pub const syserr_printf = __root.syserr_printf;
+    pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
     pub const do_end = __root.do_end;
     pub const do_nop = __root.do_nop;
     pub const do_test = __root.do_test;
-    pub const arachnos_devel = __root.arachnos_devel;
-    pub const arachnos_mudlist = __root.arachnos_mudlist;
+    pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+    pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
     pub const msdp_update_var = __root.msdp_update_var;
-    pub const msdp_update_varf = __root.msdp_update_varf;
+    pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
     pub const msdp_update_var_instant = __root.msdp_update_var_instant;
     pub const msdp_send_update = __root.msdp_send_update;
     pub const msdp_get_var = __root.msdp_get_var;
@@ -6369,16 +6369,16 @@ pub const struct_session = extern struct {
     pub const write_msdp_to_descriptor = __root.write_msdp_to_descriptor;
     pub const search_nest_base_ses = __root.search_nest_base_ses;
     pub const search_nest_node_ses = __root.search_nest_node_ses;
-    pub const set_nest_node_ses = __root.set_nest_node_ses;
-    pub const add_nest_node_ses = __root.add_nest_node_ses;
+    pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
     pub const connect_mud = __root.connect_mud;
     pub const write_line_mud = __root.write_line_mud;
     pub const read_buffer_mud = __root.read_buffer_mud;
     pub const readmud = __root.readmud;
     pub const process_more_output = __root.process_more_output;
     pub const process_one_line = __root.process_one_line;
-    pub const execute = __root.execute;
-    pub const command = __root.command;
+    pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+    pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
     pub const parse_input = __root.parse_input;
     pub const parse_command = __root.parse_command;
     pub const is_speedwalk = __root.is_speedwalk;
@@ -6447,10 +6447,10 @@ pub const struct_session = extern struct {
     pub const close_port = __root.close_port;
     pub const process_port_connections = __root.process_port_connections;
     pub const port_forward_session = __root.port_forward_session;
-    pub const port_socket_printf = __root.port_socket_printf;
-    pub const port_telnet_printf = __root.port_telnet_printf;
-    pub const port_log_printf = __root.port_log_printf;
-    pub const port_printf = __root.port_printf;
+    pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+    pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+    pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+    pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
     pub const process_port_input = __root.process_port_input;
     pub const get_port_commands = __root.get_port_commands;
     pub const port_name_change = __root.port_name_change;
@@ -6492,18 +6492,18 @@ pub const struct_session = extern struct {
     pub const connect_session = __root.connect_session;
     pub const cleanup_session = __root.cleanup_session;
     pub const dispose_session = __root.dispose_session;
-    pub const show_message = __root.show_message;
-    pub const show_error = __root.show_error;
-    pub const show_debug = __root.show_debug;
-    pub const show_info = __root.show_info;
-    pub const tintin_header = __root.tintin_header;
+    pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+    pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+    pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+    pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+    pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
     pub const socket_printf = __root.socket_printf;
     pub const telnet_printf = __root.telnet_printf;
-    pub const print_lines = __root.print_lines;
+    pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
     pub const show_lines = __root.show_lines;
-    pub const tintin_printf = __root.tintin_printf;
-    pub const tintin_printf2 = __root.tintin_printf2;
-    pub const tintin_printf3 = __root.tintin_printf3;
+    pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+    pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+    pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
     pub const tintin_puts = __root.tintin_puts;
     pub const tintin_puts2 = __root.tintin_puts2;
     pub const tintin_puts3 = __root.tintin_puts3;
@@ -6881,8 +6881,8 @@ pub const struct_listroot = extern struct {
     pub const get_nest_node_key = __root.get_nest_node_key;
     pub const get_nest_node_val = __root.get_nest_node_val;
     pub const get_nest_index = __root.get_nest_index;
-    pub const set_nest_node = __root.set_nest_node;
-    pub const add_nest_node = __root.add_nest_node;
+    pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
     pub const copy_nest_node = __root.copy_nest_node;
     pub const node = __root.show_node;
     pub const root = __root.search_nest_root;
@@ -6929,7 +6929,7 @@ pub const struct_chat_data = extern struct {
     file_block_tot: c_int = 0,
     file_block_patch: c_int = 0,
     file_start_time: c_ulonglong = 0,
-    pub const chat_socket_printf = __root.chat_socket_printf;
+    pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
     pub const close_chat = __root.close_chat;
     pub const chat = __root.close_chat;
 };
@@ -7277,7 +7277,7 @@ pub extern fn buffer_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, a
 pub extern fn buffer_info(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8) void;
 pub extern fn do_chat(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn process_chat_connections(read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
-pub extern fn chat_socket_printf(buddy: [*c]struct_chat_data, format: [*c]u8, ...) void;
+pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
 pub extern fn close_chat(buddy: [*c]struct_chat_data, unlink: c_int) void;
 pub extern fn chat_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
 pub extern fn chat_accept(arg1: [*c]u8, arg2: [*c]u8) void;
@@ -7387,7 +7387,7 @@ pub extern fn str_convert_meta(input: [*c]u8, eol: c_int) [*c]u8;
 pub extern fn echo_command(ses: [*c]struct_session, line: [*c]u8) void;
 pub extern fn init_input(ses: [*c]struct_session, top_row: c_int, top_col: c_int, bot_row: c_int, bot_col: c_int) void;
 pub extern fn free_input(ses: [*c]struct_session) void;
-pub extern fn input_printf(format: [*c]u8, ...) void;
+pub fn input_printf(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").input_printf(arg_format, args); }
 pub extern fn modified_input() void;
 pub extern fn do_map(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn delete_room_data(room: [*c]struct_room_data) void;
@@ -7488,8 +7488,8 @@ pub extern fn insert_node_list(root: [*c]struct_listroot, node: [*c]struct_listn
 pub extern fn insert_index_list(root: [*c]struct_listroot, node: [*c]struct_listnode, index: c_int) [*c]struct_listnode;
 pub extern fn update_node_list(root: [*c]struct_listroot, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_listnode;
 pub extern fn search_node_list(root: [*c]struct_listroot, text: [*c]u8) [*c]struct_listnode;
-pub extern fn push_call(format: [*c]u8, ...) void;
-pub extern fn push_call_printf(format: [*c]u8, ...) c_int;
+pub fn push_call(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").push_call(arg_format, args); }
+pub fn push_call_printf(arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").push_call_printf(arg_format, args)); }
 pub extern fn pop_call() void;
 pub extern fn dump_stack() void;
 pub extern fn do_dictionary(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -7515,7 +7515,7 @@ pub extern fn delete_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn insert_line(edit: [*c]struct_edit_data, index: c_int, str: [*c]u8) void;
 pub extern fn remove_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn do_draw(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
-pub extern fn check_all_events(ses: [*c]struct_session, flags: c_int, args: c_int, vars: c_int, fmt: [*c]u8, ...) c_int;
+pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
 pub extern fn mouse_handler(ses: [*c]struct_session, val1: c_int, val2: c_int, val3: c_int) void;
 pub extern fn do_read(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn do_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -7573,7 +7573,7 @@ pub extern fn main(argc: c_int, argv: [*c][*c]u8) c_int;
 pub extern fn init_tintin(greeting: c_int) void;
 pub extern fn quitmsg(message: [*c]u8) void;
 pub extern fn syserr_fatal(signal: c_int, msg: [*c]u8) void;
-pub extern fn syserr_printf(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
+pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
 pub extern fn zlib_alloc(@"opaque": ?*anyopaque, items: c_uint, size: c_uint) ?*anyopaque;
 pub extern fn zlib_free(@"opaque": ?*anyopaque, address: ?*anyopaque) void;
 pub extern fn restring(point: [*c]u8, string: [*c]u8) [*c]u8;
@@ -7611,11 +7611,11 @@ pub extern fn do_nop(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [
 pub extern fn do_test(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn init_msdp_table() void;
 pub extern fn msdp_find(@"var": [*c]u8) c_int;
-pub extern fn arachnos_devel(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn arachnos_mudlist(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn msdp_update_all(@"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
+pub fn msdp_update_all(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_all(arg0, arg_format, args); }
 pub extern fn msdp_update_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, str: [*c]u8) void;
-pub extern fn msdp_update_varf(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
 pub extern fn msdp_update_var_instant(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
 pub extern fn msdp_send_update(ses: [*c]struct_session, buddy: [*c]struct_port_data) void;
 pub extern fn msdp_get_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8) [*c]u8;
@@ -7652,10 +7652,10 @@ pub extern fn get_nest_index(root: [*c]struct_listroot, variable: [*c]u8, result
 pub extern fn show_nest_node(node: [*c]struct_listnode, result: [*c][*c]u8, initialize: c_int) void;
 pub extern fn view_nest_node_json(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int) void;
 pub extern fn view_nest_node(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int, color: c_int) void;
-pub extern fn set_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn set_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
+pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
 pub extern fn copy_nest_node(dst_root: [*c]struct_listroot, dst: [*c]struct_listnode, src: [*c]struct_listnode) void;
 pub extern fn connect_mud(ses: [*c]struct_session, host: [*c]u8, port: [*c]u8) c_int;
 pub extern fn write_line_mud(ses: [*c]struct_session, line: [*c]u8, size: c_int) void;
@@ -7668,8 +7668,8 @@ pub extern fn is_abbrev_cmp(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_member(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_vowel(str: [*c]u8) c_int;
 pub extern fn filename_string(input: [*c]u8, output: [*c]u8) void;
-pub extern fn execute(ses: [*c]struct_session, format: [*c]u8, ...) [*c]struct_session;
-pub extern fn command(ses: [*c]struct_session, cmd: ?*const COMMAND, format: [*c]u8, ...) [*c]struct_session;
+pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
 pub extern fn parse_input(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn parse_command(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn is_speedwalk(ses: [*c]struct_session, input: [*c]u8) c_int;
@@ -7740,10 +7740,10 @@ pub extern fn port_new(ses: [*c]struct_session, s: c_int) c_int;
 pub extern fn close_port(ses: [*c]struct_session, buddy: [*c]struct_port_data, unlink: c_int) void;
 pub extern fn process_port_connections(ses: [*c]struct_session, read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
 pub extern fn port_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
-pub extern fn port_socket_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_telnet_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, length: usize, format: [*c]u8, ...) void;
-pub extern fn port_log_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
 pub extern fn process_port_input(ses: [*c]struct_session, buddy: [*c]struct_port_data) c_int;
 pub extern fn get_port_commands(ses: [*c]struct_session, buddy: [*c]struct_port_data, buf: [*c]u8, len: c_int) void;
 pub extern fn port_name_change(ses: [*c]struct_session, buddy: [*c]struct_port_data, txt: [*c]u8) void;
@@ -7815,7 +7815,7 @@ pub export fn do_session(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
         {
             sesptr = gts.*.next;
             while (sesptr != null) : (sesptr = sesptr.*.next) {
-                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%-10s %18s:%-5s %5s %6s %10s %7s %5s"))))))))))))), sesptr.*.name, sesptr.*.session_host, sesptr.*.session_port, if (sesptr == gtd.*.ses) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(ats)"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), if (sesptr.*.ssl != null) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(ssl)"))))))))))))) else if (sesptr.*.port != null) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(port)"))))))))))))) else if ((sesptr.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" (run)"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), if ((sesptr.*.mccp2 != null) and (sesptr.*.mccp3 != null)) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(mccp 2+3)"))))))))))))) else if (sesptr.*.mccp2 != null) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(mccp 2)"))))))))))))) else if (sesptr.*.mccp3 != null) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(mccp 3)"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), if ((sesptr.*.flags & ((@as(c_int, 1) << @intCast(@as(c_int, 11))) | (@as(c_int, 1) << @intCast(@as(c_int, 12))))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(snoop)"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), if (sesptr.*.log.*.file != null) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(log)"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
+                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%-10s %18s:%-5s %5s %6s %10s %7s %5s"))))))))))))), .{sesptr.*.name, sesptr.*.session_host, sesptr.*.session_port, if (sesptr == gtd.*.ses) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(ats)"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), if (sesptr.*.ssl != null) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(ssl)"))))))))))))) else if (sesptr.*.port != null) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(port)"))))))))))))) else if ((sesptr.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" (run)"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), if ((sesptr.*.mccp2 != null) and (sesptr.*.mccp3 != null)) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(mccp 2+3)"))))))))))))) else if (sesptr.*.mccp2 != null) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(mccp 2)"))))))))))))) else if (sesptr.*.mccp3 != null) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(mccp 3)"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), if ((sesptr.*.flags & ((@as(c_int, 1) << @intCast(@as(c_int, 11))) | (@as(c_int, 1) << @intCast(@as(c_int, 12))))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(snoop)"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), if (sesptr.*.log.*.file != null) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(log)"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("")))))))))))))});
             }
         }
     } else if ((@as(c_int, arg1.*) != 0) and (@as(c_int, arg.*) == @as(c_int, 0))) {
@@ -7876,7 +7876,7 @@ pub export fn do_session(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
         if (sesptr != null) {
             return activate_session(sesptr);
         }
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SESSION {%s} IS NOT DEFINED."))))))))))))), arg1);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SESSION {%s} IS NOT DEFINED."))))))))))))), .{arg1});
     } else {
         ses = new_session(ses, arg1, arg, 0, 0);
     }
@@ -7902,7 +7902,7 @@ pub export fn do_snoop(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
     if (@as(c_int, arg1.*) != 0) {
         sesptr = find_session(arg1);
         if (@as(?*anyopaque, @ptrCast(@alignCast(sesptr))) == @as(?*anyopaque, null)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: THERE'S NO SESSION NAMED {%s}."))))))))))))), arg1);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: THERE'S NO SESSION NAMED {%s}."))))))))))))), .{arg1});
             return ses;
         }
     } else {
@@ -7910,37 +7910,37 @@ pub export fn do_snoop(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
     }
     if (@as(c_int, arg2.*) == @as(c_int, 0)) {
         if ((sesptr.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 11)))) != 0) {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: NO LONGER SNOOPING SESSION '%s'."))))))))))))), sesptr.*.name);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: NO LONGER SNOOPING SESSION '%s'."))))))))))))), .{sesptr.*.name});
         } else {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: SNOOPING SESSION '%s'."))))))))))))), sesptr.*.name);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: SNOOPING SESSION '%s'."))))))))))))), .{sesptr.*.name});
         }
         sesptr.*.flags ^= @as(c_int, 1) << @intCast(@as(c_int, 11));
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON")))))))))))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: SNOOPING SESSION '%s'."))))))))))))), sesptr.*.name);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: SNOOPING SESSION '%s'."))))))))))))), .{sesptr.*.name});
         sesptr.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 11));
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))))))))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: NO LONGER SNOOPING SESSION '%s'."))))))))))))), sesptr.*.name);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: NO LONGER SNOOPING SESSION '%s'."))))))))))))), .{sesptr.*.name});
         sesptr.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 11)));
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCROLL")))))))))))))) != 0) {
         arg = sub_arg_in_braces(ses, arg, arg2, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
         if (@as(c_int, arg2.*) == @as(c_int, 0)) {
             if ((sesptr.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 12)))) != 0) {
-                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: NO LONGER SNOOPING SCROLL REGION OF SESSION '%s'."))))))))))))), sesptr.*.name);
+                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: NO LONGER SNOOPING SCROLL REGION OF SESSION '%s'."))))))))))))), .{sesptr.*.name});
             } else {
-                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: SNOOPING SCROLL REGION OF SESSION '%s'."))))))))))))), sesptr.*.name);
+                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: SNOOPING SCROLL REGION OF SESSION '%s'."))))))))))))), .{sesptr.*.name});
             }
             sesptr.*.flags ^= @as(c_int, 1) << @intCast(@as(c_int, 12));
         } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON")))))))))))))) != 0) {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: SNOOPING SCROLL REGION OF SESSION '%s'."))))))))))))), sesptr.*.name);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: SNOOPING SCROLL REGION OF SESSION '%s'."))))))))))))), .{sesptr.*.name});
             sesptr.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 12));
         } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))))))))))) != 0) {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: NO LONGER SNOOPING SCROLL REGION OF SESSION '%s'."))))))))))))), sesptr.*.name);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SNOOP: NO LONGER SNOOPING SCROLL REGION OF SESSION '%s'."))))))))))))), .{sesptr.*.name});
             sesptr.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 12)));
         } else {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SNOOP <SESSION> {SCROLL} {ON|OFF}"))))))))))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SNOOP <SESSION> {SCROLL} {ON|OFF}"))))))))))))), .{});
         }
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SNOOP <SESSION> {ON|OFF|SCROLL}"))))))))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SNOOP <SESSION> {ON|OFF|SCROLL}"))))))))))))), .{});
     }
     return ses;
 }
@@ -7959,22 +7959,22 @@ pub export fn do_zap(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c
     _ = &arg4;
     var sesptr: [*c]struct_session = undefined;
     _ = &sesptr;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("do_zap(%p,%p)"))))))))))))), ses, arg);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("do_zap(%p,%p)"))))))))))))), .{ses, arg});
     _ = sub_arg_in_braces(ses, arg, arg1, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) != 0) {
         sesptr = find_session(arg1);
         if (@as(?*anyopaque, @ptrCast(@alignCast(sesptr))) == @as(?*anyopaque, null)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ZAP: THERE'S NO SESSION NAMED {%s}"))))))))))))), arg1);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ZAP: THERE'S NO SESSION NAMED {%s}"))))))))))))), .{arg1});
             pop_call();
             return ses;
         }
     } else {
         sesptr = ses;
     }
-    tintin_printf(sesptr, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
-    tintin_printf(sesptr, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ZZZZZZZAAAAAAAAPPPP!!!!!!!!! LET'S GET OUTTA HERE!!!!!!!!"))))))))))))));
+    tintin_printf(sesptr, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), .{});
+    tintin_printf(sesptr, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ZZZZZZZAAAAAAAAPPPP!!!!!!!!! LET'S GET OUTTA HERE!!!!!!!!"))))))))))))), .{});
     if (sesptr == gts) {
-        _ = command(ses, do_end, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
+        _ = command(ses, do_end, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), .{});
         pop_call();
         return gts;
     }
@@ -7984,7 +7984,7 @@ pub export fn do_zap(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c
         return gtd.*.ses;
     }
     cleanup_session(sesptr);
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ZAP: SESSION {%s} HAS BEEN ZAPPED."))))))))))))), sesptr.*.name);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ZAP: SESSION {%s} HAS BEEN ZAPPED."))))))))))))), .{sesptr.*.name});
     pop_call();
     return ses;
 }
@@ -8008,7 +8008,7 @@ pub export fn find_session(arg_name: [*c]u8) [*c]struct_session {
     return null;
 }
 pub export fn newactive_session() [*c]struct_session {
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("newactive_session(void)"))))))))))))));
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("newactive_session(void)"))))))))))))), .{});
     if (gts.*.next != null) {
         _ = activate_session(gts.*.next);
     } else {
@@ -8020,13 +8020,13 @@ pub export fn newactive_session() [*c]struct_session {
 pub export fn activate_session(arg_ses: [*c]struct_session) [*c]struct_session {
     var ses = arg_ses;
     _ = &ses;
-    _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 13)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SESSION DEACTIVATED"))))))))))))), gtd.*.ses.*.name, ses.*.name);
+    _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 13)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SESSION DEACTIVATED"))))))))))))), .{gtd.*.ses.*.name, ses.*.name});
     gtd.*.ses = ses;
     dirty_screen(ses);
-    if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 5)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG SESSION ACTIVATED"))))))))))))), ses.*.name, gtd.*.ses.*.name) != 0)) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SESSION '%s' ACTIVATED."))))))))))))), ses.*.name);
+    if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 5)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG SESSION ACTIVATED"))))))))))))), .{ses.*.name, gtd.*.ses.*.name}) != 0)) {
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SESSION '%s' ACTIVATED."))))))))))))), .{ses.*.name});
     }
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 13)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SESSION ACTIVATED"))))))))))))), ses.*.name, gtd.*.ses.*.name);
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 13)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SESSION ACTIVATED"))))))))))))), .{ses.*.name, gtd.*.ses.*.name});
     return ses;
 }
 pub export fn new_session(arg_ses: [*c]struct_session, arg_name: [*c]u8, arg_arg: [*c]u8, arg_desc: c_int, arg_ssl: c_int) [*c]struct_session {
@@ -8050,7 +8050,7 @@ pub export fn new_session(arg_ses: [*c]struct_session, arg_name: [*c]u8, arg_arg
     _ = &file;
     var newses: [*c]struct_session = undefined;
     _ = &newses;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("new_session(%p,%p,%p,%d,%d)"))))))))))))), ses, name, arg, desc, ssl);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("new_session(%p,%p,%p,%d,%d)"))))))))))))), .{ses, name, arg, desc, ssl});
     if ((gtd.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != 0) {
         pop_call();
         return ses;
@@ -8060,7 +8060,7 @@ pub export fn new_session(arg_ses: [*c]struct_session, arg_name: [*c]u8, arg_arg
     arg = sub_arg_in_braces(ses, arg, @ptrCast(@alignCast(&file)), GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (desc == @as(c_int, 0)) {
         if (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&host))).*) == @as(c_int, 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #SESSION {%s} {%s}: YOU MUST SPECIFY AN ADDRESS."))))))))))))), name, @as([*c]u8, @ptrCast(@alignCast(&host))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #SESSION {%s} {%s}: YOU MUST SPECIFY AN ADDRESS."))))))))))))), .{name, @as([*c]u8, @ptrCast(@alignCast(&host)))});
             pop_call();
             return ses;
         }
@@ -8069,7 +8069,7 @@ pub export fn new_session(arg_ses: [*c]struct_session, arg_name: [*c]u8, arg_arg
         }
     }
     if (find_session(name) != null) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#THERE'S A SESSION NAMED {%s} ALREADY."))))))))))))), name);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#THERE'S A SESSION NAMED {%s} ALREADY."))))))))))))), .{name});
         pop_call();
         return ses;
     }
@@ -8141,12 +8141,12 @@ pub export fn new_session(arg_ses: [*c]struct_session, arg_name: [*c]u8, arg_arg
     init_buffer(newses, gts.*.scroll.*.size);
     _ = memcpy(@ptrCast(@alignCast(&newses.*.cur_terminal)), @ptrCast(@alignCast(&gts.*.cur_terminal)), @sizeOf(@TypeOf(gts.*.cur_terminal)));
     if (desc == @as(c_int, 0)) {
-        if (!(check_all_events(newses, @as(c_int, 1) << @intCast(@as(c_int, 5)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG SESSION CREATED"))))))))))))), newses.*.name, newses.*.session_host, newses.*.session_ip, newses.*.session_port) != 0)) {
-            tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#TRYING TO CONNECT '%s' TO '%s' PORT '%s'."))))))))))))), newses.*.name, newses.*.session_host, newses.*.session_port);
+        if (!(check_all_events(newses, @as(c_int, 1) << @intCast(@as(c_int, 5)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG SESSION CREATED"))))))))))))), .{newses.*.name, newses.*.session_host, newses.*.session_ip, newses.*.session_port}) != 0)) {
+            tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#TRYING TO CONNECT '%s' TO '%s' PORT '%s'."))))))))))))), .{newses.*.name, newses.*.session_host, newses.*.session_port});
         }
     } else if (desc == -@as(c_int, 1)) {} else {
-        if (!(check_all_events(newses, @as(c_int, 1) << @intCast(@as(c_int, 5)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG SESSION CREATED"))))))))))))), newses.*.name, newses.*.session_host, newses.*.session_ip, newses.*.session_port) != 0)) {
-            tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#TRYING TO LAUNCH '%s' RUNNING '%s'."))))))))))))), newses.*.name, newses.*.session_host);
+        if (!(check_all_events(newses, @as(c_int, 1) << @intCast(@as(c_int, 5)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG SESSION CREATED"))))))))))))), .{newses.*.name, newses.*.session_host, newses.*.session_ip, newses.*.session_port}) != 0)) {
+            tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#TRYING TO LAUNCH '%s' RUNNING '%s'."))))))))))))), .{newses.*.name, newses.*.session_host});
         }
     }
     if (gtd.*.level.*.background == @as(c_uint, 0)) {
@@ -8174,14 +8174,14 @@ pub export fn new_session(arg_ses: [*c]struct_session, arg_name: [*c]u8, arg_arg
         }
     }
     if (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&file))).*) != 0) {
-        newses = command(newses, do_read, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))))))))), @as([*c]u8, @ptrCast(@alignCast(&file))));
+        newses = command(newses, do_read, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))))))))), .{@as([*c]u8, @ptrCast(@alignCast(&file)))});
     }
-    _ = check_all_events(newses, @as(c_int, 1) << @intCast(@as(c_int, 13)), 0, 5, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SESSION CREATED"))))))))))))), newses.*.name, newses.*.session_host, newses.*.session_ip, newses.*.session_port, @as([*c]u8, @ptrCast(@alignCast(&file))));
+    _ = check_all_events(newses, @as(c_int, 1) << @intCast(@as(c_int, 13)), 0, 5, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SESSION CREATED"))))))))))))), .{newses.*.name, newses.*.session_host, newses.*.session_ip, newses.*.session_port, @as([*c]u8, @ptrCast(@alignCast(&file)))});
     if (((newses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) and !((newses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0)) {
-        if (!(check_all_events(newses, @as(c_int, 1) << @intCast(@as(c_int, 5)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG SESSION CONNECTED"))))))))))))), newses.*.name, newses.*.session_host, newses.*.session_ip, newses.*.session_port) != 0)) {
-            tintin_printf(newses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\n#SESSION '%s' CONNECTED TO '%s' PORT '%s'"))))))))))))), newses.*.name, newses.*.session_host, newses.*.session_port);
+        if (!(check_all_events(newses, @as(c_int, 1) << @intCast(@as(c_int, 5)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG SESSION CONNECTED"))))))))))))), .{newses.*.name, newses.*.session_host, newses.*.session_ip, newses.*.session_port}) != 0)) {
+            tintin_printf(newses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\n#SESSION '%s' CONNECTED TO '%s' PORT '%s'"))))))))))))), .{newses.*.name, newses.*.session_host, newses.*.session_port});
         }
-        _ = check_all_events(newses, @as(c_int, 1) << @intCast(@as(c_int, 13)), 0, 5, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SESSION CONNECTED"))))))))))))), newses.*.name, newses.*.session_host, newses.*.session_ip, newses.*.session_port, @as([*c]u8, @ptrCast(@alignCast(&file))));
+        _ = check_all_events(newses, @as(c_int, 1) << @intCast(@as(c_int, 13)), 0, 5, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SESSION CONNECTED"))))))))))))), .{newses.*.name, newses.*.session_host, newses.*.session_ip, newses.*.session_port, @as([*c]u8, @ptrCast(@alignCast(&file)))});
     }
     if (gtd.*.level.*.background == @as(c_uint, 0)) {
         pop_call();
@@ -8199,7 +8199,7 @@ pub export fn connect_session(arg_ses: [*c]struct_session) [*c]struct_session {
         var to: struct_timeval = @import("std").mem.zeroes(struct_timeval);
     };
     _ = &static_local_to;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("connect_session(%p)"))))))))))))), ses);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("connect_session(%p)"))))))))))))), .{ses});
     ses.*.connect_retry = (blk: {
         const ref = &gtd.*.utime;
         ref.* +%= 1;
@@ -8228,7 +8228,7 @@ pub export fn connect_session(arg_ses: [*c]struct_session) [*c]struct_session {
             if (select(__DARWIN_FD_SETSIZE, &readfds, null, null, &static_local_to.to) <= @as(c_int, 0)) {
                 if (static_local_to.to.tv_sec == @as(__darwin_time_t, 0)) {
                     static_local_to.to.tv_sec = 2;
-                    tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SESSION '%s' FAILED TO CONNECT. RETRYING FOR %d SECONDS."))))))))))))), ses.*.name, (ses.*.connect_retry -% gtd.*.utime) / @as(c_ulonglong, 1000000));
+                    tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SESSION '%s' FAILED TO CONNECT. RETRYING FOR %d SECONDS."))))))))))))), .{ses.*.name, (ses.*.connect_retry -% gtd.*.utime) / @as(c_ulonglong, 1000000)});
                 }
                 continue;
             }
@@ -8236,7 +8236,7 @@ pub export fn connect_session(arg_ses: [*c]struct_session) [*c]struct_session {
         break;
     }
     if (ses.*.connect_error != 0) {
-        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SESSION '%s' FAILED TO CONNECT."))))))))))))), ses.*.name);
+        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SESSION '%s' FAILED TO CONNECT."))))))))))))), .{ses.*.name});
     }
     cleanup_session(ses);
     pop_call();
@@ -8245,9 +8245,9 @@ pub export fn connect_session(arg_ses: [*c]struct_session) [*c]struct_session {
 pub export fn cleanup_session(arg_ses: [*c]struct_session) void {
     var ses = arg_ses;
     _ = &ses;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cleanup_session(%p)"))))))))))))), ses);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cleanup_session(%p)"))))))))))))), .{ses});
     if ((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) {
-        tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\n#SESSION '%s' IS ALREADY CLOSED."))))))))))))), ses.*.name);
+        tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\n#SESSION '%s' IS ALREADY CLOSED."))))))))))))), .{ses.*.name});
         dump_stack();
         pop_call();
         return;
@@ -8258,7 +8258,7 @@ pub export fn cleanup_session(arg_ses: [*c]struct_session) void {
     }
     {
         if (((@as(?*anyopaque, @ptrCast(@alignCast(ses.*.prev))) == @as(?*anyopaque, null)) and (ses != gts.*.next)) or ((@as(?*anyopaque, @ptrCast(@alignCast(ses.*.next))) == @as(?*anyopaque, null)) and (ses != gts.*.prev))) {
-            tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNLINK ERROR in file %s on line %d"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("src/session.c"))))))))))))), @as(c_int, 662));
+            tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNLINK ERROR in file %s on line %d"))))))))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("src/session.c"))))))))))))), @as(c_int, 662)});
             dump_stack();
         }
         if (@as(?*anyopaque, @ptrCast(@alignCast(ses.*.prev))) == @as(?*anyopaque, null)) {
@@ -8277,11 +8277,11 @@ pub export fn cleanup_session(arg_ses: [*c]struct_session) void {
     if (ses.*.socket != 0) {
         if (((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) and !((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0)) {
             if (shutdown(ses.*.socket, SHUT_RDWR) == -@as(c_int, 1)) {
-                syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cleanup_session: shutdown"))))))))))))));
+                syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cleanup_session: shutdown"))))))))))))), .{});
             }
         }
         if (close(ses.*.socket) == -@as(c_int, 1)) {
-            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cleanup_session: close"))))))))))))));
+            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cleanup_session: close"))))))))))))), .{});
         }
         if ((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0) {
             var status: c_int = undefined;
@@ -8291,7 +8291,7 @@ pub export fn cleanup_session(arg_ses: [*c]struct_session) void {
             _ = kill(atoi(ses.*.session_port), SIGTERM);
             pid = waitpid(atoi(ses.*.session_port), &status, 0);
             if (pid == -@as(c_int, 1)) {
-                syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cleanup_session: waitpid"))))))))))))));
+                syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cleanup_session: waitpid"))))))))))))), .{});
             }
         }
     }
@@ -8299,21 +8299,21 @@ pub export fn cleanup_session(arg_ses: [*c]struct_session) void {
     client_end_mccp3(ses);
     if ((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) {
         ses.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 2)));
-        if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 5)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG SESSION DESTROYED"))))))))))))), ses.*.name, ses.*.session_host, ses.*.session_ip, ses.*.session_port) != 0)) {
-            tintin_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SESSION '%s' DIED."))))))))))))), ses.*.name);
+        if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 5)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG SESSION DESTROYED"))))))))))))), .{ses.*.name, ses.*.session_host, ses.*.session_ip, ses.*.session_port}) != 0)) {
+            tintin_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SESSION '%s' DIED."))))))))))))), .{ses.*.name});
         }
         if (!((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0)) {
-            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 13)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SESSION DISCONNECTED"))))))))))))), ses.*.name, ses.*.session_host, ses.*.session_ip, ses.*.session_port);
+            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 13)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SESSION DISCONNECTED"))))))))))))), .{ses.*.name, ses.*.session_host, ses.*.session_ip, ses.*.session_port});
         }
     } else if (ses.*.port != null) {
         _ = port_uninitialize(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
     } else {
-        if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 5)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG SESSION TIMED OUT"))))))))))))), ses.*.name, ses.*.session_host, ses.*.session_ip, ses.*.session_port) != 0)) {
-            tintin_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SESSION '%s' TIMED OUT."))))))))))))), ses.*.name);
+        if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 5)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG SESSION TIMED OUT"))))))))))))), .{ses.*.name, ses.*.session_host, ses.*.session_ip, ses.*.session_port}) != 0)) {
+            tintin_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SESSION '%s' TIMED OUT."))))))))))))), .{ses.*.name});
         }
-        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 13)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SESSION TIMED OUT"))))))))))))), ses.*.name, ses.*.session_host, ses.*.session_ip, ses.*.session_port);
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 13)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SESSION TIMED OUT"))))))))))))), .{ses.*.name, ses.*.session_host, ses.*.session_ip, ses.*.session_port});
     }
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 13)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SESSION DESTROYED"))))))))))))), ses.*.name, ses.*.session_host, ses.*.session_ip, ses.*.session_port);
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 13)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SESSION DESTROYED"))))))))))))), .{ses.*.name, ses.*.session_host, ses.*.session_ip, ses.*.session_port});
     if (ses == gtd.*.ses) {
         gtd.*.ses = newactive_session();
     }
@@ -8338,10 +8338,10 @@ pub export fn dispose_session(arg_ses: [*c]struct_session) void {
     _ = &ses;
     var index_1: c_int = undefined;
     _ = &index_1;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("dispose_session(%p)"))))))))))))), ses);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("dispose_session(%p)"))))))))))))), .{ses});
     {
         if (((@as(?*anyopaque, @ptrCast(@alignCast(ses.*.prev))) == @as(?*anyopaque, null)) and (ses != gtd.*.dispose_next)) or ((@as(?*anyopaque, @ptrCast(@alignCast(ses.*.next))) == @as(?*anyopaque, null)) and (ses != gtd.*.dispose_prev))) {
-            tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNLINK ERROR in file %s on line %d"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("src/session.c"))))))))))))), @as(c_int, 757));
+            tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNLINK ERROR in file %s on line %d"))))))))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("src/session.c"))))))))))))), @as(c_int, 757)});
             dump_stack();
         }
         if (@as(?*anyopaque, @ptrCast(@alignCast(ses.*.prev))) == @as(?*anyopaque, null)) {
@@ -8398,18 +8398,18 @@ pub export fn dispose_session(arg_ses: [*c]struct_session) void {
     pop_call();
     return;
 }
-pub extern fn show_message(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_error(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_debug(ses: [*c]struct_session, index: c_int, node: [*c]struct_listnode, format: [*c]u8, ...) void;
-pub extern fn show_info(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn tintin_header(ses: [*c]struct_session, width: c_int, format: [*c]u8, ...) void;
+pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
 pub extern fn socket_printf(ses: [*c]struct_session, length: usize, format: [*c]u8, ...) void;
 pub extern fn telnet_printf(ses: [*c]struct_session, length: c_int, format: [*c]u8, ...) void;
-pub extern fn print_lines(ses: [*c]struct_session, flags: c_int, color: [*c]u8, format: [*c]u8, ...) void;
+pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
 pub extern fn show_lines(ses: [*c]struct_session, color: [*c]u8, str: [*c]u8) void;
-pub extern fn tintin_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf2(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf3(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
 pub extern fn tintin_puts(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts2(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts3(ses: [*c]struct_session, string: [*c]u8, prompt: c_int) void;
@@ -8710,8 +8710,8 @@ pub export fn do_all(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c
             }
         }
     } else {
-        if (!(check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG RECEIVED ERROR ALL"))))))))))))), arg1) != 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ALL: THERE AREN'T ANY SESSIONS."))))))))))))));
+        if (!(check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG RECEIVED ERROR ALL"))))))))))))), .{arg1}) != 0)) {
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ALL: THERE AREN'T ANY SESSIONS."))))))))))))), .{});
         }
     }
     return ses;

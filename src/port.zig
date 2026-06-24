@@ -6293,7 +6293,7 @@ pub const struct_session = extern struct {
     pub const edit_suspend = __root.edit_suspend;
     pub const edit_write = __root.edit_write;
     pub const do_draw = __root.do_draw;
-    pub const check_all_events = __root.check_all_events;
+    pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
     pub const mouse_handler = __root.mouse_handler;
     pub const do_read = __root.do_read;
     pub const do_write = __root.do_write;
@@ -6339,14 +6339,14 @@ pub const struct_session = extern struct {
     pub const logit = __root.logit;
     pub const write_html_header = __root.write_html_header;
     pub const vt102_to_html = __root.vt102_to_html;
-    pub const syserr_printf = __root.syserr_printf;
+    pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
     pub const do_end = __root.do_end;
     pub const do_nop = __root.do_nop;
     pub const do_test = __root.do_test;
-    pub const arachnos_devel = __root.arachnos_devel;
-    pub const arachnos_mudlist = __root.arachnos_mudlist;
+    pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+    pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
     pub const msdp_update_var = __root.msdp_update_var;
-    pub const msdp_update_varf = __root.msdp_update_varf;
+    pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
     pub const msdp_update_var_instant = __root.msdp_update_var_instant;
     pub const msdp_send_update = __root.msdp_send_update;
     pub const msdp_get_var = __root.msdp_get_var;
@@ -6360,16 +6360,16 @@ pub const struct_session = extern struct {
     pub const write_msdp_to_descriptor = __root.write_msdp_to_descriptor;
     pub const search_nest_base_ses = __root.search_nest_base_ses;
     pub const search_nest_node_ses = __root.search_nest_node_ses;
-    pub const set_nest_node_ses = __root.set_nest_node_ses;
-    pub const add_nest_node_ses = __root.add_nest_node_ses;
+    pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
     pub const connect_mud = __root.connect_mud;
     pub const write_line_mud = __root.write_line_mud;
     pub const read_buffer_mud = __root.read_buffer_mud;
     pub const readmud = __root.readmud;
     pub const process_more_output = __root.process_more_output;
     pub const process_one_line = __root.process_one_line;
-    pub const execute = __root.execute;
-    pub const command = __root.command;
+    pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+    pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
     pub const parse_input = __root.parse_input;
     pub const parse_command = __root.parse_command;
     pub const is_speedwalk = __root.is_speedwalk;
@@ -6437,10 +6437,10 @@ pub const struct_session = extern struct {
     pub const close_port = __root.close_port;
     pub const process_port_connections = __root.process_port_connections;
     pub const port_forward_session = __root.port_forward_session;
-    pub const port_socket_printf = __root.port_socket_printf;
-    pub const port_telnet_printf = __root.port_telnet_printf;
-    pub const port_log_printf = __root.port_log_printf;
-    pub const port_printf = __root.port_printf;
+    pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+    pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+    pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+    pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
     pub const process_port_input = __root.process_port_input;
     pub const get_port_commands = __root.get_port_commands;
     pub const port_name_change = __root.port_name_change;
@@ -6482,18 +6482,18 @@ pub const struct_session = extern struct {
     pub const connect_session = __root.connect_session;
     pub const cleanup_session = __root.cleanup_session;
     pub const dispose_session = __root.dispose_session;
-    pub const show_message = __root.show_message;
-    pub const show_error = __root.show_error;
-    pub const show_debug = __root.show_debug;
-    pub const show_info = __root.show_info;
-    pub const tintin_header = __root.tintin_header;
+    pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+    pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+    pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+    pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+    pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
     pub const socket_printf = __root.socket_printf;
     pub const telnet_printf = __root.telnet_printf;
-    pub const print_lines = __root.print_lines;
+    pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
     pub const show_lines = __root.show_lines;
-    pub const tintin_printf = __root.tintin_printf;
-    pub const tintin_printf2 = __root.tintin_printf2;
-    pub const tintin_printf3 = __root.tintin_printf3;
+    pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+    pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+    pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
     pub const tintin_puts = __root.tintin_puts;
     pub const tintin_puts2 = __root.tintin_puts2;
     pub const tintin_puts3 = __root.tintin_puts3;
@@ -6874,8 +6874,8 @@ pub const struct_listroot = extern struct {
     pub const get_nest_node_key = __root.get_nest_node_key;
     pub const get_nest_node_val = __root.get_nest_node_val;
     pub const get_nest_index = __root.get_nest_index;
-    pub const set_nest_node = __root.set_nest_node;
-    pub const add_nest_node = __root.add_nest_node;
+    pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
     pub const copy_nest_node = __root.copy_nest_node;
     pub const node = __root.show_node;
     pub const root = __root.search_nest_root;
@@ -6922,7 +6922,7 @@ pub const struct_chat_data = extern struct {
     file_block_tot: c_int = 0,
     file_block_patch: c_int = 0,
     file_start_time: c_ulonglong = 0,
-    pub const chat_socket_printf = __root.chat_socket_printf;
+    pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
     pub const close_chat = __root.close_chat;
     pub const chat = __root.close_chat;
 };
@@ -7270,7 +7270,7 @@ pub extern fn buffer_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, a
 pub extern fn buffer_info(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8) void;
 pub extern fn do_chat(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn process_chat_connections(read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
-pub extern fn chat_socket_printf(buddy: [*c]struct_chat_data, format: [*c]u8, ...) void;
+pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
 pub extern fn close_chat(buddy: [*c]struct_chat_data, unlink: c_int) void;
 pub extern fn chat_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
 pub extern fn chat_accept(arg1: [*c]u8, arg2: [*c]u8) void;
@@ -7380,7 +7380,7 @@ pub extern fn str_convert_meta(input: [*c]u8, eol: c_int) [*c]u8;
 pub extern fn echo_command(ses: [*c]struct_session, line: [*c]u8) void;
 pub extern fn init_input(ses: [*c]struct_session, top_row: c_int, top_col: c_int, bot_row: c_int, bot_col: c_int) void;
 pub extern fn free_input(ses: [*c]struct_session) void;
-pub extern fn input_printf(format: [*c]u8, ...) void;
+pub fn input_printf(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").input_printf(arg_format, args); }
 pub extern fn modified_input() void;
 pub extern fn do_map(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn delete_room_data(room: [*c]struct_room_data) void;
@@ -7481,8 +7481,8 @@ pub extern fn insert_node_list(root: [*c]struct_listroot, node: [*c]struct_listn
 pub extern fn insert_index_list(root: [*c]struct_listroot, node: [*c]struct_listnode, index: c_int) [*c]struct_listnode;
 pub extern fn update_node_list(root: [*c]struct_listroot, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_listnode;
 pub extern fn search_node_list(root: [*c]struct_listroot, text: [*c]u8) [*c]struct_listnode;
-pub extern fn push_call(format: [*c]u8, ...) void;
-pub extern fn push_call_printf(format: [*c]u8, ...) c_int;
+pub fn push_call(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").push_call(arg_format, args); }
+pub fn push_call_printf(arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").push_call_printf(arg_format, args)); }
 pub extern fn pop_call() void;
 pub extern fn dump_stack() void;
 pub extern fn do_dictionary(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -7508,7 +7508,7 @@ pub extern fn delete_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn insert_line(edit: [*c]struct_edit_data, index: c_int, str: [*c]u8) void;
 pub extern fn remove_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn do_draw(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
-pub extern fn check_all_events(ses: [*c]struct_session, flags: c_int, args: c_int, vars: c_int, fmt: [*c]u8, ...) c_int;
+pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
 pub extern fn mouse_handler(ses: [*c]struct_session, val1: c_int, val2: c_int, val3: c_int) void;
 pub extern fn do_read(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn do_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -7566,7 +7566,7 @@ pub extern fn main(argc: c_int, argv: [*c][*c]u8) c_int;
 pub extern fn init_tintin(greeting: c_int) void;
 pub extern fn quitmsg(message: [*c]u8) void;
 pub extern fn syserr_fatal(signal: c_int, msg: [*c]u8) void;
-pub extern fn syserr_printf(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
+pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
 pub extern fn zlib_alloc(@"opaque": ?*anyopaque, items: c_uint, size: c_uint) ?*anyopaque;
 pub extern fn zlib_free(@"opaque": ?*anyopaque, address: ?*anyopaque) void;
 pub extern fn restring(point: [*c]u8, string: [*c]u8) [*c]u8;
@@ -7604,11 +7604,11 @@ pub extern fn do_nop(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [
 pub extern fn do_test(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn init_msdp_table() void;
 pub extern fn msdp_find(@"var": [*c]u8) c_int;
-pub extern fn arachnos_devel(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn arachnos_mudlist(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn msdp_update_all(@"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
+pub fn msdp_update_all(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_all(arg0, arg_format, args); }
 pub extern fn msdp_update_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, str: [*c]u8) void;
-pub extern fn msdp_update_varf(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
 pub extern fn msdp_update_var_instant(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
 pub extern fn msdp_send_update(ses: [*c]struct_session, buddy: [*c]struct_port_data) void;
 pub extern fn msdp_get_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8) [*c]u8;
@@ -7645,10 +7645,10 @@ pub extern fn get_nest_index(root: [*c]struct_listroot, variable: [*c]u8, result
 pub extern fn show_nest_node(node: [*c]struct_listnode, result: [*c][*c]u8, initialize: c_int) void;
 pub extern fn view_nest_node_json(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int) void;
 pub extern fn view_nest_node(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int, color: c_int) void;
-pub extern fn set_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn set_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
+pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
 pub extern fn copy_nest_node(dst_root: [*c]struct_listroot, dst: [*c]struct_listnode, src: [*c]struct_listnode) void;
 pub extern fn connect_mud(ses: [*c]struct_session, host: [*c]u8, port: [*c]u8) c_int;
 pub extern fn write_line_mud(ses: [*c]struct_session, line: [*c]u8, size: c_int) void;
@@ -7661,8 +7661,8 @@ pub extern fn is_abbrev_cmp(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_member(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_vowel(str: [*c]u8) c_int;
 pub extern fn filename_string(input: [*c]u8, output: [*c]u8) void;
-pub extern fn execute(ses: [*c]struct_session, format: [*c]u8, ...) [*c]struct_session;
-pub extern fn command(ses: [*c]struct_session, cmd: ?*const COMMAND, format: [*c]u8, ...) [*c]struct_session;
+pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
 pub extern fn parse_input(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn parse_command(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn is_speedwalk(ses: [*c]struct_session, input: [*c]u8) c_int;
@@ -7768,7 +7768,7 @@ pub export fn port_color(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     var arg2 = arg_arg2;
     _ = &arg2;
     if ((@as(c_int, arg1.*) == @as(c_int, 0)) or !(is_color_name(arg1) != 0)) {
-        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Valid colors are:\n\nreset, bold, dim, light, dark, underscore, blink, reverse, black, red, green, yellow, blue, magenta, cyan, white, b black, b red, b green, b yellow, b blue, b magenta, b cyan, b white"))))))));
+        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Valid colors are:\n\nreset, bold, dim, light, dark, underscore, blink, reverse, black, red, green, yellow, blue, magenta, cyan, white, b black, b red, b green, b yellow, b blue, b magenta, b cyan, b white"))))))), .{});
         return ses;
     }
     _ = get_color_names(gtd.*.ses, arg1, arg2);
@@ -7778,7 +7778,7 @@ pub export fn port_color(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
         }
         ses.*.port.*.color = strdup(arg2);
     }
-    port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Color has been set to %s"))))))), arg1);
+    port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Color has been set to %s"))))))), .{arg1});
     return ses;
 }
 pub export fn port_flag(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) [*c]struct_session {
@@ -7791,7 +7791,7 @@ pub export fn port_flag(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     var arg2 = arg_arg2;
     _ = &arg2;
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #PORT FLAG <DND|PRIVATE> [ON|OFF]"))))))));
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #PORT FLAG <DND|PRIVATE> [ON|OFF]"))))))), .{});
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DND")))))))) != 0) {
         if (!(strcasecmp(arg2, "ON") != 0)) {
             ses.*.port.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 7));
@@ -7800,13 +7800,13 @@ pub export fn port_flag(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
         } else if (@as(c_int, arg2.*) == @as(c_int, 0)) {
             ses.*.port.*.flags ^= @as(c_int, 1) << @intCast(@as(c_int, 7));
         } else {
-            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #PORT FLAG DND [ON|OFF]"))))))));
+            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #PORT FLAG DND [ON|OFF]"))))))), .{});
             return ses;
         }
         if ((ses.*.port.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) {
-            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("New connections are no longer accepted."))))))));
+            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("New connections are no longer accepted."))))))), .{});
         } else {
-            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("New connections are accepted."))))))));
+            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("New connections are accepted."))))))), .{});
         }
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PRIVATE")))))))) != 0) {
         if (!(strcasecmp(arg2, "ON") != 0)) {
@@ -7816,13 +7816,13 @@ pub export fn port_flag(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
         } else if (@as(c_int, arg2.*) == @as(c_int, 0)) {
             ses.*.port.*.flags ^= @as(c_int, 1) << @intCast(@as(c_int, 0));
         } else {
-            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #PORT FLAG PRIVATE [ON|OFF]"))))))));
+            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #PORT FLAG PRIVATE [ON|OFF]"))))))), .{});
             return ses;
         }
         if ((ses.*.port.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) {
-            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Remote connections are no longer accepted."))))))));
+            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Remote connections are no longer accepted."))))))), .{});
         } else {
-            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Remote connections are accepted."))))))));
+            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Remote connections are accepted."))))))), .{});
         }
     }
     return ses;
@@ -7841,22 +7841,22 @@ pub export fn port_group(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     var cnt: c_int = 0;
     _ = &cnt;
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     %-15s  %-20s  %-5s  %-15s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Address"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Port"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Group"))))))));
-        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  ====================  =====  ==================== "))))))));
+        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     %-15s  %-20s  %-5s  %-15s"))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Address"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Port"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Group")))))))});
+        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  ====================  =====  ==================== "))))))), .{});
         {
             buddy = ses.*.port.*.next;
             while (buddy != null) : (buddy = buddy.*.next) {
-                tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %03d %-15s  %-20s  %-5u  %-20s"))))))), blk: {
+                tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %03d %-15s  %-20s  %-5u  %-20s"))))))), .{blk: {
                     const ref = &cnt;
                     const tmp = ref.*;
                     ref.* += 1;
                     break :blk tmp;
-                }, buddy.*.name, buddy.*.ip, buddy.*.port, buddy.*.group);
+                }, buddy.*.name, buddy.*.ip, buddy.*.port, buddy.*.group});
             }
         }
-        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  ====================  =====  ==================== "))))))));
+        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  ====================  =====  ==================== "))))))), .{});
     } else if (!(strcasecmp(arg1, "ALL") != 0)) {
-        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You set everyone's group to '%s'"))))))), arg2);
+        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You set everyone's group to '%s'"))))))), .{arg2});
         {
             buddy = ses.*.port.*.next;
             while (buddy != null) : (buddy = buddy.*.next) {
@@ -7880,9 +7880,9 @@ pub export fn port_group(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
                 }
                 buddy.*.group = strdup(arg2);
             }
-            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You set %s's group to '%s'"))))))), buddy.*.name, arg2);
+            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You set %s's group to '%s'"))))))), .{buddy.*.name, arg2});
         } else {
-            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         }
     }
     return ses;
@@ -7903,14 +7903,14 @@ pub export fn port_ignore(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
         buddy = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         return ses;
     }
     buddy.*.flags ^= @as(c_int, 1) << @intCast(@as(c_int, 3));
     if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) {
-        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are now ignoring %s."))))))), buddy.*.name);
+        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are now ignoring %s."))))))), .{buddy.*.name});
     } else {
-        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are no longer ignoring %s."))))))), buddy.*.name);
+        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are no longer ignoring %s."))))))), .{buddy.*.name});
     }
     return ses;
 }
@@ -7939,18 +7939,18 @@ pub export fn port_initialize(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_
     _ = &reuse;
     arg = sub_arg_in_braces(ses, arg, @ptrCast(@alignCast(&file)), GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if ((@as(c_int, arg1.*) == @as(c_int, 0)) or (@as(c_int, arg2.*) == @as(c_int, 0))) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #PORT INITIALIZE {NAME} {PORT} {FILE}"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #PORT INITIALIZE {NAME} {PORT} {FILE}"))))))), .{});
         return ses;
     }
     if (find_session(arg1) != null) {
-        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#PORT INITIALIZE: THERE'S A SESSION NAMED {%s} ALREADY."))))))), arg1);
+        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#PORT INITIALIZE: THERE'S A SESSION NAMED {%s} ALREADY."))))))), .{arg1});
         return ses;
     }
     if (!(is_number(arg2) != 0)) {
-        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#PORT INITIALIZE: {%s} IS NOT A VALID PORT NUMBER."))))))), arg2);
+        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#PORT INITIALIZE: {%s} IS NOT A VALID PORT NUMBER."))))))), .{arg2});
         return ses;
     }
-    tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#TRYING TO LAUNCH '%s' ON PORT '%s'."))))))), arg1, arg2);
+    tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#TRYING TO LAUNCH '%s' ON PORT '%s'."))))))), .{arg1, arg2});
     _ = snprintf(@ptrCast(@alignCast(&temp)), BUFFER_SIZE, "{localhost} {%d} {%.*s}", atoi(arg2), PATH_SIZE, @as([*c]u8, @ptrCast(@alignCast(&file))));
     port = atoi(arg2);
     if (port != 0) {
@@ -7959,27 +7959,27 @@ pub export fn port_initialize(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_
         sin_1.sin_port = @as(__uint16_t, @bitCast(@as(c_short, @truncate(if (__builtin.constant_p(port) != 0) @as(c_int, @as(__uint16_t, @truncate(((@as(c_uint, @bitCast(@as(c_int, @as(c_int, @as(__uint16_t, @bitCast(@as(c_short, @truncate(port)))))))) & @as(c_uint, 65280)) >> @intCast(@as(c_uint, 8))) | ((@as(c_uint, @bitCast(@as(c_int, @as(c_int, @as(__uint16_t, @bitCast(@as(c_short, @truncate(port)))))))) & @as(c_uint, 255)) << @intCast(@as(c_uint, 8)))))) else @as(c_int, _OSSwapInt16(@bitCast(@as(c_short, @truncate(port)))))))));
         sock = socket(AF_INET, SOCK_STREAM, 0);
         if (sock < @as(c_int, 0)) {
-            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("port_initialize: socket"))))))));
+            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("port_initialize: socket"))))))), .{});
             return ses;
         }
         if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, @ptrCast(@alignCast(&reuse)), @truncate(@sizeOf(c_int))) == -@as(c_int, 1)) {
-            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("port_initialize: setsockopt"))))))));
+            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("port_initialize: setsockopt"))))))), .{});
             return ses;
         }
         ld.l_onoff = 0;
         ld.l_linger = 100;
         _ = setsockopt(sock, SOL_SOCKET, SO_LINGER, @ptrCast(@alignCast(@as([*c]u8, @ptrCast(@alignCast(&ld))))), @truncate(@sizeOf(@TypeOf(ld))));
         if (fcntl(sock, F_SETFL, O_NONBLOCK | O_NONBLOCK) == -@as(c_int, 1)) {
-            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("port_initialize: fcntl O_NDELAY|O_NONBLOCK"))))))));
+            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("port_initialize: fcntl O_NDELAY|O_NONBLOCK"))))))), .{});
             return ses;
         }
         if (bind(sock, @ptrCast(@alignCast(&sin_1)), @truncate(@sizeOf(@TypeOf(sin_1)))) < @as(c_int, 0)) {
-            tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#PORT INITIALIZE: PORT %d IS ALREADY IN USE."))))))), port);
+            tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#PORT INITIALIZE: PORT %d IS ALREADY IN USE."))))))), .{port});
             _ = close(sock);
             return ses;
         }
         if (listen(sock, 32) == -@as(c_int, 1)) {
-            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("port_initialize: listen"))))))));
+            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("port_initialize: listen"))))))), .{});
             _ = close(sock);
             return ses;
         }
@@ -7993,9 +7993,9 @@ pub export fn port_initialize(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_
     ses.*.port.*.color = strdup("\x1b[0;1;36m");
     ses.*.port.*.ip = strdup("<Unknown>");
     ses.*.port.*.prefix = strdup("<PORT> ");
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 10)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PORT INITIALIZED"))))))), ses.*.name, ntos(ses.*.port.*.port), ntos(ses.*.port.*.fd));
-    if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 10)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG PORT INITIALIZED"))))))), ses.*.name, ntos(ses.*.port.*.port)) != 0)) {
-        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#PORT INITIALIZE: SESSION {%s} IS LISTENING ON PORT %d."))))))), ses.*.name, ses.*.port.*.port);
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 10)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PORT INITIALIZED"))))))), .{ses.*.name, ntos(ses.*.port.*.port), ntos(ses.*.port.*.fd)});
+    if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 10)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG PORT INITIALIZED"))))))), .{ses.*.name, ntos(ses.*.port.*.port)}) != 0)) {
+        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#PORT INITIALIZE: SESSION {%s} IS LISTENING ON PORT %d."))))))), .{ses.*.name, ses.*.port.*.port});
     }
     return ses;
 }
@@ -8008,10 +8008,10 @@ pub export fn port_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     _ = &arg1;
     var arg2 = arg_arg2;
     _ = &arg2;
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Port                 : %d"))))))), ses.*.port.*.port);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Prefix               : %s"))))))), ses.*.port.*.prefix);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Color                : %s"))))))), str_convert_meta(ses.*.port.*.color, TRUE));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DND                  : %s"))))))), if ((ses.*.port.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("On"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Off"))))))));
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Port                 : %d"))))))), .{ses.*.port.*.port});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Prefix               : %s"))))))), .{ses.*.port.*.prefix});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Color                : %s"))))))), .{str_convert_meta(ses.*.port.*.color, TRUE)});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DND                  : %s"))))))), .{if ((ses.*.port.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("On"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Off")))))))});
     return ses;
 }
 pub extern fn port_message(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8) [*c]struct_session;
@@ -8029,7 +8029,7 @@ pub export fn port_name(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     buddy = find_port_buddy(ses, arg1);
     _ = substitute(ses, arg2, arg2, (@as(c_int, 1) << @intCast(@as(c_int, 6))) | (@as(c_int, 1) << @intCast(@as(c_int, 7))));
     if (@as(?*anyopaque, @ptrCast(@alignCast(buddy))) == @as(?*anyopaque, null)) {
-        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("There is no socket named '%s'."))))))), arg1);
+        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("There is no socket named '%s'."))))))), .{arg1});
         return ses;
     }
     {
@@ -8038,7 +8038,7 @@ pub export fn port_name(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
         }
         buddy.*.name = strdup(arg2);
     }
-    port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name of socket '%s' changed to '%s'."))))))), arg1, buddy.*.name);
+    port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name of socket '%s' changed to '%s'."))))))), .{arg1, buddy.*.name});
     return ses;
 }
 pub export fn port_prefix(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) [*c]struct_session {
@@ -8056,7 +8056,7 @@ pub export fn port_prefix(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
         }
         ses.*.port.*.prefix = strdup(arg1);
     }
-    port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Prefix set to '%s'"))))))), ses.*.port.*.prefix);
+    port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Prefix set to '%s'"))))))), .{ses.*.port.*.prefix});
     return ses;
 }
 pub export fn port_proxy(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) [*c]struct_session {
@@ -8077,11 +8077,11 @@ pub export fn port_proxy(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
         buddy = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         return ses;
     }
     if ((buddy.*.ses != null) and (@as(c_int, arg2.*) == @as(c_int, 0))) {
-        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Socket '%s' is no longer a proxy for '%s'."))))))), arg1, buddy.*.ses.*.name);
+        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Socket '%s' is no longer a proxy for '%s'."))))))), .{arg1, buddy.*.ses.*.name});
         buddy.*.ses.*.proxy = null;
         buddy.*.ses = null;
         return ses;
@@ -8091,12 +8091,12 @@ pub export fn port_proxy(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
         bridge = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("The session '%s' could not be found."))))))), arg2);
+        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("The session '%s' could not be found."))))))), .{arg2});
         return ses;
     }
     buddy.*.ses = ses;
     bridge.*.proxy = buddy;
-    port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Socket '%s' is now a proxy for '%s'."))))))), arg1, buddy.*.ses.*.name);
+    port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Socket '%s' is now a proxy for '%s'."))))))), .{arg1, buddy.*.ses.*.name});
     return ses;
 }
 pub export fn port_rank(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) [*c]struct_session {
@@ -8115,36 +8115,36 @@ pub export fn port_rank(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     var rank: c_int = undefined;
     _ = &rank;
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     %-15s  %-20s  %-5s  %-15s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Address"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Port"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Rank"))))))));
-        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  ====================  =====  ==================== "))))))));
+        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     %-15s  %-20s  %-5s  %-15s"))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Address"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Port"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Rank")))))))});
+        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  ====================  =====  ==================== "))))))), .{});
         cnt = 0;
         {
             buddy = ses.*.port.*.next;
             while (buddy != null) : (buddy = buddy.*.next) {
-                tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %03d %-15s  %-20s  %-5u  %-20s"))))))), blk: {
+                tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %03d %-15s  %-20s  %-5u  %-20s"))))))), .{blk: {
                     const ref = &cnt;
                     const tmp = ref.*;
                     ref.* += 1;
                     break :blk tmp;
-                }, buddy.*.name, buddy.*.ip, buddy.*.port, rank_table[@bitCast(@as(isize, @intCast(buddy.*.rank)))].name);
+                }, buddy.*.name, buddy.*.ip, buddy.*.port, rank_table[@bitCast(@as(isize, @intCast(buddy.*.rank)))].name});
             }
         }
-        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  ====================  =====  ==================== "))))))));
+        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  ====================  =====  ==================== "))))))), .{});
         return ses;
     }
     if (@as(c_int, arg2.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #PORT RANK <NAME> <SPY|SCOUT>"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #PORT RANK <NAME> <SPY|SCOUT>"))))))), .{});
         return ses;
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SPY")))))))) != 0) {
         rank = PORT_RANK_SPY;
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCOUT")))))))) != 0) {
         rank = PORT_RANK_SCOUT;
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #PORT RANK <NAME> <SPY|SCOUT>"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #PORT RANK <NAME> <SPY|SCOUT>"))))))), .{});
         return ses;
     }
     if (!(strcasecmp(arg1, "ALL") != 0)) {
-        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You set everyone's rank to '%s'"))))))), rank_table[@bitCast(@as(isize, @intCast(rank)))].name);
+        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You set everyone's rank to '%s'"))))))), .{rank_table[@bitCast(@as(isize, @intCast(rank)))].name});
         {
             buddy = ses.*.port.*.next;
             while (buddy != null) : (buddy = buddy.*.next) {
@@ -8158,9 +8158,9 @@ pub export fn port_rank(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
             break :blk tmp;
         }))) != @as(?*anyopaque, null)) {
             buddy.*.rank = rank;
-            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("YOU SET %s'S RANK TO '%s'"))))))), buddy.*.name, rank_table[@bitCast(@as(isize, @intCast(buddy.*.rank)))]);
+            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("YOU SET %s'S RANK TO '%s'"))))))), .{buddy.*.name, rank_table[@bitCast(@as(isize, @intCast(buddy.*.rank)))]});
         } else {
-            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("YOU ARE NOT CONNECTED TO ANYONE NAMED '%s'."))))))), arg1);
+            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("YOU ARE NOT CONNECTED TO ANYONE NAMED '%s'."))))))), .{arg1});
         }
     }
     return ses;
@@ -8181,7 +8181,7 @@ pub export fn port_send(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
         {
             buddy = ses.*.port.*.next;
             while (buddy != null) : (buddy = buddy.*.next) {
-                port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), arg2);
+                port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{arg2});
             }
         }
     } else {
@@ -8190,18 +8190,18 @@ pub export fn port_send(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
             buddy = tmp;
             break :blk tmp;
         }))) != @as(?*anyopaque, null)) {
-            port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), arg2);
+            port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{arg2});
         } else if (@as(?*anyopaque, @ptrCast(@alignCast(find_port_group(ses, arg1)))) != @as(?*anyopaque, null)) {
             {
                 buddy = ses.*.port.*.next;
                 while (buddy != null) : (buddy = buddy.*.next) {
                     if (!(strcmp(buddy.*.group, arg1) != 0)) {
-                        port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), arg2);
+                        port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{arg2});
                     }
                 }
             }
         } else {
-            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("There is no socket named '%s'."))))))), arg1);
+            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("There is no socket named '%s'."))))))), .{arg1});
         }
     }
     return ses;
@@ -8222,9 +8222,9 @@ pub export fn port_uninitialize(arg_ses: [*c]struct_session, arg_arg: [*c]u8, ar
     }
     close_port(ses, ses.*.port, FALSE);
     ses.*.port = null;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 10)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PORT UNINITIALIZED"))))))), ses.*.name, ntos(port));
-    if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 10)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG PORT UNINITIALIZED"))))))), ses.*.name, ntos(port)) != 0)) {
-        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#PORT UNINITIALIZE: CLOSED PORT {%d}."))))))), port);
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 10)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PORT UNINITIALIZED"))))))), .{ses.*.name, ntos(port)});
+    if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 10)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG PORT UNINITIALIZED"))))))), .{ses.*.name, ntos(port)}) != 0)) {
+        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#PORT UNINITIALIZE: CLOSED PORT {%d}."))))))), .{port});
     }
     if (!((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0)) {
         cleanup_session(ses);
@@ -8244,20 +8244,20 @@ pub export fn port_who(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
     _ = &buddy;
     var cnt: c_int = 1;
     _ = &cnt;
-    tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     %-15s  %-5s  %-20s  %-5s  "))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Flags"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Address"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Port"))))))));
-    tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  =====  ====================  =====  "))))))));
+    tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     %-15s  %-5s  %-20s  %-5s  "))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Flags"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Address"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Port")))))))});
+    tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  =====  ====================  =====  "))))))), .{});
     {
         buddy = ses.*.port.*.next;
         while (buddy != null) : (buddy = buddy.*.next) {
-            tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %03d %+15s  %s%s%s%s%s  %+20s  %+5u"))))))), blk: {
+            tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %03d %+15s  %s%s%s%s%s  %+20s  %+5u"))))))), .{blk: {
                 const ref = &cnt;
                 const tmp = ref.*;
                 ref.* += 1;
                 break :blk tmp;
-            }, buddy.*.name, if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("P"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("I"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("S"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("F"))))))) else if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("f"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), buddy.*.ip, buddy.*.port);
+            }, buddy.*.name, if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("P"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("I"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("S"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("F"))))))) else if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("f"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), buddy.*.ip, buddy.*.port});
         }
     }
-    tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  =====  ====================  ===== "))))))));
+    tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  =====  ====================  ===== "))))))), .{});
     return ses;
 }
 pub export fn port_zap(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) [*c]struct_session {
@@ -8283,7 +8283,7 @@ pub export fn port_zap(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
         }) != null) {
             close_port(ses, buddy, TRUE);
         } else {
-            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("There is no socket named '%s'."))))))), arg1);
+            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("There is no socket named '%s'."))))))), .{arg1});
         }
     }
     return ses;
@@ -8301,7 +8301,7 @@ pub export fn port_new(arg_ses: [*c]struct_session, arg_sock: c_int) c_int {
     _ = &len;
     var fd: c_int = undefined;
     _ = &fd;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("port_new(%p,%d)"))))))), ses, sock);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("port_new(%p,%d)"))))))), .{ses, sock});
     len = @truncate(@sizeOf(@TypeOf(sock)));
     _ = getsockname(sock, @ptrCast(@alignCast(&sock_addr)), &len);
     if ((blk: {
@@ -8309,12 +8309,12 @@ pub export fn port_new(arg_ses: [*c]struct_session, arg_sock: c_int) c_int {
         fd = tmp;
         break :blk tmp;
     }) < @as(c_int, 0)) {
-        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("port_new: accept"))))))));
+        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("port_new: accept"))))))), .{});
         pop_call();
         return -@as(c_int, 1);
     }
     if (fcntl(fd, F_SETFL, O_NONBLOCK | O_NONBLOCK) == -@as(c_int, 1)) {
-        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("port_new: fcntl O_NDELAY|O_NONBLOCK"))))))));
+        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("port_new: fcntl O_NDELAY|O_NONBLOCK"))))))), .{});
     }
     if ((ses.*.port.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) {
         _ = close(fd);
@@ -8323,7 +8323,7 @@ pub export fn port_new(arg_ses: [*c]struct_session, arg_sock: c_int) c_int {
     }
     if ((ses.*.port.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) {
         if (strcmp(inet_ntoa(sock_addr.sin_addr), "127.0.0.1") != 0) {
-            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s D%d Refusing remote connection, private flag set."))))))), inet_ntoa(sock_addr.sin_addr), fd);
+            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s D%d Refusing remote connection, private flag set."))))))), .{inet_ntoa(sock_addr.sin_addr), fd});
             _ = close(fd);
             pop_call();
             return -@as(c_int, 1);
@@ -8350,11 +8350,11 @@ pub export fn port_new(arg_ses: [*c]struct_session, arg_sock: c_int) c_int {
         new_buddy.*.prev = ses.*.port.*.prev;
         ses.*.port.*.prev = new_buddy;
     }
-    port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("New connection: %s D%d."))))))), new_buddy.*.ip, new_buddy.*.fd);
+    port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("New connection: %s D%d."))))))), .{new_buddy.*.ip, new_buddy.*.fd});
     if ((ses.*.config_flags & (@as(c_int, 1) << @intCast(@as(c_int, 15)))) != 0) {
         announce_support(ses, new_buddy);
     }
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 10)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PORT CONNECTION"))))))), new_buddy.*.name, new_buddy.*.ip, ntos(new_buddy.*.port));
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 10)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PORT CONNECTION"))))))), .{new_buddy.*.name, new_buddy.*.ip, ntos(new_buddy.*.port)});
     pop_call();
     return 0;
 }
@@ -8366,7 +8366,7 @@ pub export fn close_port(arg_ses: [*c]struct_session, arg_buddy: [*c]struct_port
     var unlink_1 = arg_unlink_1;
     _ = &unlink_1;
     buddy.*.flags = 0;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("close_port(%p,%p,%d)"))))))), ses, buddy, unlink_1);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("close_port(%p,%p,%d)"))))))), .{ses, buddy, unlink_1});
     if (unlink_1 != 0) {
         ses.*.port.*.total -= 1;
         if (buddy == ses.*.port.*.update) {
@@ -8374,7 +8374,7 @@ pub export fn close_port(arg_ses: [*c]struct_session, arg_buddy: [*c]struct_port
         }
         {
             if (((@as(?*anyopaque, @ptrCast(@alignCast(buddy.*.prev))) == @as(?*anyopaque, null)) and (buddy != ses.*.port.*.next)) or ((@as(?*anyopaque, @ptrCast(@alignCast(buddy.*.next))) == @as(?*anyopaque, null)) and (buddy != ses.*.port.*.prev))) {
-                tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNLINK ERROR in file %s on line %d"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("src/port.c"))))))), @as(c_int, 335));
+                tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNLINK ERROR in file %s on line %d"))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("src/port.c"))))))), @as(c_int, 335)});
                 dump_stack();
             }
             if (@as(?*anyopaque, @ptrCast(@alignCast(buddy.*.prev))) == @as(?*anyopaque, null)) {
@@ -8394,14 +8394,14 @@ pub export fn close_port(arg_ses: [*c]struct_session, arg_buddy: [*c]struct_port
     buddy.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 8));
     if (buddy != ses.*.port) {
         if (@as(c_int, buddy.*.name.*) == @as(c_int, 0)) {
-            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Closing connection to %s D%d"))))))), buddy.*.ip, buddy.*.fd);
+            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Closing connection to %s D%d"))))))), .{buddy.*.ip, buddy.*.fd});
         } else {
-            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Closing connection to %s@%s D%d."))))))), buddy.*.name, buddy.*.ip, buddy.*.fd);
+            port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Closing connection to %s@%s D%d."))))))), .{buddy.*.name, buddy.*.ip, buddy.*.fd});
         }
-        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 10)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PORT DISCONNECTION"))))))), buddy.*.name, buddy.*.ip, ntos(buddy.*.port));
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 10)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PORT DISCONNECTION"))))))), .{buddy.*.name, buddy.*.ip, ntos(buddy.*.port)});
     }
     if ((buddy.*.fd != 0) and (close(buddy.*.fd) == -@as(c_int, 1))) {
-        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("close_port: close"))))))));
+        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("close_port: close"))))))), .{});
     }
     end_mccp2(ses, buddy);
     end_mccp3(ses, buddy);
@@ -8425,7 +8425,7 @@ pub export fn process_port_connections(arg_ses: [*c]struct_session, arg_read_set
     _ = &exc_set;
     var buddy: [*c]struct_port_data = undefined;
     _ = &buddy;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("process_port_connections(%p,%p,%p)"))))))), read_set, write_set, exc_set);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("process_port_connections(%p,%p,%p)"))))))), .{read_set, write_set, exc_set});
     if (__darwin_fd_isset(ses.*.port.*.fd, read_set) != 0) {
         _ = port_new(ses, ses.*.port.*.fd);
     }
@@ -8455,10 +8455,10 @@ pub export fn process_port_connections(arg_ses: [*c]struct_session, arg_read_set
     return;
 }
 pub extern fn port_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void; // src/port.c:440:6: warning: TODO unable to translate variadic function, demoted to extern
-pub extern fn port_socket_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void; // src/port.c:453:6: warning: TODO unable to translate variadic function, demoted to extern
-pub extern fn port_telnet_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, length: usize, format: [*c]u8, ...) void; // src/port.c:498:6: warning: TODO unable to translate variadic function, demoted to extern
-pub extern fn port_log_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void; // src/port.c:472:6: warning: TODO unable to translate variadic function, demoted to extern
-pub extern fn port_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); } // src/port.c:453:6: warning: TODO unable to translate variadic function, demoted to extern
+pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); } // src/port.c:498:6: warning: TODO unable to translate variadic function, demoted to extern
+pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); } // src/port.c:472:6: warning: TODO unable to translate variadic function, demoted to extern
+pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
 pub export fn process_port_input(arg_ses: [*c]struct_session, arg_buddy: [*c]struct_port_data) c_int {
     var ses = arg_ses;
     _ = &ses;
@@ -8474,7 +8474,7 @@ pub export fn process_port_input(arg_ses: [*c]struct_session, arg_buddy: [*c]str
     _ = &size;
     var echo: c_int = undefined;
     _ = &echo;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("process_port_input(%p)"))))))), buddy);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("process_port_input(%p)"))))))), .{buddy});
     {
         size = @truncate(read(buddy.*.fd, @ptrCast(@alignCast(@as([*c]u8, @ptrCast(@alignCast(&input))))), @bitCast(@as(c_long, @divTrunc(BUFFER_SIZE, @as(c_int, 4))))));
         if (size < @as(c_int, 0)) {
@@ -8482,7 +8482,7 @@ pub export fn process_port_input(arg_ses: [*c]struct_session, arg_buddy: [*c]str
                 pop_call();
                 return 0;
             }
-            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("process_port_input: read:"))))))));
+            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("process_port_input: read:"))))))), .{});
             pop_call();
             return -@as(c_int, 1);
         }
@@ -8491,8 +8491,8 @@ pub export fn process_port_input(arg_ses: [*c]struct_session, arg_buddy: [*c]str
             return -@as(c_int, 1);
         }
         input[@bitCast(@as(isize, @intCast(size)))] = 0;
-        _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 10))), 0, 5, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PORT RECEIVED DATA"))))))), buddy.*.name, buddy.*.ip, ntos(buddy.*.port), @as([*c]u8, @ptrCast(@alignCast(&input))), ntos(size));
-        if (check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 5, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH PORT RECEIVED DATA"))))))), buddy.*.name, buddy.*.ip, ntos(buddy.*.port), @as([*c]u8, @ptrCast(@alignCast(&input))), ntos(size)) != 0) {
+        _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 10))), 0, 5, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PORT RECEIVED DATA"))))))), .{buddy.*.name, buddy.*.ip, ntos(buddy.*.port), @as([*c]u8, @ptrCast(@alignCast(&input))), ntos(size)});
+        if (check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 5, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH PORT RECEIVED DATA"))))))), .{buddy.*.name, buddy.*.ip, ntos(buddy.*.port), @as([*c]u8, @ptrCast(@alignCast(&input))), ntos(size)}) != 0) {
             pop_call();
             return 0;
         }
@@ -8511,18 +8511,18 @@ pub export fn process_port_input(arg_ses: [*c]struct_session, arg_buddy: [*c]str
                     ])) {
                         @as(c_int, 8), @as(c_int, 127) => {
                             input[@bitCast(@as(isize, @intCast(echo)))] = '\x08';
-                            port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x08 \x08"))))))));
+                            port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x08 \x08"))))))), .{});
                             break;
                         },
                         @as(c_int, '\n') => {
-                            port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\r\n"))))))));
+                            port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\r\n"))))))), .{});
                             break;
                         },
                         else => {
                             if ((buddy.*.comm_flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) {
-                                port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("*"))))))));
+                                port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("*"))))))), .{});
                             } else {
-                                port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c"))))))), input[@bitCast(@as(isize, @intCast(echo)))]);
+                                port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c"))))))), .{input[@bitCast(@as(isize, @intCast(echo)))]});
                             }
                             break;
                         },
@@ -8532,10 +8532,10 @@ pub export fn process_port_input(arg_ses: [*c]struct_session, arg_buddy: [*c]str
             }
         }
         if (buddy.*.intop > @divTrunc(BUFFER_SIZE, @as(c_int, 4))) {
-            port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31mYou overflowed your input buffer, you must reconnect.\n"))))))));
+            port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31mYou overflowed your input buffer, you must reconnect.\n"))))))), .{});
             input[@divTrunc(BUFFER_SIZE, @as(c_int, 2))] = 0;
-            port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s\n"))))))), @as([*c]u8, @ptrCast(@alignCast(&input))));
-            port_log_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Buffer overflow, closing connection."))))))));
+            port_socket_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s\n"))))))), .{@as([*c]u8, @ptrCast(@alignCast(&input)))});
+            port_log_printf(ses, buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Buffer overflow, closing connection."))))))), .{});
             pop_call();
             return -@as(c_int, 1);
         }
@@ -8572,10 +8572,10 @@ pub export fn get_port_commands(arg_ses: [*c]struct_session, arg_buddy: [*c]stru
     _ = &len;
     var txt: [100000]u8 = undefined;
     _ = &txt;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("get_port_commands(%s,%d,%s)"))))))), buddy.*.name, len, buf);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("get_port_commands(%s,%d,%s)"))))))), .{buddy.*.name, len, buf});
     _ = strip_vt102_codes(buf, @ptrCast(@alignCast(&txt)));
-    _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 10))), 0, 5, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PORT RECEIVED MESSAGE"))))))), buddy.*.name, buddy.*.ip, ntos(buddy.*.port), buf, @as([*c]u8, @ptrCast(@alignCast(&txt))));
-    if (!(check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 5, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH PORT RECEIVED MESSAGE"))))))), buddy.*.name, buddy.*.ip, ntos(buddy.*.port), buf, @as([*c]u8, @ptrCast(@alignCast(&txt)))) != 0)) {
+    _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 10))), 0, 5, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PORT RECEIVED MESSAGE"))))))), .{buddy.*.name, buddy.*.ip, ntos(buddy.*.port), buf, @as([*c]u8, @ptrCast(@alignCast(&txt)))});
+    if (!(check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 5, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH PORT RECEIVED MESSAGE"))))))), .{buddy.*.name, buddy.*.ip, ntos(buddy.*.port), buf, @as([*c]u8, @ptrCast(@alignCast(&txt)))}) != 0)) {
         port_receive_message(ses, buddy, buf);
     }
     pop_call();
@@ -8592,7 +8592,7 @@ pub export fn port_receive_message(arg_ses: [*c]struct_session, arg_buddy: [*c]s
     if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) {
         return;
     }
-    port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), txt);
+    port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{txt});
 }
 pub extern fn port_puts(ses: [*c]struct_session, arg: [*c]u8) void;
 pub export fn find_port_buddy(arg_ses: [*c]struct_session, arg_arg: [*c]u8) [*c]struct_port_data {
@@ -8704,18 +8704,18 @@ pub extern fn new_session(ses: [*c]struct_session, name: [*c]u8, address: [*c]u8
 pub extern fn connect_session(ses: [*c]struct_session) [*c]struct_session;
 pub extern fn cleanup_session(ses: [*c]struct_session) void;
 pub extern fn dispose_session(ses: [*c]struct_session) void;
-pub extern fn show_message(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_error(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_debug(ses: [*c]struct_session, index: c_int, node: [*c]struct_listnode, format: [*c]u8, ...) void;
-pub extern fn show_info(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn tintin_header(ses: [*c]struct_session, width: c_int, format: [*c]u8, ...) void;
+pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
 pub extern fn socket_printf(ses: [*c]struct_session, length: usize, format: [*c]u8, ...) void;
 pub extern fn telnet_printf(ses: [*c]struct_session, length: c_int, format: [*c]u8, ...) void;
-pub extern fn print_lines(ses: [*c]struct_session, flags: c_int, color: [*c]u8, format: [*c]u8, ...) void;
+pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
 pub extern fn show_lines(ses: [*c]struct_session, color: [*c]u8, str: [*c]u8) void;
-pub extern fn tintin_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf2(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf3(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
 pub extern fn tintin_puts(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts2(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts3(ses: [*c]struct_session, string: [*c]u8, prompt: c_int) void;
@@ -9289,14 +9289,14 @@ pub export fn do_port(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
     _ = &cnt;
     arg = get_arg_in_braces(ses, arg, @ptrCast(@alignCast(&cmd)), GET_ONE);
     if (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&cmd))).*) == @as(c_int, 0)) {
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" PORT OPTIONS "))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" PORT OPTIONS "))))))), .{});
         {
             cnt = 0;
             while (@as(c_int, port_table[@bitCast(@as(isize, @intCast(cnt)))].name.*) != @as(c_int, 0)) : (cnt += 1) {
-                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-13s] %s"))))))), port_table[@bitCast(@as(isize, @intCast(cnt)))].name, port_table[@bitCast(@as(isize, @intCast(cnt)))].desc);
+                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-13s] %s"))))))), .{port_table[@bitCast(@as(isize, @intCast(cnt)))].name, port_table[@bitCast(@as(isize, @intCast(cnt)))].desc});
             }
         }
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
         return ses;
     }
     {
@@ -9306,7 +9306,7 @@ pub export fn do_port(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 continue;
             }
             if ((port_table[@bitCast(@as(isize, @intCast(cnt)))].fun != port_initialize) and (@as(?*anyopaque, @ptrCast(@alignCast(ses.*.port))) == @as(?*anyopaque, null))) {
-                tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#PORT: YOU MUST INITIALIZE A PORT FIRST."))))))));
+                tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#PORT: YOU MUST INITIALIZE A PORT FIRST."))))))), .{});
                 return ses;
             }
             arg = sub_arg_in_braces(ses, arg, arg1, port_table[@bitCast(@as(isize, @intCast(cnt)))].lval, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
@@ -9315,7 +9315,7 @@ pub export fn do_port(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
             return ses;
         }
     }
-    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #PORT {%s}: INVALID PORT OPTION."))))))), @as([*c]u8, @ptrCast(@alignCast(&cmd))));
+    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #PORT {%s}: INVALID PORT OPTION."))))))), .{@as([*c]u8, @ptrCast(@alignCast(&cmd)))});
     return ses;
 }
 pub export fn port_socket_write(arg_ses: [*c]struct_session, arg_buddy: [*c]struct_port_data, arg_str: [*c]u8, arg_len: c_int) void {
@@ -9332,7 +9332,7 @@ pub export fn port_socket_write(arg_ses: [*c]struct_session, arg_buddy: [*c]stru
             write_mccp2(ses, buddy, str, len);
         } else {
             if (write(buddy.*.fd, @ptrCast(@alignCast(str)), @bitCast(@as(c_long, len))) < @as(isize, 0)) {
-                port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Lost link to socket '%s'."))))))), buddy.*.name);
+                port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Lost link to socket '%s'."))))))), .{buddy.*.name});
                 buddy.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 8));
             }
         }
@@ -9349,9 +9349,9 @@ pub export fn port_dnd(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
     _ = &arg2;
     ses.*.port.*.flags ^= @as(c_int, 1) << @intCast(@as(c_int, 7));
     if ((ses.*.port.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) {
-        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("New connections are no longer accepted."))))))));
+        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("New connections are no longer accepted."))))))), .{});
     } else {
-        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("New connections are accepted."))))))));
+        port_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("New connections are accepted."))))))), .{});
     }
     return ses;
 }

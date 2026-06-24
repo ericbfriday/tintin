@@ -25,11 +25,10 @@ pub fn build(b: *std.Build) void {
     };
 
     const src_files = &.{
-        "src/missing_phase5.c",
-        "src/missing_phase8.c",
         "src/missing_phase9.c",
         "src/missing_sort.c",
         "src/missing_variadics.c",
+        "src/missing_goto.c",
     };
 
     exe.root_module.addCSourceFiles(.{
@@ -322,6 +321,28 @@ pub fn build(b: *std.Build) void {
     misc_mod.link_libc = true;
     const misc_zig = b.addObject(.{ .name = "misc_zig", .root_module = misc_mod });
     exe.root_module.addObject(misc_zig);
+    const missing_phase5_mod = b.createModule(.{
+        .root_source_file = b.path("src/missing_phase5.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    missing_phase5_mod.addIncludePath(b.path("src"));
+    missing_phase5_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    missing_phase5_mod.link_libc = true;
+    const missing_phase5_zig = b.addObject(.{ .name = "missing_phase5_zig", .root_module = missing_phase5_mod });
+    exe.root_module.addObject(missing_phase5_zig);
+
+    const missing_phase8_mod = b.createModule(.{
+        .root_source_file = b.path("src/missing_phase8.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    missing_phase8_mod.addIncludePath(b.path("src"));
+    missing_phase8_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    missing_phase8_mod.link_libc = true;
+    const missing_phase8_zig = b.addObject(.{ .name = "missing_phase8_zig", .root_module = missing_phase8_mod });
+    exe.root_module.addObject(missing_phase8_zig);
+
     const missing_regex_mod = b.createModule(.{
         .root_source_file = b.path("src/missing_regex.zig"),
         .target = target,

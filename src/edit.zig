@@ -343,16 +343,16 @@ pub export fn do_edit(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
     _ = &cnt;
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" EDIT OPTIONS "))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" EDIT OPTIONS "))))))), .{});
         {
             cnt = 0;
             while (edit_table[@bitCast(@as(isize, @intCast(cnt)))].fun != null) : (cnt += 1) {
                 if (@as(c_int, edit_table[@bitCast(@as(isize, @intCast(cnt)))].desc.*) != 0) {
-                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), edit_table[@bitCast(@as(isize, @intCast(cnt)))].name, edit_table[@bitCast(@as(isize, @intCast(cnt)))].desc);
+                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), .{edit_table[@bitCast(@as(isize, @intCast(cnt)))].name, edit_table[@bitCast(@as(isize, @intCast(cnt)))].desc});
                 }
             }
         }
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
     } else {
         {
             cnt = 0;
@@ -363,7 +363,7 @@ pub export fn do_edit(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 }
             }
         }
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #EDIT {%s} IS NOT A VALID OPTION."))))))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #EDIT {%s} IS NOT A VALID OPTION."))))))), .{arg1});
     }
     return ses;
 }
@@ -417,7 +417,7 @@ pub export fn edit_create(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
             break :blk tmp;
         }, pta);
     }
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#EDIT CREATE: CREATED %d LINES."))))))), edit.*.used);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#EDIT CREATE: CREATED %d LINES."))))))), .{edit.*.used});
     enable_editor(edit);
     return ses;
 }
@@ -442,7 +442,7 @@ pub export fn edit_load(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
         node = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#EDIT LOAD: VARIABLE {%s} NOT FOUND."))))))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#EDIT LOAD: VARIABLE {%s} NOT FOUND."))))))), .{arg1});
         return ses;
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(node.*.root))) == @as(?*anyopaque, null)) {
@@ -456,7 +456,7 @@ pub export fn edit_load(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
             insert_line(edit, index_1, arg2);
         }
     }
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#EDIT LOAD: LOADED %d LINES FROM {%s}."))))))), edit.*.used, arg1);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#EDIT LOAD: LOADED %d LINES FROM {%s}."))))))), .{edit.*.used, arg1});
     enable_editor(edit);
     return ses;
 }
@@ -479,7 +479,7 @@ pub export fn edit_read(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     _ = &size;
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #EDIT READ <FILENAME>"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #EDIT READ <FILENAME>"))))))), .{});
         return ses;
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(blk: {
@@ -487,7 +487,7 @@ pub export fn edit_read(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
         file = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #EDIT READ: FILE {%s} NOT FOUND."))))))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #EDIT READ: FILE {%s} NOT FOUND."))))))), .{arg1});
         return ses;
     }
     clear_editor(edit);
@@ -503,7 +503,7 @@ pub export fn edit_read(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
             break :blk tmp;
         }, arg2);
     }
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#EDIT READ: READ %d LINES FROM {%s}."))))))), edit.*.used, arg1);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#EDIT READ: READ %d LINES FROM {%s}."))))))), .{edit.*.used, arg1});
     enable_editor(edit);
     _ = fclose(file);
     return ses;
@@ -524,7 +524,7 @@ pub export fn edit_resume(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
         insert_line(edit, edit.*.update, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     }
     inputline_set(edit.*.line[@bitCast(@as(isize, @intCast(edit.*.update)))].*.str, 0);
-    _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 6)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("EDIT RESUMED"))))))), gtd.*.ses.*.input.*.edit_name);
+    _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 6)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("EDIT RESUMED"))))))), .{gtd.*.ses.*.input.*.edit_name});
     cursor_redraw_edit(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     return ses;
 }
@@ -545,10 +545,10 @@ pub export fn edit_save(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     _ = &index_1;
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (!(valid_variable(ses, arg1) != 0)) {
-        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#EDIT SAVE: INVALID VARIABLE NAME {%s}."))))))), arg1);
+        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#EDIT SAVE: INVALID VARIABLE NAME {%s}."))))))), .{arg1});
         return ses;
     }
-    node = set_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+    node = set_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
     node.*.root = init_list(gtd.*.ses, LIST_VARIABLE, LIST_SIZE);
     {
         index_1 = 0;
@@ -557,7 +557,7 @@ pub export fn edit_save(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
             _ = create_node_list(node.*.root, ntos(index_1), arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         }
     }
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#EDIT SAVE: SAVED %d LINES TO {%s}."))))))), edit.*.used, arg1);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#EDIT SAVE: SAVED %d LINES TO {%s}."))))))), .{edit.*.used, arg1});
     return ses;
 }
 pub export fn edit_suspend(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) [*c]struct_session {
@@ -572,14 +572,14 @@ pub export fn edit_suspend(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
     var edit: [*c]struct_edit_data = gtd.*.ses.*.input.*.edit;
     _ = &edit;
     if (!((gtd.*.ses.*.input.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0)) {
-        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("edit_suspend: not currently editing"))))))));
+        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("edit_suspend: not currently editing"))))))), .{});
         return ses;
     }
     gtd.*.ses.*.input.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 0)));
     _ = str_cpy(&edit.*.line[@bitCast(@as(isize, @intCast(edit.*.update)))].*.str, gtd.*.ses.*.input.*.buf);
     cursor_clear_line(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     cursor_redraw_edit(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
-    _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 6)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("EDIT SUSPENDED"))))))), gtd.*.ses.*.input.*.edit_name);
+    _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 6)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("EDIT SUSPENDED"))))))), .{gtd.*.ses.*.input.*.edit_name});
     return ses;
 }
 pub export fn edit_write(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) [*c]struct_session {
@@ -606,7 +606,7 @@ pub export fn edit_write(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
         file = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #EDIT WRITE: COULDN'T OPEN {%s} TO WRITE."))))))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #EDIT WRITE: COULDN'T OPEN {%s} TO WRITE."))))))), .{arg1});
         return ses;
     }
     {
@@ -616,7 +616,7 @@ pub export fn edit_write(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
             _ = putc(ASCII_LF, file);
         }
     }
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#EDIT WRITE: WROTE %d LINES TO {%s}."))))))), index_1, arg1);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#EDIT WRITE: WROTE %d LINES TO {%s}."))))))), .{index_1, arg1});
     return ses;
 }
 pub export fn create_editor() [*c]struct_edit_data {
@@ -636,9 +636,9 @@ pub export fn enable_editor(arg_edit: [*c]struct_edit_data) void {
     inputline_set(edit.*.line[@bitCast(@as(isize, @intCast(edit.*.update)))].*.str, 0);
     str1 = str_alloc_stack(0);
     filesize = str_save_editor(gtd.*.ses.*.input.*.edit, &str1);
-    _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 6)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("EDIT STARTED"))))))), gtd.*.ses.*.input.*.edit_name, ntos(edit.*.used), ntos(filesize), str1);
+    _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 6)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("EDIT STARTED"))))))), .{gtd.*.ses.*.input.*.edit_name, ntos(edit.*.used), ntos(filesize), str1});
     if (@as(c_int, gtd.*.ses.*.input.*.edit_name.*) != 0) {
-        _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 6)), 1, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("EDIT STARTED %s"))))))), gtd.*.ses.*.input.*.edit_name, gtd.*.ses.*.input.*.edit_name, ntos(edit.*.used), ntos(filesize), str1);
+        _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 6)), 1, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("EDIT STARTED %s"))))))), .{gtd.*.ses.*.input.*.edit_name, gtd.*.ses.*.input.*.edit_name, ntos(edit.*.used), ntos(filesize), str1});
     }
     cursor_redraw_edit(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
 }
@@ -646,7 +646,7 @@ pub export fn delete_editor(arg_edit: [*c]struct_edit_data) void {
     var edit = arg_edit;
     _ = &edit;
     if (@as(?*anyopaque, @ptrCast(@alignCast(edit))) == @as(?*anyopaque, null)) {
-        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("destroy_edit: NULL"))))))));
+        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("destroy_edit: NULL"))))))), .{});
         return;
     }
     clear_editor(edit);
@@ -775,7 +775,7 @@ pub export fn remove_line(arg_edit: [*c]struct_edit_data, arg_index_1: c_int) vo
     }
 }
 pub extern fn do_draw(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
-pub extern fn check_all_events(ses: [*c]struct_session, flags: c_int, args: c_int, vars: c_int, fmt: [*c]u8, ...) c_int;
+pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
 pub extern fn mouse_handler(ses: [*c]struct_session, val1: c_int, val2: c_int, val3: c_int) void;
 pub extern fn do_read(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn do_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -833,7 +833,7 @@ pub extern fn main(argc: c_int, argv: [*c][*c]u8) c_int;
 pub extern fn init_tintin(greeting: c_int) void;
 pub extern fn quitmsg(message: [*c]u8) void;
 pub extern fn syserr_fatal(signal: c_int, msg: [*c]u8) void;
-pub extern fn syserr_printf(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
+pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
 pub extern fn zlib_alloc(@"opaque": ?*anyopaque, items: c_uint, size: c_uint) ?*anyopaque;
 pub extern fn zlib_free(@"opaque": ?*anyopaque, address: ?*anyopaque) void;
 pub extern fn restring(point: [*c]u8, string: [*c]u8) [*c]u8;
@@ -871,11 +871,11 @@ pub extern fn do_nop(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [
 pub extern fn do_test(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn init_msdp_table() void;
 pub extern fn msdp_find(@"var": [*c]u8) c_int;
-pub extern fn arachnos_devel(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn arachnos_mudlist(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn msdp_update_all(@"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
+pub fn msdp_update_all(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_all(arg0, arg_format, args); }
 pub extern fn msdp_update_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, str: [*c]u8) void;
-pub extern fn msdp_update_varf(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
 pub extern fn msdp_update_var_instant(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
 pub extern fn msdp_send_update(ses: [*c]struct_session, buddy: [*c]struct_port_data) void;
 pub extern fn msdp_get_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8) [*c]u8;
@@ -912,10 +912,10 @@ pub extern fn get_nest_index(root: [*c]struct_listroot, variable: [*c]u8, result
 pub extern fn show_nest_node(node: [*c]struct_listnode, result: [*c][*c]u8, initialize: c_int) void;
 pub extern fn view_nest_node_json(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int) void;
 pub extern fn view_nest_node(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int, color: c_int) void;
-pub extern fn set_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn set_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
+pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
 pub extern fn copy_nest_node(dst_root: [*c]struct_listroot, dst: [*c]struct_listnode, src: [*c]struct_listnode) void;
 pub extern fn connect_mud(ses: [*c]struct_session, host: [*c]u8, port: [*c]u8) c_int;
 pub extern fn write_line_mud(ses: [*c]struct_session, line: [*c]u8, size: c_int) void;
@@ -928,8 +928,8 @@ pub extern fn is_abbrev_cmp(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_member(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_vowel(str: [*c]u8) c_int;
 pub extern fn filename_string(input: [*c]u8, output: [*c]u8) void;
-pub extern fn execute(ses: [*c]struct_session, format: [*c]u8, ...) [*c]struct_session;
-pub extern fn command(ses: [*c]struct_session, cmd: ?*const COMMAND, format: [*c]u8, ...) [*c]struct_session;
+pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
 pub extern fn parse_input(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn parse_command(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn is_speedwalk(ses: [*c]struct_session, input: [*c]u8) c_int;
@@ -1000,10 +1000,10 @@ pub extern fn port_new(ses: [*c]struct_session, s: c_int) c_int;
 pub extern fn close_port(ses: [*c]struct_session, buddy: [*c]struct_port_data, unlink: c_int) void;
 pub extern fn process_port_connections(ses: [*c]struct_session, read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
 pub extern fn port_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
-pub extern fn port_socket_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_telnet_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, length: usize, format: [*c]u8, ...) void;
-pub extern fn port_log_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
 pub extern fn process_port_input(ses: [*c]struct_session, buddy: [*c]struct_port_data) c_int;
 pub extern fn get_port_commands(ses: [*c]struct_session, buddy: [*c]struct_port_data, buf: [*c]u8, len: c_int) void;
 pub extern fn port_name_change(ses: [*c]struct_session, buddy: [*c]struct_port_data, txt: [*c]u8) void;
@@ -1059,18 +1059,18 @@ pub extern fn new_session(ses: [*c]struct_session, name: [*c]u8, address: [*c]u8
 pub extern fn connect_session(ses: [*c]struct_session) [*c]struct_session;
 pub extern fn cleanup_session(ses: [*c]struct_session) void;
 pub extern fn dispose_session(ses: [*c]struct_session) void;
-pub extern fn show_message(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_error(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_debug(ses: [*c]struct_session, index: c_int, node: [*c]struct_listnode, format: [*c]u8, ...) void;
-pub extern fn show_info(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn tintin_header(ses: [*c]struct_session, width: c_int, format: [*c]u8, ...) void;
+pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
 pub extern fn socket_printf(ses: [*c]struct_session, length: usize, format: [*c]u8, ...) void;
 pub extern fn telnet_printf(ses: [*c]struct_session, length: c_int, format: [*c]u8, ...) void;
-pub extern fn print_lines(ses: [*c]struct_session, flags: c_int, color: [*c]u8, format: [*c]u8, ...) void;
+pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
 pub extern fn show_lines(ses: [*c]struct_session, color: [*c]u8, str: [*c]u8) void;
-pub extern fn tintin_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf2(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf3(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
 pub extern fn tintin_puts(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts2(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts3(ses: [*c]struct_session, string: [*c]u8, prompt: c_int) void;

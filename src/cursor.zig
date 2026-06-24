@@ -6265,7 +6265,7 @@ pub const struct_session = extern struct {
     pub const edit_suspend = __root.edit_suspend;
     pub const edit_write = __root.edit_write;
     pub const do_draw = __root.do_draw;
-    pub const check_all_events = __root.check_all_events;
+    pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
     pub const mouse_handler = __root.mouse_handler;
     pub const do_read = __root.do_read;
     pub const do_write = __root.do_write;
@@ -6311,14 +6311,14 @@ pub const struct_session = extern struct {
     pub const logit = __root.logit;
     pub const write_html_header = __root.write_html_header;
     pub const vt102_to_html = __root.vt102_to_html;
-    pub const syserr_printf = __root.syserr_printf;
+    pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
     pub const do_end = __root.do_end;
     pub const do_nop = __root.do_nop;
     pub const do_test = __root.do_test;
-    pub const arachnos_devel = __root.arachnos_devel;
-    pub const arachnos_mudlist = __root.arachnos_mudlist;
+    pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+    pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
     pub const msdp_update_var = __root.msdp_update_var;
-    pub const msdp_update_varf = __root.msdp_update_varf;
+    pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
     pub const msdp_update_var_instant = __root.msdp_update_var_instant;
     pub const msdp_send_update = __root.msdp_send_update;
     pub const msdp_get_var = __root.msdp_get_var;
@@ -6332,16 +6332,16 @@ pub const struct_session = extern struct {
     pub const write_msdp_to_descriptor = __root.write_msdp_to_descriptor;
     pub const search_nest_base_ses = __root.search_nest_base_ses;
     pub const search_nest_node_ses = __root.search_nest_node_ses;
-    pub const set_nest_node_ses = __root.set_nest_node_ses;
-    pub const add_nest_node_ses = __root.add_nest_node_ses;
+    pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
     pub const connect_mud = __root.connect_mud;
     pub const write_line_mud = __root.write_line_mud;
     pub const read_buffer_mud = __root.read_buffer_mud;
     pub const readmud = __root.readmud;
     pub const process_more_output = __root.process_more_output;
     pub const process_one_line = __root.process_one_line;
-    pub const execute = __root.execute;
-    pub const command = __root.command;
+    pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+    pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
     pub const parse_input = __root.parse_input;
     pub const parse_command = __root.parse_command;
     pub const is_speedwalk = __root.is_speedwalk;
@@ -6410,10 +6410,10 @@ pub const struct_session = extern struct {
     pub const close_port = __root.close_port;
     pub const process_port_connections = __root.process_port_connections;
     pub const port_forward_session = __root.port_forward_session;
-    pub const port_socket_printf = __root.port_socket_printf;
-    pub const port_telnet_printf = __root.port_telnet_printf;
-    pub const port_log_printf = __root.port_log_printf;
-    pub const port_printf = __root.port_printf;
+    pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+    pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+    pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+    pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
     pub const process_port_input = __root.process_port_input;
     pub const get_port_commands = __root.get_port_commands;
     pub const port_name_change = __root.port_name_change;
@@ -6455,18 +6455,18 @@ pub const struct_session = extern struct {
     pub const connect_session = __root.connect_session;
     pub const cleanup_session = __root.cleanup_session;
     pub const dispose_session = __root.dispose_session;
-    pub const show_message = __root.show_message;
-    pub const show_error = __root.show_error;
-    pub const show_debug = __root.show_debug;
-    pub const show_info = __root.show_info;
-    pub const tintin_header = __root.tintin_header;
+    pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+    pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+    pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+    pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+    pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
     pub const socket_printf = __root.socket_printf;
     pub const telnet_printf = __root.telnet_printf;
-    pub const print_lines = __root.print_lines;
+    pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
     pub const show_lines = __root.show_lines;
-    pub const tintin_printf = __root.tintin_printf;
-    pub const tintin_printf2 = __root.tintin_printf2;
-    pub const tintin_printf3 = __root.tintin_printf3;
+    pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+    pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+    pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
     pub const tintin_puts = __root.tintin_puts;
     pub const tintin_puts2 = __root.tintin_puts2;
     pub const tintin_puts3 = __root.tintin_puts3;
@@ -6852,8 +6852,8 @@ pub const struct_listroot = extern struct {
     pub const get_nest_node_key = __root.get_nest_node_key;
     pub const get_nest_node_val = __root.get_nest_node_val;
     pub const get_nest_index = __root.get_nest_index;
-    pub const set_nest_node = __root.set_nest_node;
-    pub const add_nest_node = __root.add_nest_node;
+    pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
     pub const copy_nest_node = __root.copy_nest_node;
     pub const node = __root.show_node;
     pub const root = __root.search_nest_root;
@@ -6900,7 +6900,7 @@ pub const struct_chat_data = extern struct {
     file_block_tot: c_int = 0,
     file_block_patch: c_int = 0,
     file_start_time: c_ulonglong = 0,
-    pub const chat_socket_printf = __root.chat_socket_printf;
+    pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
     pub const close_chat = __root.close_chat;
     pub const chat = __root.close_chat;
 };
@@ -7248,7 +7248,7 @@ pub extern fn buffer_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, a
 pub extern fn buffer_info(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8) void;
 pub extern fn do_chat(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn process_chat_connections(read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
-pub extern fn chat_socket_printf(buddy: [*c]struct_chat_data, format: [*c]u8, ...) void;
+pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
 pub extern fn close_chat(buddy: [*c]struct_chat_data, unlink: c_int) void;
 pub extern fn chat_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
 pub extern fn chat_accept(arg1: [*c]u8, arg2: [*c]u8) void;
@@ -7303,17 +7303,17 @@ pub export fn do_cursor(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     _ = &cnt;
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" CURSOR OPTIONS "))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" CURSOR OPTIONS "))))))), .{});
         {
             cnt = 0;
             while (cursor_table[@bitCast(@as(isize, @intCast(cnt)))].fun != null) : (cnt += 1) {
                 if (@as(c_int, cursor_table[@bitCast(@as(isize, @intCast(cnt)))].desc.*) != 0) {
                     convert_meta(cursor_table[@bitCast(@as(isize, @intCast(cnt)))].code, arg2, FALSE);
-                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] [%-8s] %s"))))))), cursor_table[@bitCast(@as(isize, @intCast(cnt)))].name, arg2, cursor_table[@bitCast(@as(isize, @intCast(cnt)))].desc);
+                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] [%-8s] %s"))))))), .{cursor_table[@bitCast(@as(isize, @intCast(cnt)))].name, arg2, cursor_table[@bitCast(@as(isize, @intCast(cnt)))].desc});
                 }
             }
         }
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
     } else {
         {
             cnt = 0;
@@ -7324,7 +7324,7 @@ pub export fn do_cursor(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
                 }
             }
         }
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #CURSOR {%s} IS NOT A VALID OPTION."))))))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #CURSOR {%s} IS NOT A VALID OPTION."))))))), .{arg1});
     }
     return ses;
 }
@@ -7394,7 +7394,7 @@ pub export fn inputline_insert(arg_arg: [*c]u8, arg_str_pos: c_int) void {
     _ = &str_len_1;
     if ((gtd.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) {
         if (gtd.*.ses.*.input.*.raw_len > INPUT_SIZE) {
-            tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#CONFIG CHILD LOCK: YOU ARE CONFINED TO %d BYTES OF INPUT."))))))), INPUT_SIZE);
+            tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#CONFIG CHILD LOCK: YOU ARE CONFINED TO %d BYTES OF INPUT."))))))), .{INPUT_SIZE});
             _ = str_cpy(&gtd.*.ses.*.input.*.cut, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
             inputline_set(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), -@as(c_int, 1));
             return;
@@ -7411,7 +7411,7 @@ pub export fn inputline_insert(arg_arg: [*c]u8, arg_str_pos: c_int) void {
             loop = gtd.*.ses.*.input.*.raw_len;
             cursor_delete(gtd.*.ses, null);
             if (loop == gtd.*.ses.*.input.*.raw_len) {
-                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_insert: infinite loop detected."))))))));
+                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_insert: infinite loop detected."))))))), .{});
                 break;
             }
         }
@@ -7474,7 +7474,7 @@ pub export fn cursor_brace(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
     } else if (is_abbrev(@ptrCast(@alignCast(&arg1)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CLOSE")))))))) != 0) {
         inputline_insert(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("}"))))))), -@as(c_int, 1));
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {BRACE} {OPEN|CLOSE}"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {BRACE} {OPEN|CLOSE}"))))))), .{});
     }
     cursor_redraw_line(ses, arg);
     modified_input();
@@ -7497,7 +7497,7 @@ pub export fn cursor_buffer_down(arg_ses: [*c]struct_session, arg_arg: [*c]u8) v
         cursor_redraw_edit(ses, arg);
         return;
     }
-    _ = command(ses, do_buffer, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("down %s"))))))), arg);
+    _ = command(ses, do_buffer, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("down %s"))))))), .{arg});
 }
 pub export fn cursor_buffer_end(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
     var ses = arg_ses;
@@ -7546,7 +7546,7 @@ pub export fn cursor_buffer_lock(arg_ses: [*c]struct_session, arg_arg: [*c]u8) v
     _ = &ses;
     var arg = arg_arg;
     _ = &arg;
-    _ = command(ses, do_buffer, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("lock %s"))))))), arg);
+    _ = command(ses, do_buffer, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("lock %s"))))))), .{arg});
 }
 pub export fn cursor_buffer_up(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
     var ses = arg_ses;
@@ -7566,7 +7566,7 @@ pub export fn cursor_buffer_up(arg_ses: [*c]struct_session, arg_arg: [*c]u8) voi
         cursor_redraw_edit(ses, arg);
         return;
     }
-    _ = command(ses, do_buffer, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("up %s"))))))), arg);
+    _ = command(ses, do_buffer, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("up %s"))))))), .{arg});
 }
 pub export fn cursor_check_line(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
     var ses = arg_ses;
@@ -7605,11 +7605,11 @@ pub export fn cursor_check_line_modified(arg_ses: [*c]struct_session, arg_arg: [
     var width: c_int = undefined;
     _ = &width;
     if (gtd.*.ses.*.input.*.raw_len != str_len(gtd.*.ses.*.input.*.buf)) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31merror: cursor_check_line_modified1: raw: %d vs %d"))))))), gtd.*.ses.*.input.*.raw_len, str_len(gtd.*.ses.*.input.*.buf));
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31merror: cursor_check_line_modified1: raw: %d vs %d"))))))), .{gtd.*.ses.*.input.*.raw_len, str_len(gtd.*.ses.*.input.*.buf)});
     }
     _ = strip_vt102_width(gtd.*.ses, gtd.*.ses.*.input.*.buf, &width);
     if (gtd.*.ses.*.input.*.str_len != width) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31merror: cursor_check_line_modified2: str: %d vs %d raw: %d"))))))), gtd.*.ses.*.input.*.str_len, width, gtd.*.ses.*.input.*.raw_len);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31merror: cursor_check_line_modified2: str: %d vs %d raw: %d"))))))), .{gtd.*.ses.*.input.*.str_len, width, gtd.*.ses.*.input.*.raw_len});
     }
     if (gtd.*.ses.*.input.*.str_pos > gtd.*.ses.*.input.*.str_len) {
         return cursor_end(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
@@ -7736,7 +7736,7 @@ pub export fn cursor_delete(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
         }
     }
     if (gtd.*.ses.*.input.*.raw_len == gtd.*.ses.*.input.*.raw_pos) {
-        input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1X"))))))));
+        input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1X"))))))), .{});
         cursor_check_line(ses, arg);
     } else {
         cursor_redraw_line(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
@@ -7750,9 +7750,9 @@ pub export fn cursor_delete_or_exit(arg_ses: [*c]struct_session, arg_arg: [*c]u8
     _ = &arg;
     if (gtd.*.ses.*.input.*.raw_len == @as(c_int, 0)) {
         if (ses == gts) {
-            _ = command(ses, do_end, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+            _ = command(ses, do_end, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
         } else {
-            _ = command(ses, do_zap, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+            _ = command(ses, do_zap, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
         }
     } else {
         cursor_delete(ses, arg);
@@ -7851,7 +7851,7 @@ pub export fn cursor_echo(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
     } else if (!(strcasecmp(@ptrCast(@alignCast(&arg1)), "OFF") != 0)) {
         ses.*.telopts &= ~(@as(c_int, 1) << @intCast(@as(c_int, 2)));
     } else {
-        show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {ECHO} {ON|OFF}"))))))));
+        show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {ECHO} {ON|OFF}"))))))), .{});
     }
 }
 pub export fn cursor_end(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
@@ -7870,7 +7870,7 @@ pub export fn cursor_enter(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
     _ = &arg;
     var filesize: c_int = undefined;
     _ = &filesize;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cursor_enter(%p,%p)"))))))), ses, arg);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cursor_enter(%p,%p)"))))))), .{ses, arg});
     gtd.*.ses.*.input.*.str_hid = 0;
     gtd.*.ses.*.input.*.raw_pos = 0;
     gtd.*.ses.*.input.*.str_pos = 0;
@@ -7880,16 +7880,16 @@ pub export fn cursor_enter(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
         gtd.*.ses.*.input.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 0)));
         _ = str_cpy(&gtd.*.ses.*.input.*.edit.*.line[@bitCast(@as(isize, @intCast(gtd.*.ses.*.input.*.edit.*.update)))].*.str, gtd.*.ses.*.input.*.buf);
         filesize = str_save_editor(gtd.*.ses.*.input.*.edit, &str1);
-        _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 6)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("EDIT FINISHED"))))))), gtd.*.ses.*.input.*.edit_name, ntos(gtd.*.ses.*.input.*.edit.*.used), ntos(filesize), str1);
+        _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 6)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("EDIT FINISHED"))))))), .{gtd.*.ses.*.input.*.edit_name, ntos(gtd.*.ses.*.input.*.edit.*.used), ntos(filesize), str1});
         if (@as(c_int, gtd.*.ses.*.input.*.edit_name.*) != 0) {
-            _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 6)), 1, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("EDIT FINISHED %s"))))))), gtd.*.ses.*.input.*.edit_name, ntos(gtd.*.ses.*.input.*.edit.*.used), ntos(filesize), gtd.*.ses.*.input.*.edit_name, str1);
-            if (check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 1, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH EDIT FINISHED %s"))))))), gtd.*.ses.*.input.*.edit_name, gtd.*.ses.*.input.*.edit_name, ntos(gtd.*.ses.*.input.*.edit.*.used), ntos(filesize), str1) != 0) {
+            _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 6)), 1, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("EDIT FINISHED %s"))))))), .{gtd.*.ses.*.input.*.edit_name, ntos(gtd.*.ses.*.input.*.edit.*.used), ntos(filesize), gtd.*.ses.*.input.*.edit_name, str1});
+            if (check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 1, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH EDIT FINISHED %s"))))))), .{gtd.*.ses.*.input.*.edit_name, gtd.*.ses.*.input.*.edit_name, ntos(gtd.*.ses.*.input.*.edit.*.used), ntos(filesize), str1}) != 0) {
                 cursor_enter_finish(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
                 pop_call();
                 return;
             }
         }
-        if (check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH EDIT FINISHED"))))))), gtd.*.ses.*.input.*.edit_name, ntos(gtd.*.ses.*.input.*.edit.*.used), ntos(filesize), str1) != 0) {
+        if (check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH EDIT FINISHED"))))))), .{gtd.*.ses.*.input.*.edit_name, ntos(gtd.*.ses.*.input.*.edit.*.used), ntos(filesize), str1}) != 0) {
             cursor_enter_finish(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
             pop_call();
             return;
@@ -7918,7 +7918,7 @@ pub export fn cursor_enter(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
     if ((gtd.*.ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 13)))) != 0) {
         inputline_erase();
     } else {
-        input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\n"))))))));
+        input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\n"))))))), .{});
     }
     gtd.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 2));
     modified_input();
@@ -8106,10 +8106,10 @@ pub export fn cursor_flag(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
             ses.*.telopts &= ~(@as(c_int, 1) << @intCast(@as(c_int, 11)));
             ses.*.telopts &= ~(@as(c_int, 1) << @intCast(@as(c_int, 12)));
         } else {
-            show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {FLAG} {EOL} {CR|LF|CRLF|CRNUL|OFF}"))))))));
+            show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {FLAG} {EOL} {CR|LF|CRLF|CRNUL|OFF}"))))))), .{});
             return;
         }
-        show_message(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#CURSOR FLAG EOL HAS BEEN SET TO: %s."))))))), if ((ses.*.telopts & ((@as(c_int, 1) << @intCast(@as(c_int, 10))) | (@as(c_int, 1) << @intCast(@as(c_int, 11))))) == @as(c_int, 0)) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))))) else if ((ses.*.telopts & ((@as(c_int, 1) << @intCast(@as(c_int, 10))) | (@as(c_int, 1) << @intCast(@as(c_int, 12))))) == ((@as(c_int, 1) << @intCast(@as(c_int, 10))) | (@as(c_int, 1) << @intCast(@as(c_int, 12))))) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CRNUL"))))))) else if ((ses.*.telopts & ((@as(c_int, 1) << @intCast(@as(c_int, 10))) | (@as(c_int, 1) << @intCast(@as(c_int, 11))))) == (@as(c_int, 1) << @intCast(@as(c_int, 10)))) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CR"))))))) else if ((ses.*.telopts & ((@as(c_int, 1) << @intCast(@as(c_int, 10))) | (@as(c_int, 1) << @intCast(@as(c_int, 11))))) == (@as(c_int, 1) << @intCast(@as(c_int, 11)))) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("LF"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CRLF"))))))));
+        show_message(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#CURSOR FLAG EOL HAS BEEN SET TO: %s."))))))), .{if ((ses.*.telopts & ((@as(c_int, 1) << @intCast(@as(c_int, 10))) | (@as(c_int, 1) << @intCast(@as(c_int, 11))))) == @as(c_int, 0)) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))))) else if ((ses.*.telopts & ((@as(c_int, 1) << @intCast(@as(c_int, 10))) | (@as(c_int, 1) << @intCast(@as(c_int, 12))))) == ((@as(c_int, 1) << @intCast(@as(c_int, 10))) | (@as(c_int, 1) << @intCast(@as(c_int, 12))))) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CRNUL"))))))) else if ((ses.*.telopts & ((@as(c_int, 1) << @intCast(@as(c_int, 10))) | (@as(c_int, 1) << @intCast(@as(c_int, 11))))) == (@as(c_int, 1) << @intCast(@as(c_int, 10)))) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CR"))))))) else if ((ses.*.telopts & ((@as(c_int, 1) << @intCast(@as(c_int, 10))) | (@as(c_int, 1) << @intCast(@as(c_int, 11))))) == (@as(c_int, 1) << @intCast(@as(c_int, 11)))) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("LF"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CRLF")))))))});
         return;
     }
     if (is_abbrev(@ptrCast(@alignCast(&arg1)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ECHO")))))))) != 0) {
@@ -8120,7 +8120,7 @@ pub export fn cursor_flag(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
         } else if (!(strcasecmp(@ptrCast(@alignCast(&arg2)), "OFF") != 0)) {
             ses.*.telopts &= ~(@as(c_int, 1) << @intCast(@as(c_int, 2)));
         } else {
-            show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {FLAG} {ECHO} {ON|OFF}"))))))));
+            show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {FLAG} {ECHO} {ON|OFF}"))))))), .{});
         }
         return;
     }
@@ -8132,7 +8132,7 @@ pub export fn cursor_flag(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
         } else if (!(strcasecmp(@ptrCast(@alignCast(&arg2)), "OFF") != 0)) {
             gtd.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 4)));
         } else {
-            show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {FLAG} {INSERT} {ON|OFF}"))))))));
+            show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {FLAG} {INSERT} {ON|OFF}"))))))), .{});
         }
         return;
     }
@@ -8142,11 +8142,11 @@ pub export fn cursor_flag(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
         } else if (!(strcasecmp(@ptrCast(@alignCast(&arg2)), "OFF") != 0)) {
             print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b>"))))))));
         } else {
-            show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {FLAG} {KEYPAD} {ON|OFF}"))))))));
+            show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {FLAG} {KEYPAD} {ON|OFF}"))))))), .{});
         }
         return;
     }
-    show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {FLAG} {ECHO|EOL|INSERT|KEYPAD} {ON|OFF}"))))))));
+    show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {FLAG} {ECHO|EOL|INSERT|KEYPAD} {ON|OFF}"))))))), .{});
 }
 pub export fn cursor_get(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
     var ses = arg_ses;
@@ -8159,10 +8159,10 @@ pub export fn cursor_get(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
     _ = &buf;
     arg = sub_arg_in_braces(ses, arg, @ptrCast(@alignCast(&arg1)), GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&arg1))).*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR GET <VARIABLE>"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR GET <VARIABLE>"))))))), .{});
     } else {
         _ = substitute(ses, gtd.*.ses.*.input.*.buf, @ptrCast(@alignCast(&buf)), @as(c_int, 1) << @intCast(@as(c_int, 1)));
-        _ = set_nest_node_ses(ses, @ptrCast(@alignCast(&arg1)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), @as([*c]u8, @ptrCast(@alignCast(&buf))));
+        _ = set_nest_node_ses(ses, @as(?*anyopaque, @ptrCast(@alignCast(&arg1))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{@as([*c]u8, @ptrCast(@alignCast(&buf)))});
     }
 }
 pub export fn cursor_history_find(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
@@ -8172,9 +8172,9 @@ pub export fn cursor_history_find(arg_ses: [*c]struct_session, arg_arg: [*c]u8) 
     _ = &arg;
     var root: [*c]struct_listroot = @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_HISTORY];
     _ = &root;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cursor_history_find(%s)"))))))), gtd.*.ses.*.input.*.buf);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cursor_history_find(%s)"))))))), .{gtd.*.ses.*.input.*.buf});
     if ((gtd.*.ses.*.event_flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != 0) {
-        _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 6)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MODIFIED INPUT"))))))));
+        _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 6)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MODIFIED INPUT"))))))), .{});
     }
     if (!((gtd.*.ses.*.input.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0)) {
         pop_call();
@@ -8200,12 +8200,12 @@ pub export fn cursor_history_find(arg_ses: [*c]struct_session, arg_arg: [*c]u8) 
     }
     if (root.*.update >= @as(c_int, 0)) {
         if (false and (gtd.*.ses.*.input.*.str_hid != 0)) {
-            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dG\x1b[%dX ] %.*s"))))))), inputline_cur_off() + inputline_max_str_len(), @as(c_int, 7), @as(c_int, 7), root.*.list[@bitCast(@as(isize, @intCast(root.*.update)))].*.arg1);
+            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dG\x1b[%dX ] %.*s"))))))), .{inputline_cur_off() + inputline_max_str_len(), @as(c_int, 7), @as(c_int, 7), root.*.list[@bitCast(@as(isize, @intCast(root.*.update)))].*.arg1});
         } else {
-            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dG\x1b[%dX ] %.*s"))))))), inputline_cur_off() + inputline_cur_str_len(), ((inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len()) + @as(c_int, 20), if (@as(c_int, 7) > (((inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len()) + @as(c_int, 7))) @as(c_int, 7) else ((inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len()) + @as(c_int, 7), root.*.list[@bitCast(@as(isize, @intCast(root.*.update)))].*.arg1);
+            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dG\x1b[%dX ] %.*s"))))))), .{inputline_cur_off() + inputline_cur_str_len(), ((inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len()) + @as(c_int, 20), if (@as(c_int, 7) > (((inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len()) + @as(c_int, 7))) @as(c_int, 7) else ((inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len()) + @as(c_int, 7), root.*.list[@bitCast(@as(isize, @intCast(root.*.update)))].*.arg1});
         }
     } else {
-        input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dG\x1b[%dX ]"))))))), inputline_cur_off() + inputline_cur_str_len(), ((inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len()) + @as(c_int, 20));
+        input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dG\x1b[%dX ]"))))))), .{inputline_cur_off() + inputline_cur_str_len(), ((inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len()) + @as(c_int, 20)});
     }
     goto_pos(gtd.*.ses, inputline_cur_row(), inputline_cur_col());
     pop_call();
@@ -8231,7 +8231,7 @@ pub export fn cursor_history_next(arg_ses: [*c]struct_session, arg_arg: [*c]u8) 
             }
         }
         if (root.*.update < root.*.used) {
-            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dG\x1b[%dX ]  %.*s"))))))), inputline_cur_off() + inputline_cur_str_len(), (inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len(), if (@as(c_int, 0) > (((inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len()) - @as(c_int, 4))) @as(c_int, 0) else ((inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len()) - @as(c_int, 4), root.*.list[@bitCast(@as(isize, @intCast(root.*.update)))].*.arg1);
+            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dG\x1b[%dX ]  %.*s"))))))), .{inputline_cur_off() + inputline_cur_str_len(), (inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len(), if (@as(c_int, 0) > (((inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len()) - @as(c_int, 4))) @as(c_int, 0) else ((inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len()) - @as(c_int, 4), root.*.list[@bitCast(@as(isize, @intCast(root.*.update)))].*.arg1});
             goto_pos(gtd.*.ses, inputline_cur_row(), inputline_cur_col());
         }
         return;
@@ -8273,7 +8273,7 @@ pub export fn cursor_history_prev(arg_ses: [*c]struct_session, arg_arg: [*c]u8) 
             return;
         }
         if (root.*.update > root.*.used) {
-            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("debug: cursor_history_prev %d > %d"))))))), root.*.update, root.*.used);
+            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("debug: cursor_history_prev %d > %d"))))))), .{root.*.update, root.*.used});
             return;
         }
         {
@@ -8285,7 +8285,7 @@ pub export fn cursor_history_prev(arg_ses: [*c]struct_session, arg_arg: [*c]u8) 
             }
         }
         if (root.*.update >= @as(c_int, 0)) {
-            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dG\x1b[%dX ]  %.*s"))))))), inputline_cur_off() + inputline_cur_str_len(), (inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len(), if (@as(c_int, 0) > (((inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len()) - @as(c_int, 4))) @as(c_int, 0) else ((inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len()) - @as(c_int, 4), root.*.list[@bitCast(@as(isize, @intCast(root.*.update)))].*.arg1);
+            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dG\x1b[%dX ]  %.*s"))))))), .{inputline_cur_off() + inputline_cur_str_len(), (inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len(), if (@as(c_int, 0) > (((inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len()) - @as(c_int, 4))) @as(c_int, 0) else ((inputline_max_str_len() - inputline_cur_off()) - inputline_cur_str_len()) - @as(c_int, 4), root.*.list[@bitCast(@as(isize, @intCast(root.*.update)))].*.arg1});
             goto_pos(gtd.*.ses, inputline_cur_row(), inputline_cur_col());
         }
         return;
@@ -8327,7 +8327,7 @@ pub export fn cursor_history_search(arg_ses: [*c]struct_session, arg_arg: [*c]u8
         inputline_erase();
         gtd.*.ses.*.input.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 2));
         root.*.update = -@as(c_int, 1);
-        input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(search) [ ] \x1b[3D"))))))));
+        input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("(search) [ ] \x1b[3D"))))))), .{});
     } else {
         if ((root.*.update >= @as(c_int, 0)) and (root.*.update < root.*.used)) {
             inputline_set(root.*.list[@bitCast(@as(isize, @intCast(root.*.update)))].*.arg1, -@as(c_int, 1));
@@ -8350,7 +8350,7 @@ pub export fn cursor_home(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
         }
         return;
     }
-    input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dD"))))))), gtd.*.ses.*.input.*.str_pos - gtd.*.ses.*.input.*.str_hid);
+    input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dD"))))))), .{gtd.*.ses.*.input.*.str_pos - gtd.*.ses.*.input.*.str_hid});
     gtd.*.ses.*.input.*.raw_pos = 0;
     gtd.*.ses.*.input.*.str_pos = 0;
     cursor_check_line(ses, arg);
@@ -8360,32 +8360,32 @@ pub export fn cursor_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
     _ = &ses;
     var arg = arg_arg;
     _ = &arg;
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_max_str_len():        %10d"))))))), inputline_max_str_len());
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_cur_off():            %10d"))))))), inputline_cur_off());
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_cur_str_len():        %10d"))))))), inputline_cur_str_len());
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_rows():               %10d"))))))), inputline_rows(gtd.*.ses));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_max_row():            %10d"))))))), inputline_max_row());
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_cur_row():            %10d"))))))), inputline_cur_row());
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_cur_col():            %10d"))))))), inputline_cur_col());
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_cur_hid():            %10d"))))))), gtd.*.ses.*.input.*.str_hid);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->raw_len:                 %10d"))))))), gtd.*.ses.*.input.*.raw_len);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->str_len:                 %10d"))))))), gtd.*.ses.*.input.*.str_len);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->raw_pos:                 %10d"))))))), gtd.*.ses.*.input.*.raw_pos);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->str_pos:                 %10d"))))))), gtd.*.ses.*.input.*.str_pos);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->line_name:               %s"))))))), gtd.*.ses.*.input.*.line_name);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->sav_top_row:             %10d"))))))), gtd.*.ses.*.input.*.sav_top_row);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->sav_top_col:             %10d"))))))), gtd.*.ses.*.input.*.sav_top_col);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->sav_bot_row:             %10d"))))))), gtd.*.ses.*.input.*.sav_bot_row);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->sav_bot_col:             %10d"))))))), gtd.*.ses.*.input.*.sav_bot_col);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->top_row:                 %10d"))))))), gtd.*.ses.*.input.*.top_row);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->top_col:                 %10d"))))))), gtd.*.ses.*.input.*.top_col);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->bot_row:                 %10d"))))))), gtd.*.ses.*.input.*.bot_row);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->bot_col:                 %10d"))))))), gtd.*.ses.*.input.*.bot_col);
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_max_str_len():        %10d"))))))), .{inputline_max_str_len()});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_cur_off():            %10d"))))))), .{inputline_cur_off()});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_cur_str_len():        %10d"))))))), .{inputline_cur_str_len()});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_rows():               %10d"))))))), .{inputline_rows(gtd.*.ses)});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_max_row():            %10d"))))))), .{inputline_max_row()});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_cur_row():            %10d"))))))), .{inputline_cur_row()});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_cur_col():            %10d"))))))), .{inputline_cur_col()});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("inputline_cur_hid():            %10d"))))))), .{gtd.*.ses.*.input.*.str_hid});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->raw_len:                 %10d"))))))), .{gtd.*.ses.*.input.*.raw_len});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->str_len:                 %10d"))))))), .{gtd.*.ses.*.input.*.str_len});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->raw_pos:                 %10d"))))))), .{gtd.*.ses.*.input.*.raw_pos});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->str_pos:                 %10d"))))))), .{gtd.*.ses.*.input.*.str_pos});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->line_name:               %s"))))))), .{gtd.*.ses.*.input.*.line_name});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->sav_top_row:             %10d"))))))), .{gtd.*.ses.*.input.*.sav_top_row});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->sav_top_col:             %10d"))))))), .{gtd.*.ses.*.input.*.sav_top_col});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->sav_bot_row:             %10d"))))))), .{gtd.*.ses.*.input.*.sav_bot_row});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->sav_bot_col:             %10d"))))))), .{gtd.*.ses.*.input.*.sav_bot_col});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->top_row:                 %10d"))))))), .{gtd.*.ses.*.input.*.top_row});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->top_col:                 %10d"))))))), .{gtd.*.ses.*.input.*.top_col});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->bot_row:                 %10d"))))))), .{gtd.*.ses.*.input.*.bot_row});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("input->bot_col:                 %10d"))))))), .{gtd.*.ses.*.input.*.bot_col});
 }
 pub export fn cursor_insert(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
     var ses = arg_ses;
@@ -8402,7 +8402,7 @@ pub export fn cursor_insert(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
     } else if (!(strcasecmp(@ptrCast(@alignCast(&arg1)), "OFF") != 0)) {
         gtd.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 4)));
     } else {
-        show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {INSERT} {ON|OFF}"))))))));
+        show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {INSERT} {ON|OFF}"))))))), .{});
     }
 }
 pub export fn cursor_macro(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
@@ -8421,7 +8421,7 @@ pub export fn cursor_macro(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
         @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[0] = 0;
         return;
     }
-    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {MACRO} {PRESERVE|RESET}"))))))));
+    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR {MACRO} {PRESERVE|RESET}"))))))), .{});
 }
 pub export fn cursor_move_page_down(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
     var ses = arg_ses;
@@ -8487,11 +8487,11 @@ pub export fn cursor_move_left(arg_ses: [*c]struct_session, arg_arg: [*c]u8) voi
         if ((ses.*.charset & (((@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 2)))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))))) != 0) {
             gtd.*.ses.*.input.*.raw_pos -= 1;
             gtd.*.ses.*.input.*.str_pos -= 1;
-            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1D"))))))));
+            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1D"))))))), .{});
             if (inputline_str_chk(0, gtd.*.ses.*.input.*.raw_pos) == FALSE) {
                 gtd.*.ses.*.input.*.raw_pos -= 1;
                 gtd.*.ses.*.input.*.str_pos -= 1;
-                input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1D"))))))));
+                input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1D"))))))), .{});
             }
         } else if ((ses.*.charset & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) {
             gtd.*.ses.*.input.*.raw_pos -= 1;
@@ -8504,12 +8504,12 @@ pub export fn cursor_move_left(arg_ses: [*c]struct_session, arg_arg: [*c]u8) voi
                 if (width == @as(c_int, 0)) {
                     return cursor_move_left(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
                 }
-                input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dD"))))))), width);
+                input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dD"))))))), .{width});
                 gtd.*.ses.*.input.*.str_pos -= width;
             } else {
                 _ = get_vt102_width(gtd.*.ses, &gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(gtd.*.ses.*.input.*.raw_pos)))], &width);
                 gtd.*.ses.*.input.*.str_pos -= width;
-                input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dD"))))))), width);
+                input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dD"))))))), .{width});
             }
         } else {
             while (true) {
@@ -8517,7 +8517,7 @@ pub export fn cursor_move_left(arg_ses: [*c]struct_session, arg_arg: [*c]u8) voi
                 _ = get_ascii_width(&gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(gtd.*.ses.*.input.*.raw_pos)))], &width);
                 if (width != 0) {
                     gtd.*.ses.*.input.*.str_pos -= width;
-                    input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dD"))))))), width);
+                    input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dD"))))))), .{width});
                     break;
                 }
                 if (!(gtd.*.ses.*.input.*.raw_pos > @as(c_int, 0))) break;
@@ -8569,14 +8569,14 @@ pub export fn cursor_move_right(arg_ses: [*c]struct_session, arg_arg: [*c]u8) vo
     if (gtd.*.ses.*.input.*.raw_pos < gtd.*.ses.*.input.*.raw_len) {
         if ((ses.*.charset & (((@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 2)))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))))) != 0) {
             gtd.*.ses.*.input.*.raw_pos += get_euc_width(gtd.*.ses, &gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(gtd.*.ses.*.input.*.raw_pos)))], &width);
-            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dC"))))))), width);
+            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dC"))))))), .{width});
             gtd.*.ses.*.input.*.str_pos += width;
         } else if ((ses.*.charset & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) {
             gtd.*.ses.*.input.*.raw_pos += get_vt102_width(gtd.*.ses, &gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(gtd.*.ses.*.input.*.raw_pos)))], &width);
             if (width == @as(c_int, 0)) {
                 return cursor_move_right(ses, arg);
             }
-            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dC"))))))), width);
+            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dC"))))))), .{width});
             gtd.*.ses.*.input.*.str_pos += width;
             while (gtd.*.ses.*.input.*.raw_pos < gtd.*.ses.*.input.*.raw_len) {
                 if (!(is_utf8_head(&gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(gtd.*.ses.*.input.*.raw_pos)))]) != 0)) {
@@ -8590,7 +8590,7 @@ pub export fn cursor_move_right(arg_ses: [*c]struct_session, arg_arg: [*c]u8) vo
             }
         } else {
             gtd.*.ses.*.input.*.raw_pos += get_ascii_width(&gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(gtd.*.ses.*.input.*.raw_pos)))], &width);
-            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1C"))))))));
+            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1C"))))))), .{});
             gtd.*.ses.*.input.*.str_pos += 1;
         }
     }
@@ -8695,7 +8695,7 @@ pub export fn cursor_page(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
     if (is_abbrev(@ptrCast(@alignCast(&arg1)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("UP")))))))) != 0) {
         return cursor_buffer_up(ses, arg);
     }
-    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR PAGE {DOWN|END|LOCK|HOME|UP}"))))))));
+    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR PAGE {DOWN|END|LOCK|HOME|UP}"))))))), .{});
 }
 pub export fn cursor_paste_buffer(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
     var ses = arg_ses;
@@ -8760,13 +8760,13 @@ pub export fn cursor_redraw_line(arg_ses: [*c]struct_session, arg_arg: [*c]u8) v
     _ = &ses;
     var arg = arg_arg;
     _ = &arg;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cursor_redraw_line(%p,%p)"))))))), ses, arg);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cursor_redraw_line(%p,%p)"))))))), .{ses, arg});
     if (@as(?*anyopaque, @ptrCast(@alignCast(arg))) == @as(?*anyopaque, null)) {
         pop_call();
         return;
     }
     if (inputline_str_chk(0, gtd.*.ses.*.input.*.raw_len) == FALSE) {
-        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("debug: cursor_redraw_line: corrupted utf-8 detected"))))))));
+        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("debug: cursor_redraw_line: corrupted utf-8 detected"))))))), .{});
         pop_call();
         return;
     }
@@ -8822,18 +8822,18 @@ pub export fn cursor_redraw_singleline(arg_ses: [*c]struct_session, arg_arg: [*c
     raw_off = inputline_str_raw_len(0, gtd.*.ses.*.input.*.str_hid);
     str_pos = (inputline_cur_off() + gtd.*.ses.*.input.*.str_pos) - gtd.*.ses.*.input.*.str_hid;
     if ((inputline_editor() != 0) or (str_max_1 <= @as(c_int, 4))) {
-        input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s"))))))), raw_len, &gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(raw_off)))]);
+        input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s"))))))), .{raw_len, &gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(raw_off)))]});
     } else if (gtd.*.ses.*.input.*.str_hid != 0) {
         if ((gtd.*.ses.*.input.*.str_hid + str_max_1) >= str_len_2) {
-            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s\x1b[%dG<"))))))), raw_len, &gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(raw_off)))], inputline_cur_off());
+            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s\x1b[%dG<"))))))), .{raw_len, &gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(raw_off)))], inputline_cur_off()});
         } else {
-            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s\x1b[%dG<\x1b[%dG>"))))))), raw_len, &gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(raw_off)))], inputline_cur_off(), (inputline_cur_off() - @as(c_int, 1)) + str_max_1);
+            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s\x1b[%dG<\x1b[%dG>"))))))), .{raw_len, &gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(raw_off)))], inputline_cur_off(), (inputline_cur_off() - @as(c_int, 1)) + str_max_1});
         }
     } else {
         if (str_max_1 >= inputline_raw_str_len(0, -@as(c_int, 1))) {
-            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s"))))))), raw_len, &gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(raw_off)))]);
+            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s"))))))), .{raw_len, &gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(raw_off)))]});
         } else {
-            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s\x1b[%dG>"))))))), raw_len, &gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(raw_off)))], (inputline_cur_off() - @as(c_int, 1)) + str_max_1);
+            input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s\x1b[%dG>"))))))), .{raw_len, &gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(raw_off)))], (inputline_cur_off() - @as(c_int, 1)) + str_max_1});
         }
     }
     goto_pos(gtd.*.ses, inputline_cur_row(), str_pos);
@@ -8888,7 +8888,7 @@ pub export fn cursor_redraw_multiline(arg_ses: [*c]struct_session, arg_arg: [*c]
                 raw_len = 0;
             } else {
                 raw_len = inputline_str_raw_len(str_off, str_off + str_max_1);
-                input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s"))))))), raw_len, &gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(raw_off)))]);
+                input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s"))))))), .{raw_len, &gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(raw_off)))]});
             }
             str_off += str_max_1;
             raw_off += raw_len;
@@ -8919,7 +8919,7 @@ pub export fn cursor_redraw_edit(arg_ses: [*c]struct_session, arg_arg: [*c]u8) v
     _ = &raw_width;
     var str_max_1: c_int = undefined;
     _ = &str_max_1;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cursor_redraw_edit(%p,%p)"))))))), ses, arg);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cursor_redraw_edit(%p,%p)"))))))), .{ses, arg});
     if (@as(?*anyopaque, @ptrCast(@alignCast(arg))) == @as(?*anyopaque, null)) {
         pop_call();
         return;
@@ -8958,10 +8958,10 @@ pub export fn cursor_redraw_edit(arg_ses: [*c]struct_session, arg_arg: [*c]u8) v
             }
             if (row == gtd.*.ses.*.input.*.cur_row) {
                 raw_off = get_raw_off_str_range_raw_width(gtd.*.ses, gtd.*.ses.*.input.*.buf, gtd.*.ses.*.input.*.str_hid, (gtd.*.ses.*.input.*.str_hid + str_max_1) - @as(c_int, 1), &raw_width);
-                input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s"))))))), raw_width, &gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(raw_off)))]);
+                input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s"))))))), .{raw_width, &gtd.*.ses.*.input.*.buf[@bitCast(@as(isize, @intCast(raw_off)))]});
             } else {
                 raw_off = get_raw_off_str_range_raw_width(gtd.*.ses, gtd.*.ses.*.input.*.edit.*.line[@bitCast(@as(isize, @intCast(start)))].*.str, gtd.*.ses.*.input.*.str_hid, (gtd.*.ses.*.input.*.str_hid + str_max_1) - @as(c_int, 1), &raw_width);
-                input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s"))))))), raw_width, &gtd.*.ses.*.input.*.edit.*.line[@bitCast(@as(isize, @intCast(start)))].*.str[@bitCast(@as(isize, @intCast(raw_off)))]);
+                input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s"))))))), .{raw_width, &gtd.*.ses.*.input.*.edit.*.line[@bitCast(@as(isize, @intCast(start)))].*.str[@bitCast(@as(isize, @intCast(raw_off)))]});
             }
             start += 1;
         }
@@ -9022,16 +9022,16 @@ pub export fn cursor_tab(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
     var flag: c_int = 0;
     _ = &flag;
     if (@as(c_int, arg.*) == @as(c_int, 0)) {
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" CURSOR TAB OPTIONS "))))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CASELESS"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Make the tab completion caseless"))))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("COMPLETE"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Make the tab completion work while editing"))))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DICTIONARY"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Make the tab completion include the dictionary"))))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("INPUT"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Make the tab completion include the input history"))))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("LIST"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Make the tab completion include the tab completion list"))))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCROLLBACK"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Make the tab completion include the scrollback buffer"))))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("BACKWARD"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Make the tab completion go backward"))))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("FORWARD"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Make the tab completion go forward"))))))));
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" CURSOR TAB OPTIONS "))))))), .{});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CASELESS"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Make the tab completion caseless")))))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("COMPLETE"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Make the tab completion work while editing")))))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DICTIONARY"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Make the tab completion include the dictionary")))))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("INPUT"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Make the tab completion include the input history")))))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("LIST"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Make the tab completion include the tab completion list")))))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCROLLBACK"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Make the tab completion include the scrollback buffer")))))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("BACKWARD"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Make the tab completion go backward")))))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] %s"))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("FORWARD"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Make the tab completion go forward")))))))});
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
         return;
     }
     arg = sub_arg_in_braces(ses, arg, @ptrCast(@alignCast(&arg1)), GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
@@ -9062,7 +9062,7 @@ pub export fn cursor_tab(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
             return cursor_redraw_line(ses, arg);
         }
         if (!((flag & ((((@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 7)))) | (@as(c_int, 1) << @intCast(@as(c_int, 5)))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))))) != 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR TAB {<DICTIONARY|INPUT|LIST|SCROLLBACK> FORWARD}"))))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR TAB {<DICTIONARY|INPUT|LIST|SCROLLBACK> FORWARD}"))))))), .{});
         } else {
             cursor_tab_forward(ses, flag);
         }
@@ -9074,12 +9074,12 @@ pub export fn cursor_tab(arg_ses: [*c]struct_session, arg_arg: [*c]u8) void {
             return cursor_redraw_line(ses, arg);
         }
         if (!((flag & ((((@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 7)))) | (@as(c_int, 1) << @intCast(@as(c_int, 5)))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))))) != 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR TAB {<DICTIONARY|INPUT|LIST|SCROLLBACK> BACKWARD}"))))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR TAB {<DICTIONARY|INPUT|LIST|SCROLLBACK> BACKWARD}"))))))), .{});
         } else {
             cursor_tab_backward(ses, flag);
         }
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR TAB {<DICTIONARY|INPUT|LIST|SCROLLBACK> <BACKWARD|FORWARD>}"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CURSOR TAB {<DICTIONARY|INPUT|LIST|SCROLLBACK> <BACKWARD|FORWARD>}"))))))), .{});
     }
 }
 pub extern fn process_input() void;
@@ -9091,7 +9091,7 @@ pub extern fn str_convert_meta(input: [*c]u8, eol: c_int) [*c]u8;
 pub extern fn echo_command(ses: [*c]struct_session, line: [*c]u8) void;
 pub extern fn init_input(ses: [*c]struct_session, top_row: c_int, top_col: c_int, bot_row: c_int, bot_col: c_int) void;
 pub extern fn free_input(ses: [*c]struct_session) void;
-pub extern fn input_printf(format: [*c]u8, ...) void;
+pub fn input_printf(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").input_printf(arg_format, args); }
 pub extern fn modified_input() void;
 pub extern fn do_map(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn delete_room_data(room: [*c]struct_room_data) void;
@@ -9192,8 +9192,8 @@ pub extern fn insert_node_list(root: [*c]struct_listroot, node: [*c]struct_listn
 pub extern fn insert_index_list(root: [*c]struct_listroot, node: [*c]struct_listnode, index: c_int) [*c]struct_listnode;
 pub extern fn update_node_list(root: [*c]struct_listroot, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_listnode;
 pub extern fn search_node_list(root: [*c]struct_listroot, text: [*c]u8) [*c]struct_listnode;
-pub extern fn push_call(format: [*c]u8, ...) void;
-pub extern fn push_call_printf(format: [*c]u8, ...) c_int;
+pub fn push_call(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").push_call(arg_format, args); }
+pub fn push_call_printf(arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").push_call_printf(arg_format, args)); }
 pub extern fn pop_call() void;
 pub extern fn dump_stack() void;
 pub extern fn do_dictionary(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -9219,7 +9219,7 @@ pub extern fn delete_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn insert_line(edit: [*c]struct_edit_data, index: c_int, str: [*c]u8) void;
 pub extern fn remove_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn do_draw(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
-pub extern fn check_all_events(ses: [*c]struct_session, flags: c_int, args: c_int, vars: c_int, fmt: [*c]u8, ...) c_int;
+pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
 pub extern fn mouse_handler(ses: [*c]struct_session, val1: c_int, val2: c_int, val3: c_int) void;
 pub extern fn do_read(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn do_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -9277,7 +9277,7 @@ pub extern fn main(argc: c_int, argv: [*c][*c]u8) c_int;
 pub extern fn init_tintin(greeting: c_int) void;
 pub extern fn quitmsg(message: [*c]u8) void;
 pub extern fn syserr_fatal(signal: c_int, msg: [*c]u8) void;
-pub extern fn syserr_printf(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
+pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
 pub extern fn zlib_alloc(@"opaque": ?*anyopaque, items: c_uint, size: c_uint) ?*anyopaque;
 pub extern fn zlib_free(@"opaque": ?*anyopaque, address: ?*anyopaque) void;
 pub extern fn restring(point: [*c]u8, string: [*c]u8) [*c]u8;
@@ -9315,11 +9315,11 @@ pub extern fn do_nop(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [
 pub extern fn do_test(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn init_msdp_table() void;
 pub extern fn msdp_find(@"var": [*c]u8) c_int;
-pub extern fn arachnos_devel(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn arachnos_mudlist(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn msdp_update_all(@"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
+pub fn msdp_update_all(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_all(arg0, arg_format, args); }
 pub extern fn msdp_update_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, str: [*c]u8) void;
-pub extern fn msdp_update_varf(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
 pub extern fn msdp_update_var_instant(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
 pub extern fn msdp_send_update(ses: [*c]struct_session, buddy: [*c]struct_port_data) void;
 pub extern fn msdp_get_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8) [*c]u8;
@@ -9356,10 +9356,10 @@ pub extern fn get_nest_index(root: [*c]struct_listroot, variable: [*c]u8, result
 pub extern fn show_nest_node(node: [*c]struct_listnode, result: [*c][*c]u8, initialize: c_int) void;
 pub extern fn view_nest_node_json(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int) void;
 pub extern fn view_nest_node(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int, color: c_int) void;
-pub extern fn set_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn set_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
+pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
 pub extern fn copy_nest_node(dst_root: [*c]struct_listroot, dst: [*c]struct_listnode, src: [*c]struct_listnode) void;
 pub extern fn connect_mud(ses: [*c]struct_session, host: [*c]u8, port: [*c]u8) c_int;
 pub extern fn write_line_mud(ses: [*c]struct_session, line: [*c]u8, size: c_int) void;
@@ -9372,8 +9372,8 @@ pub extern fn is_abbrev_cmp(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_member(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_vowel(str: [*c]u8) c_int;
 pub extern fn filename_string(input: [*c]u8, output: [*c]u8) void;
-pub extern fn execute(ses: [*c]struct_session, format: [*c]u8, ...) [*c]struct_session;
-pub extern fn command(ses: [*c]struct_session, cmd: ?*const COMMAND, format: [*c]u8, ...) [*c]struct_session;
+pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
 pub extern fn parse_input(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn parse_command(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn is_speedwalk(ses: [*c]struct_session, input: [*c]u8) c_int;
@@ -9444,10 +9444,10 @@ pub extern fn port_new(ses: [*c]struct_session, s: c_int) c_int;
 pub extern fn close_port(ses: [*c]struct_session, buddy: [*c]struct_port_data, unlink: c_int) void;
 pub extern fn process_port_connections(ses: [*c]struct_session, read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
 pub extern fn port_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
-pub extern fn port_socket_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_telnet_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, length: usize, format: [*c]u8, ...) void;
-pub extern fn port_log_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
 pub extern fn process_port_input(ses: [*c]struct_session, buddy: [*c]struct_port_data) c_int;
 pub extern fn get_port_commands(ses: [*c]struct_session, buddy: [*c]struct_port_data, buf: [*c]u8, len: c_int) void;
 pub extern fn port_name_change(ses: [*c]struct_session, buddy: [*c]struct_port_data, txt: [*c]u8) void;
@@ -9503,18 +9503,18 @@ pub extern fn new_session(ses: [*c]struct_session, name: [*c]u8, address: [*c]u8
 pub extern fn connect_session(ses: [*c]struct_session) [*c]struct_session;
 pub extern fn cleanup_session(ses: [*c]struct_session) void;
 pub extern fn dispose_session(ses: [*c]struct_session) void;
-pub extern fn show_message(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_error(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_debug(ses: [*c]struct_session, index: c_int, node: [*c]struct_listnode, format: [*c]u8, ...) void;
-pub extern fn show_info(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn tintin_header(ses: [*c]struct_session, width: c_int, format: [*c]u8, ...) void;
+pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
 pub extern fn socket_printf(ses: [*c]struct_session, length: usize, format: [*c]u8, ...) void;
 pub extern fn telnet_printf(ses: [*c]struct_session, length: c_int, format: [*c]u8, ...) void;
-pub extern fn print_lines(ses: [*c]struct_session, flags: c_int, color: [*c]u8, format: [*c]u8, ...) void;
+pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
 pub extern fn show_lines(ses: [*c]struct_session, color: [*c]u8, str: [*c]u8) void;
-pub extern fn tintin_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf2(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf3(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
 pub extern fn tintin_puts(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts2(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts3(ses: [*c]struct_session, string: [*c]u8, prompt: c_int) void;
@@ -9971,7 +9971,7 @@ pub export fn inputline_cap(arg_arg: [*c]u8) void {
     gtd.*.ses.*.input.*.str_pos += str_len_1;
 }
 pub export fn inputline_erase() void {
-    input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dG\x1b[%dX"))))))), inputline_cur_off(), inputline_max_str_len());
+    input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dG\x1b[%dX"))))))), .{inputline_cur_off(), inputline_max_str_len()});
 }
 pub export fn inputline_str_chk(arg_offset: c_int, arg_totlen: c_int) c_int {
     var offset = arg_offset;

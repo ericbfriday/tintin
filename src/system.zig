@@ -82,7 +82,7 @@ pub const __uint16_t = tintin_c.__uint16_t;
 pub const __uint32_t = tintin_c.__uint32_t;
 pub const __uint64_t = tintin_c.__uint64_t;
 pub const __uint8_t = tintin_c.__uint8_t;
-pub const add_nest_node_ses = tintin_c.add_nest_node_ses;
+pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
 pub const bcopy = tintin_c.bcopy;
 pub const clock_t = tintin_c.clock_t;
 pub const deflateInit2_ = tintin_c.deflateInit2_;
@@ -132,9 +132,9 @@ pub const pthread_t = tintin_c.pthread_t;
 pub const sa_family_t = tintin_c.sa_family_t;
 pub const sae_associd_t = tintin_c.sae_associd_t;
 pub const sae_connid_t = tintin_c.sae_connid_t;
-pub const set_nest_node_ses = tintin_c.set_nest_node_ses;
-pub const show_error = tintin_c.show_error;
-pub const show_message = tintin_c.show_message;
+pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
 pub const sigset_t = tintin_c.sigset_t;
 pub const sprintf = tintin_c.sprintf;
 pub const stack_t = tintin_c.stack_t;
@@ -331,10 +331,10 @@ pub const struct_window_data = tintin_c.struct_window_data;
 pub const struct_winsize = tintin_c.struct_winsize;
 pub const struct_z_stream_s = tintin_c.struct_z_stream_s;
 pub const sub_arg_in_braces = tintin_c.sub_arg_in_braces;
-pub const syserr_printf = tintin_c.syserr_printf;
+pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
 pub const system = tintin_c.system;
 pub const time_t = tintin_c.time_t;
-pub const tintin_printf = tintin_c.tintin_printf;
+pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
 pub const u_int32_t = tintin_c.u_int32_t;
 pub const uid_t = tintin_c.uid_t;
 pub const union___sigaction_u = tintin_c.union___sigaction_u;
@@ -360,7 +360,7 @@ pub export fn do_suspend(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     var arg4 = arg_arg4;
     _ = &arg4;
     if (!(strcmp(tintin_c.gtd.*.system.*.os, "WINTIN++") != 0)) {
-        show_error(tintin_c.gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #SUSPEND / ctrl-z is not supported for WinTin++."))))))));
+        show_error(tintin_c.gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #SUSPEND / ctrl-z is not supported for WinTin++."))))))), .{});
         return ses;
     }
     print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[?1049l\x1b[r\x1b[%d;%dH"))))))), tintin_c.gtd.*.screen.*.rows, @as(c_int, 1));
@@ -369,7 +369,7 @@ pub export fn do_suspend(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     _ = kill(0, SIGSTOP);
     init_terminal(tintin_c.gtd.*.ses);
     dirty_screen(tintin_c.gtd.*.ses);
-    tintin_printf(tintin_c.gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#RETURNING BACK TO TINTIN++."))))))));
+    tintin_printf(tintin_c.gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#RETURNING BACK TO TINTIN++."))))))), .{});
     return ses;
 }
 pub const buffer_table: [*c]struct_buffer_type = @extern([*c]struct_buffer_type, .{
@@ -890,7 +890,7 @@ pub export fn do_run(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c
     arg = sub_arg_in_braces(ses, arg, arg3, GET_ONE, SUB_VAR | SUB_FUN);
 
     if (arg1[0] == 0 or arg2[0] == 0) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #RUN <NAME> <SHELL COMMAND>"))))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #RUN <NAME> <SHELL COMMAND>"))))))))), .{});
         return ses;
     }
 
@@ -903,7 +903,7 @@ pub export fn do_run(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c
 
     switch (pid) {
         -1 => {
-            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("do_run: forkpty"))))))))));
+            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("do_run: forkpty"))))))))), .{});
         },
         0 => {
             _ = sprintf(@as([*c]u8, @ptrCast(&temp)), "exec %s", arg2);
@@ -943,7 +943,7 @@ pub export fn do_script(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCRIPT <VARIABLE> <SHELL COMMAND>"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCRIPT <VARIABLE> <SHELL COMMAND>"))))))), .{});
     } else if (@as(c_int, arg2.*) == @as(c_int, 0)) {
         script = popen(arg1, "r");
         if (script != null) {
@@ -956,29 +956,29 @@ pub export fn do_script(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
             }
             _ = pclose(script);
         } else {
-            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("do_script: popen 1"))))))));
+            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("do_script: popen 1"))))))), .{});
         }
     } else {
         index_1 = 1;
         script = popen(arg2, "r");
         if (script != null) {
-            _ = set_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+            _ = set_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
             while (fgets(@ptrCast(@alignCast(&buf)), BUFFER_SIZE - @as(c_int, 1), script) != null) {
                 cptr = strchr(@ptrCast(@alignCast(&buf)), '\n');
                 if (cptr != null) {
                     cptr.* = 0;
                 }
                 _ = substitute(ses, @ptrCast(@alignCast(&buf)), @ptrCast(@alignCast(&tmp)), @as(c_int, 1) << @intCast(@as(c_int, 1)));
-                _ = add_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d}{%s}"))))))), blk: {
+                _ = add_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d}{%s}"))))))), .{blk: {
                     const ref = &index_1;
                     const tmp_1 = ref.*;
                     ref.* += 1;
                     break :blk tmp_1;
-                }, @as([*c]u8, @ptrCast(@alignCast(&tmp))));
+                }, @as([*c]u8, @ptrCast(@alignCast(&tmp)))});
             }
             _ = pclose(script);
         } else {
-            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("do_script: popen 2"))))))));
+            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("do_script: popen 2"))))))), .{});
         }
     }
     refresh_session_terminal(ses);
@@ -999,16 +999,16 @@ pub export fn do_system(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     _ = &arg4;
     _ = sub_arg_in_braces(ses, arg, arg1, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SYSTEM <COMMAND>"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SYSTEM <COMMAND>"))))))), .{});
         return ses;
     }
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYSTEM: EXECUTING {%s}."))))))), arg1);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYSTEM: EXECUTING {%s}."))))))), .{arg1});
     if (!((tintin_c.gtd.*.ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) and (tintin_c.gtd.*.screen.*.rows != tintin_c.gtd.*.ses.*.split.*.bot_row)) {
         save_pos(tintin_c.gtd.*.ses);
         goto_pos(tintin_c.gtd.*.ses, tintin_c.gtd.*.ses.*.split.*.bot_row, 1);
     }
     if (system(arg1) == -@as(c_int, 1)) {
-        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("do_system: system:"))))))));
+        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("do_system: system:"))))))), .{});
     }
     if (!((tintin_c.gtd.*.ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) and (tintin_c.gtd.*.screen.*.rows != tintin_c.gtd.*.ses.*.split.*.bot_row)) {
         restore_pos(tintin_c.gtd.*.ses);
@@ -1042,7 +1042,7 @@ pub export fn do_textin(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
         fp = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #TEXTIN {%s}: FILE NOT FOUND."))))))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #TEXTIN {%s}: FILE NOT FOUND."))))))), .{arg1});
         return ses;
     }
     while (fgets(@ptrCast(@alignCast(&buffer)), BUFFER_SIZE - @as(c_int, 1), fp) != null) {
@@ -1056,7 +1056,7 @@ pub export fn do_textin(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
         }
     }
     _ = fclose(fp);
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#TEXTIN {%s}: FILE READ."))))))), arg1);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#TEXTIN {%s}: FILE READ."))))))), .{arg1});
     return ses;
 }
 

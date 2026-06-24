@@ -20,8 +20,8 @@ pub const tolower = tintin_c.tolower;
 pub const is_alpha = tintin_c.is_alpha;
 pub const get_arg_in_braces = tintin_c.get_arg_in_braces;
 pub const sub_arg_in_braces = tintin_c.sub_arg_in_braces;
-pub const show_message = tintin_c.show_message;
-pub const tintin_printf2 = tintin_c.tintin_printf2;
+pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
 
 // --- TinTin++ constants ---
 pub const GET_ONE: c_int = 0;
@@ -181,7 +181,7 @@ pub export fn do_dictionary(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_ar
     _ = sub_arg_in_braces(ses, arg_arg, arg_arg1, GET_ALL, SUB_VAR | SUB_FUN);
 
     if (arg_arg1.* == 0 or is_alpha(arg_arg1.*) == 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #DICTIONARY {WORD}"))))))))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #DICTIONARY {WORD}"))))))))))), .{});
 
         var hash: c_int = 0;
         while (hash < 26) : (hash += 1) {
@@ -201,9 +201,9 @@ pub export fn do_dictionary(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_ar
             const index = dictionary_search(hash, arg_arg3 + 1);
 
             if (index == -1) {
-                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31m%s"))))))))))), arg_arg2);
+                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31m%s"))))))))))), .{arg_arg2});
             } else {
-                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;32m%s"))))))))))), arg_arg2);
+                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;32m%s"))))))))))), .{arg_arg2});
             }
         }
 

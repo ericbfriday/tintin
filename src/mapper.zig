@@ -6267,7 +6267,7 @@ pub const struct_session = extern struct {
     pub const edit_suspend = __root.edit_suspend;
     pub const edit_write = __root.edit_write;
     pub const do_draw = __root.do_draw;
-    pub const check_all_events = __root.check_all_events;
+    pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
     pub const mouse_handler = __root.mouse_handler;
     pub const do_read = __root.do_read;
     pub const do_write = __root.do_write;
@@ -6313,14 +6313,14 @@ pub const struct_session = extern struct {
     pub const logit = __root.logit;
     pub const write_html_header = __root.write_html_header;
     pub const vt102_to_html = __root.vt102_to_html;
-    pub const syserr_printf = __root.syserr_printf;
+    pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
     pub const do_end = __root.do_end;
     pub const do_nop = __root.do_nop;
     pub const do_test = __root.do_test;
-    pub const arachnos_devel = __root.arachnos_devel;
-    pub const arachnos_mudlist = __root.arachnos_mudlist;
+    pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+    pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
     pub const msdp_update_var = __root.msdp_update_var;
-    pub const msdp_update_varf = __root.msdp_update_varf;
+    pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
     pub const msdp_update_var_instant = __root.msdp_update_var_instant;
     pub const msdp_send_update = __root.msdp_send_update;
     pub const msdp_get_var = __root.msdp_get_var;
@@ -6334,16 +6334,16 @@ pub const struct_session = extern struct {
     pub const write_msdp_to_descriptor = __root.write_msdp_to_descriptor;
     pub const search_nest_base_ses = __root.search_nest_base_ses;
     pub const search_nest_node_ses = __root.search_nest_node_ses;
-    pub const set_nest_node_ses = __root.set_nest_node_ses;
-    pub const add_nest_node_ses = __root.add_nest_node_ses;
+    pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
     pub const connect_mud = __root.connect_mud;
     pub const write_line_mud = __root.write_line_mud;
     pub const read_buffer_mud = __root.read_buffer_mud;
     pub const readmud = __root.readmud;
     pub const process_more_output = __root.process_more_output;
     pub const process_one_line = __root.process_one_line;
-    pub const execute = __root.execute;
-    pub const command = __root.command;
+    pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+    pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
     pub const parse_input = __root.parse_input;
     pub const parse_command = __root.parse_command;
     pub const is_speedwalk = __root.is_speedwalk;
@@ -6412,10 +6412,10 @@ pub const struct_session = extern struct {
     pub const close_port = __root.close_port;
     pub const process_port_connections = __root.process_port_connections;
     pub const port_forward_session = __root.port_forward_session;
-    pub const port_socket_printf = __root.port_socket_printf;
-    pub const port_telnet_printf = __root.port_telnet_printf;
-    pub const port_log_printf = __root.port_log_printf;
-    pub const port_printf = __root.port_printf;
+    pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+    pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+    pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+    pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
     pub const process_port_input = __root.process_port_input;
     pub const get_port_commands = __root.get_port_commands;
     pub const port_name_change = __root.port_name_change;
@@ -6457,18 +6457,18 @@ pub const struct_session = extern struct {
     pub const connect_session = __root.connect_session;
     pub const cleanup_session = __root.cleanup_session;
     pub const dispose_session = __root.dispose_session;
-    pub const show_message = __root.show_message;
-    pub const show_error = __root.show_error;
-    pub const show_debug = __root.show_debug;
-    pub const show_info = __root.show_info;
-    pub const tintin_header = __root.tintin_header;
+    pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+    pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+    pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+    pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+    pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
     pub const socket_printf = __root.socket_printf;
     pub const telnet_printf = __root.telnet_printf;
-    pub const print_lines = __root.print_lines;
+    pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
     pub const show_lines = __root.show_lines;
-    pub const tintin_printf = __root.tintin_printf;
-    pub const tintin_printf2 = __root.tintin_printf2;
-    pub const tintin_printf3 = __root.tintin_printf3;
+    pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+    pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+    pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
     pub const tintin_puts = __root.tintin_puts;
     pub const tintin_puts2 = __root.tintin_puts2;
     pub const tintin_puts3 = __root.tintin_puts3;
@@ -6591,9 +6591,9 @@ pub const struct_session = extern struct {
     pub const catch_vt102_codes = __root.catch_vt102_codes;
     pub const dir_flags = __root.dir_flags;
     pub const create_map = __root.create_map;
-    pub const create_room = __root.create_room;
+    pub fn create_room(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_room_data { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").create_room(arg0, arg_format, args))))); }
     pub const delete_room = __root.delete_room;
-    pub const create_exit = __root.create_exit;
+    pub fn create_exit(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_exit_data { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").create_exit(arg0, arg1, arg_format, args))))); }
     pub const delete_exit = __root.delete_exit;
     pub const search_keywords = __root.search_keywords;
     pub const map_search_compile = __root.map_search_compile;
@@ -6613,7 +6613,7 @@ pub const struct_session = extern struct {
     pub const get_terrain_vnum = __root.get_terrain_vnum;
     pub const draw_terrain_symbol = __root.draw_terrain_symbol;
     pub const displaygrid_build = __root.displaygrid_build;
-    pub const add_undo = __root.add_undo;
+    pub fn add_undo(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").add_undo(arg0, arg_format, args); }
     pub const del_undo = __root.del_undo;
     pub const draw_room = __root.draw_room;
     pub const shortest_path = __root.shortest_path;
@@ -6897,8 +6897,8 @@ pub const struct_listroot = extern struct {
     pub const get_nest_node_key = __root.get_nest_node_key;
     pub const get_nest_node_val = __root.get_nest_node_val;
     pub const get_nest_index = __root.get_nest_index;
-    pub const set_nest_node = __root.set_nest_node;
-    pub const add_nest_node = __root.add_nest_node;
+    pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
     pub const copy_nest_node = __root.copy_nest_node;
     pub const node = __root.show_node;
     pub const root = __root.search_nest_root;
@@ -6945,7 +6945,7 @@ pub const struct_chat_data = extern struct {
     file_block_tot: c_int = 0,
     file_block_patch: c_int = 0,
     file_start_time: c_ulonglong = 0,
-    pub const chat_socket_printf = __root.chat_socket_printf;
+    pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
     pub const close_chat = __root.close_chat;
     pub const chat = __root.close_chat;
 };
@@ -7293,7 +7293,7 @@ pub extern fn buffer_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, a
 pub extern fn buffer_info(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8) void;
 pub extern fn do_chat(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn process_chat_connections(read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
-pub extern fn chat_socket_printf(buddy: [*c]struct_chat_data, format: [*c]u8, ...) void;
+pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
 pub extern fn close_chat(buddy: [*c]struct_chat_data, unlink: c_int) void;
 pub extern fn chat_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
 pub extern fn chat_accept(arg1: [*c]u8, arg2: [*c]u8) void;
@@ -7403,7 +7403,7 @@ pub extern fn str_convert_meta(input: [*c]u8, eol: c_int) [*c]u8;
 pub extern fn echo_command(ses: [*c]struct_session, line: [*c]u8) void;
 pub extern fn init_input(ses: [*c]struct_session, top_row: c_int, top_col: c_int, bot_row: c_int, bot_col: c_int) void;
 pub extern fn free_input(ses: [*c]struct_session) void;
-pub extern fn input_printf(format: [*c]u8, ...) void;
+pub fn input_printf(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").input_printf(arg_format, args); }
 pub extern fn modified_input() void;
 pub export fn do_map(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8, arg_arg4: [*c]u8) [*c]struct_session {
     var ses = arg_ses;
@@ -7420,19 +7420,19 @@ pub export fn do_map(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c
     _ = &arg4;
     var cnt: c_int = undefined;
     _ = &cnt;
-    _ = push_call_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("do_map(%p,%s)"))))), ses, arg);
+    _ = push_call_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("do_map(%p,%s)"))))), .{ses, arg});
     arg = get_arg_in_braces(ses, arg, arg1, GET_ONE);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" MAP OPTIONS "))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" MAP OPTIONS "))))), .{});
         {
             cnt = 0;
             while (@as(?*anyopaque, @ptrCast(@alignCast(@constCast(map_table[@bitCast(@as(isize, @intCast(cnt)))].fun)))) != @as(?*anyopaque, null)) : (cnt += 1) {
                 if (@as(c_int, map_table[@bitCast(@as(isize, @intCast(cnt)))].desc.*) != 0) {
-                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-13s] %s"))))), map_table[@bitCast(@as(isize, @intCast(cnt)))].name, map_table[@bitCast(@as(isize, @intCast(cnt)))].desc);
+                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-13s] %s"))))), .{map_table[@bitCast(@as(isize, @intCast(cnt)))].name, map_table[@bitCast(@as(isize, @intCast(cnt)))].desc});
                 }
             }
         }
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), .{});
         pop_call();
         return ses;
     } else {
@@ -7441,12 +7441,12 @@ pub export fn do_map(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c
             while (@as(c_int, map_table[@bitCast(@as(isize, @intCast(cnt)))].name.*) != 0) : (cnt += 1) {
                 if (is_abbrev(arg1, map_table[@bitCast(@as(isize, @intCast(cnt)))].name) != 0) {
                     if ((map_table[@bitCast(@as(isize, @intCast(cnt)))].check > @as(c_int, 0)) and (@as(?*anyopaque, @ptrCast(@alignCast(ses.*.map))) == @as(?*anyopaque, null))) {
-                        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP {%s}: SESSION HAS NO MAP. USE #MAP CREATE TO CREATE A MAP."))))), map_table[@bitCast(@as(isize, @intCast(cnt)))].name);
+                        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP {%s}: SESSION HAS NO MAP. USE #MAP CREATE TO CREATE A MAP."))))), .{map_table[@bitCast(@as(isize, @intCast(cnt)))].name});
                         pop_call();
                         return ses;
                     }
                     if ((map_table[@bitCast(@as(isize, @intCast(cnt)))].check > @as(c_int, 1)) and (@as(?*anyopaque, @ptrCast(@alignCast(ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))]))) == @as(?*anyopaque, null))) {
-                        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP {%s}: YOU ARE NOT INSIDE THE MAP. USE #MAP GOTO TO ENTER IT."))))), map_table[@bitCast(@as(isize, @intCast(cnt)))].name);
+                        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP {%s}: YOU ARE NOT INSIDE THE MAP. USE #MAP GOTO TO ENTER IT."))))), .{map_table[@bitCast(@as(isize, @intCast(cnt)))].name});
                         pop_call();
                         return ses;
                     }
@@ -7464,7 +7464,7 @@ pub export fn do_map(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c
                 }
             }
         }
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #MAP {%s}: INVALID MAP OPTION."))))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #MAP {%s}: INVALID MAP OPTION."))))), .{arg1});
     }
     pop_call();
     return ses;
@@ -7498,7 +7498,7 @@ pub export fn follow_map(arg_ses: [*c]struct_session, arg_argument: [*c]u8) c_in
     _ = &in_room;
     var vnum: c_int = undefined;
     _ = &vnum;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("follow_map(%p,%p)"))))), ses, argument);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("follow_map(%p,%p)"))))), .{ses, argument});
     room = ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))];
     last_room = ses.*.map.*.in_room;
     if (((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != 0) and (ses.*.map.*.nofollow == @as(c_int, 0))) {
@@ -7512,9 +7512,9 @@ pub export fn follow_map(arg_ses: [*c]struct_session, arg_argument: [*c]u8) c_in
             ses.*.map.*.dir = exit_1.*.dir;
             vnum = tunnel_void(ses, in_room, exit_1.*.vnum, exit_1.*.dir);
             if (in_room == ses.*.map.*.global_vnum) {
-                _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP FOLLOW GLOBAL"))))), ntos(last_room), ntos(vnum), exit_1.*.name, ntos(ses.*.map.*.nofollow));
+                _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP FOLLOW GLOBAL"))))), .{ntos(last_room), ntos(vnum), exit_1.*.name, ntos(ses.*.map.*.nofollow)});
             }
-            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP FOLLOW MAP"))))), ntos(in_room), ntos(vnum), exit_1.*.name, ntos(ses.*.map.*.nofollow));
+            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP FOLLOW MAP"))))), .{ntos(in_room), ntos(vnum), exit_1.*.name, ntos(ses.*.map.*.nofollow)});
         }
         pop_call();
         return 0;
@@ -7532,9 +7532,9 @@ pub export fn follow_map(arg_ses: [*c]struct_session, arg_argument: [*c]u8) c_in
         if (ses.*.map.*.nofollow == @as(c_int, 0)) {
             if (((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) or ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(vnum)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 14)))) != 0)) {
                 if ((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) {
-                    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP FOLLOW: EXIT {%s} HAS THE BLOCK FLAG SET."))))), exit_1.*.name);
+                    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP FOLLOW: EXIT {%s} HAS THE BLOCK FLAG SET."))))), .{exit_1.*.name});
                 } else {
-                    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP FOLLOW: ROOM {%d} HAS THE BLOCK FLAG SET."))))), vnum);
+                    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP FOLLOW: ROOM {%d} HAS THE BLOCK FLAG SET."))))), .{vnum});
                 }
                 pop_call();
                 return 1;
@@ -7545,13 +7545,13 @@ pub export fn follow_map(arg_ses: [*c]struct_session, arg_argument: [*c]u8) c_in
             }
         }
         if (in_room == ses.*.map.*.global_vnum) {
-            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP FOLLOW GLOBAL"))))), ntos(last_room), ntos(vnum), exit_1.*.name, ntos(ses.*.map.*.nofollow));
+            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP FOLLOW GLOBAL"))))), .{ntos(last_room), ntos(vnum), exit_1.*.name, ntos(ses.*.map.*.nofollow)});
         }
-        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP FOLLOW MAP"))))), ntos(last_room), ntos(vnum), exit_1.*.name, ntos(ses.*.map.*.nofollow));
-        add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), vnum, last_room, @as(c_int, 1) << @intCast(@as(c_int, 0)));
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP FOLLOW MAP"))))), .{ntos(last_room), ntos(vnum), exit_1.*.name, ntos(ses.*.map.*.nofollow)});
+        add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), .{vnum, last_room, @as(c_int, 1) << @intCast(@as(c_int, 0))});
         goto_room(ses, vnum);
         if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: LEAVE FLAG FOUND IN ROOM {%d}. LEAVING MAP."))))), ses.*.map.*.in_room);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: LEAVE FLAG FOUND IN ROOM {%d}. LEAVING MAP."))))), .{ses.*.map.*.in_room});
             map_leave(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
         }
         if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) {
@@ -7573,8 +7573,8 @@ pub export fn follow_map(arg_ses: [*c]struct_session, arg_argument: [*c]u8) c_in
         }
         in_room = find_coord(ses, argument);
         if (in_room != 0) {
-            show_message(ses, LIST_PATH, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP CREATE LINK %5d {%s}."))))), in_room, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(in_room)))].*.name);
-            add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), in_room, ses.*.map.*.in_room, (@as(c_int, 1) << @intCast(@as(c_int, 0))) | (@as(c_int, 1) << @intCast(@as(c_int, 2))));
+            show_message(ses, LIST_PATH, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP CREATE LINK %5d {%s}."))))), .{in_room, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(in_room)))].*.name});
+            add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), .{in_room, ses.*.map.*.in_room, (@as(c_int, 1) << @intCast(@as(c_int, 0))) | (@as(c_int, 1) << @intCast(@as(c_int, 2)))});
         } else {
             {
                 in_room = 1;
@@ -7585,17 +7585,17 @@ pub export fn follow_map(arg_ses: [*c]struct_session, arg_argument: [*c]u8) c_in
                 }
             }
             if (in_room == ses.*.map.*.size) {
-                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: MAXIMUM NUMBER OF ROOMS OF %d REACHED. USE #MAP RESIZE TO INCREASE THE MAXIMUM."))))), ses.*.map.*.size);
+                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: MAXIMUM NUMBER OF ROOMS OF %d REACHED. USE #MAP RESIZE TO INCREASE THE MAXIMUM."))))), .{ses.*.map.*.size});
                 pop_call();
                 return 1;
             }
-            add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), in_room, ses.*.map.*.in_room, ((@as(c_int, 1) << @intCast(@as(c_int, 0))) | (@as(c_int, 1) << @intCast(@as(c_int, 1)))) | (@as(c_int, 1) << @intCast(@as(c_int, 2))));
-            _ = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {0} {} {} { } {} {} {} {} {} {1.0} {}"))))), in_room);
+            add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), .{in_room, ses.*.map.*.in_room, ((@as(c_int, 1) << @intCast(@as(c_int, 0))) | (@as(c_int, 1) << @intCast(@as(c_int, 1)))) | (@as(c_int, 1) << @intCast(@as(c_int, 2)))});
+            _ = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {0} {} {} { } {} {} {} {} {} {1.0} {}"))))), .{in_room});
         }
-        exit_1 = create_exit(ses, ses.*.map.*.in_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), in_room, dir.*.arg1, dir.*.arg1);
+        exit_1 = create_exit(ses, ses.*.map.*.in_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), .{in_room, dir.*.arg1, dir.*.arg1});
         ses.*.map.*.dir = exit_1.*.dir;
         if (@as(?*anyopaque, @ptrCast(@alignCast(find_exit(ses, in_room, dir.*.arg2)))) == @as(?*anyopaque, null)) {
-            _ = create_exit(ses, in_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), ses.*.map.*.in_room, dir.*.arg2, dir.*.arg2);
+            _ = create_exit(ses, in_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), .{ses.*.map.*.in_room, dir.*.arg2, dir.*.arg2});
         }
         if (ses.*.map.*.nofollow == @as(c_int, 0)) {
             ses.*.map.*.nofollow += 1;
@@ -7645,7 +7645,7 @@ pub export fn show_vtmap(arg_ses: [*c]struct_session, arg_clear: c_int) void {
     _ = &cols;
     var row: c_int = undefined;
     _ = &row;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("show_vtmap(%p,%d)"))))), ses, clear);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("show_vtmap(%p,%d)"))))), .{ses, clear});
     if ((@as(?*anyopaque, @ptrCast(@alignCast(ses.*.map))) == @as(?*anyopaque, null)) or !((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0)) {
         pop_call();
         return;
@@ -7853,7 +7853,7 @@ pub export fn map_mouse_handler(arg_ses: [*c]struct_session, arg_arg1: [*c]u8, a
     _ = &char_height;
     var vnum: c_int = 0;
     _ = &vnum;
-    _ = push_call_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("map_mouse_handler(%p,%p,%p,%d,%d,%d,%d,%d,%d)"))))), ses, arg1, arg2, row, col, rev_row, rev_col, height, width);
+    _ = push_call_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("map_mouse_handler(%p,%p,%p,%d,%d,%d,%d,%d,%d)"))))), .{ses, arg1, arg2, row, col, rev_row, rev_col, height, width});
     if (((@as(?*anyopaque, @ptrCast(@alignCast(ses.*.map))) == @as(?*anyopaque, null)) or !((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0)) or (@as(?*anyopaque, @ptrCast(@alignCast(ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))]))) == @as(?*anyopaque, null))) {
         pop_call();
         return;
@@ -8004,14 +8004,14 @@ pub export fn map_mouse_handler(arg_ses: [*c]struct_session, arg_arg1: [*c]u8, a
         vnum = 0;
     }
     if ((arg1 != null) and (arg2 != null)) {
-        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 8)), 2, 6, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP REGION %s %s"))))), arg1, arg2, ntos(row), ntos(col), ntos(rev_row), ntos(rev_col), ntos(vnum), @as([*c]u8, @ptrCast(@alignCast(&exit_1))));
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 8)), 2, 6, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP REGION %s %s"))))), .{arg1, arg2, ntos(row), ntos(col), ntos(rev_row), ntos(rev_col), ntos(vnum), @as([*c]u8, @ptrCast(@alignCast(&exit_1)))});
     }
     if (vnum != 0) {
         if ((arg1 != null) and (arg2 != null)) {
-            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 8)), 2, 6, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP %s %s"))))), arg1, arg2, ntos(vnum), @as([*c]u8, @ptrCast(@alignCast(&exit_1))), ntos(rev_row), ntos(rev_col), ntos(vnum), @as([*c]u8, @ptrCast(@alignCast(&exit_1))));
-            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 8)), 2, 6, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP ROOM %s %s"))))), arg1, arg2, ntos(row), ntos(col), ntos(rev_row), ntos(rev_col), ntos(vnum), @as([*c]u8, @ptrCast(@alignCast(&exit_1))));
+            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 8)), 2, 6, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP %s %s"))))), .{arg1, arg2, ntos(vnum), @as([*c]u8, @ptrCast(@alignCast(&exit_1))), ntos(rev_row), ntos(rev_col), ntos(vnum), @as([*c]u8, @ptrCast(@alignCast(&exit_1)))});
+            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 8)), 2, 6, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP ROOM %s %s"))))), .{arg1, arg2, ntos(row), ntos(col), ntos(rev_row), ntos(rev_col), ntos(vnum), @as([*c]u8, @ptrCast(@alignCast(&exit_1)))});
         } else {
-            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 8)), 0, 6, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP MOUSE LOCATION"))))), ntos(row), ntos(col), @as([*c]u8, @ptrCast(@alignCast(&exit_1))), ntos(rev_row), ntos(rev_col), ntos(vnum), @as([*c]u8, @ptrCast(@alignCast(&exit_1))));
+            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 8)), 0, 6, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP MOUSE LOCATION"))))), .{ntos(row), ntos(col), @as([*c]u8, @ptrCast(@alignCast(&exit_1))), ntos(rev_row), ntos(rev_col), ntos(vnum), @as([*c]u8, @ptrCast(@alignCast(&exit_1)))});
         }
     }
     pop_call();
@@ -8076,7 +8076,7 @@ pub export fn map_at(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ALL, @as(c_int, 0) << @intCast(@as(c_int, 0)));
     if (ses.*.map.*.at_room != 0) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP AT: NESTED #MAP AT CALL FROM ROOM {%d}."))))), ses.*.map.*.in_room);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP AT: NESTED #MAP AT CALL FROM ROOM {%d}."))))), .{ses.*.map.*.in_room});
         return;
     }
     new_room = find_room(ses, arg1);
@@ -8086,7 +8086,7 @@ pub export fn map_at(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c
             new_room = find_path(ses, arg1);
         }
         if (new_room == @as(c_int, 0)) {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP AT: CAN'T FIND ROOM OR EXIT {%s}."))))), arg1);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP AT: CAN'T FIND ROOM OR EXIT {%s}."))))), .{arg1});
             ses.*.map.*.at_room = 0;
             return;
         }
@@ -8124,13 +8124,13 @@ pub export fn map_center(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
         arg = sub_arg_in_braces(ses, arg, arg2, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
         arg = sub_arg_in_braces(ses, arg, arg3, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
         if ((!(is_math(ses, arg1) != 0) or !(is_math(ses, arg2) != 0)) or !(is_math(ses, arg3) != 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP CENTER <X> <Y> <Z>"))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP CENTER <X> <Y> <Z>"))))), .{});
             return;
         } else {
             ses.*.map.*.center_x = @intFromFloat(get_number(ses, arg1));
             ses.*.map.*.center_y = @intFromFloat(get_number(ses, arg2));
             ses.*.map.*.center_z = @intFromFloat(get_number(ses, arg3));
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP CENTER SET TO {%d} {%d} {%d}."))))), ses.*.map.*.center_x, ses.*.map.*.center_y, ses.*.map.*.center_z);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP CENTER SET TO {%d} {%d} {%d}."))))), .{ses.*.map.*.center_x, ses.*.map.*.center_y, ses.*.map.*.center_z});
         }
     }
 }
@@ -8176,16 +8176,16 @@ pub export fn map_color(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
             }
         }
         if (@as(?*anyopaque, @ptrCast(@alignCast(map_color_table[@bitCast(@as(isize, @intCast(index_1)))].name))) == @as(?*anyopaque, null)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP COLOR {AVOID|BACKGROUND|EXIT|FOG|HIDE|INVIS|PATH|ROOM|USER} <COLOR CODE>"))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP COLOR {AVOID|BACKGROUND|EXIT|FOG|HIDE|INVIS|PATH|ROOM|USER} <COLOR CODE>"))))), .{});
             return;
         }
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP COLOR: {%s} SET TO {%s}."))))), map_color_table[@bitCast(@as(isize, @intCast(index_1)))].name, @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.color_raw[@bitCast(@as(isize, @intCast(index_1)))]))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP COLOR: {%s} SET TO {%s}."))))), .{map_color_table[@bitCast(@as(isize, @intCast(index_1)))].name, @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.color_raw[@bitCast(@as(isize, @intCast(index_1)))])))});
     } else {
         {
             index_1 = 0;
             while (map_color_table[@bitCast(@as(isize, @intCast(index_1)))].name != null) : (index_1 += 1) {
                 _ = get_color_names(ses, @ptrCast(@alignCast(&ses.*.map.*.color[@bitCast(@as(isize, @intCast(index_1)))])), arg3);
-                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP COLOR %s%10s\x1b[0m SET TO {%s}"))))), arg3, map_color_table[@bitCast(@as(isize, @intCast(index_1)))].name, @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.color_raw[@bitCast(@as(isize, @intCast(index_1)))]))));
+                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP COLOR %s%10s\x1b[0m SET TO {%s}"))))), .{arg3, map_color_table[@bitCast(@as(isize, @intCast(index_1)))].name, @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.color_raw[@bitCast(@as(isize, @intCast(index_1)))])))});
             }
         }
     }
@@ -8203,7 +8203,7 @@ pub export fn map_create(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     _ = &arg3;
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     create_map(ses, arg1, 0);
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: %d ROOM MAP CREATED, USE '#MAP GOTO 1' TO PROCEED."))))), ses.*.map.*.size);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: %d ROOM MAP CREATED, USE '#MAP GOTO 1' TO PROCEED."))))), .{ses.*.map.*.size});
 }
 pub export fn map_debug(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
     var ses = arg_ses;
@@ -8216,15 +8216,15 @@ pub export fn map_debug(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     _ = &arg2;
     var arg3 = arg_arg3;
     _ = &arg3;
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("max spatial grid x: %d"))))), ses.*.map.*.max_grid_x);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("max spatial grid y: %d"))))), ses.*.map.*.max_grid_y);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     max undo size: %d"))))), ses.*.map.*.undo_size);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("           in room: %d"))))), ses.*.map.*.in_room);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("           at room: %d"))))), ses.*.map.*.at_room);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("         last room: %d"))))), ses.*.map.*.last_room);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("             stamp: %d"))))), ses.*.map.*.search.*.stamp);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("            length: %f"))))), ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.length);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("          nofollow: %d"))))), ses.*.map.*.nofollow);
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("max spatial grid x: %d"))))), .{ses.*.map.*.max_grid_x});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("max spatial grid y: %d"))))), .{ses.*.map.*.max_grid_y});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     max undo size: %d"))))), .{ses.*.map.*.undo_size});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("           in room: %d"))))), .{ses.*.map.*.in_room});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("           at room: %d"))))), .{ses.*.map.*.at_room});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("         last room: %d"))))), .{ses.*.map.*.last_room});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("             stamp: %d"))))), .{ses.*.map.*.search.*.stamp});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("            length: %f"))))), .{ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.length});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("          nofollow: %d"))))), .{ses.*.map.*.nofollow});
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) != 0) {
         if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("undo")))))) != 0) {
@@ -8233,7 +8233,7 @@ pub export fn map_debug(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
             {
                 link_1 = ses.*.map.*.undo_head;
                 while (link_1 != null) : (link_1 = link_1.*.next) {
-                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%05s %05s %s"))))), link_1.*.str1, link_1.*.str2, link_1.*.str3);
+                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%05s %05s %s"))))), .{link_1.*.str1, link_1.*.str2, link_1.*.str3});
                 }
             }
         }
@@ -8258,7 +8258,7 @@ pub export fn map_delete(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     if (is_number(arg1) != 0) {
         room = find_room(ses, arg1);
         if (room == @as(c_int, 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DELETE {%s}: NO ROOM WITH THAT VNUM FOUND."))))), arg1);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DELETE {%s}: NO ROOM WITH THAT VNUM FOUND."))))), .{arg1});
             return;
         }
     } else if (ses.*.map.*.in_room != 0) {
@@ -8267,20 +8267,20 @@ pub export fn map_delete(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
             room = exit_1.*.vnum;
         }
         if (@as(?*anyopaque, @ptrCast(@alignCast(exit_1))) == @as(?*anyopaque, null)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DELETE: NO EXIT WITH THAT NAME FOUND."))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DELETE: NO EXIT WITH THAT NAME FOUND."))))), .{});
             return;
         }
         room = exit_1.*.vnum;
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DELETE: YOU MUST FIRST ENTER THE MAP."))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DELETE: YOU MUST FIRST ENTER THE MAP."))))), .{});
         return;
     }
     if ((room == ses.*.map.*.in_room) or (room == ses.*.map.*.at_room)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DELETE: YOU MUST FIRST LEAVE THE ROOM YOU'RE TRYING TO DELETE."))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DELETE: YOU MUST FIRST LEAVE THE ROOM YOU'RE TRYING TO DELETE."))))), .{});
         return;
     }
     delete_room(ses, room, TRUE);
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DELETE: ROOM {%d} DELETED."))))), room);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DELETE: ROOM {%d} DELETED."))))), .{room});
 }
 pub export fn map_destroy(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
     var ses = arg_ses;
@@ -8303,11 +8303,11 @@ pub export fn map_destroy(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("AREA")))))) != 0) {
         if (@as(c_int, arg2.*) == @as(c_int, 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP DESTROY AREA <AREA NAME>"))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP DESTROY AREA <AREA NAME>"))))), .{});
             return;
         }
         if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))] != null) and !(strcmp(arg2, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.area) != 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DESTROY AREA: YOU MUST FIRST LEAVE THE AREA YOU ARE TRYING TO DESTROY."))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DESTROY AREA: YOU MUST FIRST LEAVE THE AREA YOU ARE TRYING TO DESTROY."))))), .{});
             return;
         }
         {
@@ -8345,12 +8345,12 @@ pub export fn map_destroy(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
                 }
             }
         }
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DESTROY AREA: DELETED %d ROOMS."))))), cnt);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DESTROY AREA: DELETED %d ROOMS."))))), .{cnt});
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("WORLD")))))) != 0) {
         cnt = delete_map(ses);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DESTROY WORLD: DELETED %d ROOMS."))))), cnt);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DESTROY WORLD: DELETED %d ROOMS."))))), .{cnt});
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP DESTROY {AREA|WORLD} [ARGUMENT]"))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP DESTROY {AREA|WORLD} [ARGUMENT]"))))), .{});
     }
 }
 pub export fn map_dig(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
@@ -8374,22 +8374,22 @@ pub export fn map_dig(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, arg3, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP DIG <DIRECTION|VNUM> {<LOCATION>|NEW}"))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP DIG <DIRECTION|VNUM> {<LOCATION>|NEW}"))))), .{});
         return;
     }
     room = @intFromFloat(get_number(ses, arg1));
     if ((room > @as(c_int, 0)) and (room < ses.*.map.*.size)) {
         if (@as(?*anyopaque, @ptrCast(@alignCast(ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))]))) == @as(?*anyopaque, null)) {
-            add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), room, ses.*.map.*.in_room, @as(c_int, 1) << @intCast(@as(c_int, 1)));
-            _ = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {0} {} {} { } {} {} {} {} {} {1.0} {}"))))), room);
+            add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), .{room, ses.*.map.*.in_room, @as(c_int, 1) << @intCast(@as(c_int, 1))});
+            _ = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {0} {} {} { } {} {} {} {} {} {1.0} {}"))))), .{room});
         } else {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DIG {%s}: ROOM %d ALREADY EXISTS."))))), arg1, room);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DIG {%s}: ROOM %d ALREADY EXISTS."))))), .{arg1, room});
         }
         return;
     }
     exit_1 = find_exit(ses, ses.*.map.*.in_room, arg1);
     if (exit_1 != null) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DIG: THERE IS ALREADY A ROOM IN THAT DIRECTION."))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DIG: THERE IS ALREADY A ROOM IN THAT DIRECTION."))))), .{});
         return;
     }
     if ((@as(c_int, arg2.*) != 0) and (strcasecmp(arg2, "new") != 0)) {
@@ -8402,24 +8402,24 @@ pub export fn map_dig(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
             room = find_new_room(ses);
         }
         if ((room <= @as(c_int, 0)) or (room >= ses.*.map.*.size)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DIG {%s}: CAN'T FIND ROOM {%s}."))))), arg1, arg2);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DIG {%s}: CAN'T FIND ROOM {%s}."))))), .{arg1, arg2});
             return;
         }
         if (@as(?*anyopaque, @ptrCast(@alignCast(ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))]))) == @as(?*anyopaque, null)) {
-            add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), room, ses.*.map.*.in_room, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 2))));
-            _ = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {0} {} {} { } {} {} {} {} {} {1.0} {%s}"))))), room, if (ses.*.map.*.search.*.id != null) ses.*.map.*.search.*.id else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
-            _ = create_exit(ses, ses.*.map.*.in_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), room, arg1, arg1);
+            add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), .{room, ses.*.map.*.in_room, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 2)))});
+            _ = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {0} {} {} { } {} {} {} {} {} {1.0} {%s}"))))), .{room, if (ses.*.map.*.search.*.id != null) ses.*.map.*.search.*.id else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("")))))});
+            _ = create_exit(ses, ses.*.map.*.in_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), .{room, arg1, arg1});
         } else {
-            add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), room, ses.*.map.*.in_room, @as(c_int, 1) << @intCast(@as(c_int, 2)));
-            _ = create_exit(ses, ses.*.map.*.in_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), room, arg1, arg1);
+            add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), .{room, ses.*.map.*.in_room, @as(c_int, 1) << @intCast(@as(c_int, 2))});
+            _ = create_exit(ses, ses.*.map.*.in_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), .{room, arg1, arg1});
         }
         return;
     }
     room = find_coord(ses, arg1);
     if ((room != 0) and (strcasecmp(arg2, "new") != 0)) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP CREATE LINK %5d {%s}."))))), room, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.name);
-        add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), room, ses.*.map.*.in_room, @as(c_int, 1) << @intCast(@as(c_int, 2)));
-        _ = create_exit(ses, ses.*.map.*.in_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), room, arg1, arg1);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP CREATE LINK %5d {%s}."))))), .{room, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.name});
+        add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), .{room, ses.*.map.*.in_room, @as(c_int, 1) << @intCast(@as(c_int, 2))});
+        _ = create_exit(ses, ses.*.map.*.in_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), .{room, arg1, arg1});
     } else {
         {
             room = 1;
@@ -8430,12 +8430,12 @@ pub export fn map_dig(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
             }
         }
         if (room == ses.*.map.*.size) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DIG: MAXIMUM NUMBER OF ROOMS OF %d REACHED."))))), ses.*.map.*.size);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP DIG: MAXIMUM NUMBER OF ROOMS OF %d REACHED."))))), .{ses.*.map.*.size});
             return;
         }
-        add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), room, ses.*.map.*.in_room, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 2))));
-        _ = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {0} {} {} { } {} {} {} {} {} {1.0} {}"))))), room);
-        _ = create_exit(ses, ses.*.map.*.in_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), room, arg1, arg1);
+        add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), .{room, ses.*.map.*.in_room, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 2)))});
+        _ = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {0} {} {} { } {} {} {} {} {} {1.0} {}"))))), .{room});
+        _ = create_exit(ses, ses.*.map.*.in_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), .{room, arg1, arg1});
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(blk: {
         const tmp = search_node_list(@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_PATHDIR], arg1);
@@ -8443,7 +8443,7 @@ pub export fn map_dig(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
         break :blk tmp;
     }))) != @as(?*anyopaque, null)) {
         if (@as(?*anyopaque, @ptrCast(@alignCast(find_exit(ses, room, dir.*.arg2)))) == @as(?*anyopaque, null)) {
-            _ = create_exit(ses, room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), ses.*.map.*.in_room, dir.*.arg2, dir.*.arg2);
+            _ = create_exit(ses, room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), .{ses.*.map.*.in_room, dir.*.arg2, dir.*.arg2});
         }
     }
 }
@@ -8465,12 +8465,12 @@ pub export fn map_entrance(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     exit_1 = find_exit(ses, ses.*.map.*.in_room, arg1);
     if (@as(?*anyopaque, @ptrCast(@alignCast(exit_1))) == @as(?*anyopaque, null)) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP ENTRANCE: CAN'T FIND EXIT {%s}."))))), arg1);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP ENTRANCE: CAN'T FIND EXIT {%s}."))))), .{arg1});
         return;
     }
     rev_exit = ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(exit_1.*.vnum)))][0].exit_grid[@as(usize, @intCast(revdir_to_grid(exit_1.*.dir)))];
     if (@as(?*anyopaque, @ptrCast(@alignCast(rev_exit))) == @as(?*anyopaque, null)) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP ENTRANCE: EXIT {%s} HAS NO MATCHING ENTRANCE."))))), arg1);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP ENTRANCE: EXIT {%s} HAS NO MATCHING ENTRANCE."))))), .{arg1});
         return;
     }
     exit_edit(ses, rev_exit, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ENTRANCE"))))), arg, arg1, arg2, arg3);
@@ -8491,7 +8491,7 @@ pub export fn map_exit(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     exit_1 = find_exit(ses, ses.*.map.*.in_room, arg1);
     if (@as(?*anyopaque, @ptrCast(@alignCast(exit_1))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP EXIT: EXIT {%s} NOT FOUND."))))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP EXIT: EXIT {%s} NOT FOUND."))))), .{arg1});
         return;
     }
     exit_edit(ses, exit_1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("EXIT"))))), arg, arg1, arg2, arg3);
@@ -8519,14 +8519,14 @@ pub export fn map_exitflag(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
     arg = sub_arg_in_braces(ses, arg, @ptrCast(@alignCast(&arg4)), GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     exit_1 = find_exit(ses, ses.*.map.*.in_room, arg1);
     if (@as(?*anyopaque, @ptrCast(@alignCast(exit_1))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP EXITFLAG: EXIT {%s} NOT FOUND."))))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP EXITFLAG: EXIT {%s} NOT FOUND."))))), .{arg1});
         return;
     }
     if (@as(c_int, arg2.*) == @as(c_int, 0)) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: AVOID FLAG IS SET TO %s. (%d)"))))), if ((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))), @as(c_int, 1) << @intCast(@as(c_int, 1)));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: BLOCK FLAG IS SET TO %s. (%d)"))))), if ((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))), @as(c_int, 1) << @intCast(@as(c_int, 3)));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: HIDE FLAG IS SET TO %s.  (%d)"))))), if ((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))), @as(c_int, 1) << @intCast(@as(c_int, 0)));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INVIS FLAG IS SET TO %s. (%d)"))))), if ((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))), @as(c_int, 1) << @intCast(@as(c_int, 2)));
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: AVOID FLAG IS SET TO %s. (%d)"))))), .{if ((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))), @as(c_int, 1) << @intCast(@as(c_int, 1))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: BLOCK FLAG IS SET TO %s. (%d)"))))), .{if ((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))), @as(c_int, 1) << @intCast(@as(c_int, 3))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: HIDE FLAG IS SET TO %s.  (%d)"))))), .{if ((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))), @as(c_int, 1) << @intCast(@as(c_int, 0))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INVIS FLAG IS SET TO %s. (%d)"))))), .{if ((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))), @as(c_int, 1) << @intCast(@as(c_int, 2))});
         return;
     }
     if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("AVOID")))))) != 0) {
@@ -8538,7 +8538,7 @@ pub export fn map_exitflag(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("INVISIBLE")))))) != 0) {
         flag = @as(c_int, 1) << @intCast(@as(c_int, 2));
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP EXITFLAG {%s} {AVOID|BLOCK|HIDE|INVIS} {ON|OFF}"))))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP EXITFLAG {%s} {AVOID|BLOCK|HIDE|INVIS} {ON|OFF}"))))), .{arg1});
         return;
     }
     if (@as(c_int, arg3.*) == @as(c_int, 0)) {
@@ -8549,23 +8549,23 @@ pub export fn map_exitflag(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
         exit_1.*.flags &= ~flag;
     } else if (is_abbrev(arg3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GET")))))) != 0) {
         if (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&arg4))).*) == @as(c_int, 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP EXITFLAG {%s} {%s} {GET} <VARIABLE>"))))), arg1, arg2);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP EXITFLAG {%s} {%s} {GET} <VARIABLE>"))))), .{arg1, arg2});
         } else {
-            _ = set_nest_node_ses(ses, @ptrCast(@alignCast(&arg4)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))), exit_1.*.flags & flag);
+            _ = set_nest_node_ses(ses, @as(?*anyopaque, @ptrCast(@alignCast(&arg4))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))), .{exit_1.*.flags & flag});
         }
         return;
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP EXITFLAG {%s} {%s} [GET|ON|OFF]"))))), arg1, arg2);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP EXITFLAG {%s} {%s} [GET|ON|OFF]"))))), .{arg1, arg2});
         return;
     }
     if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("AVOID")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: AVOID FLAG SET TO %s."))))), if ((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: AVOID FLAG SET TO %s."))))), .{if ((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("BLOCK")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: BLOCK FLAG SET TO %s."))))), if ((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: BLOCK FLAG SET TO %s."))))), .{if ((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("HIDE")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: HIDE FLAG SET TO %s."))))), if ((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: HIDE FLAG SET TO %s."))))), .{if ((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("INVISIBLE")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INVIS FLAG SET TO %s."))))), if ((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INVIS FLAG SET TO %s."))))), .{if ((exit_1.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     }
 }
 pub export fn map_explore(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
@@ -8657,26 +8657,26 @@ pub export fn map_flag(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("vtmap")))))) != 0) {
             flag = @as(c_int, 1) << @intCast(@as(c_int, 1));
         } else {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: Invalid flag {%s}."))))), arg1);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: Invalid flag {%s}."))))), .{arg1});
             return;
         }
     } else {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: ASCIIGRAPHICS FLAG IS SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: ASCIIVNUMS FLAG IS SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: AUTOLINK FLAG IS SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 20)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: BLOCKGRAPHICS FLAG IS SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 9)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: DIRECTION FLAG IS SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: FAST FLAG IS SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 19)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: MUDFONT FLAG IS SET TO %s"))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: NOFOLLOW FLAG IS SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: PANCAKE FLAG IS SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 18)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: QUIET FLAG IS SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 16)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: SIMPLEGRAPHICS FLAG IS SET TO %s."))))), if (!((ses.*.map.*.flags & ((((((@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 7)))) | (@as(c_int, 1) << @intCast(@as(c_int, 5)))) | (@as(c_int, 1) << @intCast(@as(c_int, 3)))) | (@as(c_int, 1) << @intCast(@as(c_int, 8)))) | (@as(c_int, 1) << @intCast(@as(c_int, 9))))) != 0)) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: STATIC FLAG IS SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: SYMBOLGRAPHICS FLAG IS SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: TERRAIN FLAG IS SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 13)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: UNICODEGRAPHICS FLAG IS SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: VTMAP FLAG IS SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: ASCIIGRAPHICS FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: ASCIIVNUMS FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: AUTOLINK FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 20)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: BLOCKGRAPHICS FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 9)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: DIRECTION FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: FAST FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 19)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: MUDFONT FLAG IS SET TO %s"))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: NOFOLLOW FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: PANCAKE FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 18)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: QUIET FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 16)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: SIMPLEGRAPHICS FLAG IS SET TO %s."))))), .{if (!((ses.*.map.*.flags & ((((((@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 7)))) | (@as(c_int, 1) << @intCast(@as(c_int, 5)))) | (@as(c_int, 1) << @intCast(@as(c_int, 3)))) | (@as(c_int, 1) << @intCast(@as(c_int, 8)))) | (@as(c_int, 1) << @intCast(@as(c_int, 9))))) != 0)) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: STATIC FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: SYMBOLGRAPHICS FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: TERRAIN FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 13)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: UNICODEGRAPHICS FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: VTMAP FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
         return;
     }
     if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON")))))) != 0) {
@@ -8690,35 +8690,35 @@ pub export fn map_flag(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
         ses.*.map.*.flags &= ~unflag;
     }
     if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("asciigraphics")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: ASCIIGRAPHICS FLAG SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: ASCIIGRAPHICS FLAG SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("asciivnums")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: ASCIIVNUMS FLAG SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: ASCIIVNUMS FLAG SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("autolink")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: AUTOLINK FLAG SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 20)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: AUTOLINK FLAG SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 20)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("direction")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: DIRECTION FLAG SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: DIRECTION FLAG SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("fast")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: FAST FLAG SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 19)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: FAST FLAG SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 19)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("mudfont")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: MUDFONT FLAG SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: MUDFONT FLAG SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("nofollow")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: NOFOLLOW FLAG SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: NOFOLLOW FLAG SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("pancake")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: PANCAKE FLAG SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 18)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: PANCAKE FLAG SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 18)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("quiet")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: QUIET FLAG SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 16)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: QUIET FLAG SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 16)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("static")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: STATIC FLAG SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: STATIC FLAG SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("simplegraphics")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: ALL GRAPHIC MODE FLAGS HAVE BEEN SET TO OFF."))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: ALL GRAPHIC MODE FLAGS HAVE BEEN SET TO OFF."))))), .{});
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("symbolgraphics")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: SYMBOLGRAPHICS FLAG SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: SYMBOLGRAPHICS FLAG SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("terrain")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: TERRAIN FLAG SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 13)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: TERRAIN FLAG SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 13)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("unicodegraphics")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: UNICODEGRAPHICS FLAG SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: UNICODEGRAPHICS FLAG SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("vtmap")))))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: VTMAP FLAG SET TO %s."))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: VTMAP FLAG SET TO %s."))))), .{if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     }
 }
 pub export fn map_get(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
@@ -8749,26 +8749,26 @@ pub export fn map_get(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
         }
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(room))) == @as(?*anyopaque, null)) {
-        _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("0"))))));
+        _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("0"))))), .{});
     } else if ((@as(c_int, arg1.*) == @as(c_int, 0)) or (@as(c_int, arg2.*) == @as(c_int, 0))) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" worldflags: %d"))))), ses.*.map.*.flags);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  worldsize: %d"))))), ses.*.map.*.size);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  direction: %d"))))), ses.*.map.*.dir);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("    pathdir: %s"))))), dir_to_exit(ses, ses.*.map.*.dir));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   roomvnum: %d"))))), room.*.vnum);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   roomarea: %s"))))), room.*.area);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  roomcolor: %s"))))), room.*.color);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   roomdata: %s"))))), room.*.data);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   roomdesc: %s"))))), room.*.desc);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  roomexits: %d"))))), get_room_exits(ses, room.*.vnum));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  roomflags: %d"))))), room.*.flags);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     roomid: %s"))))), room.*.id);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   roomname: %s"))))), room.*.name);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   roomnote: %s"))))), room.*.note);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" roomsymbol: %s"))))), room.*.symbol);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomterrain: %s"))))), room.*.terrain);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" roomweight: %.3f"))))), room.*.weight);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" worldflags: %d"))))), .{ses.*.map.*.flags});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  worldsize: %d"))))), .{ses.*.map.*.size});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  direction: %d"))))), .{ses.*.map.*.dir});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("    pathdir: %s"))))), .{dir_to_exit(ses, ses.*.map.*.dir)});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), .{});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   roomvnum: %d"))))), .{room.*.vnum});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   roomarea: %s"))))), .{room.*.area});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  roomcolor: %s"))))), .{room.*.color});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   roomdata: %s"))))), .{room.*.data});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   roomdesc: %s"))))), .{room.*.desc});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  roomexits: %d"))))), .{get_room_exits(ses, room.*.vnum)});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  roomflags: %d"))))), .{room.*.flags});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     roomid: %s"))))), .{room.*.id});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   roomname: %s"))))), .{room.*.name});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   roomnote: %s"))))), .{room.*.note});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" roomsymbol: %s"))))), .{room.*.symbol});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomterrain: %s"))))), .{room.*.terrain});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" roomweight: %.3f"))))), .{room.*.weight});
     } else {
         if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("all")))))) != 0) {
             exits[@as(c_int, 0)] = 0;
@@ -8778,31 +8778,31 @@ pub export fn map_get(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                     _ = cat_sprintf(@ptrCast(@alignCast(&exits)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%s}{%d}"))))), exit_1.*.name, exit_1.*.vnum);
                 }
             }
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{area}{%s}{color}{%s}{data}{%s}{desc}{%s}{direction}{%d}{exits}{%s}{flags}{%d}{id}{%s}{name}{%s}{note}{%s}{pathdir}{%s}{symbol}{%s}{terrain}{%s}{vnum}{%d}{weight}{%.3f}"))))), room.*.area, room.*.color, room.*.data, room.*.desc, ses.*.map.*.dir, @as([*c]u8, @ptrCast(@alignCast(&exits))), room.*.flags, room.*.id, room.*.name, room.*.note, dir_to_exit(ses, ses.*.map.*.dir), room.*.symbol, room.*.terrain, room.*.vnum, room.*.weight);
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{area}{%s}{color}{%s}{data}{%s}{desc}{%s}{direction}{%d}{exits}{%s}{flags}{%d}{id}{%s}{name}{%s}{note}{%s}{pathdir}{%s}{symbol}{%s}{terrain}{%s}{vnum}{%d}{weight}{%.3f}"))))), .{room.*.area, room.*.color, room.*.data, room.*.desc, ses.*.map.*.dir, @as([*c]u8, @ptrCast(@alignCast(&exits))), room.*.flags, room.*.id, room.*.name, room.*.note, dir_to_exit(ses, ses.*.map.*.dir), room.*.symbol, room.*.terrain, room.*.vnum, room.*.weight});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomarea")))))) != 0) {
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), room.*.area);
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), .{room.*.area});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomcolor")))))) != 0) {
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), room.*.color);
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), .{room.*.color});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomdata")))))) != 0) {
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), room.*.data);
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), .{room.*.data});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomdesc")))))) != 0) {
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), room.*.desc);
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), .{room.*.desc});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomflags")))))) != 0) {
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))), room.*.flags);
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))), .{room.*.flags});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomid")))))) != 0) {
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), room.*.id);
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), .{room.*.id});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomname")))))) != 0) {
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), room.*.name);
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), .{room.*.name});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomnote")))))) != 0) {
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), room.*.note);
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), .{room.*.note});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomsymbol")))))) != 0) {
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), room.*.symbol);
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), .{room.*.symbol});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomterrain")))))) != 0) {
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), room.*.terrain);
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), .{room.*.terrain});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomvnum")))))) != 0) {
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))), room.*.vnum);
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))), .{room.*.vnum});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomweight")))))) != 0) {
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.3f"))))), room.*.weight);
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.3f"))))), .{room.*.weight});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomexits")))))) != 0) {
             exits[@as(c_int, 0)] = 0;
             {
@@ -8811,17 +8811,17 @@ pub export fn map_get(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                     _ = cat_sprintf(@ptrCast(@alignCast(&exits)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%s}{%d}"))))), exit_1.*.name, exit_1.*.vnum);
                 }
             }
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), @as([*c]u8, @ptrCast(@alignCast(&exits))));
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), .{@as([*c]u8, @ptrCast(@alignCast(&exits)))});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("worldflags")))))) != 0) {
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))), ses.*.map.*.flags);
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))), .{ses.*.map.*.flags});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("worldsize")))))) != 0) {
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))), ses.*.map.*.size);
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))), .{ses.*.map.*.size});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("direction")))))) != 0) {
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))), ses.*.map.*.dir);
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))), .{ses.*.map.*.dir});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("pathdir")))))) != 0) {
-            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), dir_to_exit(ses, ses.*.map.*.dir));
+            _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), .{dir_to_exit(ses, ses.*.map.*.dir)});
         } else {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP GET: UNKNOWN OPTION {%s}."))))), arg1);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP GET: UNKNOWN OPTION {%s}."))))), .{arg1});
         }
     }
 }
@@ -8840,14 +8840,14 @@ pub export fn map_global(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     _ = &room;
     _ = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP GLOBAL: GLOBAL ROOM SET TO VNUM %d."))))), ses.*.map.*.global_vnum);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP GLOBAL: GLOBAL ROOM SET TO VNUM %d."))))), .{ses.*.map.*.global_vnum});
     } else if (!(strcmp(arg1, "0") != 0)) {
         ses.*.map.*.global_vnum = blk: {
             const tmp = @as(c_int, 0);
             ses.*.map.*.global_exit.*.vnum = tmp;
             break :blk tmp;
         };
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP GLOBAL: GLOBAL ROOM SET TO VNUM %d."))))), @as(c_int, 0));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP GLOBAL: GLOBAL ROOM SET TO VNUM %d."))))), .{@as(c_int, 0)});
     } else {
         room = find_room(ses, arg);
         if (room != 0) {
@@ -8856,9 +8856,9 @@ pub export fn map_global(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
                 ses.*.map.*.global_exit.*.vnum = tmp;
                 break :blk tmp;
             };
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP GLOBAL: GLOBAL ROOM SET TO VNUM %d."))))), room);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP GLOBAL: GLOBAL ROOM SET TO VNUM %d."))))), .{room});
         } else {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP GLOBAL: COULDN'T FIND ROOM %s."))))), arg1);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP GLOBAL: COULDN'T FIND ROOM %s."))))), .{arg1});
         }
     }
 }
@@ -8880,7 +8880,7 @@ pub export fn map_goto(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if ((((room == @as(c_int, 0)) and (ses.*.map.*.search.*.vnum > @as(c_int, 0))) and (ses.*.map.*.search.*.vnum < ses.*.map.*.size)) and !(strcasecmp(arg2, "dig") != 0)) {
         room = ses.*.map.*.search.*.vnum;
-        _ = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {0} {} {} { } {} {} {} {} {} {1.0} {}"))))), room);
+        _ = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {0} {} {} { } {} {} {} {} {} {1.0} {}"))))), .{room});
     }
     if (room == @as(c_int, 0)) {
         room = find_room(ses, arg1);
@@ -8888,24 +8888,24 @@ pub export fn map_goto(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
     if ((((room == @as(c_int, 0)) and (ses.*.map.*.search.*.id != null)) and (@as(c_int, ses.*.map.*.search.*.id.*) != 0)) and !(strcasecmp(arg2, "dig") != 0)) {
         room = find_new_room(ses);
         if (room != 0) {
-            _ = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {0} {} {} { } {} {} {} {} {} {1.0} {%s}"))))), room, ses.*.map.*.search.*.id);
+            _ = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {0} {} {} { } {} {} {} {} {} {1.0} {%s}"))))), .{room, ses.*.map.*.search.*.id});
         }
     }
     if ((room == @as(c_int, 0)) and (ses.*.map.*.in_room != 0)) {
         room = find_path(ses, arg1);
         if (room == @as(c_int, 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP GOTO: COULDN'T FIND ROOM OR EXIT {%s}."))))), arg1);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP GOTO: COULDN'T FIND ROOM OR EXIT {%s}."))))), .{arg1});
             return;
         }
     }
     if (room == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP GOTO: COULDN'T FIND ROOM %s."))))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP GOTO: COULDN'T FIND ROOM %s."))))), .{arg1});
         return;
     }
-    add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), room, ses.*.map.*.in_room, @as(c_int, 1) << @intCast(@as(c_int, 0)));
+    add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), .{room, ses.*.map.*.in_room, @as(c_int, 1) << @intCast(@as(c_int, 0))});
     ses.*.map.*.dir = 0;
     goto_room(ses, room);
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP GOTO: MOVED TO ROOM %d {%s}."))))), room, if (ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.name.* != 0) ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.name else ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.id);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP GOTO: MOVED TO ROOM %d {%s}."))))), .{room, if (ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.name.* != 0) ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.name else ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.id});
 }
 pub export fn map_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
     var ses = arg_ses;
@@ -8947,18 +8947,18 @@ pub export fn map_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
         }
     }
     if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SAVE")))))) != 0) {
-        _ = set_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[MAP]"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{DIRECTION}{%d}"))))), ses.*.map.*.dir);
-        _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[MAP]"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{EXITS}{%d}"))))), exits);
-        _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[MAP]"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{FLAGS}{{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}}"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ASCIIGRAPHICS"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ASCIILENGTH"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 12)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ASCIIVNUMS"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("AUTOLINK"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 20)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("BLOCKGRAPHICS"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 9)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DIRECTION"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MUDFONT"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("NOFOLLOW"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("QUIET"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 16)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("STATIC"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SYMBOLGRAPHICS"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TERRAIN"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 13)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("UNICODEGRAPHICS"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != @as(c_int, 0))));
-        _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[MAP]"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{LAST_ROOM}{%d}"))))), ses.*.map.*.last_room);
-        _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[MAP]"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{ROOMS}{%d}"))))), cnt);
-        _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[MAP]"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{ROOMS_MAX}{%d}"))))), ses.*.map.*.size);
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP INFO: DATA WRITTEN TO {info[MAP]}"))))));
+        _ = set_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[MAP]"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{DIRECTION}{%d}"))))), .{ses.*.map.*.dir});
+        _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[MAP]"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{EXITS}{%d}"))))), .{exits});
+        _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[MAP]"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{FLAGS}{{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}{%s}{%d}}"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ASCIIGRAPHICS"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ASCIILENGTH"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 12)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ASCIIVNUMS"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("AUTOLINK"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 20)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("BLOCKGRAPHICS"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 9)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DIRECTION"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MUDFONT"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("NOFOLLOW"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("QUIET"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 16)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("STATIC"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SYMBOLGRAPHICS"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TERRAIN"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 13)))) != @as(c_int, 0))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("UNICODEGRAPHICS"))))), @as(c_int, @intFromBool((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != @as(c_int, 0)))});
+        _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[MAP]"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{LAST_ROOM}{%d}"))))), .{ses.*.map.*.last_room});
+        _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[MAP]"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{ROOMS}{%d}"))))), .{cnt});
+        _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[MAP]"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{ROOMS_MAX}{%d}"))))), .{ses.*.map.*.size});
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP INFO: DATA WRITTEN TO {info[MAP]}"))))), .{});
         return;
     }
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+16s %-7d %+16s %-7d %+16s %-7d"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Total rooms:"))))), cnt, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Total exits:"))))), exits, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("World size:"))))), ses.*.map.*.size);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+16s %-7d %+16s %-7d %+16s %-7d"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Direction:"))))), ses.*.map.*.dir, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Last room:"))))), ses.*.map.*.last_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Undo size:"))))), ses.*.map.*.undo_size);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+16s %-7d %+16s %-7d %+16s %-7d"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Total rooms:"))))), cnt, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Total exits:"))))), exits, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("World size:"))))), ses.*.map.*.size});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+16s %-7d %+16s %-7d %+16s %-7d"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Direction:"))))), ses.*.map.*.dir, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Last room:"))))), ses.*.map.*.last_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Undo size:"))))), ses.*.map.*.undo_size});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), .{});
     _ = strcpy(arg1, "");
     _ = cat_sprintf(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+16s %-7s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("AsciiGraphics:"))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("on"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("off"))))));
     _ = cat_sprintf(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+16s %-7s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("AsciiLength:"))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 12)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("on"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("off"))))));
@@ -8979,26 +8979,26 @@ pub export fn map_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
     _ = cat_sprintf(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+16s %-7s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("UnicodeGraphics:"))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("on"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("off"))))));
     _ = cat_sprintf(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+16s %-7s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Vtmap:"))))), if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("on"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("off"))))));
     tintin_puts2(ses, arg1);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+16s %4d %4d %4d"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Map Center:"))))), ses.*.map.*.center_x, ses.*.map.*.center_y, ses.*.map.*.center_z);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+16s %4d %4d %4d %4d"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Map Offset:"))))), ses.*.map.*.sav_top_row, ses.*.map.*.sav_top_col, ses.*.map.*.sav_bot_row, ses.*.map.*.sav_bot_col);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+16s %4d %4d %4d %4d"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Current Offset:"))))), ses.*.map.*.top_row, ses.*.map.*.top_col, ses.*.map.*.bot_row, ses.*.map.*.bot_col);
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), .{});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+16s %4d %4d %4d"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Map Center:"))))), ses.*.map.*.center_x, ses.*.map.*.center_y, ses.*.map.*.center_z});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+16s %4d %4d %4d %4d"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Map Offset:"))))), ses.*.map.*.sav_top_row, ses.*.map.*.sav_top_col, ses.*.map.*.sav_bot_row, ses.*.map.*.sav_bot_col});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+16s %4d %4d %4d %4d"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Current Offset:"))))), ses.*.map.*.top_row, ses.*.map.*.top_col, ses.*.map.*.bot_row, ses.*.map.*.bot_col});
     if (ses.*.map.*.in_room == @as(c_int, 0)) {
         return;
     }
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room area:"))))), in_room.*.area);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room color:"))))), str_convert_meta(in_room.*.color, TRUE));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room data:"))))), in_room.*.data);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room desc:"))))), in_room.*.desc);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room id:"))))), in_room.*.id);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room name:"))))), in_room.*.name);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room note:"))))), in_room.*.note);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room symbol:"))))), in_room.*.symbol);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s (%d)"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room terrain:"))))), in_room.*.terrain, in_room.*.terrain_index);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+12s %-6d %+12s %-6.3f %+12s %-6d"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room vnum:"))))), ses.*.map.*.in_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room weight:"))))), in_room.*.weight, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room flags:"))))), in_room.*.flags);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), .{});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room area:"))))), in_room.*.area});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room color:"))))), str_convert_meta(in_room.*.color, TRUE)});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room data:"))))), in_room.*.data});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room desc:"))))), in_room.*.desc});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room id:"))))), in_room.*.id});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room name:"))))), in_room.*.name});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room note:"))))), in_room.*.note});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room symbol:"))))), in_room.*.symbol});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %s (%d)"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room terrain:"))))), in_room.*.terrain, in_room.*.terrain_index});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), .{});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+12s %-6d %+12s %-6.3f %+12s %-6d"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room vnum:"))))), ses.*.map.*.in_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room weight:"))))), in_room.*.weight, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Room flags:"))))), in_room.*.flags});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), .{});
     _ = strcpy(arg1, "");
     _ = cat_sprintf(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+12s %-6s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Avoid:"))))), if ((in_room.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("on"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("off"))))));
     _ = cat_sprintf(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+12s %-6s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Block:"))))), if ((in_room.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 14)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("on"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("off"))))));
@@ -9015,14 +9015,14 @@ pub export fn map_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
     _ = cat_sprintf(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+12s %-6s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Static:"))))), if ((in_room.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("on"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("off"))))));
     _ = cat_sprintf(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %+12s %-6s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Void:"))))), if ((in_room.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("on"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("off"))))));
     tintin_puts2(ses, arg1);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), .{});
     {
         exit_1 = in_room.*.f_exit;
         while (exit_1 != null) : (exit_1 = exit_1.*.next) {
-            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %-3s (%3s)   to room: %-5d (%5s)"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Exit:"))))), exit_1.*.name, exit_1.*.cmd, exit_1.*.vnum, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(exit_1.*.vnum)))].*.name);
+            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %-3s (%3s)   to room: %-5d (%5s)"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Exit:"))))), exit_1.*.name, exit_1.*.cmd, exit_1.*.vnum, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(exit_1.*.vnum)))].*.name});
         }
     }
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), .{});
     {
         room = 0;
         while (room < ses.*.map.*.size) : (room += 1) {
@@ -9031,7 +9031,7 @@ pub export fn map_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
                     exit_1 = ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.f_exit;
                     while (exit_1 != null) : (exit_1 = exit_1.*.next) {
                         if (exit_1.*.vnum == ses.*.map.*.in_room) {
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %-3s (%3s) from room: %-5d (%5s)"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Entrance:"))))), exit_1.*.name, exit_1.*.cmd, room, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.name);
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%+16s %-3s (%3s) from room: %-5d (%5s)"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Entrance:"))))), exit_1.*.name, exit_1.*.cmd, room, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.name});
                         }
                     }
                 }
@@ -9072,23 +9072,23 @@ pub export fn map_insert(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     exit_1 = find_exit(ses, ses.*.map.*.in_room, arg1);
     dir = search_node_list(@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_PATHDIR], arg1);
     if (@as(?*anyopaque, @ptrCast(@alignCast(exit_1))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP INSERT {%s}: THERE IS NO ROOM IN THAT DIRECTION."))))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP INSERT {%s}: THERE IS NO ROOM IN THAT DIRECTION."))))), .{arg1});
         return;
     }
     if (room == ses.*.map.*.size) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP INSERT {%s}: MAXIMUM NUMBER OF ROOMS OF %d REACHED."))))), arg1, ses.*.map.*.size);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP INSERT {%s}: MAXIMUM NUMBER OF ROOMS OF %d REACHED."))))), .{arg1, ses.*.map.*.size});
         return;
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(dir))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP INSERT {%s}: DIRECTION MUST BE A PATHDIR."))))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP INSERT {%s}: DIRECTION MUST BE A PATHDIR."))))), .{arg1});
         return;
     }
     in_room = ses.*.map.*.in_room;
     to_room = exit_1.*.vnum;
-    add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), room, ses.*.map.*.in_room, @as(c_int, 1) << @intCast(@as(c_int, 3)));
-    _ = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {0} {} {} { } {} {} {} {} {} {1.0} {}"))))), room);
-    _ = create_exit(ses, room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), to_room, dir.*.arg1, dir.*.arg1);
-    _ = create_exit(ses, room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), in_room, dir.*.arg2, dir.*.arg2);
+    add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), .{room, ses.*.map.*.in_room, @as(c_int, 1) << @intCast(@as(c_int, 3))});
+    _ = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {0} {} {} { } {} {} {} {} {} {1.0} {}"))))), .{room});
+    _ = create_exit(ses, room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), .{to_room, dir.*.arg1, dir.*.arg1});
+    _ = create_exit(ses, room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), .{in_room, dir.*.arg2, dir.*.arg2});
     exit_1.*.vnum = room;
     if (@as(?*anyopaque, @ptrCast(@alignCast(blk: {
         const tmp = find_exit(ses, to_room, dir.*.arg2);
@@ -9102,7 +9102,7 @@ pub export fn map_insert(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
         map_roomflag(ses, arg, arg1, arg2, arg3);
         ses.*.map.*.in_room = in_room;
     }
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INSERTED ROOM {%d}."))))), room);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INSERTED ROOM {%d}."))))), .{room});
 }
 pub export fn map_jump(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
     var ses = arg_ses;
@@ -9120,12 +9120,12 @@ pub export fn map_jump(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
     _ = sub_arg_in_braces(ses, arg, arg1, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     room = find_location(ses, arg1);
     if (room != 0) {
-        add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), room, ses.*.map.*.in_room, @as(c_int, 1) << @intCast(@as(c_int, 0)));
+        add_undo(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d"))))), .{room, ses.*.map.*.in_room, @as(c_int, 1) << @intCast(@as(c_int, 0))});
         ses.*.map.*.dir = 0;
         goto_room(ses, room);
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP JUMP: JUMPED TO ROOM %d {%s}."))))), room, if (ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.name.* != 0) ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.name else ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.id);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP JUMP: JUMPED TO ROOM %d {%s}."))))), .{room, if (ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.name.* != 0) ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.name else ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.id});
     } else {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP JUMP: CAN'T FIND A ROOM AT {%s}."))))), arg1);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP JUMP: CAN'T FIND A ROOM AT {%s}."))))), .{arg1});
     }
 }
 pub export fn map_landmark(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
@@ -9158,7 +9158,7 @@ pub export fn map_landmark(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
     if ((@as(c_int, arg1.*) == @as(c_int, 0)) or (@as(c_int, arg2.*) == @as(c_int, 0))) {
         i = bsearch_alpha_list(root, arg1, 0);
         if (i > @as(c_int, 0)) {
-            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("NAME: %-16s  VNUM:%7d  SIZE: %7s DESC: %s"))))), root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg1, @as([*c]c_int, @ptrCast(@constCast(&root.*.list[@bitCast(@as(isize, @intCast(i)))].*.unnamed_0.val32)))[@as(c_int, 0)], root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg4, root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg3);
+            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("NAME: %-16s  VNUM:%7d  SIZE: %7s DESC: %s"))))), .{root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg1, @as([*c]c_int, @ptrCast(@constCast(&root.*.list[@bitCast(@as(isize, @intCast(i)))].*.unnamed_0.val32)))[@as(c_int, 0)], root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg4, root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg3});
         } else {
             {
                 found = blk: {
@@ -9168,23 +9168,23 @@ pub export fn map_landmark(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
                 };
                 while (i < root.*.used) : (i += 1) {
                     if ((@as(c_int, arg1.*) == @as(c_int, 0)) or (match(ses, root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg1, arg1, @as(c_int, 0) << @intCast(@as(c_int, 0))) != 0)) {
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("name: %-16s  vnum:%7d  size: %7s desc: %s"))))), root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg1, @as([*c]c_int, @ptrCast(@constCast(&root.*.list[@bitCast(@as(isize, @intCast(i)))].*.unnamed_0.val32)))[@as(c_int, 0)], root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg4, root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg3);
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("name: %-16s  vnum:%7d  size: %7s desc: %s"))))), .{root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg1, @as([*c]c_int, @ptrCast(@constCast(&root.*.list[@bitCast(@as(isize, @intCast(i)))].*.unnamed_0.val32)))[@as(c_int, 0)], root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg4, root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg3});
                         found = TRUE;
                     }
                 }
             }
             if (found == FALSE) {
-                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP LANDMARK: NO MATCHES FOUND FOR {%s}."))))), arg1);
+                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP LANDMARK: NO MATCHES FOUND FOR {%s}."))))), .{arg1});
             }
         }
     } else {
         room = @intFromFloat(get_number(ses, arg2));
         if ((room <= @as(c_int, 0)) or (room >= ses.*.map.*.size)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP LANDMARK: INVALID VNUM {%s}."))))), arg2);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP LANDMARK: INVALID VNUM {%s}."))))), .{arg2});
         } else {
             node = update_node_list(root, arg1, arg2, arg3, @ptrCast(@alignCast(&arg4)));
             @as([*c]c_int, @ptrCast(@constCast(&node.*.unnamed_0.val32)))[@as(c_int, 0)] = room;
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: LANDMARK {%s} HAS VNUM {%d} AND IS DESCRIBED AS {%s} WITH SIZE {%s}."))))), arg1, room, arg3, @as([*c]u8, @ptrCast(@alignCast(&arg4))));
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: LANDMARK {%s} HAS VNUM {%d} AND IS DESCRIBED AS {%s} WITH SIZE {%s}."))))), .{arg1, room, arg3, @as([*c]u8, @ptrCast(@alignCast(&arg4)))});
         }
     }
 }
@@ -9200,13 +9200,13 @@ pub export fn map_leave(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     var arg3 = arg_arg3;
     _ = &arg3;
     if (ses.*.map.*.in_room == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: YOU'RE NOT CURRENTLY INSIDE THE MAP."))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: YOU'RE NOT CURRENTLY INSIDE THE MAP."))))), .{});
     } else {
         show_vtmap(ses, 1);
         ses.*.map.*.last_room = ses.*.map.*.in_room;
         ses.*.map.*.in_room = 0;
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: LEAVING THE MAP. USE GOTO OR RETURN TO RETURN."))))));
-        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP EXIT MAP"))))), ntos(ses.*.map.*.in_room));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: LEAVING THE MAP. USE GOTO OR RETURN TO RETURN."))))), .{});
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP EXIT MAP"))))), .{ntos(ses.*.map.*.in_room)});
     }
 }
 pub export fn map_legend(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
@@ -9224,7 +9224,7 @@ pub export fn map_legend(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     _ = &group;
     var legend: c_int = undefined;
     _ = &legend;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("map_legend(%p,%p,%p,%p)"))))), ses, arg, arg1, arg2);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("map_legend(%p,%p,%p,%p)"))))), .{ses, arg, arg1, arg2});
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, arg3, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
@@ -9232,7 +9232,7 @@ pub export fn map_legend(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
         {
             group = 0;
             while (map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].name != null) : (group += 1) {
-                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" [%-22s] [%-22s] [%3d] [%3d]"))))), map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].group, map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].name, map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].start, map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].end);
+                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" [%-22s] [%-22s] [%3d] [%3d]"))))), .{map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].group, map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].name, map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].start, map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].end});
             }
         }
         pop_call();
@@ -9249,12 +9249,12 @@ pub export fn map_legend(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     if (is_math(ses, arg1) != 0) {
         legend = @intFromFloat(get_number(ses, arg1));
         if ((legend < map_legend_group_table[@as(c_int, 0)].start) or (legend >= map_legend_group_table[@as(c_int, 0)].end)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP LEGEND {%d - %d} [SYMBOL]"))))), map_legend_group_table[@as(c_int, 0)].start, map_legend_group_table[@as(c_int, 0)].end);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP LEGEND {%d - %d} [SYMBOL]"))))), .{map_legend_group_table[@as(c_int, 0)].start, map_legend_group_table[@as(c_int, 0)].end});
         } else if (@as(c_int, arg2.*) == @as(c_int, 0)) {
             if (strip_vt102_strlen(ses, @ptrCast(@alignCast(&ses.*.map.*.legend[@bitCast(@as(isize, @intCast(legend)))]))) > @as(c_int, 1)) {
-                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" [%-22s] [%-20s] [%3d] [ %12s ] [ %s]"))))), map_legend_table[@bitCast(@as(isize, @intCast(legend)))].group, map_legend_table[@bitCast(@as(isize, @intCast(legend)))].name, legend, @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend_raw[@bitCast(@as(isize, @intCast(legend)))]))), @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend[@bitCast(@as(isize, @intCast(legend)))]))));
+                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" [%-22s] [%-20s] [%3d] [ %12s ] [ %s]"))))), .{map_legend_table[@bitCast(@as(isize, @intCast(legend)))].group, map_legend_table[@bitCast(@as(isize, @intCast(legend)))].name, legend, @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend_raw[@bitCast(@as(isize, @intCast(legend)))]))), @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend[@bitCast(@as(isize, @intCast(legend)))])))});
             } else {
-                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" [%-22s] [%-20s] [%3d] [ %12s ] [ %s ]"))))), map_legend_table[@bitCast(@as(isize, @intCast(legend)))].group, map_legend_table[@bitCast(@as(isize, @intCast(legend)))].name, legend, @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend_raw[@bitCast(@as(isize, @intCast(legend)))]))), @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend[@bitCast(@as(isize, @intCast(legend)))]))));
+                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" [%-22s] [%-20s] [%3d] [ %12s ] [ %s ]"))))), .{map_legend_table[@bitCast(@as(isize, @intCast(legend)))].group, map_legend_table[@bitCast(@as(isize, @intCast(legend)))].name, legend, @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend_raw[@bitCast(@as(isize, @intCast(legend)))]))), @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend[@bitCast(@as(isize, @intCast(legend)))])))});
             }
         } else {
             map_legend_index(ses, arg2, legend, legend + @as(c_int, 1));
@@ -9271,7 +9271,7 @@ pub export fn map_legend(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
         }
     }
     if (!(map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].name != null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP LEGEND: UNKNOWN LEGEND {%s} TRY:"))))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP LEGEND: UNKNOWN LEGEND {%s} TRY:"))))), .{arg1});
         map_legend(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), arg1, arg2, arg3);
         pop_call();
         return;
@@ -9281,9 +9281,9 @@ pub export fn map_legend(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
             legend = map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].start;
             while (legend < map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].end) : (legend += 1) {
                 if (strip_vt102_strlen(ses, @ptrCast(@alignCast(&ses.*.map.*.legend[@bitCast(@as(isize, @intCast(legend)))]))) > @as(c_int, 1)) {
-                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" [%-22s] [%-20s] [%3d] [ %12s ] [ %s]"))))), map_legend_table[@bitCast(@as(isize, @intCast(legend)))].group, map_legend_table[@bitCast(@as(isize, @intCast(legend)))].name, legend, @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend_raw[@bitCast(@as(isize, @intCast(legend)))]))), @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend[@bitCast(@as(isize, @intCast(legend)))]))));
+                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" [%-22s] [%-20s] [%3d] [ %12s ] [ %s]"))))), .{map_legend_table[@bitCast(@as(isize, @intCast(legend)))].group, map_legend_table[@bitCast(@as(isize, @intCast(legend)))].name, legend, @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend_raw[@bitCast(@as(isize, @intCast(legend)))]))), @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend[@bitCast(@as(isize, @intCast(legend)))])))});
                 } else {
-                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" [%-22s] [%-20s] [%3d] [ %12s ] [ %s ]"))))), map_legend_table[@bitCast(@as(isize, @intCast(legend)))].group, map_legend_table[@bitCast(@as(isize, @intCast(legend)))].name, legend, @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend_raw[@bitCast(@as(isize, @intCast(legend)))]))), @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend[@bitCast(@as(isize, @intCast(legend)))]))));
+                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" [%-22s] [%-20s] [%3d] [ %12s ] [ %s ]"))))), .{map_legend_table[@bitCast(@as(isize, @intCast(legend)))].group, map_legend_table[@bitCast(@as(isize, @intCast(legend)))].name, legend, @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend_raw[@bitCast(@as(isize, @intCast(legend)))]))), @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend[@bitCast(@as(isize, @intCast(legend)))])))});
                 }
             }
         }
@@ -9300,7 +9300,7 @@ pub export fn map_legend(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
         while (legend < map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].end) : (legend += 1) {
             if (!(strcasecmp(space_out(arg2), space_out(map_legend_table[@bitCast(@as(isize, @intCast(legend)))].name)) != 0)) {
                 if (@as(c_int, arg3.*) == @as(c_int, 0)) {
-                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-22s]  [%-20s]  [%3d]  [ %8s ]  [ %s ]"))))), map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].name, map_legend_table[@bitCast(@as(isize, @intCast(legend)))].name, legend, @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend_raw[@bitCast(@as(isize, @intCast(legend)))]))), @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend[@bitCast(@as(isize, @intCast(legend)))]))));
+                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-22s]  [%-20s]  [%3d]  [ %8s ]  [ %s ]"))))), .{map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].name, map_legend_table[@bitCast(@as(isize, @intCast(legend)))].name, legend, @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend_raw[@bitCast(@as(isize, @intCast(legend)))]))), @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend[@bitCast(@as(isize, @intCast(legend)))])))});
                 } else {
                     map_legend_index(ses, arg3, legend, legend + @as(c_int, 1));
                 }
@@ -9314,7 +9314,7 @@ pub export fn map_legend(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
             while (legend < map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].end) : (legend += 1) {
                 if (is_abbrev(space_out(arg2), space_out(map_legend_table[@bitCast(@as(isize, @intCast(legend)))].name)) != 0) {
                     if (@as(c_int, arg3.*) == @as(c_int, 0)) {
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-22s]  [%-20s]  [%3d]  [ %8s ]  [ %s ]"))))), map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].name, map_legend_table[@bitCast(@as(isize, @intCast(legend)))].name, legend, @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend_raw[@bitCast(@as(isize, @intCast(legend)))]))), @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend[@bitCast(@as(isize, @intCast(legend)))]))));
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-22s]  [%-20s]  [%3d]  [ %8s ]  [ %s ]"))))), .{map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].name, map_legend_table[@bitCast(@as(isize, @intCast(legend)))].name, legend, @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend_raw[@bitCast(@as(isize, @intCast(legend)))]))), @as([*c]u8, @ptrCast(@alignCast(&ses.*.map.*.legend[@bitCast(@as(isize, @intCast(legend)))])))});
                     } else {
                         map_legend_index(ses, arg3, legend, legend + @as(c_int, 1));
                     }
@@ -9327,7 +9327,7 @@ pub export fn map_legend(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
         if (strlen(arg2) > @as(usize, @bitCast(@as(c_long, (map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].end - map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].start) * @as(c_int, 2))))) {
             map_legend_index(ses, arg2, map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].start, map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].end);
         } else {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP LEGEND {%s} {{ARG %d} {ARG %d} ... {ARG %d} {ARG %d}}"))))), map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].group, map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].start, map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].start + @as(c_int, 1), map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].end - @as(c_int, 1), map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].end);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP LEGEND {%s} {{ARG %d} {ARG %d} ... {ARG %d} {ARG %d}}"))))), .{map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].group, map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].start, map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].start + @as(c_int, 1), map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].end - @as(c_int, 1), map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].end});
         }
     }
     pop_call();
@@ -9354,19 +9354,19 @@ pub export fn map_link(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, arg3, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if ((@as(c_int, arg1.*) == @as(c_int, 0)) or (@as(c_int, arg2.*) == @as(c_int, 0))) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP LINK <DIRECTION> <LOCATION> [BOTH]"))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP LINK <DIRECTION> <LOCATION> [BOTH]"))))), .{});
         return;
     }
     room = find_room(ses, arg2);
     if (room == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP LINK {%s}: CAN'T FIND ROOM {%s}."))))), arg1, arg2);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP LINK {%s}: CAN'T FIND ROOM {%s}."))))), .{arg1, arg2});
         return;
     }
     exit_1 = find_exit(ses, ses.*.map.*.in_room, arg1);
     if (exit_1 != null) {
         delete_exit(ses, ses.*.map.*.in_room, exit_1);
     }
-    _ = create_exit(ses, ses.*.map.*.in_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), room, arg1, arg1);
+    _ = create_exit(ses, ses.*.map.*.in_room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), .{room, arg1, arg1});
     if (is_abbrev(arg3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("both")))))) != 0) {
         if (@as(?*anyopaque, @ptrCast(@alignCast(blk: {
             const tmp = search_node_list(@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_PATHDIR], arg1);
@@ -9374,11 +9374,11 @@ pub export fn map_link(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
             break :blk tmp;
         }))) != @as(?*anyopaque, null)) {
             if (@as(?*anyopaque, @ptrCast(@alignCast(find_exit(ses, room, dir.*.arg2)))) == @as(?*anyopaque, null)) {
-                _ = create_exit(ses, room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), ses.*.map.*.in_room, dir.*.arg2, dir.*.arg2);
+                _ = create_exit(ses, room, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {%s} {%s}"))))), .{ses.*.map.*.in_room, dir.*.arg2, dir.*.arg2});
             }
         }
     }
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP LINK: CONNECTED ROOM {%s} TO {%s}."))))), ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.name, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.name);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP LINK: CONNECTED ROOM {%s} TO {%s}."))))), .{ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.name, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.name});
 }
 pub export fn map_list(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
     var ses = arg_ses;
@@ -9405,7 +9405,7 @@ pub export fn map_list(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
         map_search_compile(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%*"))))), @ptrCast(@alignCast(&@"var")));
     }
     if (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&@"var"))).*) != 0) {
-        _ = set_nest_node_ses(ses, @ptrCast(@alignCast(&@"var")), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+        _ = set_nest_node_ses(ses, @as(?*anyopaque, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), .{});
     }
     {
         vnum = 0;
@@ -9413,16 +9413,16 @@ pub export fn map_list(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
             if (match_room(ses, vnum, ses.*.map.*.search) != 0) {
                 room = ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(vnum)))];
                 if (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&@"var"))).*) != 0) {
-                    _ = add_nest_node_ses(ses, @ptrCast(@alignCast(&@"var")), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {{distance}{%.3f}{vnum}{%d}{x}{%d}{y}{%d}{z}{%d}}"))))), room.*.vnum, if (@as(c_int, ses.*.map.*.search.*.stamp) == @as(c_int, room.*.search_stamp)) room.*.length else @as(f64, @floatFromInt(-@as(c_int, 1))), room.*.vnum, room.*.x, room.*.y, room.*.z);
+                    _ = add_nest_node_ses(ses, @as(?*anyopaque, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d} {{distance}{%.3f}{vnum}{%d}{x}{%d}{y}{%d}{z}{%d}}"))))), .{room.*.vnum, if (@as(c_int, ses.*.map.*.search.*.stamp) == @as(c_int, room.*.search_stamp)) room.*.length else @as(f64, @floatFromInt(-@as(c_int, 1))), room.*.vnum, room.*.x, room.*.y, room.*.z});
                 } else {
                     if (@as(c_int, ses.*.map.*.search.*.stamp) == @as(c_int, room.*.search_stamp)) {
                         if (room.*.w == @as(c_int, 0)) {
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("vnum: %5d  dist: %9.3f  x: %4d  y: %4d  z: %4d  name: %s"))))), room.*.vnum, room.*.length, room.*.x, room.*.y, room.*.z, room.*.name);
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("vnum: %5d  dist: %9.3f  x: %4d  y: %4d  z: %4d  name: %s"))))), .{room.*.vnum, room.*.length, room.*.x, room.*.y, room.*.z, room.*.name});
                         } else {
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("vnum: %5d  dist: %9.3f  x: %4s  y: %4s  z: %4s  name: %s"))))), room.*.vnum, room.*.length, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("?"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("?"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("?"))))), room.*.name);
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("vnum: %5d  dist: %9.3f  x: %4s  y: %4s  z: %4s  name: %s"))))), .{room.*.vnum, room.*.length, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("?"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("?"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("?"))))), room.*.name});
                         }
                     } else {
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("vnum: %5d  dist: %9s  x: %4s  y: %4s  z: %4s  name: %s"))))), room.*.vnum, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("-1"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("?"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("?"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("?"))))), room.*.name);
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("vnum: %5d  dist: %9s  x: %4s  y: %4s  z: %4s  name: %s"))))), .{room.*.vnum, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("-1"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("?"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("?"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("?"))))), room.*.name});
                     }
                 }
             }
@@ -9458,7 +9458,7 @@ pub export fn map_map(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, arg3, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, @ptrCast(@alignCast(&arg4)), GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("map_map(%p,%p)"))))), ses, arg);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("map_map(%p,%p)"))))), .{ses, arg});
     if (is_math(ses, arg1) != 0) {
         map_grid_y = @intFromFloat(get_number(ses, arg1));
         if (map_grid_y <= @as(c_int, 0)) {
@@ -9484,7 +9484,7 @@ pub export fn map_map(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                     if (logfile != null) {
                         logheader(ses, logfile, (@as(c_int, 1) << @intCast(@as(c_int, 2))) | (ses.*.log.*.mode & (@as(c_int, 1) << @intCast(@as(c_int, 5)))));
                     } else {
-                        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #MAP MAP {%s} {%s} {%s} FAILED TO OPEN FILE {%s}"))))), arg1, arg2, arg3, @as([*c]u8, @ptrCast(@alignCast(&arg4))));
+                        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #MAP MAP {%s} {%s} {%s} FAILED TO OPEN FILE {%s}"))))), .{arg1, arg2, arg3, @as([*c]u8, @ptrCast(@alignCast(&arg4)))});
                         pop_call();
                         return;
                     }
@@ -9493,7 +9493,7 @@ pub export fn map_map(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 @as(c_int, 'd'), @as(c_int, 'D') => {
                     _ = strcpy(arg3, "DRAW");
                     if (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&arg4))).*) == @as(c_int, 0)) {
-                        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP MAP {%s} {%s} {%s} <SQUARE>"))))), arg1, arg2, arg3);
+                        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP MAP {%s} {%s} {%s} <SQUARE>"))))), .{arg1, arg2, arg3});
                         pop_call();
                         return;
                     }
@@ -9505,7 +9505,7 @@ pub export fn map_map(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                     if (logfile != null) {
                         logheader(ses, logfile, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (ses.*.log.*.mode & (@as(c_int, 1) << @intCast(@as(c_int, 5)))));
                     } else {
-                        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #MAP MAP {%s} {%s} {%s} FAILED TO OPEN FILE {%s}"))))), arg1, arg2, arg3, @as([*c]u8, @ptrCast(@alignCast(&arg4))));
+                        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #MAP MAP {%s} {%s} {%s} FAILED TO OPEN FILE {%s}"))))), .{arg1, arg2, arg3, @as([*c]u8, @ptrCast(@alignCast(&arg4)))});
                         pop_call();
                         return;
                     }
@@ -9525,7 +9525,7 @@ pub export fn map_map(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                     break;
                 },
                 else => {
-                    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP MAP <ROWS> <COLS> {APPEND|OVERWRITE|LIST|VARIABLE} <ARGUMENT>"))))));
+                    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP MAP <ROWS> <COLS> {APPEND|OVERWRITE|LIST|VARIABLE} <ARGUMENT>"))))), .{});
                     pop_call();
                     return;
                 },
@@ -9533,7 +9533,7 @@ pub export fn map_map(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
             break;
         }
         if (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&arg4))).*) == @as(c_int, 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP MAP {%s} {%s} {%s} <ARGUMENT>"))))), arg1, arg2, arg3);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP MAP {%s} {%s} {%s} <ARGUMENT>"))))), .{arg1, arg2, arg3});
             pop_call();
             return;
         }
@@ -9775,7 +9775,7 @@ pub export fn map_map(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 break;
             },
             @as(c_int, 'D') => {
-                _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("tile %s {%s}"))))), @as([*c]u8, @ptrCast(@alignCast(&arg4))), arg1);
+                _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("tile %s {%s}"))))), .{@as([*c]u8, @ptrCast(@alignCast(&arg4))), arg1});
                 break;
             },
             @as(c_int, 'S') => {
@@ -9784,11 +9784,11 @@ pub export fn map_map(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 break;
             },
             @as(c_int, 'L') => {
-                _ = set_nest_node_ses(ses, @ptrCast(@alignCast(&arg4)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), arg1);
+                _ = set_nest_node_ses(ses, @as(?*anyopaque, @ptrCast(@alignCast(&arg4))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), .{arg1});
                 break;
             },
             @as(c_int, 'V') => {
-                _ = set_nest_node_ses(ses, @ptrCast(@alignCast(&arg4)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), arg1);
+                _ = set_nest_node_ses(ses, @as(?*anyopaque, @ptrCast(@alignCast(&arg4))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), .{arg1});
                 break;
             },
             else => {},
@@ -9864,11 +9864,11 @@ pub export fn map_offset(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
             ses.*.map.*.sav_bot_row = @intFromFloat(get_number(ses, arg3));
             ses.*.map.*.sav_bot_col = @intFromFloat(get_number(ses, @ptrCast(@alignCast(&arg4))));
             if ((((ses.*.map.*.sav_top_row == @as(c_int, 0)) or (ses.*.map.*.sav_top_col == @as(c_int, 0))) or (ses.*.map.*.sav_bot_row == @as(c_int, 0))) or (ses.*.map.*.sav_bot_col == @as(c_int, 0))) {
-                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #MAP OFFSET: INVALID SQUARE: {%s} {%s} {%s} {%s}"))))), arg1, arg2, arg3, @as([*c]u8, @ptrCast(@alignCast(&arg4))));
+                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #MAP OFFSET: INVALID SQUARE: {%s} {%s} {%s} {%s}"))))), .{arg1, arg2, arg3, @as([*c]u8, @ptrCast(@alignCast(&arg4)))});
                 return;
             }
         } else {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP OFFSET: THIS COMMAND REQUIRES 4 ARGUMENTS."))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP OFFSET: THIS COMMAND REQUIRES 4 ARGUMENTS."))))), .{});
             return;
         }
     }
@@ -9880,7 +9880,7 @@ pub export fn map_offset(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     ses.*.map.*.rows = ses.*.map.*.bot_row - ses.*.map.*.top_row;
     ses.*.map.*.cols = ses.*.map.*.bot_col - ses.*.map.*.top_col;
     if (arg != null) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP OFFSET: SQUARE {%d, %d, %d, %d} ROWS {%d} COLS {%d}"))))), ses.*.map.*.top_row, ses.*.map.*.top_col, ses.*.map.*.bot_row, ses.*.map.*.bot_col, ses.*.map.*.rows, ses.*.map.*.cols);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP OFFSET: SQUARE {%d, %d, %d, %d} ROWS {%d} COLS {%d}"))))), .{ses.*.map.*.top_row, ses.*.map.*.top_col, ses.*.map.*.bot_row, ses.*.map.*.bot_col, ses.*.map.*.rows, ses.*.map.*.cols});
     }
 }
 pub export fn map_read(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
@@ -9916,11 +9916,11 @@ pub export fn map_read(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
         myfile = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP READ: FILE {%s} NOT FOUND."))))), @as([*c]u8, @ptrCast(@alignCast(&file))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP READ: FILE {%s} NOT FOUND."))))), .{@as([*c]u8, @ptrCast(@alignCast(&file)))});
         return;
     }
     if (!(fgets(@ptrCast(@alignCast(&buffer)), BUFFER_SIZE - @as(c_int, 1), myfile) != null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INVALID READ ON LINE %d. ABORTING READ."))))), line);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INVALID READ ON LINE %d. ABORTING READ."))))), .{line});
         _ = fclose(myfile);
         return;
     }
@@ -9933,7 +9933,7 @@ pub export fn map_read(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
         cptr.* = 0;
     }
     if ((@as(c_int, buffer[@as(c_int, 0)]) != @as(c_int, 'C')) or (@as(c_int, buffer[@as(c_int, 1)]) != @as(c_int, ' '))) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP READ {%s}: INVALID START OF FILE. ABORTING READ."))))), @as([*c]u8, @ptrCast(@alignCast(&file))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP READ {%s}: INVALID START OF FILE. ABORTING READ."))))), .{@as([*c]u8, @ptrCast(@alignCast(&file)))});
         _ = fclose(myfile);
         return;
     }
@@ -9962,7 +9962,7 @@ pub export fn map_read(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
                         switch (@as(c_int, buffer[@as(c_int, 1)])) {
                             @as(c_int, ' ') => {
                                 gtd.*.level.*.quiet -%= 1;
-                                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INVALID COMMAND {%d} {%s} ON LINE %d. ABORTING READ."))))), buffer[@as(c_int, 0)], @as([*c]u8, @ptrCast(@alignCast(&buffer))), line);
+                                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INVALID COMMAND {%d} {%s} ON LINE %d. ABORTING READ."))))), .{buffer[@as(c_int, 0)], @as([*c]u8, @ptrCast(@alignCast(&buffer))), line});
                                 _ = fclose(myfile);
                                 _ = delete_map(ses);
                                 return;
@@ -9974,7 +9974,7 @@ pub export fn map_read(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
                                 break;
                             },
                             else => {
-                                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP READ: INVALID COMMAND {%d} {%s} ON LINE %d. ABORTING READ."))))), buffer[@as(c_int, 0)], @as([*c]u8, @ptrCast(@alignCast(&buffer))), line);
+                                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP READ: INVALID COMMAND {%d} {%s} ON LINE %d. ABORTING READ."))))), .{buffer[@as(c_int, 0)], @as([*c]u8, @ptrCast(@alignCast(&buffer))), line});
                                 break;
                             },
                         }
@@ -9983,7 +9983,7 @@ pub export fn map_read(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
                     break;
                 },
                 @as(c_int, 'E') => {
-                    _ = create_exit(ses, vnum, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), @as([*c]u8, @ptrCast(@alignCast(&buffer))) + @as(usize, @bitCast(@as(isize, @intCast(@as(c_int, 2))))));
+                    _ = create_exit(ses, vnum, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), .{@as([*c]u8, @ptrCast(@alignCast(&buffer))) + @as(usize, @bitCast(@as(isize, @intCast(@as(c_int, 2)))))});
                     break;
                 },
                 @as(c_int, 'F') => {
@@ -10028,7 +10028,7 @@ pub export fn map_read(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
                     break;
                 },
                 @as(c_int, 'R') => {
-                    room = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), @as([*c]u8, @ptrCast(@alignCast(&buffer))) + @as(usize, @bitCast(@as(isize, @intCast(@as(c_int, 2))))));
+                    room = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), .{@as([*c]u8, @ptrCast(@alignCast(&buffer))) + @as(usize, @bitCast(@as(isize, @intCast(@as(c_int, 2)))))});
                     vnum = room.*.vnum;
                     break;
                 },
@@ -10054,7 +10054,7 @@ pub export fn map_read(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
                 },
                 else => {
                     gtd.*.level.*.quiet -%= 1;
-                    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INVALID COMMAND {%d} {%s} ON LINE %d."))))), buffer[@as(c_int, 0)], @as([*c]u8, @ptrCast(@alignCast(&buffer))), line);
+                    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INVALID COMMAND {%d} {%s} ON LINE %d."))))), .{buffer[@as(c_int, 0)], @as([*c]u8, @ptrCast(@alignCast(&buffer))), line});
                     gtd.*.level.*.quiet +%= 1;
                 },
             }
@@ -10074,7 +10074,7 @@ pub export fn map_read(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
                 exit_1 = ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(vnum)))].*.f_exit;
                 while (exit_1 != null) : (exit_1 = exit_1.*.next) {
                     if (((exit_1.*.vnum < @as(c_int, 0)) or (exit_1.*.vnum >= ses.*.map.*.size)) or (@as(?*anyopaque, @ptrCast(@alignCast(ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(exit_1.*.vnum)))]))) == @as(?*anyopaque, null))) {
-                        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP READ: ROOM %d: INVALID EXIT {%s} TO ROOM %d."))))), vnum, exit_1.*.name, exit_1.*.vnum);
+                        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP READ: ROOM %d: INVALID EXIT {%s} TO ROOM %d."))))), .{vnum, exit_1.*.name, exit_1.*.vnum});
                         delete_exit(ses, vnum, exit_1);
                         if (ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(vnum)))].*.f_exit != null) {
                             exit_1 = ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(vnum)))].*.f_exit;
@@ -10089,7 +10089,7 @@ pub export fn map_read(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
     if (ses.*.map.*.version < @as(c_int, 20231)) {
         ses.*.map.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 20));
     }
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP READ: MAP FILE {%s} READ."))))), @as([*c]u8, @ptrCast(@alignCast(&file))));
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP READ: MAP FILE {%s} READ."))))), .{@as([*c]u8, @ptrCast(@alignCast(&file)))});
 }
 pub export fn map_resize(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
     var ses = arg_ses;
@@ -10111,7 +10111,7 @@ pub export fn map_resize(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     size = atoi(arg1);
     if (size <= @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP RESIZE <MAXIMUM>"))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP RESIZE <MAXIMUM>"))))), .{});
         return;
     }
     if (size <= ses.*.map.*.size) {
@@ -10128,7 +10128,7 @@ pub export fn map_resize(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
             }
         }
         if (room >= size) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP RESIZE: YOU MUST DELETE ALL ROOMS WITH VNUMS ABOVE (%d) FIRST."))))), size);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP RESIZE: YOU MUST DELETE ALL ROOMS WITH VNUMS ABOVE (%d) FIRST."))))), .{size});
             return;
         }
     }
@@ -10147,7 +10147,7 @@ pub export fn map_resize(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     } else {
         ses.*.map.*.size = size;
     }
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP RESIZE: MAP RESIZED TO %d ROOMS."))))), ses.*.map.*.size);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP RESIZE: MAP RESIZED TO %d ROOMS."))))), .{ses.*.map.*.size});
 }
 pub export fn map_return(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
     var ses = arg_ses;
@@ -10161,14 +10161,14 @@ pub export fn map_return(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     var arg3 = arg_arg3;
     _ = &arg3;
     if ((@as(?*anyopaque, @ptrCast(@alignCast(ses.*.map))) == @as(?*anyopaque, null)) or (@as(?*anyopaque, @ptrCast(@alignCast(ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.last_room)))]))) == @as(?*anyopaque, null))) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP RETURN: NO KNOWN LAST ROOM."))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP RETURN: NO KNOWN LAST ROOM."))))), .{});
         return;
     }
     if (ses.*.map.*.in_room != 0) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP RETURN: ALREADY IN THE MAP."))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP RETURN: ALREADY IN THE MAP."))))), .{});
     } else {
         goto_room(ses, ses.*.map.*.last_room);
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP RETURN: RETURNED TO ROOM %d {%s}."))))), ses.*.map.*.in_room, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.name);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP RETURN: RETURNED TO ROOM %d {%s}."))))), .{ses.*.map.*.in_room, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.name});
     }
 }
 pub export fn map_roomflag(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
@@ -10192,16 +10192,16 @@ pub export fn map_roomflag(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, arg3, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: AVOID FLAG IS SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: BLOCK FLAG IS SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 14)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: CURVED FLAG IS SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: FOG FLAG IS SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 20)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: HIDE FLAG IS SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INVIS FLAG IS SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: LEAVE FLAG IS SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: NOGLOBAL FLAG IS SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: STATIC FLAG IS SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: VOID FLAG IS SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: AVOID FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: BLOCK FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 14)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: CURVED FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: FOG FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 20)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: HIDE FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INVIS FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: LEAVE FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: NOGLOBAL FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: STATIC FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: VOID FLAG IS SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
         return;
     }
     str = arg1;
@@ -10228,7 +10228,7 @@ pub export fn map_roomflag(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
         } else if (is_abbrev(@ptrCast(@alignCast(&arg4)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("void")))))) != 0) {
             flag |= @as(c_int, 1) << @intCast(@as(c_int, 3));
         } else {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INVALID ROOM FLAG {%s}."))))), @as([*c]u8, @ptrCast(@alignCast(&arg4))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INVALID ROOM FLAG {%s}."))))), .{@as([*c]u8, @ptrCast(@alignCast(&arg4)))});
             return;
         }
         if (@as(c_int, str.*) == COMMAND_SEPARATOR) {
@@ -10243,43 +10243,43 @@ pub export fn map_roomflag(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
         ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags &= ~flag;
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GET")))))) != 0) {
         if (@as(c_int, arg3.*) == @as(c_int, 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP ROOMFLAG {%s} {GET} <VARIABLE>"))))), @as([*c]u8, @ptrCast(@alignCast(&arg4))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP ROOMFLAG {%s} {GET} <VARIABLE>"))))), .{@as([*c]u8, @ptrCast(@alignCast(&arg4)))});
         } else {
-            _ = set_nest_node_ses(ses, arg3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))), ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & flag);
+            _ = set_nest_node_ses(ses, arg3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))), .{ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & flag});
         }
         return;
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP ROOMFLAG {%s} [GET|ON|OFF]."))))), @as([*c]u8, @ptrCast(@alignCast(&arg4))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP ROOMFLAG {%s} [GET|ON|OFF]."))))), .{@as([*c]u8, @ptrCast(@alignCast(&arg4)))});
     }
     if ((flag & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: AVOID FLAG SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: AVOID FLAG SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     }
     if ((flag & (@as(c_int, 1) << @intCast(@as(c_int, 14)))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: BLOCK FLAG SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 14)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: BLOCK FLAG SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 14)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     }
     if ((flag & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: CURVED FLAG SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: CURVED FLAG SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     }
     if ((flag & (@as(c_int, 1) << @intCast(@as(c_int, 20)))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: FOG FLAG SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 20)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: FOG FLAG SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 20)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     }
     if ((flag & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: HIDE FLAG SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: HIDE FLAG SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     }
     if ((flag & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INVIS FLAG SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: INVIS FLAG SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     }
     if ((flag & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: LEAVE FLAG SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: LEAVE FLAG SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     }
     if ((flag & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: NOGLOBAL FLAG SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: NOGLOBAL FLAG SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     }
     if ((flag & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: STATIC FLAG SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: STATIC FLAG SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     }
     if ((flag & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: VOID FLAG SET TO %s."))))), if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: VOID FLAG SET TO %s."))))), .{if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))});
     }
 }
 pub export fn map_run(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
@@ -10321,19 +10321,19 @@ pub export fn map_set(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
         }
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(room))) == @as(?*anyopaque, null)) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: INVALID ROOM VNUM {%s}."))))), arg3);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: INVALID ROOM VNUM {%s}."))))), .{arg3});
     } else if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   ROOMAREA: %s"))))), room.*.area);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  ROOMCOLOR: %s"))))), room.*.color);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   ROOMDATA: %s"))))), room.*.data);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   ROOMDESC: %s"))))), room.*.desc);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  ROOMFLAGS: %d"))))), room.*.flags);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ROOMID: %s"))))), room.*.id);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   ROOMNAME: %s"))))), room.*.name);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   ROOMNOTE: %s"))))), room.*.note);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" ROOMSYMBOL: %s"))))), room.*.symbol);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ROOMTERRAIN: %s"))))), room.*.terrain);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" ROOMWEIGHT: %.3f"))))), room.*.weight);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   ROOMAREA: %s"))))), .{room.*.area});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  ROOMCOLOR: %s"))))), .{room.*.color});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   ROOMDATA: %s"))))), .{room.*.data});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   ROOMDESC: %s"))))), .{room.*.desc});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  ROOMFLAGS: %d"))))), .{room.*.flags});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ROOMID: %s"))))), .{room.*.id});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   ROOMNAME: %s"))))), .{room.*.name});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("   ROOMNOTE: %s"))))), .{room.*.note});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" ROOMSYMBOL: %s"))))), .{room.*.symbol});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ROOMTERRAIN: %s"))))), .{room.*.terrain});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" ROOMWEIGHT: %.3f"))))), .{room.*.weight});
     } else {
         if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomarea")))))) != 0) {
             {
@@ -10342,7 +10342,7 @@ pub export fn map_set(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 }
                 room.*.area = strdup(arg2);
             }
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMAREA SET TO: %s"))))), room.*.area);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMAREA SET TO: %s"))))), .{room.*.area});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomcolor")))))) != 0) {
             {
                 if (room.*.color != null) {
@@ -10350,7 +10350,7 @@ pub export fn map_set(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 }
                 room.*.color = strdup(arg2);
             }
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMCOLOR SET TO: %s"))))), arg2);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMCOLOR SET TO: %s"))))), .{arg2});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomdata")))))) != 0) {
             {
                 if (room.*.data != null) {
@@ -10358,7 +10358,7 @@ pub export fn map_set(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 }
                 room.*.data = strdup(arg2);
             }
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMDATA SET TO: %s"))))), arg2);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMDATA SET TO: %s"))))), .{arg2});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomdesc")))))) != 0) {
             arg = arg2;
             while ((blk: {
@@ -10374,10 +10374,10 @@ pub export fn map_set(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 }
                 room.*.desc = strdup(arg2);
             }
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMDESC SET TO: %s"))))), arg2);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMDESC SET TO: %s"))))), .{arg2});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomflags")))))) != 0) {
             room.*.flags = @intFromFloat(get_number(ses, arg2));
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMFLAGS SET TO: %d"))))), room.*.flags);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMFLAGS SET TO: %d"))))), .{room.*.flags});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomid")))))) != 0) {
             {
                 if (room.*.id != null) {
@@ -10385,7 +10385,7 @@ pub export fn map_set(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 }
                 room.*.id = strdup(arg2);
             }
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMID SET TO: %s"))))), room.*.id);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMID SET TO: %s"))))), .{room.*.id});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomname")))))) != 0) {
             {
                 if (room.*.name != null) {
@@ -10393,7 +10393,7 @@ pub export fn map_set(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 }
                 room.*.name = strdup(arg2);
             }
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMNAME SET TO: %s"))))), room.*.name);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMNAME SET TO: %s"))))), .{room.*.name});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomnote")))))) != 0) {
             {
                 if (room.*.note != null) {
@@ -10401,7 +10401,7 @@ pub export fn map_set(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 }
                 room.*.note = strdup(arg2);
             }
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMNOTE SET TO: %s"))))), arg2);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMNOTE SET TO: %s"))))), .{arg2});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomsymbol")))))) != 0) {
             {
                 if (room.*.symbol != null) {
@@ -10409,7 +10409,7 @@ pub export fn map_set(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 }
                 room.*.symbol = strdup(arg2);
             }
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMSYMBOL SET TO: %s"))))), room.*.symbol);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMSYMBOL SET TO: %s"))))), .{room.*.symbol});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomterrain")))))) != 0) {
             {
                 if (room.*.terrain != null) {
@@ -10418,20 +10418,20 @@ pub export fn map_set(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 room.*.terrain = strdup(arg2);
             }
             room.*.terrain_index = bsearch_alpha_list(@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_TERRAIN], room.*.terrain, 0);
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMTERRAIN SET TO: %s (%d)"))))), arg2, room.*.terrain_index);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMTERRAIN SET TO: %s (%d)"))))), .{arg2, room.*.terrain_index});
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("roomweight")))))) != 0) {
             if (get_number(ses, arg2) < @as(c_longdouble, @floatCast(@as(f64, 0.001)))) {
-                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMWEIGHT SHOULD BE AT LEAST 0.001."))))));
+                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMWEIGHT SHOULD BE AT LEAST 0.001."))))), .{});
             } else {
                 room.*.weight = @floatCast(get_number(ses, arg2));
-                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMWEIGHT SET TO: %.3f"))))), room.*.weight);
+                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: ROOMWEIGHT SET TO: %.3f"))))), .{room.*.weight});
             }
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("direction")))))) != 0) {
             ses.*.map.*.dir = if (atoi(arg2) < @as(c_int, 0)) @as(c_int, 0) else if (atoi(arg2) > @as(c_int, 63)) @as(c_int, 63) else atoi(arg2);
         } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("pathdir")))))) != 0) {
             ses.*.map.*.dir = exit_to_dir(ses, arg2);
         } else {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: UNKNOWN OPTION {%s}."))))), arg1);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP SET: UNKNOWN OPTION {%s}."))))), .{arg1});
         }
     }
 }
@@ -10490,7 +10490,7 @@ pub export fn map_terrain(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
     if ((@as(c_int, arg2.*) == @as(c_int, 0)) or ((@as(c_int, arg1.*) == @as(c_int, 0)) and (@as(c_int, arg2.*) == @as(c_int, 0)))) {
         i = bsearch_alpha_list(root, arg1, 0);
         if (i > @as(c_int, 0)) {
-            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("NAME: %-16s  INDEX: %4d SYMBOL: %-16s  FLAGS: %s %s"))))), root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg1, i, root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg2, root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg3, root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg4);
+            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("NAME: %-16s  INDEX: %4d SYMBOL: %-16s  FLAGS: %s %s"))))), .{root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg1, i, root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg2, root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg3, root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg4});
         } else {
             {
                 found = blk: {
@@ -10501,13 +10501,13 @@ pub export fn map_terrain(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
                 while (i < root.*.used) : (i += 1) {
                     if ((@as(c_int, arg1.*) == @as(c_int, 0)) or (match(ses, root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg1, arg1, @as(c_int, 0) << @intCast(@as(c_int, 0))) != 0)) {
                         room = root.*.list[@bitCast(@as(isize, @intCast(i)))].*.unnamed_0.room;
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("NAME: %-16s  INDEX %4d  SYMBOL: %-16s  FLAGS: %s %s"))))), room.*.name, room.*.terrain_index, room.*.symbol, root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg3, root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg4);
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("NAME: %-16s  INDEX %4d  SYMBOL: %-16s  FLAGS: %s %s"))))), .{room.*.name, room.*.terrain_index, room.*.symbol, root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg3, root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg4});
                         found = TRUE;
                     }
                 }
             }
             if (found == FALSE) {
-                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP TERRAIN: NO MATCHES FOUND FOR {%s}."))))), arg1);
+                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP TERRAIN: NO MATCHES FOUND FOR {%s}."))))), .{arg1});
             }
         }
     } else {
@@ -10539,7 +10539,7 @@ pub export fn map_terrain(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
             } else if (is_abbrev(@ptrCast(@alignCast(&arg4)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DOUBLE")))))) != 0) {
                 flags |= @as(c_int, 1) << @intCast(@as(c_int, 10));
             } else {
-                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP TERRAIN {%s} [DENSE|DOUBLE|SPARSE|SCANT|NARROW|WIDE|VAST|FADEIN|FADEOUT]"))))), arg1);
+                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP TERRAIN {%s} [DENSE|DOUBLE|SPARSE|SCANT|NARROW|WIDE|VAST|FADEIN|FADEOUT]"))))), .{arg1});
             }
             if (@as(c_int, arg.*) == COMMAND_SEPARATOR) {
                 arg += 1;
@@ -10592,7 +10592,7 @@ pub export fn map_terrain(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
                 }
             }
         } else {
-            node.*.unnamed_0.room = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{0} {%d} {} {%s} {%s} {} {} {} {} {} {1.0} {}"))))), @as(c_int, 1) << @intCast(@as(c_int, 19)), node.*.arg1, node.*.arg2);
+            node.*.unnamed_0.room = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{0} {%d} {} {%s} {%s} {} {} {} {} {} {1.0} {}"))))), .{@as(c_int, 1) << @intCast(@as(c_int, 19)), node.*.arg1, node.*.arg2});
         }
         node.*.unnamed_0.room.*.terrain_flags = @truncate(flags);
         {
@@ -10601,7 +10601,7 @@ pub export fn map_terrain(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
                 root.*.list[@bitCast(@as(isize, @intCast(i)))].*.unnamed_0.room.*.terrain_index = i;
             }
         }
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: TERRAIN {%s} HAS BEEN SET TO {%s} {%s}."))))), arg1, arg2, @as([*c]u8, @ptrCast(@alignCast(&arg4))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: TERRAIN {%s} HAS BEEN SET TO {%s} {%s}."))))), .{arg1, arg2, @as([*c]u8, @ptrCast(@alignCast(&arg4)))});
     }
 }
 pub export fn map_travel(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
@@ -10644,65 +10644,65 @@ pub export fn map_undo(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
     _ = &exit3;
     link_1 = ses.*.map.*.undo_tail;
     if (@as(?*anyopaque, @ptrCast(@alignCast(link_1))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: NO KNOWN LAST MOVE."))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: NO KNOWN LAST MOVE."))))), .{});
         return;
     }
     room = ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(atoi(link_1.*.str1))))];
     if (@as(?*anyopaque, @ptrCast(@alignCast(room))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: ROOM %s DOES NOT EXIST."))))), link_1.*.str2);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: ROOM %s DOES NOT EXIST."))))), .{link_1.*.str2});
         return;
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(atoi(link_1.*.str2))))]))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: INVALID LAST ROOM."))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: INVALID LAST ROOM."))))), .{});
         return;
     }
     undo_flag = atoi(link_1.*.str3);
     if ((undo_flag & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) {
         if (ses.*.map.*.in_room != room.*.vnum) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: INVALID LAST MOVE."))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: INVALID LAST MOVE."))))), .{});
             return;
         }
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: MOVING TO ROOM %s."))))), link_1.*.str2);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: MOVING TO ROOM %s."))))), .{link_1.*.str2});
         goto_room(ses, atoi(link_1.*.str2));
     }
     if ((undo_flag & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: DELETING ROOM %d."))))), room.*.vnum);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: DELETING ROOM %d."))))), .{room.*.vnum});
         delete_room(ses, room.*.vnum, TRUE);
     } else if ((undo_flag & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) {
         exit1 = find_exit_vnum(ses, room.*.vnum, atoi(link_1.*.str2));
         if (exit1 != null) {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: DELETING EXIT %s."))))), exit1.*.name);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: DELETING EXIT %s."))))), .{exit1.*.name});
             delete_exit(ses, room.*.vnum, exit1);
         } else {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: CAN'T FIND EXIT BETWEEN %s AND %d."))))), link_1.*.str2, room.*.vnum);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: CAN'T FIND EXIT BETWEEN %s AND %d."))))), .{link_1.*.str2, room.*.vnum});
         }
         exit2 = find_exit_vnum(ses, atoi(link_1.*.str2), atoi(link_1.*.str1));
         if (exit2 != null) {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: DELETING EXIT %s."))))), exit2.*.name);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: DELETING EXIT %s."))))), .{exit2.*.name});
             delete_exit(ses, atoi(link_1.*.str2), exit2);
         } else {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: CAN'T FIND EXIT BETWEEN %s AND %s."))))), link_1.*.str2, link_1.*.str1);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: CAN'T FIND EXIT BETWEEN %s AND %s."))))), .{link_1.*.str2, link_1.*.str1});
         }
     } else if ((undo_flag & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) {
         exit1 = find_exit_vnum(ses, atoi(link_1.*.str2), atoi(link_1.*.str1));
         if (@as(?*anyopaque, @ptrCast(@alignCast(exit1))) == @as(?*anyopaque, null)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: CAN'T FIND EXIT BETWEEN %s AND %s."))))), link_1.*.str2, link_1.*.str1);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: CAN'T FIND EXIT BETWEEN %s AND %s."))))), .{link_1.*.str2, link_1.*.str1});
             return;
         }
         exit2 = find_exit(ses, room.*.vnum, exit1.*.name);
         if (@as(?*anyopaque, @ptrCast(@alignCast(exit2))) == @as(?*anyopaque, null)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: NO VALID EXIT FOUND IN ROOM %d."))))), room.*.vnum);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: NO VALID EXIT FOUND IN ROOM %d."))))), .{room.*.vnum});
             return;
         }
         exit3 = find_exit_vnum(ses, exit2.*.vnum, room.*.vnum);
         if (@as(?*anyopaque, @ptrCast(@alignCast(exit3))) == @as(?*anyopaque, null)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: CAN'T FIND EXIT BETWEEN %d AND %d."))))), room.*.vnum, exit2.*.vnum);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: CAN'T FIND EXIT BETWEEN %d AND %d."))))), .{room.*.vnum, exit2.*.vnum});
             return;
         }
         exit1.*.vnum = exit2.*.vnum;
         exit3.*.vnum = atoi(link_1.*.str2);
         delete_room(ses, room.*.vnum, TRUE);
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: UNINSERTING ROOM %s."))))), link_1.*.str1);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNDO: UNINSERTING ROOM %s."))))), .{link_1.*.str1});
     }
     del_undo(ses, link_1);
 }
@@ -10736,29 +10736,29 @@ pub export fn map_uninsert(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
     exit1 = find_exit(ses, room1, arg1);
     dir = search_node_list(@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_PATHDIR], arg1);
     if (@as(?*anyopaque, @ptrCast(@alignCast(exit1))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNINSERT: THERE IS NO ROOM IN THAT DIRECTION."))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNINSERT: THERE IS NO ROOM IN THAT DIRECTION."))))), .{});
         return;
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(dir))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNINSERT: DIRECTION MUST BE A PATHDIR."))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNINSERT: DIRECTION MUST BE A PATHDIR."))))), .{});
         return;
     }
     room2 = exit1.*.vnum;
     exit2 = find_exit(ses, room2, dir.*.arg1);
     if (@as(?*anyopaque, @ptrCast(@alignCast(exit2))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNINSERT: UNABLE TO FIND BACKLINK ROOM."))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNINSERT: UNABLE TO FIND BACKLINK ROOM."))))), .{});
         return;
     }
     room3 = exit2.*.vnum;
     exit3 = find_exit(ses, room3, dir.*.arg2);
     if (@as(?*anyopaque, @ptrCast(@alignCast(exit3))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNINSERT: UNABLE TO FIND BACKLINK EXIT."))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNINSERT: UNABLE TO FIND BACKLINK EXIT."))))), .{});
         return;
     }
     exit1.*.vnum = room3;
     exit3.*.vnum = room1;
     delete_room(ses, room2, TRUE);
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNINSERT: UNINSERTED ROOM {%d}."))))), room2);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNINSERT: UNINSERTED ROOM {%d}."))))), .{room2});
 }
 pub export fn map_unlandmark(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
     var ses = arg_ses;
@@ -10792,7 +10792,7 @@ pub export fn map_unlink(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     exit1 = find_exit(ses, ses.*.map.*.in_room, arg1);
     if (@as(?*anyopaque, @ptrCast(@alignCast(exit1))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNLINK: EXIT {%s} NOT FOUND."))))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNLINK: EXIT {%s} NOT FOUND."))))), .{arg1});
         return;
     }
     if ((@as(c_int, arg2.*) == @as(c_int, 'b')) or (@as(c_int, arg.*) == @as(c_int, 'B'))) {
@@ -10807,7 +10807,7 @@ pub export fn map_unlink(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
         }
     }
     delete_exit(ses, ses.*.map.*.in_room, exit1);
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNLINK: EXIT {%s} DELETED."))))), arg1);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UNLINK: EXIT {%s} DELETED."))))), .{arg1});
 }
 pub export fn map_unterrain(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
     var ses = arg_ses;
@@ -10837,20 +10837,20 @@ pub export fn map_update(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     _ = &arg3;
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(?*anyopaque, @ptrCast(@alignCast(ses.*.map))) == @as(?*anyopaque, null)) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UPDATE: NO MAP DATA."))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UPDATE: NO MAP DATA."))))), .{});
     } else if (@as(?*anyopaque, @ptrCast(@alignCast(ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.in_room)))]))) == @as(?*anyopaque, null)) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UPDATE: NOT INSIDE MAP."))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UPDATE: NOT INSIDE MAP."))))), .{});
     } else if (!((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0)) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UPDATE: VTMAP FLAG NOT SET."))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UPDATE: VTMAP FLAG NOT SET."))))), .{});
     } else if (ses != gtd.*.ses) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UPDATE: NOT THE ACTIVE SESSION."))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UPDATE: NOT THE ACTIVE SESSION."))))), .{});
     } else {
         if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("NOW")))))) != 0) {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UPDATE: MAP UPDATING NOW."))))));
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UPDATE: MAP UPDATING NOW."))))), .{});
             ses.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 14)));
             show_vtmap(ses, 0);
         } else {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UPDATE: MAP SCHEDULED FOR UPDATE."))))));
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP UPDATE: MAP SCHEDULED FOR UPDATE."))))), .{});
             ses.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 14));
         }
     }
@@ -10889,7 +10889,7 @@ pub export fn map_vnum(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
         vnum2 = vnum1;
     }
     if ((((vnum1 <= @as(c_int, 0)) or (vnum1 >= ses.*.map.*.size)) or (vnum2 <= @as(c_int, 0))) or (vnum2 >= ses.*.map.*.size)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP VNUM {%s} {%s} - VNUMS MUST BE BETWEEN {1} and {%d}"))))), arg1, arg2, ses.*.map.*.size - @as(c_int, 1));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP VNUM {%s} {%s} - VNUMS MUST BE BETWEEN {1} and {%d}"))))), .{arg1, arg2, ses.*.map.*.size - @as(c_int, 1)});
         return;
     }
     {
@@ -10901,7 +10901,7 @@ pub export fn map_vnum(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
         }
     }
     if (vnum > vnum2) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP VNUM {%s} {%s} - NO FREE VNUM FOUND."))))), arg1, arg2);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP VNUM {%s} {%s} - NO FREE VNUM FOUND."))))), .{arg1, arg2});
         return;
     }
     old_room = ses.*.map.*.in_room;
@@ -10934,11 +10934,11 @@ pub export fn map_vnum(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
         while (vnum < root.*.used) : (vnum += 1) {
             if (@as([*c]c_int, @ptrCast(@constCast(&root.*.list[@bitCast(@as(isize, @intCast(vnum)))].*.unnamed_0.val32)))[@as(c_int, 0)] == old_room) {
                 @as([*c]c_int, @ptrCast(@constCast(&root.*.list[@bitCast(@as(isize, @intCast(vnum)))].*.unnamed_0.val32)))[@as(c_int, 0)] = new_room;
-                tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP VNUM: MOVED LANDMARK {%s} FROM ROOM %d TO %d."))))), root.*.list[@bitCast(@as(isize, @intCast(vnum)))].*.arg1, old_room, new_room);
+                tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP VNUM: MOVED LANDMARK {%s} FROM ROOM %d TO %d."))))), .{root.*.list[@bitCast(@as(isize, @intCast(vnum)))].*.arg1, old_room, new_room});
             }
         }
     }
-    tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP VNUM: MOVED ROOM %d TO %d."))))), old_room, new_room);
+    tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP VNUM: MOVED ROOM %d TO %d."))))), .{old_room, new_room});
 }
 pub export fn map_write(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) void {
     var ses = arg_ses;
@@ -10962,11 +10962,11 @@ pub export fn map_write(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP WRITE <FILENAME> [FORCE]"))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP WRITE <FILENAME> [FORCE]"))))), .{});
         return;
     }
     if ((is_suffix(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(".tin")))))) != 0) and !(is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("FORCE")))))) != 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP WRITE {%s}: USE {%s} {FORCE} TO OVERWRITE .tin FILES."))))), arg1, arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP WRITE {%s}: USE {%s} {FORCE} TO OVERWRITE .tin FILES."))))), .{arg1, arg1});
         return;
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(blk: {
@@ -10974,7 +10974,7 @@ pub export fn map_write(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
         file = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP WRITE {%s} - COULDN'T OPEN FILE TO WRITE."))))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP WRITE {%s} - COULDN'T OPEN FILE TO WRITE."))))), .{arg1});
         return;
     }
     _ = fprintf(file, "C %d\n\n", ses.*.map.*.size);
@@ -11028,7 +11028,7 @@ pub export fn map_write(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
         }
     }
     _ = fclose(file);
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: MAP WRITTEN TO {%s}."))))), arg1);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: MAP WRITTEN TO {%s}."))))), .{arg1});
 }
 pub extern fn mathexp(ses: [*c]struct_session, str: [*c]u8, result: [*c]u8, seed: c_int) c_longdouble;
 pub extern fn is_math(ses: [*c]struct_session, str: [*c]u8) c_int;
@@ -11077,8 +11077,8 @@ pub extern fn insert_node_list(root: [*c]struct_listroot, node: [*c]struct_listn
 pub extern fn insert_index_list(root: [*c]struct_listroot, node: [*c]struct_listnode, index: c_int) [*c]struct_listnode;
 pub extern fn update_node_list(root: [*c]struct_listroot, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_listnode;
 pub extern fn search_node_list(root: [*c]struct_listroot, text: [*c]u8) [*c]struct_listnode;
-pub extern fn push_call(format: [*c]u8, ...) void;
-pub extern fn push_call_printf(format: [*c]u8, ...) c_int;
+pub fn push_call(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").push_call(arg_format, args); }
+pub fn push_call_printf(arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").push_call_printf(arg_format, args)); }
 pub extern fn pop_call() void;
 pub extern fn dump_stack() void;
 pub extern fn do_dictionary(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -11104,7 +11104,7 @@ pub extern fn delete_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn insert_line(edit: [*c]struct_edit_data, index: c_int, str: [*c]u8) void;
 pub extern fn remove_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn do_draw(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
-pub extern fn check_all_events(ses: [*c]struct_session, flags: c_int, args: c_int, vars: c_int, fmt: [*c]u8, ...) c_int;
+pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
 pub extern fn mouse_handler(ses: [*c]struct_session, val1: c_int, val2: c_int, val3: c_int) void;
 pub extern fn do_read(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn do_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -11162,7 +11162,7 @@ pub extern fn main(argc: c_int, argv: [*c][*c]u8) c_int;
 pub extern fn init_tintin(greeting: c_int) void;
 pub extern fn quitmsg(message: [*c]u8) void;
 pub extern fn syserr_fatal(signal: c_int, msg: [*c]u8) void;
-pub extern fn syserr_printf(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
+pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
 pub extern fn zlib_alloc(@"opaque": ?*anyopaque, items: c_uint, size: c_uint) ?*anyopaque;
 pub extern fn zlib_free(@"opaque": ?*anyopaque, address: ?*anyopaque) void;
 pub extern fn restring(point: [*c]u8, string: [*c]u8) [*c]u8;
@@ -11200,11 +11200,11 @@ pub extern fn do_nop(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [
 pub extern fn do_test(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn init_msdp_table() void;
 pub extern fn msdp_find(@"var": [*c]u8) c_int;
-pub extern fn arachnos_devel(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn arachnos_mudlist(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn msdp_update_all(@"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
+pub fn msdp_update_all(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_all(arg0, arg_format, args); }
 pub extern fn msdp_update_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, str: [*c]u8) void;
-pub extern fn msdp_update_varf(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
 pub extern fn msdp_update_var_instant(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
 pub extern fn msdp_send_update(ses: [*c]struct_session, buddy: [*c]struct_port_data) void;
 pub extern fn msdp_get_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8) [*c]u8;
@@ -11241,10 +11241,10 @@ pub extern fn get_nest_index(root: [*c]struct_listroot, variable: [*c]u8, result
 pub extern fn show_nest_node(node: [*c]struct_listnode, result: [*c][*c]u8, initialize: c_int) void;
 pub extern fn view_nest_node_json(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int) void;
 pub extern fn view_nest_node(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int, color: c_int) void;
-pub extern fn set_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn set_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
+pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
 pub extern fn copy_nest_node(dst_root: [*c]struct_listroot, dst: [*c]struct_listnode, src: [*c]struct_listnode) void;
 pub extern fn connect_mud(ses: [*c]struct_session, host: [*c]u8, port: [*c]u8) c_int;
 pub extern fn write_line_mud(ses: [*c]struct_session, line: [*c]u8, size: c_int) void;
@@ -11257,8 +11257,8 @@ pub extern fn is_abbrev_cmp(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_member(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_vowel(str: [*c]u8) c_int;
 pub extern fn filename_string(input: [*c]u8, output: [*c]u8) void;
-pub extern fn execute(ses: [*c]struct_session, format: [*c]u8, ...) [*c]struct_session;
-pub extern fn command(ses: [*c]struct_session, cmd: ?*const COMMAND, format: [*c]u8, ...) [*c]struct_session;
+pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
 pub extern fn parse_input(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn parse_command(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn is_speedwalk(ses: [*c]struct_session, input: [*c]u8) c_int;
@@ -11329,10 +11329,10 @@ pub extern fn port_new(ses: [*c]struct_session, s: c_int) c_int;
 pub extern fn close_port(ses: [*c]struct_session, buddy: [*c]struct_port_data, unlink: c_int) void;
 pub extern fn process_port_connections(ses: [*c]struct_session, read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
 pub extern fn port_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
-pub extern fn port_socket_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_telnet_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, length: usize, format: [*c]u8, ...) void;
-pub extern fn port_log_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
 pub extern fn process_port_input(ses: [*c]struct_session, buddy: [*c]struct_port_data) c_int;
 pub extern fn get_port_commands(ses: [*c]struct_session, buddy: [*c]struct_port_data, buf: [*c]u8, len: c_int) void;
 pub extern fn port_name_change(ses: [*c]struct_session, buddy: [*c]struct_port_data, txt: [*c]u8) void;
@@ -11388,18 +11388,18 @@ pub extern fn new_session(ses: [*c]struct_session, name: [*c]u8, address: [*c]u8
 pub extern fn connect_session(ses: [*c]struct_session) [*c]struct_session;
 pub extern fn cleanup_session(ses: [*c]struct_session) void;
 pub extern fn dispose_session(ses: [*c]struct_session) void;
-pub extern fn show_message(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_error(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_debug(ses: [*c]struct_session, index: c_int, node: [*c]struct_listnode, format: [*c]u8, ...) void;
-pub extern fn show_info(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn tintin_header(ses: [*c]struct_session, width: c_int, format: [*c]u8, ...) void;
+pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
 pub extern fn socket_printf(ses: [*c]struct_session, length: usize, format: [*c]u8, ...) void;
 pub extern fn telnet_printf(ses: [*c]struct_session, length: c_int, format: [*c]u8, ...) void;
-pub extern fn print_lines(ses: [*c]struct_session, flags: c_int, color: [*c]u8, format: [*c]u8, ...) void;
+pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
 pub extern fn show_lines(ses: [*c]struct_session, color: [*c]u8, str: [*c]u8) void;
-pub extern fn tintin_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf2(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf3(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
 pub extern fn tintin_puts(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts2(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts3(ses: [*c]struct_session, string: [*c]u8, prompt: c_int) void;
@@ -11703,7 +11703,7 @@ pub export fn create_map(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_flags
     _ = &group;
     var legend: c_int = undefined;
     _ = &legend;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("create_map(%p,%p)"))))), ses, arg);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("create_map(%p,%p)"))))), .{ses, arg});
     if (ses.*.map != null) {
         _ = delete_map(ses);
     }
@@ -11729,11 +11729,11 @@ pub export fn create_map(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_flags
     ses.*.map.*.global_exit.*.weight = @floatFromInt(@as(c_int, 1));
     ses.*.map.*.global_exit.*.delay = @floatFromInt(@as(c_int, 0));
     ses.*.map.*.global_exit.*.color = strdup("");
-    _ = command(ses, do_map, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{COLOR} {RESET}"))))));
+    _ = command(ses, do_map, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{COLOR} {RESET}"))))), .{});
     ses.*.map.*.display_stamp = 1;
     ses.*.map.*.search.*.stamp = 1;
-    _ = command(ses, do_map, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{TERRAIN} {} { }"))))));
-    _ = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{1} {0} {} {} { } {} {} {} {} {} {1.0} {}"))))));
+    _ = command(ses, do_map, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{TERRAIN} {} { }"))))), .{});
+    _ = create_room(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{1} {0} {} {} { } {} {} {} {} {} {1.0} {}")))))});
     _ = strcpy(arg, "");
     {
         group = 0;
@@ -11749,7 +11749,7 @@ pub export fn create_map(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_flags
             if (map_legend_table[@bitCast(@as(isize, @intCast(legend)))].group != null) {
                 map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].start = legend;
             } else {
-                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("create_map: unknown legend group: %s, %s"))))), map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].name, map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].group);
+                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("create_map: unknown legend group: %s, %s"))))), .{map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].name, map_legend_group_table[@bitCast(@as(isize, @intCast(group)))].group});
                 continue;
             }
             while (map_legend_table[
@@ -11767,12 +11767,12 @@ pub export fn create_map(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_flags
         }
     }
     gtd.*.level.*.quiet +%= 1;
-    _ = command(ses, do_map, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("LEGEND RESET"))))));
+    _ = command(ses, do_map, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("LEGEND RESET"))))), .{});
     gtd.*.level.*.quiet -%= 1;
     pop_call();
     return;
 } // src/mapper.c:304:19: warning: TODO unable to translate variadic function, demoted to extern
-pub extern fn create_room(ses: [*c]struct_session, format: [*c]u8, ...) [*c]struct_room_data;
+pub fn create_room(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_room_data { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").create_room(arg0, arg_format, args))))); }
 pub export fn delete_room(arg_ses: [*c]struct_session, arg_room: c_int, arg_exits: c_int) void {
     var ses = arg_ses;
     _ = &ses;
@@ -11786,7 +11786,7 @@ pub export fn delete_room(arg_ses: [*c]struct_session, arg_room: c_int, arg_exit
     _ = &exit_next;
     var cnt: c_int = undefined;
     _ = &cnt;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP DELETE ROOM"))))), ntos(ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.vnum), ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.name);
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP DELETE ROOM"))))), .{ntos(ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.vnum), ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.name});
     while (ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.f_exit != null) {
         delete_exit(ses, room, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.f_exit);
     }
@@ -11812,7 +11812,7 @@ pub export fn delete_room(arg_ses: [*c]struct_session, arg_room: c_int, arg_exit
         }
     }
 } // src/mapper.c:443:19: warning: TODO unable to translate variadic function, demoted to extern
-pub extern fn create_exit(ses: [*c]struct_session, vnum: c_int, format: [*c]u8, ...) [*c]struct_exit_data;
+pub fn create_exit(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_exit_data { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").create_exit(arg0, arg1, arg_format, args))))); }
 pub export fn delete_exit(arg_ses: [*c]struct_session, arg_room: c_int, arg_exit_1: [*c]struct_exit_data) void {
     var ses = arg_ses;
     _ = &ses;
@@ -11820,14 +11820,14 @@ pub export fn delete_exit(arg_ses: [*c]struct_session, arg_room: c_int, arg_exit
     _ = &room;
     var exit_1 = arg_exit_1;
     _ = &exit_1;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP DELETE EXIT"))))), ntos(room), exit_1.*.name, exit_1.*.cmd, ntos(exit_1.*.vnum));
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP DELETE EXIT"))))), .{ntos(room), exit_1.*.name, exit_1.*.cmd, ntos(exit_1.*.vnum)});
     free(@ptrCast(@alignCast(exit_1.*.name)));
     free(@ptrCast(@alignCast(exit_1.*.cmd)));
     free(@ptrCast(@alignCast(exit_1.*.data)));
     free(@ptrCast(@alignCast(exit_1.*.color)));
     {
         if (((@as(?*anyopaque, @ptrCast(@alignCast(exit_1.*.prev))) == @as(?*anyopaque, null)) and (exit_1 != ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.f_exit)) or ((@as(?*anyopaque, @ptrCast(@alignCast(exit_1.*.next))) == @as(?*anyopaque, null)) and (exit_1 != ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.l_exit))) {
-            tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNLINK ERROR in file %s on line %d"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("src/mapper.c"))))), @as(c_int, 529));
+            tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNLINK ERROR in file %s on line %d"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("src/mapper.c"))))), @as(c_int, 529)});
             dump_stack();
         }
         if (@as(?*anyopaque, @ptrCast(@alignCast(exit_1.*.prev))) == @as(?*anyopaque, null)) {
@@ -11867,7 +11867,7 @@ pub export fn search_keywords(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_
     _ = &@"type";
     var max: c_int = undefined;
     _ = &max;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("search_keywords(%p,%p,%p,%p)"))))), ses, arg, out, @"var");
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("search_keywords(%p,%p,%p,%p)"))))), .{ses, arg, out, @"var"});
     {
         @"type" = 0;
         while (@"type" < MAP_SEARCH_MAX) : (@"type" += 1) {
@@ -11958,7 +11958,7 @@ pub export fn map_search_compile(arg_ses: [*c]struct_session, arg_arg: [*c]u8, a
     _ = &node;
     var search: [*c]struct_search_data = undefined;
     _ = &search;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("map_search_compile(%p,%p,%p)"))))), ses, arg, @"var");
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("map_search_compile(%p,%p,%p)"))))), .{ses, arg, @"var"});
     search_keywords(ses, arg, @ptrCast(@alignCast(&tmp)), @"var");
     arg = sub_arg_in_braces(ses, @ptrCast(@alignCast(&tmp)), @ptrCast(@alignCast(&buf)), GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     search = ses.*.map.*.search;
@@ -12295,7 +12295,7 @@ pub export fn find_location(arg_ses: [*c]struct_session, arg_arg: [*c]u8) c_int 
     _ = &y;
     var z: c_int = undefined;
     _ = &z;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("find_location(%p,%p)"))))), ses, arg);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("find_location(%p,%p)"))))), .{ses, arg});
     if (find_exit(ses, ses.*.map.*.in_room, arg) != null) {
         pop_call();
         return find_exit(ses, ses.*.map.*.in_room, arg).*.vnum;
@@ -12350,7 +12350,7 @@ pub export fn find_path(arg_ses: [*c]struct_session, arg_arg: [*c]u8) c_int {
     _ = &arg2;
     var room: c_int = undefined;
     _ = &room;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("find_path(%p,%p)"))))), ses, arg);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("find_path(%p,%p)"))))), .{ses, arg});
     arg = substitute_speedwalk(ses, arg, @ptrCast(@alignCast(&arg1)));
     room = ses.*.map.*.in_room;
     while (@as(c_int, arg.*) != 0) {
@@ -12379,7 +12379,7 @@ pub export fn find_room(arg_ses: [*c]struct_session, arg_arg: [*c]u8) c_int {
     _ = &node;
     var room: c_int = undefined;
     _ = &room;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("find_room(%p,%s)"))))), ses, arg);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("find_room(%p,%s)"))))), .{ses, arg});
     map_search_compile(ses, arg, @ptrCast(@alignCast(&@"var")));
     if ((ses.*.map.*.search.*.vnum > @as(c_int, 0)) and (ses.*.map.*.search.*.vnum < ses.*.map.*.size)) {
         if (ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(ses.*.map.*.search.*.vnum)))] != null) {
@@ -12432,20 +12432,20 @@ pub export fn goto_room(arg_ses: [*c]struct_session, arg_room: c_int) void {
     _ = &last_room;
     var dir: [*c]u8 = undefined;
     _ = &dir;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("goto_room(%p,%d)"))))), ses, room);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("goto_room(%p,%d)"))))), .{ses, room});
     dir = dir_to_exit(ses, ses.*.map.*.dir);
     if (ses.*.map.*.in_room != 0) {
-        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP EXIT ROOM"))))), ntos(last_room), ntos(room), dir);
-        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP EXIT ROOM %d"))))), last_room, ntos(last_room), ntos(room), dir);
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP EXIT ROOM"))))), .{ntos(last_room), ntos(room), dir});
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP EXIT ROOM %d"))))), .{last_room, ntos(last_room), ntos(room), dir});
     }
     ses.*.map.*.in_room = room;
     ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 6)));
     ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 20)));
     if (last_room == @as(c_int, 0)) {
-        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP ENTER MAP"))))), ntos(room));
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP ENTER MAP"))))), .{ntos(room)});
     }
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP ENTER ROOM"))))), ntos(room), ntos(last_room), dir);
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP ENTER ROOM %d"))))), room, ntos(room), ntos(last_room), dir);
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP ENTER ROOM"))))), .{ntos(room), ntos(last_room), dir});
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP ENTER ROOM %d"))))), .{room, ntos(room), ntos(last_room), dir});
     pop_call();
     return;
 }
@@ -12463,7 +12463,7 @@ pub export fn find_new_room(arg_ses: [*c]struct_session) c_int {
         }
     }
     if (room == ses.*.map.*.size) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP CREATE ROOM: MAXIMUM NUMBER OF ROOMS OF %d REACHED. USE #MAP RESIZE TO INCREASE THE MAXIMUM."))))), ses.*.map.*.size);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP CREATE ROOM: MAXIMUM NUMBER OF ROOMS OF %d REACHED. USE #MAP RESIZE TO INCREASE THE MAXIMUM."))))), .{ses.*.map.*.size});
         return 0;
     }
     return room;
@@ -12534,7 +12534,7 @@ pub export fn get_exit_color(arg_ses: [*c]struct_session, arg_room: c_int, arg_e
     _ = &room;
     var exit_1 = arg_exit_1;
     _ = &exit_1;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("get_exit_color(%p,%d,%p)"))))), ses, room, exit_1);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("get_exit_color(%p,%d,%p)"))))), .{ses, room, exit_1});
     if (exit_1 != null) {
         if (@as(c_int, exit_1.*.color.*) != 0) {
             pop_call();
@@ -13422,7 +13422,7 @@ pub export fn displaygrid_build(arg_ses: [*c]struct_session, arg_vnum: c_int, ar
     _ = &room;
     var toroom: [*c]struct_room_data = undefined;
     _ = &toroom;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("displaygrid_build(%p,%d,%d,%d,%d)"))))), ses, vnum, x, y, z);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("displaygrid_build(%p,%d,%d,%d,%d)"))))), .{ses, vnum, x, y, z});
     map_grid_x = x;
     map_grid_y = y;
     head = 0;
@@ -13568,7 +13568,7 @@ pub export fn displaygrid_build(arg_ses: [*c]struct_session, arg_vnum: c_int, ar
     pop_call();
     return;
 } // src/mapper.c:2012:6: warning: TODO unable to translate variadic function, demoted to extern
-pub extern fn add_undo(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn add_undo(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").add_undo(arg0, arg_format, args); }
 pub export fn del_undo(arg_ses: [*c]struct_session, arg_link_1: [*c]struct_link_data) void {
     var ses = arg_ses;
     _ = &ses;
@@ -13576,7 +13576,7 @@ pub export fn del_undo(arg_ses: [*c]struct_session, arg_link_1: [*c]struct_link_
     _ = &link_1;
     {
         if (((@as(?*anyopaque, @ptrCast(@alignCast(link_1.*.prev))) == @as(?*anyopaque, null)) and (link_1 != ses.*.map.*.undo_head)) or ((@as(?*anyopaque, @ptrCast(@alignCast(link_1.*.next))) == @as(?*anyopaque, null)) and (link_1 != ses.*.map.*.undo_tail))) {
-            tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNLINK ERROR in file %s on line %d"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("src/mapper.c"))))), @as(c_int, 2053));
+            tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNLINK ERROR in file %s on line %d"))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("src/mapper.c"))))), @as(c_int, 2053)});
             dump_stack();
         }
         if (@as(?*anyopaque, @ptrCast(@alignCast(link_1.*.prev))) == @as(?*anyopaque, null)) {
@@ -13655,7 +13655,7 @@ pub export fn draw_room(arg_ses: [*c]struct_session, arg_room: [*c]struct_room_d
     _ = &offset;
     var flags: c_int = 0;
     _ = &flags;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("draw_room(%p,%p,%d,%d,%d)"))))), ses, room, line, x, y);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("draw_room(%p,%p,%d,%d,%d)"))))), .{ses, room, line, x, y});
     offset = if ((ses.*.charset & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) LEGEND_UNICODE else LEGEND_ASCII;
     static_local_room_color.room_color = @ptrCast(@alignCast(&ses.*.map.*.color[MAP_COLOR_ROOM]));
     static_local_symbol_color.symbol_color = @ptrCast(@alignCast(&ses.*.map.*.color[MAP_COLOR_SYMBOL]));
@@ -14637,18 +14637,18 @@ pub export fn shortest_path(arg_ses: [*c]struct_session, arg_run: c_int, arg_del
     var dest: c_int = undefined;
     _ = &dest;
     if ((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SHORTEST PATH: YOU HAVE TO USE #PATH END FIRST."))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SHORTEST PATH: YOU HAVE TO USE #PATH END FIRST."))))), .{});
         return;
     }
     kill_list(@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_PATH]);
     map_search_compile(ses, arg, @ptrCast(@alignCast(&@"var")));
     dest = searchgrid_find(ses, ses.*.map.*.in_room, ses.*.map.*.search);
     if ((dest == @as(c_int, 0)) or (dest == ses.*.map.*.global_vnum)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SHORTEST PATH: NO PATH FOUND TO {%s}."))))), arg);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SHORTEST PATH: NO PATH FOUND TO {%s}."))))), .{arg});
         return;
     }
     if (dest == ses.*.map.*.in_room) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SHORTEST PATH: ALREADY AT {%s}."))))), arg);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SHORTEST PATH: ALREADY AT {%s}."))))), .{arg});
         return;
     }
     vnum = ses.*.map.*.in_room;
@@ -14656,7 +14656,7 @@ pub export fn shortest_path(arg_ses: [*c]struct_session, arg_run: c_int, arg_del
         room = ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(vnum)))];
         exit_1 = searchgrid_walk(ses, vnum, dest);
         if (@as(?*anyopaque, @ptrCast(@alignCast(exit_1))) == @as(?*anyopaque, null)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SHORTEST PATH: UNKNOWN ERROR."))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SHORTEST PATH: UNKNOWN ERROR."))))), .{});
             return;
         }
         vnum = tunnel_void(ses, room.*.vnum, exit_1.*.vnum, exit_1.*.dir);
@@ -14669,7 +14669,7 @@ pub export fn shortest_path(arg_ses: [*c]struct_session, arg_run: c_int, arg_del
         }
         ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(vnum)))].*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 6));
         if (@as(c_int, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(vnum)))].*.search_stamp) != @as(c_int, ses.*.map.*.search.*.stamp)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SHORTEST PATH: ROOM %d: BAD SEARCH STAMP: %d VS %d."))))), vnum, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(vnum)))].*.search_stamp, ses.*.map.*.search.*.stamp);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SHORTEST PATH: ROOM %d: BAD SEARCH STAMP: %d VS %d."))))), .{vnum, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(vnum)))].*.search_stamp, ses.*.map.*.search.*.stamp});
         }
         if (vnum == dest) {
             break;
@@ -14703,14 +14703,14 @@ pub export fn explore_path(arg_ses: [*c]struct_session, arg_run: c_int, arg_arg1
         }
     }
     if ((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP EXPLORE: YOU HAVE TO USE #PATH END FIRST."))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP EXPLORE: YOU HAVE TO USE #PATH END FIRST."))))), .{});
         return;
     }
     kill_list(@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_PATH]);
     room = ses.*.map.*.in_room;
     exit_1 = find_exit(ses, room, arg1);
     if (@as(?*anyopaque, @ptrCast(@alignCast(exit_1))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP EXPLORE: THERE IS NO EXIT NAMED {%s}."))))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP EXPLORE: THERE IS NO EXIT NAMED {%s}."))))), .{arg1});
         return;
     }
     vnum = exit_1.*.vnum;
@@ -14753,7 +14753,7 @@ pub export fn tunnel_void(arg_ses: [*c]struct_session, arg_from: c_int, arg_room
     _ = &room;
     var dir = arg_dir;
     _ = &dir;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("tunnel_void(%p,%d,%d,%d)"))))), ses, from, room, dir);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("tunnel_void(%p,%d,%d,%d)"))))), .{ses, from, room, dir});
     if (!((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0)) {
         pop_call();
         return room;
@@ -14776,7 +14776,7 @@ pub export fn tunnel_void(arg_ses: [*c]struct_session, arg_from: c_int, arg_room
         pop_call();
         return tunnel_void(ses, room, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.l_exit.*.vnum, ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.l_exit.*.dir);
     }
-    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31mtunnel_void(%p,%d,%d,%d) NO VALID EXITS FOUND."))))), ses, from, room, dir);
+    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31mtunnel_void(%p,%d,%d,%d) NO VALID EXITS FOUND."))))), .{ses, from, room, dir});
     pop_call();
     return room;
 }
@@ -14821,7 +14821,7 @@ pub export fn find_coord(arg_ses: [*c]struct_session, arg_arg: [*c]u8) c_int {
     room = spatialgrid_find(ses, ses.*.map.*.in_room, x, y, z);
     if (ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))] != null) {
         if ((ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(room)))].*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) {
-            show_message(ses, LIST_PATH, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: Linkable room is marked static. Creating overlapping room instead."))))));
+            show_message(ses, LIST_PATH, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP: Linkable room is marked static. Creating overlapping room instead."))))), .{});
             return 0;
         }
     }
@@ -14866,7 +14866,7 @@ pub export fn spatialgrid_find(arg_ses: [*c]struct_session, arg_from: c_int, arg
     _ = &room;
     var toroom: [*c]struct_room_data = undefined;
     _ = &toroom;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("spatialgrid_find(%p,%d,%d,%d,%d)"))))), ses, from, x, y, z);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("spatialgrid_find(%p,%d,%d,%d,%d)"))))), .{ses, from, x, y, z});
     head = 0;
     tail = 1;
     node = &list[@bitCast(@as(isize, @intCast(head)))];
@@ -15401,7 +15401,7 @@ pub export fn get_vtmap_dimensions(arg_ses: [*c]struct_session, arg_top_row: [*c
     _ = &rows;
     var cols = arg_cols;
     _ = &cols;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("get_vtmap_dimensions(%p,%p,%p,%p,%p,%p,%p)"))))), ses, top_row, top_col, bot_row, bot_col, rows, cols);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("get_vtmap_dimensions(%p,%p,%p,%p,%p,%p,%p)"))))), .{ses, top_row, top_col, bot_row, bot_col, rows, cols});
     if ((ses.*.map.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 10)))) != 0) {
         ses.*.map.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 10)));
         map_offset(ses, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
@@ -15454,16 +15454,16 @@ pub export fn exit_edit(arg_ses: [*c]struct_session, arg_exit_1: [*c]struct_exit
         rev_exit = ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(exit_1.*.vnum)))][0].exit_grid[@as(usize, @intCast(revdir_to_grid(exit_1.*.dir)))];
     }
     if (@as(c_int, arg2.*) == @as(c_int, 0)) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("      color: %s"))))), str_convert_meta(exit_1.*.color, TRUE));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("    command: %s"))))), exit_1.*.cmd);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("       data: %s"))))), exit_1.*.data);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("destination: %d"))))), tunnel_void(ses, ses.*.map.*.in_room, exit_1.*.vnum, exit_1.*.dir));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  direction: %d"))))), exit_1.*.dir);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("      flags: %d"))))), exit_1.*.flags);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("       name: %s"))))), exit_1.*.name);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("       vnum: %d"))))), exit_1.*.vnum);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     weight: %.3f"))))), exit_1.*.weight);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("      delay: %.3f"))))), exit_1.*.delay);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("      color: %s"))))), .{str_convert_meta(exit_1.*.color, TRUE)});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("    command: %s"))))), .{exit_1.*.cmd});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("       data: %s"))))), .{exit_1.*.data});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("destination: %d"))))), .{tunnel_void(ses, ses.*.map.*.in_room, exit_1.*.vnum, exit_1.*.dir)});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  direction: %d"))))), .{exit_1.*.dir});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("      flags: %d"))))), .{exit_1.*.flags});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("       name: %s"))))), .{exit_1.*.name});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("       vnum: %d"))))), .{exit_1.*.vnum});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     weight: %.3f"))))), .{exit_1.*.weight});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("      delay: %.3f"))))), .{exit_1.*.delay});
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("COLOR")))))) != 0) {
         _ = translate_color_names(ses, arg3, arg2);
         {
@@ -15480,7 +15480,7 @@ pub export fn exit_edit(arg_ses: [*c]struct_session, arg_exit_1: [*c]struct_exit
                 rev_exit.*.color = strdup(arg2);
             }
         }
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s} %s: COLOR SET TO {%s}."))))), opt, arg1, @as([*c]u8, @ptrCast(@alignCast(&arg4))), exit_1.*.color);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s} %s: COLOR SET TO {%s}."))))), .{opt, arg1, @as([*c]u8, @ptrCast(@alignCast(&arg4))), exit_1.*.color});
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("COMMAND")))))) != 0) {
         {
             if (exit_1.*.cmd != null) {
@@ -15488,16 +15488,16 @@ pub export fn exit_edit(arg_ses: [*c]struct_session, arg_exit_1: [*c]struct_exit
             }
             exit_1.*.cmd = strdup(arg3);
         }
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s} : COMMAND SET TO {%s}."))))), opt, arg1, exit_1.*.cmd);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s} : COMMAND SET TO {%s}."))))), .{opt, arg1, exit_1.*.cmd});
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DELAY")))))) != 0) {
         if (get_number(ses, arg3) < @as(c_longdouble, @floatCast(@as(f64, 0.0)))) {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s} : DELAY MUST BE A POSITIVE NUMBER."))))), opt, arg1);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s} : DELAY MUST BE A POSITIVE NUMBER."))))), .{opt, arg1});
         } else {
             exit_1.*.delay = @floatCast(get_number(ses, arg3));
             if (rev_exit != null) {
                 rev_exit.*.delay = exit_1.*.delay;
             }
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s} %s: DELAY SET TO {%.3f}"))))), opt, arg1, @as([*c]u8, @ptrCast(@alignCast(&arg4))), exit_1.*.delay);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s} %s: DELAY SET TO {%.3f}"))))), .{opt, arg1, @as([*c]u8, @ptrCast(@alignCast(&arg4))), exit_1.*.delay});
         }
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DIRECTION")))))) != 0) {
         if (is_math(ses, arg3) != 0) {
@@ -15507,24 +15507,24 @@ pub export fn exit_edit(arg_ses: [*c]struct_session, arg_exit_1: [*c]struct_exit
             dir = tmp;
             break :blk tmp;
         }) == @as(c_int, 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s}: DIRECTION {%s} NOT FOUND."))))), opt, arg1, arg3);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s}: DIRECTION {%s} NOT FOUND."))))), .{opt, arg1, arg3});
             return;
         }
         exit_1.*.dir = dir;
         exit_1.*.grid = dir_to_grid(exit_1.*.dir);
         set_room_exits(ses, ses.*.map.*.in_room);
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s}: DIRECTION {%s} SET TO {%d}."))))), opt, arg1, arg3, dir);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s}: DIRECTION {%s} SET TO {%d}."))))), .{opt, arg1, arg3, dir});
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("FLAGS")))))) != 0) {
         exit_1.*.flags = @intFromFloat(get_number(ses, arg3));
         if (rev_exit != null) {
             rev_exit.*.flags = exit_1.*.flags;
         }
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s} %s: FLAGS SET TO {%d}."))))), opt, arg1, @as([*c]u8, @ptrCast(@alignCast(&arg4))), exit_1.*.flags);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s} %s: FLAGS SET TO {%d}."))))), .{opt, arg1, @as([*c]u8, @ptrCast(@alignCast(&arg4))), exit_1.*.flags});
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GETDATA")))))) != 0) {
         if (@as(c_int, arg3.*) != 0) {
-            _ = set_nest_node_ses(ses, arg3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), exit_1.*.data);
+            _ = set_nest_node_ses(ses, arg3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), .{exit_1.*.data});
         } else {
-            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s GET: NO DESTINATION VARIABLE."))))), opt);
+            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s GET: NO DESTINATION VARIABLE."))))), .{opt});
         }
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("NAME")))))) != 0) {
         {
@@ -15533,12 +15533,12 @@ pub export fn exit_edit(arg_ses: [*c]struct_session, arg_exit_1: [*c]struct_exit
             }
             exit_1.*.name = strdup(arg3);
         }
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s}: NAME SET TO {%s}."))))), opt, arg1, exit_1.*.name);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s}: NAME SET TO {%s}."))))), .{opt, arg1, exit_1.*.name});
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SAVE")))))) != 0) {
         if (@as(c_int, arg3.*) != 0) {
-            _ = set_nest_node_ses(ses, arg3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{color}{%s}{command}{%s}{delay}{%.3f}{destination}{%d}{dir}{%d}{flags}{%d}{name}{%s}{vnum}{%d}{weight}{%.3f}"))))), exit_1.*.color, exit_1.*.cmd, exit_1.*.delay, tunnel_void(ses, ses.*.map.*.in_room, exit_1.*.vnum, exit_1.*.dir), exit_1.*.dir, exit_1.*.flags, exit_1.*.name, exit_1.*.vnum, exit_1.*.weight);
+            _ = set_nest_node_ses(ses, arg3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{color}{%s}{command}{%s}{delay}{%.3f}{destination}{%d}{dir}{%d}{flags}{%d}{name}{%s}{vnum}{%d}{weight}{%.3f}"))))), .{exit_1.*.color, exit_1.*.cmd, exit_1.*.delay, tunnel_void(ses, ses.*.map.*.in_room, exit_1.*.vnum, exit_1.*.dir), exit_1.*.dir, exit_1.*.flags, exit_1.*.name, exit_1.*.vnum, exit_1.*.weight});
         } else {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s SAVE: NO DESTINATION VARIABLE."))))), opt);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s SAVE: NO DESTINATION VARIABLE."))))), .{opt});
         }
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SETDATA")))))) != 0) {
         {
@@ -15555,31 +15555,31 @@ pub export fn exit_edit(arg_ses: [*c]struct_session, arg_exit_1: [*c]struct_exit
                 rev_exit.*.data = strdup(arg3);
             }
         }
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s} %s: DATA SET TO {%s}."))))), opt, arg1, @as([*c]u8, @ptrCast(@alignCast(&arg4))), exit_1.*.data);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s} %s: DATA SET TO {%s}."))))), .{opt, arg1, @as([*c]u8, @ptrCast(@alignCast(&arg4))), exit_1.*.data});
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VNUM")))))) != 0) {
         vnum = atoi(arg3);
         if ((vnum <= @as(c_int, 0)) or (vnum >= ses.*.map.*.size)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s VNUM: INVALID ROOM VNUM {%d}."))))), opt, vnum);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s VNUM: INVALID ROOM VNUM {%d}."))))), .{opt, vnum});
             return;
         }
         if (@as(?*anyopaque, @ptrCast(@alignCast(ses.*.map.*.room_list[@bitCast(@as(isize, @intCast(vnum)))]))) == @as(?*anyopaque, null)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s VNUM: ROOM {%d} DOES NOT EXIST."))))), opt, vnum);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s VNUM: ROOM {%d} DOES NOT EXIST."))))), .{opt, vnum});
             return;
         }
         exit_1.*.vnum = vnum;
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s}: ROOM VNUM SET TO {%s}."))))), opt, arg1, arg3);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s}: ROOM VNUM SET TO {%s}."))))), .{opt, arg1, arg3});
     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("WEIGHT")))))) != 0) {
         if (get_number(ses, arg3) < @as(c_longdouble, @floatCast(@as(f64, 0.001)))) {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s}: WEIGHT SHOULD BE AT LEAST 0.001"))))), opt, arg1);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s}: WEIGHT SHOULD BE AT LEAST 0.001"))))), .{opt, arg1});
         } else {
             exit_1.*.weight = @floatCast(get_number(ses, arg3));
             if (rev_exit != null) {
                 rev_exit.*.weight = exit_1.*.weight;
             }
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s} %s: WEIGHT SET TO {%.3f}"))))), opt, arg1, @as([*c]u8, @ptrCast(@alignCast(&arg4))), exit_1.*.weight);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#MAP %s {%s} %s: WEIGHT SET TO {%.3f}"))))), .{opt, arg1, @as([*c]u8, @ptrCast(@alignCast(&arg4))), exit_1.*.weight});
         }
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP %s <NAME> {COMMAND|DIRECTION|GETDATA|NAME|FLAGS|SAVE|SETDATA|VNUM|WEIGHT} <ARGUMENT>"))))), opt);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MAP %s <NAME> {COMMAND|DIRECTION|GETDATA|NAME|FLAGS|SAVE|SETDATA|VNUM|WEIGHT} <ARGUMENT>"))))), .{opt});
     }
 }
 pub export fn map_legend_index(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_head: c_int, arg_tail: c_int) void {

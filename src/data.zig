@@ -6265,7 +6265,7 @@ pub const struct_session = extern struct {
     pub const edit_suspend = __root.edit_suspend;
     pub const edit_write = __root.edit_write;
     pub const do_draw = __root.do_draw;
-    pub const check_all_events = __root.check_all_events;
+    pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
     pub const mouse_handler = __root.mouse_handler;
     pub const do_read = __root.do_read;
     pub const do_write = __root.do_write;
@@ -6311,14 +6311,14 @@ pub const struct_session = extern struct {
     pub const logit = __root.logit;
     pub const write_html_header = __root.write_html_header;
     pub const vt102_to_html = __root.vt102_to_html;
-    pub const syserr_printf = __root.syserr_printf;
+    pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
     pub const do_end = __root.do_end;
     pub const do_nop = __root.do_nop;
     pub const do_test = __root.do_test;
-    pub const arachnos_devel = __root.arachnos_devel;
-    pub const arachnos_mudlist = __root.arachnos_mudlist;
+    pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+    pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
     pub const msdp_update_var = __root.msdp_update_var;
-    pub const msdp_update_varf = __root.msdp_update_varf;
+    pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
     pub const msdp_update_var_instant = __root.msdp_update_var_instant;
     pub const msdp_send_update = __root.msdp_send_update;
     pub const msdp_get_var = __root.msdp_get_var;
@@ -6332,16 +6332,16 @@ pub const struct_session = extern struct {
     pub const write_msdp_to_descriptor = __root.write_msdp_to_descriptor;
     pub const search_nest_base_ses = __root.search_nest_base_ses;
     pub const search_nest_node_ses = __root.search_nest_node_ses;
-    pub const set_nest_node_ses = __root.set_nest_node_ses;
-    pub const add_nest_node_ses = __root.add_nest_node_ses;
+    pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
     pub const connect_mud = __root.connect_mud;
     pub const write_line_mud = __root.write_line_mud;
     pub const read_buffer_mud = __root.read_buffer_mud;
     pub const readmud = __root.readmud;
     pub const process_more_output = __root.process_more_output;
     pub const process_one_line = __root.process_one_line;
-    pub const execute = __root.execute;
-    pub const command = __root.command;
+    pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+    pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
     pub const parse_input = __root.parse_input;
     pub const parse_command = __root.parse_command;
     pub const is_speedwalk = __root.is_speedwalk;
@@ -6410,10 +6410,10 @@ pub const struct_session = extern struct {
     pub const close_port = __root.close_port;
     pub const process_port_connections = __root.process_port_connections;
     pub const port_forward_session = __root.port_forward_session;
-    pub const port_socket_printf = __root.port_socket_printf;
-    pub const port_telnet_printf = __root.port_telnet_printf;
-    pub const port_log_printf = __root.port_log_printf;
-    pub const port_printf = __root.port_printf;
+    pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+    pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+    pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+    pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
     pub const process_port_input = __root.process_port_input;
     pub const get_port_commands = __root.get_port_commands;
     pub const port_name_change = __root.port_name_change;
@@ -6455,18 +6455,18 @@ pub const struct_session = extern struct {
     pub const connect_session = __root.connect_session;
     pub const cleanup_session = __root.cleanup_session;
     pub const dispose_session = __root.dispose_session;
-    pub const show_message = __root.show_message;
-    pub const show_error = __root.show_error;
-    pub const show_debug = __root.show_debug;
-    pub const show_info = __root.show_info;
-    pub const tintin_header = __root.tintin_header;
+    pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+    pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+    pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+    pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+    pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
     pub const socket_printf = __root.socket_printf;
     pub const telnet_printf = __root.telnet_printf;
-    pub const print_lines = __root.print_lines;
+    pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
     pub const show_lines = __root.show_lines;
-    pub const tintin_printf = __root.tintin_printf;
-    pub const tintin_printf2 = __root.tintin_printf2;
-    pub const tintin_printf3 = __root.tintin_printf3;
+    pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+    pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+    pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
     pub const tintin_puts = __root.tintin_puts;
     pub const tintin_puts2 = __root.tintin_puts2;
     pub const tintin_puts3 = __root.tintin_puts3;
@@ -6850,8 +6850,8 @@ pub const struct_listroot = extern struct {
     pub const get_nest_node_key = __root.get_nest_node_key;
     pub const get_nest_node_val = __root.get_nest_node_val;
     pub const get_nest_index = __root.get_nest_index;
-    pub const set_nest_node = __root.set_nest_node;
-    pub const add_nest_node = __root.add_nest_node;
+    pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
     pub const copy_nest_node = __root.copy_nest_node;
     pub const node = __root.show_node;
     pub const root = __root.search_nest_root;
@@ -6898,7 +6898,7 @@ pub const struct_chat_data = extern struct {
     file_block_tot: c_int = 0,
     file_block_patch: c_int = 0,
     file_start_time: c_ulonglong = 0,
-    pub const chat_socket_printf = __root.chat_socket_printf;
+    pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
     pub const close_chat = __root.close_chat;
     pub const chat = __root.close_chat;
 };
@@ -7246,7 +7246,7 @@ pub extern fn buffer_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, a
 pub extern fn buffer_info(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8) void;
 pub extern fn do_chat(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn process_chat_connections(read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
-pub extern fn chat_socket_printf(buddy: [*c]struct_chat_data, format: [*c]u8, ...) void;
+pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
 pub extern fn close_chat(buddy: [*c]struct_chat_data, unlink: c_int) void;
 pub extern fn chat_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
 pub extern fn chat_accept(arg1: [*c]u8, arg2: [*c]u8) void;
@@ -7356,7 +7356,7 @@ pub extern fn str_convert_meta(input: [*c]u8, eol: c_int) [*c]u8;
 pub extern fn echo_command(ses: [*c]struct_session, line: [*c]u8) void;
 pub extern fn init_input(ses: [*c]struct_session, top_row: c_int, top_col: c_int, bot_row: c_int, bot_col: c_int) void;
 pub extern fn free_input(ses: [*c]struct_session) void;
-pub extern fn input_printf(format: [*c]u8, ...) void;
+pub fn input_printf(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").input_printf(arg_format, args); }
 pub extern fn modified_input() void;
 pub extern fn do_map(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn delete_room_data(room: [*c]struct_room_data) void;
@@ -7458,7 +7458,7 @@ pub export fn do_kill(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 }
             }
         }
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#KILL - ALL LISTS CLEARED."))))))))))))));
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#KILL - ALL LISTS CLEARED."))))))))))))), .{});
         return ses;
     }
     {
@@ -7469,7 +7469,7 @@ pub export fn do_kill(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
             }
             if ((@as(c_int, arg2.*) == @as(c_int, 0)) or !(strcasecmp(arg2, "ALL") != 0)) {
                 kill_list(@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))]);
-                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: #%s LIST CLEARED."))))))))))))), list_table[@bitCast(@as(isize, @intCast(index_1)))].name);
+                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: #%s LIST CLEARED."))))))))))))), .{list_table[@bitCast(@as(isize, @intCast(index_1)))].name});
             } else {
                 _ = delete_node_with_wild(ses, index_1, arg);
             }
@@ -7477,7 +7477,7 @@ pub export fn do_kill(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
         }
     }
     if (index_1 == LIST_MAX) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #KILL {%s} {%s}: NO MATCH FOUND."))))))))))))), arg1, arg2);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #KILL {%s} {%s}: NO MATCH FOUND."))))))))))))), .{arg1, arg2});
     }
     return ses;
 }
@@ -7509,7 +7509,7 @@ pub export fn show_node_with_wild(arg_ses: [*c]struct_session, arg_text: [*c]u8,
     _ = &index_1;
     var found: c_int = FALSE;
     _ = &found;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("show_node_with_wild(%p,%p,%p)"))))))))))))), ses, text, root);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("show_node_with_wild(%p,%p,%p)"))))))))))))), .{ses, text, root});
     while (true) {
         switch (list_table[@bitCast(@as(isize, @intCast(root.*.type)))].mode) {
             SORT_ALPHA, SORT_STABLE => {
@@ -7531,16 +7531,16 @@ pub export fn show_node_with_wild(arg_ses: [*c]struct_session, arg_text: [*c]u8,
         node = root.*.list[@bitCast(@as(isize, @intCast(index_1)))];
         if (list_table[@bitCast(@as(isize, @intCast(root.*.type)))].script_arg == @as(c_int, 2)) {
             if (list_table[@bitCast(@as(isize, @intCast(root.*.type)))].args == @as(c_int, 2)) {
-                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;184m%c\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}\n{\n\x1b[38;5;188m%s\n\x1b[38;5;164m}\n"))))))))))))), gtd.*.tintin_char, list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1, script_viewer(ses, node.*.arg2));
+                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;184m%c\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}\n{\n\x1b[38;5;188m%s\n\x1b[38;5;164m}\n"))))))))))))), .{gtd.*.tintin_char, list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1, script_viewer(ses, node.*.arg2)});
             } else if (list_table[@bitCast(@as(isize, @intCast(root.*.type)))].args == @as(c_int, 3)) {
                 if (list_table[@bitCast(@as(isize, @intCast(root.*.type)))].priority_arg == @as(c_int, 3)) {
                     if (!(strcmp(node.*.arg3, "5") != 0)) {
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;184m%c\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}\n{\n\x1b[38;5;188m%s\n\x1b[38;5;164m}\n"))))))))))))), gtd.*.tintin_char, list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1, script_viewer(ses, node.*.arg2));
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;184m%c\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}\n{\n\x1b[38;5;188m%s\n\x1b[38;5;164m}\n"))))))))))))), .{gtd.*.tintin_char, list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1, script_viewer(ses, node.*.arg2)});
                     } else {
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;184m%c\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}\n{\n\x1b[38;5;188m%s\n\x1b[38;5;164m}\n{\x1b[38;5;188m%s\x1b[38;5;164m}\n"))))))))))))), gtd.*.tintin_char, list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1, script_viewer(ses, node.*.arg2), node.*.arg3);
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;184m%c\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}\n{\n\x1b[38;5;188m%s\n\x1b[38;5;164m}\n{\x1b[38;5;188m%s\x1b[38;5;164m}\n"))))))))))))), .{gtd.*.tintin_char, list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1, script_viewer(ses, node.*.arg2), node.*.arg3});
                     }
                 } else {
-                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;184m%c\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}\n{\n\x1b[38;5;188m%s\n\x1b[38;5;164m}\n{\x1b[38;5;188m%s\x1b[38;5;164m}\n"))))))))))))), gtd.*.tintin_char, list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1, script_viewer(ses, node.*.arg2), node.*.arg3);
+                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;184m%c\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}\n{\n\x1b[38;5;188m%s\n\x1b[38;5;164m}\n{\x1b[38;5;188m%s\x1b[38;5;164m}\n"))))))))))))), .{gtd.*.tintin_char, list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1, script_viewer(ses, node.*.arg2), node.*.arg3});
                 }
             }
         } else {
@@ -7576,29 +7576,29 @@ pub export fn show_node(arg_root: [*c]struct_listroot, arg_node: [*c]struct_list
     _ = &level;
     var str_arg2: [*c]u8 = undefined;
     _ = &str_arg2;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("show_node(%p,%p,%d)"))))))))))))), root, node, level);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("show_node(%p,%p,%d)"))))))))))))), .{root, node, level});
     str_arg2 = str_alloc_stack(0);
     show_nest_node(node, &str_arg2, TRUE);
     while (true) {
         switch (list_table[@bitCast(@as(isize, @intCast(root.*.type)))].args) {
             @as(c_int, 4) => {
-                tintin_printf2(root.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s\x1b[38;5;184m#\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}"))))))))))))), indent(level), list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1, str_arg2, node.*.arg3, node.*.arg4);
+                tintin_printf2(root.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s\x1b[38;5;184m#\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}"))))))))))))), .{indent(level), list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1, str_arg2, node.*.arg3, node.*.arg4});
                 break;
             },
             @as(c_int, 3) => {
                 if ((list_table[@bitCast(@as(isize, @intCast(root.*.type)))].priority_arg == @as(c_int, 3)) and !(strcmp(node.*.arg3, "5") != 0)) {
-                    tintin_printf2(root.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s\x1b[38;5;184m#\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}"))))))))))))), indent(level), list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1, str_arg2);
+                    tintin_printf2(root.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s\x1b[38;5;184m#\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}"))))))))))))), .{indent(level), list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1, str_arg2});
                 } else {
-                    tintin_printf2(root.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s\x1b[38;5;184m#\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}"))))))))))))), indent(level), list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1, str_arg2, node.*.arg3);
+                    tintin_printf2(root.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s\x1b[38;5;184m#\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}"))))))))))))), .{indent(level), list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1, str_arg2, node.*.arg3});
                 }
                 break;
             },
             @as(c_int, 2) => {
-                tintin_printf2(root.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s\x1b[38;5;184m#\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}"))))))))))))), indent(level), list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1, str_arg2);
+                tintin_printf2(root.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s\x1b[38;5;184m#\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}"))))))))))))), .{indent(level), list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1, str_arg2});
                 break;
             },
             @as(c_int, 1) => {
-                tintin_printf2(root.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s\x1b[38;5;184m#\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))))))))))))), indent(level), list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1);
+                tintin_printf2(root.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s\x1b[38;5;184m#\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))))))))))))), .{indent(level), list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name, node.*.arg1});
                 break;
             },
             else => {},
@@ -7617,7 +7617,7 @@ pub export fn show_list(arg_root: [*c]struct_listroot, arg_level: c_int) void {
     var i: c_int = undefined;
     _ = &i;
     if (root == @as([*c][*c]struct_listroot, @ptrCast(&root.*.ses.*.list))[@bitCast(@as(isize, @intCast(root.*.type)))]) {
-        tintin_header(root.*.ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %s "))))))))))))), list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name_multi);
+        tintin_header(root.*.ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %s "))))))))))))), .{list_table[@bitCast(@as(isize, @intCast(root.*.type)))].name_multi});
     }
     {
         i = 0;
@@ -7708,8 +7708,8 @@ pub export fn delete_node(arg_ses: [*c]struct_session, arg_type: c_int, arg_node
         while (true) {
             switch (@"type") {
                 LIST_CLASS => {
-                    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 4)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CLASS DESTROYED"))))))))))))), node.*.arg1);
-                    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 4)), 1, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CLASS DESTROYED %s"))))))))))))), node.*.arg1, node.*.arg1);
+                    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 4)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CLASS DESTROYED"))))))))))))), .{node.*.arg1});
+                    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 4)), 1, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CLASS DESTROYED %s"))))))))))))), .{node.*.arg1, node.*.arg1});
                     break;
                 },
                 else => {},
@@ -7766,7 +7766,7 @@ pub export fn delete_node_with_wild(arg_ses: [*c]struct_session, arg_type: c_int
     }
     if (index_1 != -@as(c_int, 1)) {
         node = root.*.list[@bitCast(@as(isize, @intCast(index_1)))];
-        show_message(ses, @"type", @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: {%s} IS NO LONGER %s %s."))))))))))))), node.*.arg1, if ((@as(c_int, list_table[@bitCast(@as(isize, @intCast(@"type")))].name.*) == @as(c_int, 'A')) or (@as(c_int, list_table[@bitCast(@as(isize, @intCast(@"type")))].name.*) == @as(c_int, 'E'))) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("AN"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("A"))))))))))))), list_table[@bitCast(@as(isize, @intCast(@"type")))].name);
+        show_message(ses, @"type", @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: {%s} IS NO LONGER %s %s."))))))))))))), .{node.*.arg1, if ((@as(c_int, list_table[@bitCast(@as(isize, @intCast(@"type")))].name.*) == @as(c_int, 'A')) or (@as(c_int, list_table[@bitCast(@as(isize, @intCast(@"type")))].name.*) == @as(c_int, 'E'))) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("AN"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("A"))))))))))))), list_table[@bitCast(@as(isize, @intCast(@"type")))].name});
         delete_index_list(root, index_1);
         return TRUE;
     }
@@ -7774,14 +7774,14 @@ pub export fn delete_node_with_wild(arg_ses: [*c]struct_session, arg_type: c_int
         index_1 = root.*.used - @as(c_int, 1);
         while (index_1 >= @as(c_int, 0)) : (index_1 -= 1) {
             if (match(ses, root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1, @ptrCast(@alignCast(&arg1)), (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) {
-                show_message(ses, @"type", @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: {%s} IS NO LONGER %s %s."))))))))))))), root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1, if (is_vowel(list_table[@bitCast(@as(isize, @intCast(@"type")))].name) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("AN"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("A"))))))))))))), list_table[@bitCast(@as(isize, @intCast(@"type")))].name);
+                show_message(ses, @"type", @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: {%s} IS NO LONGER %s %s."))))))))))))), .{root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1, if (is_vowel(list_table[@bitCast(@as(isize, @intCast(@"type")))].name) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("AN"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("A"))))))))))))), list_table[@bitCast(@as(isize, @intCast(@"type")))].name});
                 delete_index_list(root, index_1);
                 found = TRUE;
             }
         }
     }
     if (found == @as(c_int, 0)) {
-        show_message(ses, @"type", @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#KILL: NO MATCHES FOUND FOR %s {%s}."))))))))))))), list_table[@bitCast(@as(isize, @intCast(@"type")))].name, @as([*c]u8, @ptrCast(@alignCast(&arg1))));
+        show_message(ses, @"type", @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#KILL: NO MATCHES FOUND FOR %s {%s}."))))))))))))), .{list_table[@bitCast(@as(isize, @intCast(@"type")))].name, @as([*c]u8, @ptrCast(@alignCast(&arg1)))});
         return FALSE;
     }
     return TRUE;
@@ -7924,7 +7924,7 @@ pub export fn bsearch_alnum_list(arg_root: [*c]struct_listroot, arg_text: [*c]u8
     _ = &noj;
     var srt: c_int = undefined;
     _ = &srt;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("bsearch_alpha_list(%p,%p,%d)"))))))))))))), root, text, seek);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("bsearch_alpha_list(%p,%p,%d)"))))))))))))), .{root, text, seek});
     if ((seek == @as(c_int, 0)) and ((@as(c_int, root.*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 12)))) != 0)) {
         while (true) {
             switch (@as(c_int, text.*)) {
@@ -8094,7 +8094,7 @@ pub export fn copy_list(arg_ses: [*c]struct_session, arg_sourcelist: [*c]struct_
     _ = &i;
     var node: [*c]struct_listnode = undefined;
     _ = &node;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("copy_list(%p,%p,%s)"))))))))))))), ses, sourcelist, list_table[@bitCast(@as(isize, @intCast(@"type")))].name);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("copy_list(%p,%p,%s)"))))))))))))), .{ses, sourcelist, list_table[@bitCast(@as(isize, @intCast(@"type")))].name});
     @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(@"type")))] = init_list(ses, @"type", sourcelist.*.size);
     if ((@as(c_int, sourcelist.*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 10)))) != 0) {
         {
@@ -8192,7 +8192,7 @@ pub export fn create_node_list(arg_root: [*c]struct_listroot, arg_arg1: [*c]u8, 
         _ = strcpy(arg3, "5");
     }
     if (((@as(c_int, root.*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 12)))) != 0) and (@as(c_int, arg1.*) == @as(c_int, '\\'))) {
-        show_error(root.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#WARNING: VARIABLE {%s}. THE \\ CHARACTER NEEDS TO BE REPLACED WITH = FOR A STRICT EQUALITY MATCH."))))))))))))), arg1);
+        show_error(root.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#WARNING: VARIABLE {%s}. THE \\ CHARACTER NEEDS TO BE REPLACED WITH = FOR A STRICT EQUALITY MATCH."))))))))))))), .{arg1});
         arg1 += 1;
     } else if (((@as(c_int, root.*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 12)))) != 0) and (@as(c_int, arg1.*) == @as(c_int, '='))) {
         arg1 += 1;
@@ -8327,7 +8327,7 @@ pub export fn update_node_list(arg_root: [*c]struct_listroot, arg_arg1: [*c]u8, 
                     break;
                 },
                 else => {
-                    tintin_printf2(root.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUG: update_node_list: unknown sort: %d"))))))))))))), list_table[@bitCast(@as(isize, @intCast(root.*.type)))].mode);
+                    tintin_printf2(root.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUG: update_node_list: unknown sort: %d"))))))))))))), .{list_table[@bitCast(@as(isize, @intCast(root.*.type)))].mode});
                     break;
                 },
             }
@@ -8346,7 +8346,7 @@ pub export fn search_node_list(arg_root: [*c]struct_listroot, arg_text: [*c]u8) 
     _ = &text;
     var index_1: c_int = undefined;
     _ = &index_1;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("search_node_list(%p,%p)"))))))))))))), root, text);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("search_node_list(%p,%p)"))))))))))))), .{root, text});
     while (true) {
         switch (list_table[@bitCast(@as(isize, @intCast(root.*.type)))].mode) {
             SORT_ALPHA, SORT_STABLE => {
@@ -8371,8 +8371,8 @@ pub export fn search_node_list(arg_root: [*c]struct_listroot, arg_text: [*c]u8) 
     pop_call();
     return null;
 }
-pub extern fn push_call(format: [*c]u8, ...) void;
-pub extern fn push_call_printf(format: [*c]u8, ...) c_int;
+pub fn push_call(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").push_call(arg_format, args); }
+pub fn push_call_printf(arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").push_call_printf(arg_format, args)); }
 pub extern fn pop_call() void;
 pub extern fn dump_stack() void;
 pub extern fn do_dictionary(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -8398,7 +8398,7 @@ pub extern fn delete_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn insert_line(edit: [*c]struct_edit_data, index: c_int, str: [*c]u8) void;
 pub extern fn remove_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn do_draw(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
-pub extern fn check_all_events(ses: [*c]struct_session, flags: c_int, args: c_int, vars: c_int, fmt: [*c]u8, ...) c_int;
+pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
 pub extern fn mouse_handler(ses: [*c]struct_session, val1: c_int, val2: c_int, val3: c_int) void;
 pub extern fn do_read(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn do_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -8456,7 +8456,7 @@ pub extern fn main(argc: c_int, argv: [*c][*c]u8) c_int;
 pub extern fn init_tintin(greeting: c_int) void;
 pub extern fn quitmsg(message: [*c]u8) void;
 pub extern fn syserr_fatal(signal: c_int, msg: [*c]u8) void;
-pub extern fn syserr_printf(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
+pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
 pub extern fn zlib_alloc(@"opaque": ?*anyopaque, items: c_uint, size: c_uint) ?*anyopaque;
 pub extern fn zlib_free(@"opaque": ?*anyopaque, address: ?*anyopaque) void;
 pub extern fn restring(point: [*c]u8, string: [*c]u8) [*c]u8;
@@ -8494,11 +8494,11 @@ pub extern fn do_nop(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [
 pub extern fn do_test(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn init_msdp_table() void;
 pub extern fn msdp_find(@"var": [*c]u8) c_int;
-pub extern fn arachnos_devel(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn arachnos_mudlist(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn msdp_update_all(@"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
+pub fn msdp_update_all(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_all(arg0, arg_format, args); }
 pub extern fn msdp_update_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, str: [*c]u8) void;
-pub extern fn msdp_update_varf(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
 pub extern fn msdp_update_var_instant(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
 pub extern fn msdp_send_update(ses: [*c]struct_session, buddy: [*c]struct_port_data) void;
 pub extern fn msdp_get_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8) [*c]u8;
@@ -8535,10 +8535,10 @@ pub extern fn get_nest_index(root: [*c]struct_listroot, variable: [*c]u8, result
 pub extern fn show_nest_node(node: [*c]struct_listnode, result: [*c][*c]u8, initialize: c_int) void;
 pub extern fn view_nest_node_json(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int) void;
 pub extern fn view_nest_node(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int, color: c_int) void;
-pub extern fn set_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn set_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
+pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
 pub extern fn copy_nest_node(dst_root: [*c]struct_listroot, dst: [*c]struct_listnode, src: [*c]struct_listnode) void;
 pub extern fn connect_mud(ses: [*c]struct_session, host: [*c]u8, port: [*c]u8) c_int;
 pub extern fn write_line_mud(ses: [*c]struct_session, line: [*c]u8, size: c_int) void;
@@ -8551,8 +8551,8 @@ pub extern fn is_abbrev_cmp(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_member(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_vowel(str: [*c]u8) c_int;
 pub extern fn filename_string(input: [*c]u8, output: [*c]u8) void;
-pub extern fn execute(ses: [*c]struct_session, format: [*c]u8, ...) [*c]struct_session;
-pub extern fn command(ses: [*c]struct_session, cmd: ?*const COMMAND, format: [*c]u8, ...) [*c]struct_session;
+pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
 pub extern fn parse_input(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn parse_command(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn is_speedwalk(ses: [*c]struct_session, input: [*c]u8) c_int;
@@ -8623,10 +8623,10 @@ pub extern fn port_new(ses: [*c]struct_session, s: c_int) c_int;
 pub extern fn close_port(ses: [*c]struct_session, buddy: [*c]struct_port_data, unlink: c_int) void;
 pub extern fn process_port_connections(ses: [*c]struct_session, read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
 pub extern fn port_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
-pub extern fn port_socket_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_telnet_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, length: usize, format: [*c]u8, ...) void;
-pub extern fn port_log_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
 pub extern fn process_port_input(ses: [*c]struct_session, buddy: [*c]struct_port_data) c_int;
 pub extern fn get_port_commands(ses: [*c]struct_session, buddy: [*c]struct_port_data, buf: [*c]u8, len: c_int) void;
 pub extern fn port_name_change(ses: [*c]struct_session, buddy: [*c]struct_port_data, txt: [*c]u8) void;
@@ -8682,18 +8682,18 @@ pub extern fn new_session(ses: [*c]struct_session, name: [*c]u8, address: [*c]u8
 pub extern fn connect_session(ses: [*c]struct_session) [*c]struct_session;
 pub extern fn cleanup_session(ses: [*c]struct_session) void;
 pub extern fn dispose_session(ses: [*c]struct_session) void;
-pub extern fn show_message(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_error(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_debug(ses: [*c]struct_session, index: c_int, node: [*c]struct_listnode, format: [*c]u8, ...) void;
-pub extern fn show_info(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn tintin_header(ses: [*c]struct_session, width: c_int, format: [*c]u8, ...) void;
+pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
 pub extern fn socket_printf(ses: [*c]struct_session, length: usize, format: [*c]u8, ...) void;
 pub extern fn telnet_printf(ses: [*c]struct_session, length: c_int, format: [*c]u8, ...) void;
-pub extern fn print_lines(ses: [*c]struct_session, flags: c_int, color: [*c]u8, format: [*c]u8, ...) void;
+pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
 pub extern fn show_lines(ses: [*c]struct_session, color: [*c]u8, str: [*c]u8) void;
-pub extern fn tintin_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf2(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf3(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
 pub extern fn tintin_puts(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts2(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts3(ses: [*c]struct_session, string: [*c]u8, prompt: c_int) void;
@@ -8979,7 +8979,7 @@ pub export fn do_killall(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     _ = &arg3;
     var arg4 = arg_arg4;
     _ = &arg4;
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31m#NOTICE: PLEASE CHANGE #KILLALL TO #KILL ALL."))))))))))))));
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31m#NOTICE: PLEASE CHANGE #KILLALL TO #KILL ALL."))))))))))))), .{});
     _ = do_kill(ses, arg, arg1, arg2, arg3, arg4);
     return ses;
 }
@@ -9003,16 +9003,16 @@ pub export fn do_message(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     arg = get_arg_in_braces(ses, arg, arg1, GET_ONE);
     arg = get_arg_in_braces(ses, arg, arg2, GET_ONE);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" MESSAGES "))))))))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" MESSAGES "))))))))))))), .{});
         {
             index_1 = 0;
             while (index_1 < LIST_MAX) : (index_1 += 1) {
                 if (!((list_table[@bitCast(@as(isize, @intCast(index_1)))].flags & (@as(c_int, 1) << @intCast(@as(c_int, 9)))) != 0)) {
-                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  %-20s %3s"))))))))))))), list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))))))))))));
+                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  %-20s %3s"))))))))))))), .{list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))))))))))});
                 }
             }
         }
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), .{});
     } else {
         {
             index_1 = blk: {
@@ -9043,15 +9043,15 @@ pub export fn do_message(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
                         ref.* = @truncate(@as(c_int, ref.*) & ~(@as(c_int, 1) << @intCast(@as(c_int, 2))));
                     }
                 } else {
-                    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MESSAGE {%s} [ON|OFF]"))))))))))))), arg1);
+                    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #MESSAGE {%s} [ON|OFF]"))))))))))))), .{arg1});
                     return ses;
                 }
-                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: #MESSAGE STATUS FOR %s HAS BEEN SET TO: %s."))))))))))))), list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))))))))))));
+                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: #MESSAGE STATUS FOR %s HAS BEEN SET TO: %s."))))))))))))), .{list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))))))))))});
                 found = TRUE;
             }
         }
         if (found == FALSE) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #MESSAGE {%s}: NO MATCH FOUND."))))))))))))), arg1);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #MESSAGE {%s}: NO MATCH FOUND."))))))))))))), .{arg1});
         }
     }
     return ses;
@@ -9076,16 +9076,16 @@ pub export fn do_ignore(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" IGNORES "))))))))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" IGNORES "))))))))))))), .{});
         {
             index_1 = 0;
             while (index_1 < LIST_MAX) : (index_1 += 1) {
                 if (!((list_table[@bitCast(@as(isize, @intCast(index_1)))].flags & (@as(c_int, 1) << @intCast(@as(c_int, 9)))) != 0)) {
-                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  %-20s %3s"))))))))))))), list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))))))))))));
+                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  %-20s %3s"))))))))))))), .{list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))))))))))});
                 }
             }
         }
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), .{});
     } else {
         arg = arg1;
         while (true) {
@@ -9119,10 +9119,10 @@ pub export fn do_ignore(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
                             ref.* = @truncate(@as(c_int, ref.*) & ~(@as(c_int, 1) << @intCast(@as(c_int, 0))));
                         }
                     } else {
-                        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #IGNORE {%s} [ON|OFF]"))))))))))))), arg1);
+                        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #IGNORE {%s} [ON|OFF]"))))))))))))), .{arg1});
                         return ses;
                     }
-                    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: #IGNORE STATUS FOR %s HAS BEEN SET TO: %s."))))))))))))), list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))))))))))));
+                    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: #IGNORE STATUS FOR %s HAS BEEN SET TO: %s."))))))))))))), .{list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))))))))))});
                     found = TRUE;
                 }
             }
@@ -9132,7 +9132,7 @@ pub export fn do_ignore(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
             if (!(@as(c_int, arg.*) != 0)) break;
         }
         if (found == FALSE) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #IGNORE {%s}: NO MATCH FOUND."))))))))))))), arg1);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #IGNORE {%s}: NO MATCH FOUND."))))))))))))), .{arg1});
         }
     }
     return ses;
@@ -9157,16 +9157,16 @@ pub export fn do_debug(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
     arg = get_arg_in_braces(ses, arg, arg1, GET_ONE);
     arg = get_arg_in_braces(ses, arg, arg2, GET_ONE);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" DEBUGS "))))))))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" DEBUGS "))))))))))))), .{});
         {
             index_1 = 0;
             while (index_1 < LIST_MAX) : (index_1 += 1) {
                 if (!((list_table[@bitCast(@as(isize, @intCast(index_1)))].flags & (@as(c_int, 1) << @intCast(@as(c_int, 9)))) != 0)) {
-                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  %-20s %3s"))))))))))))), list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))))))))))));
+                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  %-20s %3s"))))))))))))), .{list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))))))))))});
                 }
             }
         }
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), .{});
     } else {
         {
             index_1 = blk: {
@@ -9206,15 +9206,15 @@ pub export fn do_debug(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
                         ref.* = @truncate(@as(c_int, ref.*) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
                     }
                 } else {
-                    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #DEBUG {%s} [ON|OFF|LOG]"))))))))))))), arg1);
+                    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #DEBUG {%s} [ON|OFF|LOG]"))))))))))))), .{arg1});
                     return ses;
                 }
-                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: #DEBUG STATUS FOR %s HAS BEEN SET TO: %s."))))))))))))), list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("LOG")))))))))))))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("LOG"))))))))))))) else if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))))))))))));
+                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: #DEBUG STATUS FOR %s HAS BEEN SET TO: %s."))))))))))))), .{list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("LOG")))))))))))))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("LOG"))))))))))))) else if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))))))))))});
                 found = TRUE;
             }
         }
         if (found == FALSE) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG {%s}: NO MATCH FOUND."))))))))))))), arg1);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DEBUG {%s}: NO MATCH FOUND."))))))))))))), .{arg1});
         }
     }
     return ses;
@@ -9245,16 +9245,16 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
     arg = get_arg_in_braces(ses, arg, arg1, GET_ONE);
     arg = get_arg_in_braces(ses, arg, arg2, GET_ONE);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" INFORMATION "))))))))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" INFORMATION "))))))))))))), .{});
         {
             index_1 = 0;
             while (index_1 < LIST_MAX) : (index_1 += 1) {
                 if (!((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 9)))) != 0)) {
-                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%-15s %5d   IGNORE %3s   MESSAGE %3s   INFO %3s   DEBUG %3s%s"))))))))))))), list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.used, if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))))))))))), if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))))))))))), if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))))))))))), if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))))))))))), if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" LOG"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
+                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%-15s %5d   IGNORE %3s   MESSAGE %3s   INFO %3s   DEBUG %3s%s"))))))))))))), .{list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.used, if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))))))))))), if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))))))))))), if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))))))))))), if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))))))))))), if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" LOG"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("")))))))))))))});
                 }
             }
         }
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), .{});
     } else {
         {
             index_1 = blk: {
@@ -9290,26 +9290,26 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                         {
                             cnt = 0;
                             while (cnt < root.*.used) : (cnt += 1) {
-                                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO %s %4d {arg1}{%s} {arg2}{%s} {arg3}{%s} {arg4}{%s} {class}{%s} {shots}{%u}"))))))))))))), list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, cnt + @as(c_int, 1), root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.arg1, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.arg2, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.arg3, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.arg4, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.group, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.shots);
+                                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO %s %4d {arg1}{%s} {arg2}{%s} {arg3}{%s} {arg4}{%s} {class}{%s} {shots}{%u}"))))))))))))), .{list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, cnt + @as(c_int, 1), root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.arg1, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.arg2, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.arg3, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.arg4, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.group, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.shots});
                             }
                         }
                     } else if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SAVE")))))))))))))) != 0) {
-                        _ = sprintf(@ptrCast(@alignCast(&name)), "info[%s]", list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi);
-                        _ = set_nest_node_ses(ses, @ptrCast(@alignCast(&name)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
+                        _ = sprintf(@as([*c]u8, @ptrCast(@alignCast(&name))), "info[%s]", list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi);
+                        _ = set_nest_node_ses(ses, @as(?*anyopaque, @as([*c]u8, @ptrCast(@alignCast(&name)))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), .{});
                         {
                             cnt = 0;
                             while (cnt < root.*.used) : (cnt += 1) {
-                                _ = sprintf(@ptrCast(@alignCast(&name)), "info[%s][%d]", list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, cnt + @as(c_int, 1));
-                                _ = set_nest_node_ses(ses, @ptrCast(@alignCast(&name)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{arg1}{%s}{arg2}{%s}{arg3}{%s}{arg4}{%s}{class}{%s}{nest}{%d}{shots}{%u}"))))))))))))), root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.arg1, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.arg2, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.arg3, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.arg4, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.group, if (root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.root != null) root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.root.*.used else @as(c_int, 0), root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.shots);
+                                _ = sprintf(@as([*c]u8, @ptrCast(@alignCast(&name))), "info[%s][%d]", list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, cnt + @as(c_int, 1));
+                                _ = set_nest_node_ses(ses, @as(?*anyopaque, @as([*c]u8, @ptrCast(@alignCast(&name)))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{arg1}{%s}{arg2}{%s}{arg3}{%s}{arg4}{%s}{class}{%s}{nest}{%d}{shots}{%u}"))))))))))))), .{root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.arg1, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.arg2, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.arg3, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.arg4, root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.group, if (root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.root != null) root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.root.*.used else @as(c_int, 0), root.*.list[@bitCast(@as(isize, @intCast(cnt)))].*.shots});
                             }
                         }
-                        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO: DATA WRITTEN TO {info[%s]}"))))))))))))), list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi);
+                        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO: DATA WRITTEN TO {info[%s]}"))))))))))))), .{list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi});
                     } else {
-                        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #INFO {%s} [ON|OFF|LIST|SAVE]"))))))))))))), arg1);
+                        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #INFO {%s} [ON|OFF|LIST|SAVE]"))))))))))))), .{arg1});
                     }
                     return ses;
                 }
-                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: #INFO STATUS FOR %s HAS BEEN SET TO: %s."))))))))))))), list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF"))))))))))))));
+                show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: #INFO STATUS FOR %s HAS BEEN SET TO: %s."))))))))))))), .{list_table[@bitCast(@as(isize, @intCast(index_1)))].name_multi, if ((@as(c_int, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ON"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))))))))))});
                 if (strcasecmp(arg1, "ALL") != 0) {
                     return ses;
                 }
@@ -9327,18 +9327,18 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                         var vars: c_int = if (atoi(arg2) != 0) atoi(arg2) else gtd.*.varc;
                         _ = &vars;
                         if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SAVE")))))))))))))) != 0) {
-                            _ = set_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[ARGUMENTS]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
+                            _ = set_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[ARGUMENTS]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), .{});
                             {
                                 index_1 = 0;
                                 while (index_1 < vars) : (index_1 += 1) {
-                                    _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[ARGUMENTS]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d}{%s}"))))))))))))), index_1, @as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&gtd.*.vars[@bitCast(@as(isize, @intCast(index_1)))])))))))))))))))))));
+                                    _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[ARGUMENTS]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d}{%s}"))))))))))))), .{index_1, @as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&gtd.*.vars[@bitCast(@as(isize, @intCast(index_1)))]))))))))))))))))))});
                                 }
                             }
                         } else {
                             {
                                 index_1 = 0;
                                 while (index_1 < vars) : (index_1 += 1) {
-                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO ARGUMENTS: %2d: %s"))))))))))))), index_1, @as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&gtd.*.vars[@bitCast(@as(isize, @intCast(index_1)))])))))))))))))))))));
+                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO ARGUMENTS: %2d: %s"))))))))))))), .{index_1, @as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&gtd.*.vars[@bitCast(@as(isize, @intCast(index_1)))]))))))))))))))))))});
                                 }
                             }
                         }
@@ -9360,18 +9360,18 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 CTRL_D => {
                     if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DAEMON")))))))))))))) != 0) {
                         if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SAVE")))))))))))))) != 0) {
-                            _ = sprintf(@ptrCast(@alignCast(&name)), "info[DAEMON]");
-                            _ = set_nest_node_ses(ses, @ptrCast(@alignCast(&name)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{DETACH_FILE}{%s}{ATTACH_FILE}{%s}"))))))))))))), if (gtd.*.detach_port > @as(c_int, 0)) gtd.*.detach_file else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), if (gtd.*.attach_sock > @as(c_int, 0)) gtd.*.attach_file else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
-                            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO: DATA WRITTEN TO {info[SYSTEM]}"))))))))))))));
+                            _ = sprintf(@as([*c]u8, @ptrCast(@alignCast(&name))), "info[DAEMON]");
+                            _ = set_nest_node_ses(ses, @as(?*anyopaque, @as([*c]u8, @ptrCast(@alignCast(&name)))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{DETACH_FILE}{%s}{ATTACH_FILE}{%s}"))))))))))))), .{if (gtd.*.detach_port > @as(c_int, 0)) gtd.*.detach_file else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), if (gtd.*.attach_sock > @as(c_int, 0)) gtd.*.attach_file else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("")))))))))))))});
+                            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO: DATA WRITTEN TO {info[SYSTEM]}"))))))))))))), .{});
                         } else {
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO DAEMON: DETACH UID     = %d"))))))))))))), gtd.*.detach_info.uid);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO DAEMON: DETACH GID     = %d"))))))))))))), gtd.*.detach_info.gid);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO DAEMON: DETACH PID     = %d"))))))))))))), gtd.*.detach_info.pid);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO DAEMON: DETACH_SOCK    = %d"))))))))))))), gtd.*.detach_sock);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO DAEMON: DETACH_PORT    = %d"))))))))))))), gtd.*.detach_port);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO DAEMON: DETACH_FILE    = %s"))))))))))))), if (gtd.*.detach_port != 0) gtd.*.detach_file else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO DAEMON: ATTACH_SOCK    = %d"))))))))))))), gtd.*.attach_sock);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO DAEMON: ATTACH_FILE    = %s"))))))))))))), if (gtd.*.attach_sock != 0) gtd.*.attach_file else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO DAEMON: DETACH UID     = %d"))))))))))))), .{gtd.*.detach_info.uid});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO DAEMON: DETACH GID     = %d"))))))))))))), .{gtd.*.detach_info.gid});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO DAEMON: DETACH PID     = %d"))))))))))))), .{gtd.*.detach_info.pid});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO DAEMON: DETACH_SOCK    = %d"))))))))))))), .{gtd.*.detach_sock});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO DAEMON: DETACH_PORT    = %d"))))))))))))), .{gtd.*.detach_port});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO DAEMON: DETACH_FILE    = %s"))))))))))))), .{if (gtd.*.detach_port != 0) gtd.*.detach_file else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("")))))))))))))});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO DAEMON: ATTACH_SOCK    = %d"))))))))))))), .{gtd.*.attach_sock});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO DAEMON: ATTACH_FILE    = %s"))))))))))))), .{if (gtd.*.attach_sock != 0) gtd.*.attach_file else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("")))))))))))))});
                         }
                     }
                     break;
@@ -9383,13 +9383,13 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                         var sep: [*c]u8 = undefined;
                         _ = &sep;
                         if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SAVE")))))))))))))) != 0) {
-                            _ = set_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[ENVIRON]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
+                            _ = set_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[ENVIRON]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), .{});
                             {
                                 env = environ;
                                 while (env.* != null) : (env += 1) {
                                     sep = strchr(env.*, '=');
                                     sep.* = 0;
-                                    _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[ENVIRON]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%s}{%s}"))))))))))))), env.*, sep + @as(usize, @bitCast(@as(isize, @intCast(@as(c_int, 1))))));
+                                    _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[ENVIRON]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%s}{%s}"))))))))))))), .{env.*, sep + @as(usize, @bitCast(@as(isize, @intCast(@as(c_int, 1)))))});
                                     sep.* = '=';
                                 }
                             }
@@ -9397,7 +9397,7 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                             {
                                 env = environ;
                                 while (env.* != null) : (env += 1) {
-                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))))))))), env.*);
+                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))))))))), .{env.*});
                                 }
                             }
                         }
@@ -9407,25 +9407,25 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 CTRL_I => {
                     if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("INPUT")))))))))))))) != 0) {
                         if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SAVE")))))))))))))) != 0) {
-                            _ = set_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{BUFFER}{%s}"))))))))))))), gtd.*.ses.*.input.*.buf);
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{CUT}{%s}"))))))))))))), gtd.*.ses.*.input.*.cut);
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{COL}{%d}"))))))))))))), inputline_cur_col());
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{HEIGHT}{%d}"))))))))))))), inputline_max_row());
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{LENGTH}{%d}"))))))))))))), inputline_cur_str_len());
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{NAME}{%s}"))))))))))))), gtd.*.ses.*.input.*.line_name);
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{OFFSET}{%d}"))))))))))))), inputline_cur_off());
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{ROW}{%d}"))))))))))))), inputline_cur_row());
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{WIDTH}{%d}"))))))))))))), inputline_max_str_len());
+                            _ = set_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{BUFFER}{%s}"))))))))))))), .{gtd.*.ses.*.input.*.buf});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{CUT}{%s}"))))))))))))), .{gtd.*.ses.*.input.*.cut});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{COL}{%d}"))))))))))))), .{inputline_cur_col()});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{HEIGHT}{%d}"))))))))))))), .{inputline_max_row()});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{LENGTH}{%d}"))))))))))))), .{inputline_cur_str_len()});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{NAME}{%s}"))))))))))))), .{gtd.*.ses.*.input.*.line_name});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{OFFSET}{%d}"))))))))))))), .{inputline_cur_off()});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{ROW}{%d}"))))))))))))), .{inputline_cur_row()});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[INPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{WIDTH}{%d}"))))))))))))), .{inputline_max_str_len()});
                         } else {
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: BUFFER: %s"))))))))))))), gtd.*.ses.*.input.*.buf);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: CUT: %s"))))))))))))), gtd.*.ses.*.input.*.cut);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: COL: %d"))))))))))))), inputline_cur_col());
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: HEIGHT: %d"))))))))))))), inputline_max_row());
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: LENGTH: %d"))))))))))))), inputline_cur_str_len());
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: NAME: %s"))))))))))))), gtd.*.ses.*.input.*.line_name);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: OFFSET: %d"))))))))))))), inputline_cur_off());
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: ROW: %d"))))))))))))), inputline_cur_row());
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: WIDTH: %d"))))))))))))), inputline_max_str_len());
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: BUFFER: %s"))))))))))))), .{gtd.*.ses.*.input.*.buf});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: CUT: %s"))))))))))))), .{gtd.*.ses.*.input.*.cut});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: COL: %d"))))))))))))), .{inputline_cur_col()});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: HEIGHT: %d"))))))))))))), .{inputline_max_row()});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: LENGTH: %d"))))))))))))), .{inputline_cur_str_len()});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: NAME: %s"))))))))))))), .{gtd.*.ses.*.input.*.line_name});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: OFFSET: %d"))))))))))))), .{inputline_cur_off()});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: ROW: %d"))))))))))))), .{inputline_cur_row()});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO INPUT: WIDTH: %d"))))))))))))), .{inputline_max_str_len()});
                         }
                     }
                     break;
@@ -9433,27 +9433,27 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 CTRL_M => {
                     if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MATCHES")))))))))))))) != 0) {
                         if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SAVE")))))))))))))) != 0) {
-                            _ = set_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[MATCHES]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
+                            _ = set_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[MATCHES]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), .{});
                             {
                                 index_1 = 0;
                                 while (index_1 < gtd.*.cmdc) : (index_1 += 1) {
-                                    _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[MATCHES]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d}{%s}"))))))))))))), index_1, @as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&gtd.*.cmds[@bitCast(@as(isize, @intCast(index_1)))])))))))))))))))))));
+                                    _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[MATCHES]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d}{%s}"))))))))))))), .{index_1, @as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&gtd.*.cmds[@bitCast(@as(isize, @intCast(index_1)))]))))))))))))))))))});
                                 }
                             }
                         } else {
                             {
                                 index_1 = 0;
                                 while (index_1 < gtd.*.cmdc) : (index_1 += 1) {
-                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MATCHES: %2d: %s"))))))))))))), index_1, @as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&gtd.*.cmds[@bitCast(@as(isize, @intCast(index_1)))])))))))))))))))))));
+                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MATCHES: %2d: %s"))))))))))))), .{index_1, @as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&@as([*c]u8, @ptrCast(@constCast(&gtd.*.cmds[@bitCast(@as(isize, @intCast(index_1)))]))))))))))))))))))});
                                 }
                             }
                         }
                     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MCCP")))))))))))))) != 0) {
                         if (ses.*.mccp2 != null) {
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MCCP2: TOTAL IN: %9u TOTAL OUT: %9u PERCENT: %3d"))))))))))))), ses.*.mccp2.*.total_in, ses.*.mccp2.*.total_out, if (ses.*.mccp2.*.total_out != 0) (@as(uLong, 100) *% ses.*.mccp2.*.total_in) / ses.*.mccp2.*.total_out else @as(uLong, 0));
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MCCP2: TOTAL IN: %9u TOTAL OUT: %9u PERCENT: %3d"))))))))))))), .{ses.*.mccp2.*.total_in, ses.*.mccp2.*.total_out, if (ses.*.mccp2.*.total_out != 0) (@as(uLong, 100) *% ses.*.mccp2.*.total_in) / ses.*.mccp2.*.total_out else @as(uLong, 0)});
                         }
                         if (ses.*.mccp3 != null) {
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MCCP3: TOTAL IN: %9u TOTAL OUT: %9u PERCENT: %3d"))))))))))))), ses.*.mccp3.*.total_in, ses.*.mccp3.*.total_out, if (ses.*.mccp3.*.total_in != 0) (@as(uLong, 100) *% ses.*.mccp3.*.total_out) / ses.*.mccp3.*.total_in else @as(uLong, 0));
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MCCP3: TOTAL IN: %9u TOTAL OUT: %9u PERCENT: %3d"))))))))))))), .{ses.*.mccp3.*.total_in, ses.*.mccp3.*.total_out, if (ses.*.mccp3.*.total_in != 0) (@as(uLong, 100) *% ses.*.mccp3.*.total_out) / ses.*.mccp3.*.total_in else @as(uLong, 0)});
                         }
                     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MEMORY")))))))))))))) != 0) {
                         var str_ptr: [*c]struct_str_data = undefined;
@@ -9475,11 +9475,11 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                                 used += gtd.*.memory.*.stack[@bitCast(@as(isize, @intCast(index_1)))].*.len;
                             }
                         }
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: STACK SIZE: %d"))))))))))))), quan);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: STACK  MAX: %d"))))))))))))), gtd.*.memory.*.stack_max);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: STACK  CAP: %d"))))))))))))), gtd.*.memory.*.stack_cap);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: STACK  LEN: %d"))))))))))))), gtd.*.memory.*.stack_len);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: STACK SIZE: %d"))))))))))))), .{quan});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: STACK  MAX: %d"))))))))))))), .{gtd.*.memory.*.stack_max});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: STACK  CAP: %d"))))))))))))), .{gtd.*.memory.*.stack_cap});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: STACK  LEN: %d"))))))))))))), .{gtd.*.memory.*.stack_len});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), .{});
                         max = 0;
                         quan = 0;
                         used = 0;
@@ -9488,7 +9488,7 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                             while (index_1 < gtd.*.memory.*.list_len) : (index_1 += 1) {
                                 str_ptr = gtd.*.memory.*.list[@bitCast(@as(isize, @intCast(index_1)))];
                                 if ((!((@as(c_int, str_ptr.*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) and (str_ptr.*.max != (NAME_SIZE + @as(c_int, 1)))) and (strlen(get_str_str(str_ptr)) != @as(usize, @bitCast(@as(c_long, str_ptr.*.len))))) {
-                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: index %d len = %d/%d max = %d flags = %d (%s)"))))))))))))), index_1, strlen(get_str_str(str_ptr)), str_ptr.*.len, str_ptr.*.max, str_ptr.*.flags, get_str_str(str_ptr));
+                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: index %d len = %d/%d max = %d flags = %d (%s)"))))))))))))), .{index_1, strlen(get_str_str(str_ptr)), str_ptr.*.len, str_ptr.*.max, str_ptr.*.flags, get_str_str(str_ptr)});
                                 }
                                 if (!((@as(c_int, str_ptr.*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0)) {
                                     max += 1;
@@ -9497,11 +9497,11 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                                 }
                             }
                         }
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: ALLOC SIZE: %d"))))))))))))), quan);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: ALLOC USED: %d"))))))))))))), used);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: ALLOC  MAX: %d"))))))))))))), gtd.*.memory.*.list_max);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: ALLOC  LEN: %d"))))))))))))), gtd.*.memory.*.list_len);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: ALLOC SIZE: %d"))))))))))))), .{quan});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: ALLOC USED: %d"))))))))))))), .{used});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: ALLOC  MAX: %d"))))))))))))), .{gtd.*.memory.*.list_max});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: ALLOC  LEN: %d"))))))))))))), .{gtd.*.memory.*.list_len});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), .{});
                         quan = 0;
                         used = 0;
                         {
@@ -9512,14 +9512,14 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                                     quan += str_ptr.*.max;
                                     used += str_ptr.*.len;
                                 } else {
-                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("error: found freed memory not marked as free."))))))))))))));
+                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("error: found freed memory not marked as free."))))))))))))), .{});
                                 }
                             }
                         }
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: FREED SIZE: %d"))))))))))))), quan);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: FREED  MAX: %d"))))))))))))), gtd.*.memory.*.free_max);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: FREED  LEN: %d"))))))))))))), gtd.*.memory.*.free_len);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: FREED SIZE: %d"))))))))))))), .{quan});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: FREED  MAX: %d"))))))))))))), .{gtd.*.memory.*.free_max});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: FREED  LEN: %d"))))))))))))), .{gtd.*.memory.*.free_len});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), .{});
                         quan = 0;
                         used = 0;
                         {
@@ -9528,26 +9528,26 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                                 quan += NAME_SIZE;
                             }
                         }
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: DEBUG SIZE: %d"))))))))))))), quan);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: DEBUG  MAX: %d"))))))))))))), gtd.*.memory.*.debug_max);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: DEBUG  LEN: %d"))))))))))))), gtd.*.memory.*.debug_len);
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: DEBUG SIZE: %d"))))))))))))), .{quan});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: DEBUG  MAX: %d"))))))))))))), .{gtd.*.memory.*.debug_max});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO MEMORY: DEBUG  LEN: %d"))))))))))))), .{gtd.*.memory.*.debug_len});
                     }
                     break;
                 },
                 CTRL_O => {
                     if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OUTPUT")))))))))))))) != 0) {
                         if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SAVE")))))))))))))) != 0) {
-                            _ = set_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[OUTPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{RAWBUF}{%s}"))))))))))))), gtd.*.mud_output_buf);
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[OUTPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{RAWLEN}{%d}"))))))))))))), gtd.*.mud_output_len);
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[OUTPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{STRBUF}{%s}"))))))))))))), gtd.*.mud_output_strip_buf);
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[OUTPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{STRLEN}{%d}"))))))))))))), gtd.*.mud_output_strip_len);
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[OUTPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{LINE}{%s}"))))))))))))), gtd.*.mud_output_line);
+                            _ = set_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[OUTPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{RAWBUF}{%s}"))))))))))))), .{gtd.*.mud_output_buf});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[OUTPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{RAWLEN}{%d}"))))))))))))), .{gtd.*.mud_output_len});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[OUTPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{STRBUF}{%s}"))))))))))))), .{gtd.*.mud_output_strip_buf});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[OUTPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{STRLEN}{%d}"))))))))))))), .{gtd.*.mud_output_strip_len});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[OUTPUT]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{LINE}{%s}"))))))))))))), .{gtd.*.mud_output_line});
                         } else {
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO OUTPUT: RAWBUF: %s"))))))))))))), gtd.*.mud_output_buf);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO OUTPUT: RAWLEN: %d"))))))))))))), gtd.*.mud_output_len);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO OUTPUT: STRBUF: %s"))))))))))))), gtd.*.mud_output_strip_buf);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO OUTPUT: STRLEN: %d"))))))))))))), gtd.*.mud_output_strip_len);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO OUTPUT: LINE: %s"))))))))))))), gtd.*.mud_output_line);
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO OUTPUT: RAWBUF: %s"))))))))))))), .{gtd.*.mud_output_buf});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO OUTPUT: RAWLEN: %d"))))))))))))), .{gtd.*.mud_output_len});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO OUTPUT: STRBUF: %s"))))))))))))), .{gtd.*.mud_output_strip_buf});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO OUTPUT: STRLEN: %d"))))))))))))), .{gtd.*.mud_output_strip_len});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO OUTPUT: LINE: %s"))))))))))))), .{gtd.*.mud_output_line});
                         }
                     }
                     break;
@@ -9555,57 +9555,57 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 CTRL_S => {
                     if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SESSION")))))))))))))) != 0) {
                         if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SAVE")))))))))))))) != 0) {
-                            _ = set_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSION]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{NAME}{%s}"))))))))))))), ses.*.name);
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSION]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{ACTIVE}{%d}"))))))))))))), @as(c_int, @intFromBool(gtd.*.ses == ses)));
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSION]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{CLASS}{%s}"))))))))))))), ses.*.group);
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSION]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{CREATED}{%d}"))))))))))))), ses.*.created);
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSION]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{HOST} {%s}"))))))))))))), ses.*.session_host);
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSION]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{IP} {%s}"))))))))))))), ses.*.session_ip);
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSION]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{MTTS} {%d}"))))))))))))), get_mtts_val(ses));
-                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSION]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{PORT} {%s}"))))))))))))), ses.*.session_port);
-                            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO: DATA WRITTEN TO {info[SESSION]}"))))))))))))));
+                            _ = set_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSION]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{NAME}{%s}"))))))))))))), .{ses.*.name});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSION]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{ACTIVE}{%d}"))))))))))))), .{@as(c_int, @intFromBool(gtd.*.ses == ses))});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSION]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{CLASS}{%s}"))))))))))))), .{ses.*.group});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSION]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{CREATED}{%d}"))))))))))))), .{ses.*.created});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSION]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{HOST} {%s}"))))))))))))), .{ses.*.session_host});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSION]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{IP} {%s}"))))))))))))), .{ses.*.session_ip});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSION]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{MTTS} {%d}"))))))))))))), .{get_mtts_val(ses)});
+                            _ = add_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSION]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{PORT} {%s}"))))))))))))), .{ses.*.session_port});
+                            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO: DATA WRITTEN TO {info[SESSION]}"))))))))))))), .{});
                         } else {
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSION: {NAME}{%s}"))))))))))))), ses.*.name);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSION: {ACTIVE}{%d}"))))))))))))), @as(c_int, @intFromBool(gtd.*.ses == ses)));
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSION: {CLASS}{%s}"))))))))))))), ses.*.group);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSION: {CREATED}{%d}"))))))))))))), ses.*.created);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSION: {HOST} {%s}"))))))))))))), ses.*.session_host);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSION: {IP} {%s}"))))))))))))), ses.*.session_ip);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSION: {MTTS} {%d}"))))))))))))), get_mtts_val(ses));
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSION: {PORT} {%s}"))))))))))))), ses.*.session_port);
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSION: {NAME}{%s}"))))))))))))), .{ses.*.name});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSION: {ACTIVE}{%d}"))))))))))))), .{@as(c_int, @intFromBool(gtd.*.ses == ses))});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSION: {CLASS}{%s}"))))))))))))), .{ses.*.group});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSION: {CREATED}{%d}"))))))))))))), .{ses.*.created});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSION: {HOST} {%s}"))))))))))))), .{ses.*.session_host});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSION: {IP} {%s}"))))))))))))), .{ses.*.session_ip});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSION: {MTTS} {%d}"))))))))))))), .{get_mtts_val(ses)});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSION: {PORT} {%s}"))))))))))))), .{ses.*.session_port});
                         }
                     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SESSIONS")))))))))))))) != 0) {
                         var sesptr: [*c]struct_session = undefined;
                         _ = &sesptr;
                         if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SAVE")))))))))))))) != 0) {
-                            _ = set_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSIONS]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
+                            _ = set_nest_node_ses(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info[SESSIONS]"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), .{});
                             {
                                 sesptr = gts;
                                 while (sesptr != null) : (sesptr = sesptr.*.next) {
-                                    _ = sprintf(@ptrCast(@alignCast(&name)), "info[SESSIONS][%s]", sesptr.*.name);
-                                    _ = add_nest_node_ses(ses, @ptrCast(@alignCast(&name)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{NAME}{%s}"))))))))))))), sesptr.*.name);
-                                    _ = add_nest_node_ses(ses, @ptrCast(@alignCast(&name)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{ACTIVE}{%d}"))))))))))))), @as(c_int, @intFromBool(gtd.*.ses == sesptr)));
-                                    _ = add_nest_node_ses(ses, @ptrCast(@alignCast(&name)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{CLASS}{%s}"))))))))))))), sesptr.*.group);
-                                    _ = add_nest_node_ses(ses, @ptrCast(@alignCast(&name)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{CREATED}{%d}"))))))))))))), sesptr.*.created);
-                                    _ = add_nest_node_ses(ses, @ptrCast(@alignCast(&name)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{HOST} {%s}"))))))))))))), sesptr.*.session_host);
-                                    _ = add_nest_node_ses(ses, @ptrCast(@alignCast(&name)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{IP} {%s}"))))))))))))), sesptr.*.session_ip);
-                                    _ = add_nest_node_ses(ses, @ptrCast(@alignCast(&name)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{MTTS} {%d}"))))))))))))), get_mtts_val(ses));
-                                    _ = add_nest_node_ses(ses, @ptrCast(@alignCast(&name)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{PORT} {%s}"))))))))))))), sesptr.*.session_port);
+                                    _ = sprintf(@as([*c]u8, @ptrCast(@alignCast(&name))), "info[SESSIONS][%s]", sesptr.*.name);
+                                    _ = add_nest_node_ses(ses, @as(?*anyopaque, @as([*c]u8, @ptrCast(@alignCast(&name)))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{NAME}{%s}"))))))))))))), .{sesptr.*.name});
+                                    _ = add_nest_node_ses(ses, @as(?*anyopaque, @as([*c]u8, @ptrCast(@alignCast(&name)))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{ACTIVE}{%d}"))))))))))))), .{@as(c_int, @intFromBool(gtd.*.ses == sesptr))});
+                                    _ = add_nest_node_ses(ses, @as(?*anyopaque, @as([*c]u8, @ptrCast(@alignCast(&name)))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{CLASS}{%s}"))))))))))))), .{sesptr.*.group});
+                                    _ = add_nest_node_ses(ses, @as(?*anyopaque, @as([*c]u8, @ptrCast(@alignCast(&name)))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{CREATED}{%d}"))))))))))))), .{sesptr.*.created});
+                                    _ = add_nest_node_ses(ses, @as(?*anyopaque, @as([*c]u8, @ptrCast(@alignCast(&name)))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{HOST} {%s}"))))))))))))), .{sesptr.*.session_host});
+                                    _ = add_nest_node_ses(ses, @as(?*anyopaque, @as([*c]u8, @ptrCast(@alignCast(&name)))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{IP} {%s}"))))))))))))), .{sesptr.*.session_ip});
+                                    _ = add_nest_node_ses(ses, @as(?*anyopaque, @as([*c]u8, @ptrCast(@alignCast(&name)))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{MTTS} {%d}"))))))))))))), .{get_mtts_val(ses)});
+                                    _ = add_nest_node_ses(ses, @as(?*anyopaque, @as([*c]u8, @ptrCast(@alignCast(&name)))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{PORT} {%s}"))))))))))))), .{sesptr.*.session_port});
                                 }
                             }
-                            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO: DATA WRITTEN TO {info[SESSIONS]}"))))))))))))));
+                            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO: DATA WRITTEN TO {info[SESSIONS]}"))))))))))))), .{});
                         } else {
                             {
                                 sesptr = gts;
                                 while (sesptr != null) : (sesptr = sesptr.*.next) {
-                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSIONS: {%s}{NAME}{%s}"))))))))))))), sesptr.*.name, sesptr.*.name);
-                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSIONS: {%s}{ACTIVE}{%d}"))))))))))))), sesptr.*.name, @as(c_int, @intFromBool(gtd.*.ses == sesptr)));
-                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSIONS: {%s}{CLASS}{%s}"))))))))))))), sesptr.*.name, sesptr.*.group);
-                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSIONS: {%s}{CREATED}{%d}"))))))))))))), sesptr.*.name, sesptr.*.created);
-                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSIONS: {%s}{HOST} {%s}"))))))))))))), sesptr.*.name, sesptr.*.session_host);
-                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSIONS: {%s}{IP} {%s}"))))))))))))), sesptr.*.name, sesptr.*.session_ip);
-                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSIONS: {%s}{MTTS} {%d}"))))))))))))), sesptr.*.name, get_mtts_val(ses));
-                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSIONS: {%s}{PORT} {%s}"))))))))))))), sesptr.*.name, sesptr.*.session_port);
+                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSIONS: {%s}{NAME}{%s}"))))))))))))), .{sesptr.*.name, sesptr.*.name});
+                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSIONS: {%s}{ACTIVE}{%d}"))))))))))))), .{sesptr.*.name, @as(c_int, @intFromBool(gtd.*.ses == sesptr))});
+                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSIONS: {%s}{CLASS}{%s}"))))))))))))), .{sesptr.*.name, sesptr.*.group});
+                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSIONS: {%s}{CREATED}{%d}"))))))))))))), .{sesptr.*.name, sesptr.*.created});
+                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSIONS: {%s}{HOST} {%s}"))))))))))))), .{sesptr.*.name, sesptr.*.session_host});
+                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSIONS: {%s}{IP} {%s}"))))))))))))), .{sesptr.*.name, sesptr.*.session_ip});
+                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSIONS: {%s}{MTTS} {%d}"))))))))))))), .{sesptr.*.name, get_mtts_val(ses)});
+                                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SESSIONS: {%s}{PORT} {%s}"))))))))))))), .{sesptr.*.name, sesptr.*.session_port});
                                 }
                             }
                         }
@@ -9615,26 +9615,26 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                         var cwd: [1024]u8 = undefined;
                         _ = &cwd;
                         if (@as(?*anyopaque, @ptrCast(@alignCast(getcwd(@ptrCast(@alignCast(&cwd)), PATH_MAX)))) == @as(?*anyopaque, null)) {
-                            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("do_info: getcwd:"))))))))))))));
+                            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("do_info: getcwd:"))))))))))))), .{});
                             cwd[@as(c_int, 0)] = 0;
                         }
                         if (is_abbrev(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SAVE")))))))))))))) != 0) {
-                            _ = sprintf(@ptrCast(@alignCast(&name)), "info[SYSTEM]");
-                            _ = set_nest_node_ses(ses, @ptrCast(@alignCast(&name)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{CLIENT_NAME}{%s}{CLIENT_VERSION}{%s}"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TinTin++"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("2.02.61 "))))))))))))));
-                            _ = add_nest_node_ses(ses, @ptrCast(@alignCast(&name)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{CWD}{%s}{EXEC}{%s}{HOME}{%s}{LANG}{%s}{OS}{%s}{PID}{%d}{TERM}{%s}{TINTIN}{%s}"))))))))))))), @as([*c]u8, @ptrCast(@alignCast(&cwd))), gtd.*.system.*.exec, gtd.*.system.*.home, gtd.*.system.*.lang, gtd.*.system.*.os, getpid(), gtd.*.system.*.term, gtd.*.system.*.tt_dir);
-                            _ = add_nest_node_ses(ses, @ptrCast(@alignCast(&name)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{DETACH_FILE}{%s}{ATTACH_FILE}{%s}"))))))))))))), if (gtd.*.detach_port > @as(c_int, 0)) gtd.*.detach_file else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), if (gtd.*.attach_sock > @as(c_int, 0)) gtd.*.attach_file else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))));
-                            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO: DATA WRITTEN TO {info[SYSTEM]}"))))))))))))));
+                            _ = sprintf(@as([*c]u8, @ptrCast(@alignCast(&name))), "info[SYSTEM]");
+                            _ = set_nest_node_ses(ses, @as(?*anyopaque, @as([*c]u8, @ptrCast(@alignCast(&name)))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{CLIENT_NAME}{%s}{CLIENT_VERSION}{%s}"))))))))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TinTin++"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("2.02.61 ")))))))))))))});
+                            _ = add_nest_node_ses(ses, @as(?*anyopaque, @as([*c]u8, @ptrCast(@alignCast(&name)))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{CWD}{%s}{EXEC}{%s}{HOME}{%s}{LANG}{%s}{OS}{%s}{PID}{%d}{TERM}{%s}{TINTIN}{%s}"))))))))))))), .{@as([*c]u8, @ptrCast(@alignCast(&cwd))), gtd.*.system.*.exec, gtd.*.system.*.home, gtd.*.system.*.lang, gtd.*.system.*.os, getpid(), gtd.*.system.*.term, gtd.*.system.*.tt_dir});
+                            _ = add_nest_node_ses(ses, @as(?*anyopaque, @as([*c]u8, @ptrCast(@alignCast(&name)))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{DETACH_FILE}{%s}{ATTACH_FILE}{%s}"))))))))))))), .{if (gtd.*.detach_port > @as(c_int, 0)) gtd.*.detach_file else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))))))))), if (gtd.*.attach_sock > @as(c_int, 0)) gtd.*.attach_file else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("")))))))))))))});
+                            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO: DATA WRITTEN TO {info[SYSTEM]}"))))))))))))), .{});
                         } else {
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: CLIENT_NAME    = %s"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TinTin++"))))))))))))));
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: CLIENT_VERSION = %s"))))))))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("2.02.61 "))))))))))))));
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: CWD            = %s"))))))))))))), @as([*c]u8, @ptrCast(@alignCast(&cwd))));
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: EXEC           = %s"))))))))))))), gtd.*.system.*.exec);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: HOME           = %s"))))))))))))), gtd.*.system.*.home);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: LANG           = %s"))))))))))))), gtd.*.system.*.lang);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: OS             = %s"))))))))))))), gtd.*.system.*.os);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: PID            = %d"))))))))))))), getpid());
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: TERM           = %s"))))))))))))), gtd.*.system.*.term);
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: TINTIN         = %s"))))))))))))), gtd.*.system.*.tt_dir);
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: CLIENT_NAME    = %s"))))))))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TinTin++")))))))))))))});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: CLIENT_VERSION = %s"))))))))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("2.02.61 ")))))))))))))});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: CWD            = %s"))))))))))))), .{@as([*c]u8, @ptrCast(@alignCast(&cwd)))});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: EXEC           = %s"))))))))))))), .{gtd.*.system.*.exec});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: HOME           = %s"))))))))))))), .{gtd.*.system.*.home});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: LANG           = %s"))))))))))))), .{gtd.*.system.*.lang});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: OS             = %s"))))))))))))), .{gtd.*.system.*.os});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: PID            = %d"))))))))))))), .{getpid()});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: TERM           = %s"))))))))))))), .{gtd.*.system.*.term});
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO SYSTEM: TINTIN         = %s"))))))))))))), .{gtd.*.system.*.tt_dir});
                         }
                     }
                     break;
@@ -9645,11 +9645,11 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                         _ = &index_2;
                         var root_3: [*c]struct_scriptroot = @as([*c][*c]struct_scriptroot, @ptrCast(&gtd.*.script_stack))[@bitCast(@as(isize, @intCast(index_2)))];
                         _ = &root_3;
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO TOKENIZER: SCRIPT_INDEX = %d"))))))))))))), index_2);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO TOKENIZER: SESSION_NAME = %s"))))))))))))), root_3.*.ses.*.name);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO TOKENIZER: LIST_TYPE    = %s"))))))))))))), list_table[@bitCast(@as(isize, @intCast(root_3.*.list)))].name);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO TOKENIZER: LOCAL_VARS   = %d"))))))))))))), root_3.*.local.*.used);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO TOKENIZER: SCRIPT       =\n%s"))))))))))))), view_script(ses, root_3));
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO TOKENIZER: SCRIPT_INDEX = %d"))))))))))))), .{index_2});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO TOKENIZER: SESSION_NAME = %s"))))))))))))), .{root_3.*.ses.*.name});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO TOKENIZER: LIST_TYPE    = %s"))))))))))))), .{list_table[@bitCast(@as(isize, @intCast(root_3.*.list)))].name});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO TOKENIZER: LOCAL_VARS   = %d"))))))))))))), .{root_3.*.local.*.used});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO TOKENIZER: SCRIPT       =\n%s"))))))))))))), .{view_script(ses, root_3)});
                     }
                     break;
                 },
@@ -9664,11 +9664,11 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                         size = get_utf8_size(arg2);
                         _ = get_utf8_width(arg2, &width, null);
                         _ = get_utf8_index(arg2, &index_2);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO UNICODE: %s:  is_utf8_head  = %d (%s)"))))))))))))), arg2, is_utf8_head(arg2), if (is_utf8_head(arg2) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("true"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("false"))))))))))))));
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO UNICODE: %s: get_utf8_size  = %d"))))))))))))), arg2, size);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO UNICODE: %s: get_utf8_width = %d"))))))))))))), arg2, width);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO UNICODE: %s: get_utf8_index = %d (decimal)"))))))))))))), arg2, index_2);
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO UNICODE: %s: get_utf8_index = %x (hexadecimal)"))))))))))))), arg2, index_2);
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO UNICODE: %s:  is_utf8_head  = %d (%s)"))))))))))))), .{arg2, is_utf8_head(arg2), if (is_utf8_head(arg2) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("true"))))))))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("false")))))))))))))});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO UNICODE: %s: get_utf8_size  = %d"))))))))))))), .{arg2, size});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO UNICODE: %s: get_utf8_width = %d"))))))))))))), .{arg2, width});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO UNICODE: %s: get_utf8_index = %d (decimal)"))))))))))))), .{arg2, index_2});
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO UNICODE: %s: get_utf8_index = %x (hexadecimal)"))))))))))))), .{arg2, index_2});
                     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("UTF8TOBIG5")))))))))))))) != 0) {
                         utf8tobig5_info(ses);
                     }
@@ -9679,7 +9679,7 @@ pub export fn do_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
             break;
         }
         if (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&gtd.*.is_result))).*) == @as(c_int, 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO {%s} - NO MATCH FOUND."))))))))))))), arg1);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO {%s} - NO MATCH FOUND."))))))))))))), .{arg1});
         }
     }
     return ses;

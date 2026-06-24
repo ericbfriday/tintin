@@ -6265,7 +6265,7 @@ pub const struct_session = extern struct {
     pub const edit_suspend = __root.edit_suspend;
     pub const edit_write = __root.edit_write;
     pub const do_draw = __root.do_draw;
-    pub const check_all_events = __root.check_all_events;
+    pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
     pub const mouse_handler = __root.mouse_handler;
     pub const do_read = __root.do_read;
     pub const do_write = __root.do_write;
@@ -6311,14 +6311,14 @@ pub const struct_session = extern struct {
     pub const logit = __root.logit;
     pub const write_html_header = __root.write_html_header;
     pub const vt102_to_html = __root.vt102_to_html;
-    pub const syserr_printf = __root.syserr_printf;
+    pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
     pub const do_end = __root.do_end;
     pub const do_nop = __root.do_nop;
     pub const do_test = __root.do_test;
-    pub const arachnos_devel = __root.arachnos_devel;
-    pub const arachnos_mudlist = __root.arachnos_mudlist;
+    pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+    pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
     pub const msdp_update_var = __root.msdp_update_var;
-    pub const msdp_update_varf = __root.msdp_update_varf;
+    pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
     pub const msdp_update_var_instant = __root.msdp_update_var_instant;
     pub const msdp_send_update = __root.msdp_send_update;
     pub const msdp_get_var = __root.msdp_get_var;
@@ -6332,16 +6332,16 @@ pub const struct_session = extern struct {
     pub const write_msdp_to_descriptor = __root.write_msdp_to_descriptor;
     pub const search_nest_base_ses = __root.search_nest_base_ses;
     pub const search_nest_node_ses = __root.search_nest_node_ses;
-    pub const set_nest_node_ses = __root.set_nest_node_ses;
-    pub const add_nest_node_ses = __root.add_nest_node_ses;
+    pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
     pub const connect_mud = __root.connect_mud;
     pub const write_line_mud = __root.write_line_mud;
     pub const read_buffer_mud = __root.read_buffer_mud;
     pub const readmud = __root.readmud;
     pub const process_more_output = __root.process_more_output;
     pub const process_one_line = __root.process_one_line;
-    pub const execute = __root.execute;
-    pub const command = __root.command;
+    pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+    pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
     pub const parse_input = __root.parse_input;
     pub const parse_command = __root.parse_command;
     pub const is_speedwalk = __root.is_speedwalk;
@@ -6410,10 +6410,10 @@ pub const struct_session = extern struct {
     pub const close_port = __root.close_port;
     pub const process_port_connections = __root.process_port_connections;
     pub const port_forward_session = __root.port_forward_session;
-    pub const port_socket_printf = __root.port_socket_printf;
-    pub const port_telnet_printf = __root.port_telnet_printf;
-    pub const port_log_printf = __root.port_log_printf;
-    pub const port_printf = __root.port_printf;
+    pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+    pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+    pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+    pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
     pub const process_port_input = __root.process_port_input;
     pub const get_port_commands = __root.get_port_commands;
     pub const port_name_change = __root.port_name_change;
@@ -6454,18 +6454,18 @@ pub const struct_session = extern struct {
     pub const connect_session = __root.connect_session;
     pub const cleanup_session = __root.cleanup_session;
     pub const dispose_session = __root.dispose_session;
-    pub const show_message = __root.show_message;
-    pub const show_error = __root.show_error;
-    pub const show_debug = __root.show_debug;
-    pub const show_info = __root.show_info;
-    pub const tintin_header = __root.tintin_header;
+    pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+    pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+    pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+    pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+    pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
     pub const socket_printf = __root.socket_printf;
     pub const telnet_printf = __root.telnet_printf;
-    pub const print_lines = __root.print_lines;
+    pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
     pub const show_lines = __root.show_lines;
-    pub const tintin_printf = __root.tintin_printf;
-    pub const tintin_printf2 = __root.tintin_printf2;
-    pub const tintin_printf3 = __root.tintin_printf3;
+    pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+    pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+    pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
     pub const tintin_puts = __root.tintin_puts;
     pub const tintin_puts2 = __root.tintin_puts2;
     pub const tintin_puts3 = __root.tintin_puts3;
@@ -6884,8 +6884,8 @@ pub const struct_listroot = extern struct {
     pub const get_nest_node_key = __root.get_nest_node_key;
     pub const get_nest_node_val = __root.get_nest_node_val;
     pub const get_nest_index = __root.get_nest_index;
-    pub const set_nest_node = __root.set_nest_node;
-    pub const add_nest_node = __root.add_nest_node;
+    pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
     pub const copy_nest_node = __root.copy_nest_node;
     pub const node = __root.show_node;
     pub const root = __root.search_nest_root;
@@ -6932,7 +6932,7 @@ pub const struct_chat_data = extern struct {
     file_block_tot: c_int = 0,
     file_block_patch: c_int = 0,
     file_start_time: c_ulonglong = 0,
-    pub const chat_socket_printf = __root.chat_socket_printf;
+    pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
     pub const close_chat = __root.close_chat;
     pub const chat = __root.close_chat;
 };
@@ -7280,7 +7280,7 @@ pub extern fn buffer_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, a
 pub extern fn buffer_info(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8) void;
 pub extern fn do_chat(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn process_chat_connections(read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
-pub extern fn chat_socket_printf(buddy: [*c]struct_chat_data, format: [*c]u8, ...) void;
+pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
 pub extern fn close_chat(buddy: [*c]struct_chat_data, unlink: c_int) void;
 pub extern fn chat_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
 pub extern fn chat_accept(arg1: [*c]u8, arg2: [*c]u8) void;
@@ -7390,7 +7390,7 @@ pub extern fn str_convert_meta(input: [*c]u8, eol: c_int) [*c]u8;
 pub extern fn echo_command(ses: [*c]struct_session, line: [*c]u8) void;
 pub extern fn init_input(ses: [*c]struct_session, top_row: c_int, top_col: c_int, bot_row: c_int, bot_col: c_int) void;
 pub extern fn free_input(ses: [*c]struct_session) void;
-pub extern fn input_printf(format: [*c]u8, ...) void;
+pub fn input_printf(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").input_printf(arg_format, args); }
 pub extern fn modified_input() void;
 pub extern fn do_map(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn delete_room_data(room: [*c]struct_room_data) void;
@@ -7491,8 +7491,8 @@ pub extern fn insert_node_list(root: [*c]struct_listroot, node: [*c]struct_listn
 pub extern fn insert_index_list(root: [*c]struct_listroot, node: [*c]struct_listnode, index: c_int) [*c]struct_listnode;
 pub extern fn update_node_list(root: [*c]struct_listroot, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_listnode;
 pub extern fn search_node_list(root: [*c]struct_listroot, text: [*c]u8) [*c]struct_listnode;
-pub extern fn push_call(format: [*c]u8, ...) void;
-pub extern fn push_call_printf(format: [*c]u8, ...) c_int;
+pub fn push_call(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").push_call(arg_format, args); }
+pub fn push_call_printf(arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").push_call_printf(arg_format, args)); }
 pub extern fn pop_call() void;
 pub extern fn dump_stack() void;
 pub extern fn do_dictionary(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -7518,7 +7518,7 @@ pub extern fn delete_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn insert_line(edit: [*c]struct_edit_data, index: c_int, str: [*c]u8) void;
 pub extern fn remove_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn do_draw(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
-pub extern fn check_all_events(ses: [*c]struct_session, flags: c_int, args: c_int, vars: c_int, fmt: [*c]u8, ...) c_int;
+pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
 pub extern fn mouse_handler(ses: [*c]struct_session, val1: c_int, val2: c_int, val3: c_int) void;
 pub extern fn do_read(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn do_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -7576,7 +7576,7 @@ pub extern fn main(argc: c_int, argv: [*c][*c]u8) c_int;
 pub extern fn init_tintin(greeting: c_int) void;
 pub extern fn quitmsg(message: [*c]u8) void;
 pub extern fn syserr_fatal(signal: c_int, msg: [*c]u8) void;
-pub extern fn syserr_printf(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
+pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
 pub extern fn zlib_alloc(@"opaque": ?*anyopaque, items: c_uint, size: c_uint) ?*anyopaque;
 pub extern fn zlib_free(@"opaque": ?*anyopaque, address: ?*anyopaque) void;
 pub extern fn restring(point: [*c]u8, string: [*c]u8) [*c]u8;
@@ -7614,11 +7614,11 @@ pub extern fn do_nop(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [
 pub extern fn do_test(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn init_msdp_table() void;
 pub extern fn msdp_find(@"var": [*c]u8) c_int;
-pub extern fn arachnos_devel(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn arachnos_mudlist(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn msdp_update_all(@"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
+pub fn msdp_update_all(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_all(arg0, arg_format, args); }
 pub extern fn msdp_update_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, str: [*c]u8) void;
-pub extern fn msdp_update_varf(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
 pub extern fn msdp_update_var_instant(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
 pub extern fn msdp_send_update(ses: [*c]struct_session, buddy: [*c]struct_port_data) void;
 pub extern fn msdp_get_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8) [*c]u8;
@@ -7655,10 +7655,10 @@ pub extern fn get_nest_index(root: [*c]struct_listroot, variable: [*c]u8, result
 pub extern fn show_nest_node(node: [*c]struct_listnode, result: [*c][*c]u8, initialize: c_int) void;
 pub extern fn view_nest_node_json(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int) void;
 pub extern fn view_nest_node(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int, color: c_int) void;
-pub extern fn set_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn set_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
+pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
 pub extern fn copy_nest_node(dst_root: [*c]struct_listroot, dst: [*c]struct_listnode, src: [*c]struct_listnode) void;
 pub extern fn connect_mud(ses: [*c]struct_session, host: [*c]u8, port: [*c]u8) c_int;
 pub extern fn write_line_mud(ses: [*c]struct_session, line: [*c]u8, size: c_int) void;
@@ -7671,8 +7671,8 @@ pub extern fn is_abbrev_cmp(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_member(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_vowel(str: [*c]u8) c_int;
 pub extern fn filename_string(input: [*c]u8, output: [*c]u8) void;
-pub extern fn execute(ses: [*c]struct_session, format: [*c]u8, ...) [*c]struct_session;
-pub extern fn command(ses: [*c]struct_session, cmd: ?*const COMMAND, format: [*c]u8, ...) [*c]struct_session;
+pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
 pub extern fn parse_input(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn parse_command(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn is_speedwalk(ses: [*c]struct_session, input: [*c]u8) c_int;
@@ -7743,10 +7743,10 @@ pub extern fn port_new(ses: [*c]struct_session, s: c_int) c_int;
 pub extern fn close_port(ses: [*c]struct_session, buddy: [*c]struct_port_data, unlink: c_int) void;
 pub extern fn process_port_connections(ses: [*c]struct_session, read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
 pub extern fn port_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
-pub extern fn port_socket_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_telnet_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, length: usize, format: [*c]u8, ...) void;
-pub extern fn port_log_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
 pub extern fn process_port_input(ses: [*c]struct_session, buddy: [*c]struct_port_data) c_int;
 pub extern fn get_port_commands(ses: [*c]struct_session, buddy: [*c]struct_port_data, buf: [*c]u8, len: c_int) void;
 pub extern fn port_name_change(ses: [*c]struct_session, buddy: [*c]struct_port_data, txt: [*c]u8) void;
@@ -7771,16 +7771,16 @@ pub export fn do_screen(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     _ = &cnt;
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" SCREEN OPTIONS "))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" SCREEN OPTIONS "))))))), .{});
         {
             cnt = 0;
             while (screen_table[@bitCast(@as(isize, @intCast(cnt)))].fun != null) : (cnt += 1) {
                 if (@as(c_int, screen_table[@bitCast(@as(isize, @intCast(cnt)))].name.*) != 0) {
-                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] [%-6s] %s"))))))), screen_table[@bitCast(@as(isize, @intCast(cnt)))].name, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), screen_table[@bitCast(@as(isize, @intCast(cnt)))].desc);
+                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-18s] [%-6s] %s"))))))), .{screen_table[@bitCast(@as(isize, @intCast(cnt)))].name, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), screen_table[@bitCast(@as(isize, @intCast(cnt)))].desc});
                 }
             }
         }
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
     } else {
         {
             cnt = 0;
@@ -7805,7 +7805,7 @@ pub export fn do_screen(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
                 }
             }
         }
-        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #SCREEN {%s} IS NOT A VALID OPTION."))))))), capitalize(arg1));
+        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #SCREEN {%s} IS NOT A VALID OPTION."))))))), .{capitalize(arg1)});
     }
     return ses;
 }
@@ -7874,63 +7874,63 @@ pub export fn csit_handler(arg_ind: c_int, arg_var1: c_int, arg_var2: c_int) voi
         switch (ind) {
             @as(c_int, 1) => {
                 gtd.*.screen.*.minimized = 0;
-                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN MINIMIZED"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("0"))))))));
-                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_MINIMIZED"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("0"))))))));
+                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN MINIMIZED"))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("0")))))))});
+                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_MINIMIZED"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("0"))))))), .{});
                 break;
             },
             @as(c_int, 2) => {
                 gtd.*.screen.*.minimized = 1;
-                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN MINIMIZED"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("1"))))))));
-                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_MINIMIZED"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("1"))))))));
+                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN MINIMIZED"))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("1")))))))});
+                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_MINIMIZED"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("1"))))))), .{});
                 break;
             },
             @as(c_int, 3) => {
                 gtd.*.screen.*.pos_height = if (@as(c_int, 0) > var2) @as(c_int, 0) else var2;
                 gtd.*.screen.*.pos_width = if (@as(c_int, 0) > var1) @as(c_int, 0) else var1;
-                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN LOCATION"))))))), ntos(@divTrunc(var2, gtd.*.screen.*.char_height)), ntos(@divTrunc(var1, gtd.*.screen.*.char_width)), ntos(var2), ntos(var1));
-                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_LOCATION_HEIGHT"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), gtd.*.screen.*.pos_height);
-                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_LOCATION_WIDTH"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), gtd.*.screen.*.pos_width);
+                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN LOCATION"))))))), .{ntos(@divTrunc(var2, gtd.*.screen.*.char_height)), ntos(@divTrunc(var1, gtd.*.screen.*.char_width)), ntos(var2), ntos(var1)});
+                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_LOCATION_HEIGHT"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{gtd.*.screen.*.pos_height});
+                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_LOCATION_WIDTH"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{gtd.*.screen.*.pos_width});
                 break;
             },
             @as(c_int, 4) => {
                 gtd.*.screen.*.tot_height = if (@as(c_int, 0) > var1) @as(c_int, 0) else var1;
                 gtd.*.screen.*.tot_width = if (@as(c_int, 0) > var2) @as(c_int, 0) else var2;
-                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN DIMENSIONS"))))))), ntos(var1), ntos(var2));
+                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN DIMENSIONS"))))))), .{ntos(var1), ntos(var2)});
                 break;
             },
             @as(c_int, 5) => {
                 gtd.*.screen.*.desk_height = var1;
                 gtd.*.screen.*.desk_width = var2;
-                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN DESKTOP DIMENSIONS"))))))), ntos(var1), ntos(var2));
+                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN DESKTOP DIMENSIONS"))))))), .{ntos(var1), ntos(var2)});
                 break;
             },
             @as(c_int, 6) => {
                 gtd.*.screen.*.char_height = var1;
                 gtd.*.screen.*.char_width = var2;
-                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN CHARACTER DIMENSIONS"))))))), ntos(var1), ntos(var2));
-                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_CHARACTER_HEIGHT"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), gtd.*.screen.*.char_height);
-                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_CHARACTER_WIDTH"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), gtd.*.screen.*.char_width);
+                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN CHARACTER DIMENSIONS"))))))), .{ntos(var1), ntos(var2)});
+                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_CHARACTER_HEIGHT"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{gtd.*.screen.*.char_height});
+                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_CHARACTER_WIDTH"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{gtd.*.screen.*.char_width});
                 break;
             },
             @as(c_int, 7) => {
                 init_screen(gtd.*.screen.*.rows, gtd.*.screen.*.cols, gtd.*.screen.*.height, gtd.*.screen.*.width);
-                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN REFRESH"))))))), ntos(gtd.*.screen.*.rows), ntos(gtd.*.screen.*.cols), ntos(gtd.*.screen.*.height), ntos(gtd.*.screen.*.width));
+                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN REFRESH"))))))), .{ntos(gtd.*.screen.*.rows), ntos(gtd.*.screen.*.cols), ntos(gtd.*.screen.*.height), ntos(gtd.*.screen.*.width)});
                 break;
             },
             @as(c_int, 8) => {
                 gtd.*.screen.*.rows = var1;
                 gtd.*.screen.*.cols = var2;
-                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN SIZE"))))))), ntos(var1), ntos(var2));
-                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_ROWS"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), gtd.*.screen.*.rows);
-                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_COLS"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), gtd.*.screen.*.cols);
+                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN SIZE"))))))), .{ntos(var1), ntos(var2)});
+                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_ROWS"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{gtd.*.screen.*.rows});
+                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_COLS"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{gtd.*.screen.*.cols});
                 break;
             },
             @as(c_int, 9) => {
                 gtd.*.screen.*.desk_rows = var1;
                 gtd.*.screen.*.desk_cols = var2;
-                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN DESKTOP SIZE"))))))), ntos(var1), ntos(var2));
-                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_DESKTOP_ROWS"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), gtd.*.screen.*.desk_rows);
-                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_DESKTOP_COLS"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), gtd.*.screen.*.desk_cols);
+                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN DESKTOP SIZE"))))))), .{ntos(var1), ntos(var2)});
+                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_DESKTOP_ROWS"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{gtd.*.screen.*.desk_rows});
+                msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_DESKTOP_COLS"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{gtd.*.screen.*.desk_cols});
                 break;
             },
             else => {
@@ -7997,7 +7997,7 @@ pub export fn rqlp_handler(arg_event: c_int, arg_button: c_int, arg_height: c_in
     info = if ((gtd.*.ses.*.config_flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0) @as(c_int, 1) else @as(c_int, 0);
     gtd.*.level.*.debug +%= @bitCast(@as(c_int, debug));
     gtd.*.level.*.info +%= @bitCast(@as(c_int, info));
-    _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 9, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN MOUSE LOCATION"))))))), ntos(row), ntos(col), ntos(rev_row), ntos(rev_col), ntos(char_height), ntos(char_width), ntos(rev_char_height), ntos(rev_char_width), grid[@bitCast(@as(isize, @intCast(grid_val)))]);
+    _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 9, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN MOUSE LOCATION"))))))), .{ntos(row), ntos(col), ntos(rev_row), ntos(rev_col), ntos(char_height), ntos(char_width), ntos(rev_char_height), ntos(rev_char_width), grid[@bitCast(@as(isize, @intCast(grid_val)))]});
     map_mouse_handler(gtd.*.ses, null, null, row, col, -@as(c_int, 1) - (gtd.*.screen.*.rows - row), -@as(c_int, 1) - (gtd.*.screen.*.cols - col), char_height, char_width);
     gtd.*.level.*.debug -%= @bitCast(@as(c_int, debug));
     gtd.*.level.*.info -%= @bitCast(@as(c_int, info));
@@ -8007,14 +8007,14 @@ pub export fn osc_handler(arg_ind: u8, arg_arg: [*c]u8) void {
     _ = &ind;
     var arg = arg_arg;
     _ = &arg;
-    tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("osc debug: [%c] (%s)"))))))), ind, arg);
+    tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("osc debug: [%c] (%s)"))))))), .{ind, arg});
 }
 pub export fn erase_scroll_region(arg_ses: [*c]struct_session) void {
     var ses = arg_ses;
     _ = &ses;
     var row: c_int = undefined;
     _ = &row;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("erase_scroll_region(%p) [%d,%d]"))))))), ses, ses.*.split.*.top_row, ses.*.split.*.bot_row);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("erase_scroll_region(%p) [%d,%d]"))))))), .{ses, ses.*.split.*.top_row, ses.*.split.*.bot_row});
     save_pos(ses);
     goto_pos(ses, ses.*.split.*.top_row, ses.*.split.*.top_col);
     {
@@ -8133,7 +8133,7 @@ pub export fn erase_square(arg_ses: [*c]struct_session, arg_top_row: c_int, arg_
     _ = &bot_col;
     var row: c_int = undefined;
     _ = &row;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("erase_square(%p,%d,%d,%d,%d)"))))))), ses, top_row, top_col, bot_row, bot_col);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("erase_square(%p,%d,%d,%d,%d)"))))))), .{ses, top_row, top_col, bot_row, bot_col});
     save_pos(ses);
     goto_pos(ses, top_row, top_col);
     {
@@ -8336,7 +8336,7 @@ pub export fn print_scroll_region(arg_ses: [*c]struct_session) void {
     _ = &height;
     var width: c_int = undefined;
     _ = &width;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("print_scroll_region(%p)"))))))), ses);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("print_scroll_region(%p)"))))))), .{ses});
     wrap = str_alloc_stack(0);
     save_pos(ses);
     {
@@ -8372,7 +8372,7 @@ pub export fn init_screen(arg_rows: c_int, arg_cols: c_int, arg_height: c_int, a
     _ = &width;
     var cnt: c_int = undefined;
     _ = &cnt;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("init_screen(%d,%d)"))))))), rows, cols);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("init_screen(%d,%d)"))))))), .{rows, cols});
     gtd.*.screen.*.rows = if (@as(c_int, 1) > rows) @as(c_int, 1) else rows;
     gtd.*.screen.*.cols = if (@as(c_int, 1) > cols) @as(c_int, 1) else cols;
     gtd.*.screen.*.height = if (@as(c_int, 1) > height) @as(c_int, 1) else height;
@@ -8441,7 +8441,7 @@ pub export fn add_line_screen(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg_
     _ = &tmp;
     var cnt: c_int = undefined;
     _ = &cnt;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("add_line_screen(%p,%p,%d)"))))))), ses, str, row);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("add_line_screen(%p,%p,%d)"))))))), .{ses, str, row});
     if (@as(?*anyopaque, @ptrCast(@alignCast(gtd.*.screen))) == @as(?*anyopaque, null)) {
         print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("screen == NULL!\n"))))))));
         pop_call();
@@ -8459,7 +8459,7 @@ pub export fn add_line_screen(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg_
     while (str != null) {
         cnt = gtd.*.ses.*.split.*.top_row - @as(c_int, 1);
         if ((cnt < @as(c_int, 0)) or (cnt >= gtd.*.ses.*.split.*.bot_row)) {
-            tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("add_line_screen debug: cnt = %d"))))))), cnt);
+            tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("add_line_screen debug: cnt = %d"))))))), .{cnt});
         }
         tmp = gtd.*.screen.*.line[@bitCast(@as(isize, @intCast(cnt)))].*.str;
         while (cnt < (gtd.*.ses.*.split.*.bot_row - @as(c_int, 2))) {
@@ -8488,14 +8488,14 @@ pub export fn set_line_screen(arg_ses: [*c]struct_session, arg_ins: [*c]u8, arg_
     _ = &row;
     var col = arg_col;
     _ = &col;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("set_line_screen(%p,%p,%d,%d)"))))))), ses, ins, row, col);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("set_line_screen(%p,%p,%d,%d)"))))))), .{ses, ins, row, col});
     if ((row <= @as(c_int, 0)) or (row > gtd.*.screen.*.rows)) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("set_line_screen debug: row = %d (%d)"))))))), row, gtd.*.screen.*.rows);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("set_line_screen debug: row = %d (%d)"))))))), .{row, gtd.*.screen.*.rows});
         pop_call();
         return;
     }
     if ((col <= @as(c_int, 0)) or (col > gtd.*.screen.*.cols)) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("set_line_screen debug: col = %d (%d)"))))))), col, gtd.*.screen.*.cols);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("set_line_screen debug: col = %d (%d)"))))))), .{col, gtd.*.screen.*.cols});
         dump_stack();
         pop_call();
         return;
@@ -8569,18 +8569,18 @@ pub extern fn new_session(ses: [*c]struct_session, name: [*c]u8, address: [*c]u8
 pub extern fn connect_session(ses: [*c]struct_session) [*c]struct_session;
 pub extern fn cleanup_session(ses: [*c]struct_session) void;
 pub extern fn dispose_session(ses: [*c]struct_session) void;
-pub extern fn show_message(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_error(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_debug(ses: [*c]struct_session, index: c_int, node: [*c]struct_listnode, format: [*c]u8, ...) void;
-pub extern fn show_info(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn tintin_header(ses: [*c]struct_session, width: c_int, format: [*c]u8, ...) void;
+pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
 pub extern fn socket_printf(ses: [*c]struct_session, length: usize, format: [*c]u8, ...) void;
 pub extern fn telnet_printf(ses: [*c]struct_session, length: c_int, format: [*c]u8, ...) void;
-pub extern fn print_lines(ses: [*c]struct_session, flags: c_int, color: [*c]u8, format: [*c]u8, ...) void;
+pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
 pub extern fn show_lines(ses: [*c]struct_session, color: [*c]u8, str: [*c]u8) void;
-pub extern fn tintin_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf2(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf3(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
 pub extern fn tintin_puts(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts2(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts3(ses: [*c]struct_session, string: [*c]u8, prompt: c_int) void;
@@ -8913,12 +8913,12 @@ pub export fn screen_clear(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg:
         bot_row = get_row_index_arg(ses, arg1);
         bot_col = get_col_index_arg(ses, arg2);
         if (bot_col == @as(c_int, 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN CLEAR SQUARE <ROW> <COL> <ROW> <COL>"))))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN CLEAR SQUARE <ROW> <COL> <ROW> <COL>"))))))), .{});
         } else {
             erase_square(ses, top_row, top_col, bot_row, bot_col);
         }
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN CLEAR {ALL|BOT|TOP|LEFT|RIGHT|SCROLL|INPUT|SPLIT|SQUARE}"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN CLEAR {ALL|BOT|TOP|LEFT|RIGHT|SCROLL|INPUT|SPLIT|SQUARE}"))))))), .{});
     }
 }
 pub export fn screen_cursor(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -8949,7 +8949,7 @@ pub export fn screen_cursor(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("STEADY")))))))) != 0) {
         screen_csi(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("?"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("12"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("l"))))))));
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {CURSOR} {HIDE|SHOW|BLINK|STEADY}"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {CURSOR} {HIDE|SHOW|BLINK|STEADY}"))))))), .{});
     }
 }
 pub export fn screen_dump(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -8989,53 +8989,53 @@ pub export fn screen_fill(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: 
     _ = &arg2;
     if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DEFAULT")))))))) != 0) {
         if ((ses.*.split.*.sav_top_col != 0) or (ses.*.split.*.sav_bot_col != 0)) {
-            _ = command(ses, do_screen, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CLEAR SPLIT"))))))));
+            _ = command(ses, do_screen, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CLEAR SPLIT"))))))), .{});
         }
         if (ses.*.split.*.top_row > @as(c_int, 1)) {
             if (ses.*.split.*.top_row == @as(c_int, 2)) {
-                _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s LINE %d %d %d %d"))))))), arg2, @as(c_int, 1), @as(c_int, 1), ses.*.split.*.top_row - @as(c_int, 1), gtd.*.screen.*.cols);
+                _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s LINE %d %d %d %d"))))))), .{arg2, @as(c_int, 1), @as(c_int, 1), ses.*.split.*.top_row - @as(c_int, 1), gtd.*.screen.*.cols});
             } else {
-                _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s BOX %d %d %d %d {}"))))))), arg2, @as(c_int, 1), @as(c_int, 1), ses.*.split.*.top_row - @as(c_int, 1), gtd.*.screen.*.cols);
+                _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s BOX %d %d %d %d {}"))))))), .{arg2, @as(c_int, 1), @as(c_int, 1), ses.*.split.*.top_row - @as(c_int, 1), gtd.*.screen.*.cols});
             }
         }
         if (ses.*.split.*.sav_bot_row != 0) {
             if ((ses.*.split.*.bot_row + inputline_max_row()) < gtd.*.screen.*.rows) {
                 if ((ses.*.split.*.bot_row + inputline_max_row()) == (gtd.*.screen.*.rows - @as(c_int, 1))) {
-                    _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s LINE %d %d %d %d"))))))), arg2, ses.*.split.*.bot_row + @as(c_int, 1), @as(c_int, 1), gtd.*.screen.*.rows - inputline_max_row(), gtd.*.screen.*.cols);
+                    _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s LINE %d %d %d %d"))))))), .{arg2, ses.*.split.*.bot_row + @as(c_int, 1), @as(c_int, 1), gtd.*.screen.*.rows - inputline_max_row(), gtd.*.screen.*.cols});
                 } else {
-                    _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s BOX %d %d %d %d {}"))))))), arg2, ses.*.split.*.bot_row + @as(c_int, 1), @as(c_int, 1), gtd.*.screen.*.rows - inputline_max_row(), gtd.*.screen.*.cols);
+                    _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s BOX %d %d %d %d {}"))))))), .{arg2, ses.*.split.*.bot_row + @as(c_int, 1), @as(c_int, 1), gtd.*.screen.*.rows - inputline_max_row(), gtd.*.screen.*.cols});
                 }
             }
         }
         if (ses.*.split.*.sav_top_row > @as(c_int, 0)) {
             if (ses.*.split.*.sav_top_col != 0) {
-                _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s VERTICAL TEED LINE %d %d %d %d"))))))), arg2, ses.*.split.*.top_row - @as(c_int, 1), ses.*.split.*.top_col - @as(c_int, 1), ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.top_col - @as(c_int, 1));
+                _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s VERTICAL TEED LINE %d %d %d %d"))))))), .{arg2, ses.*.split.*.top_row - @as(c_int, 1), ses.*.split.*.top_col - @as(c_int, 1), ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.top_col - @as(c_int, 1)});
                 if (ses.*.split.*.sav_top_col == @as(c_int, 1)) {
                     if (ses.*.split.*.sav_top_row > @as(c_int, 1)) {
-                        _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s HORIZONTAL TEED TOP LEFT CORNER %d %d %d %d"))))))), arg2, ses.*.split.*.top_row - @as(c_int, 1), ses.*.split.*.top_col - @as(c_int, 1), ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.bot_col + @as(c_int, 1));
+                        _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s HORIZONTAL TEED TOP LEFT CORNER %d %d %d %d"))))))), .{arg2, ses.*.split.*.top_row - @as(c_int, 1), ses.*.split.*.top_col - @as(c_int, 1), ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.bot_col + @as(c_int, 1)});
                     }
                     if (ses.*.split.*.sav_bot_row > @as(c_int, 1)) {
-                        _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s HORIZONTAL TEED BOTTOM LEFT CORNER %d %d %d %d"))))))), arg2, ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.top_col - @as(c_int, 1), ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.top_col - @as(c_int, 1));
+                        _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s HORIZONTAL TEED BOTTOM LEFT CORNER %d %d %d %d"))))))), .{arg2, ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.top_col - @as(c_int, 1), ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.top_col - @as(c_int, 1)});
                     }
                 }
             }
             if (ses.*.split.*.sav_bot_col != 0) {
-                _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s VERTICAL TEED LINE %d %d %d %d"))))))), arg2, ses.*.split.*.top_row - @as(c_int, 1), ses.*.split.*.bot_col + @as(c_int, 1), ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.bot_col + @as(c_int, 1));
+                _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s VERTICAL TEED LINE %d %d %d %d"))))))), .{arg2, ses.*.split.*.top_row - @as(c_int, 1), ses.*.split.*.bot_col + @as(c_int, 1), ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.bot_col + @as(c_int, 1)});
                 if (ses.*.split.*.sav_bot_col == @as(c_int, 1)) {
                     if (ses.*.split.*.sav_top_row > @as(c_int, 1)) {
-                        _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s HORIZONTAL TEED TOP RIGHT CORNER %d %d %d %d"))))))), arg2, ses.*.split.*.top_row - @as(c_int, 1), ses.*.split.*.bot_col + @as(c_int, 1), ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.bot_col + @as(c_int, 1));
+                        _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s HORIZONTAL TEED TOP RIGHT CORNER %d %d %d %d"))))))), .{arg2, ses.*.split.*.top_row - @as(c_int, 1), ses.*.split.*.bot_col + @as(c_int, 1), ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.bot_col + @as(c_int, 1)});
                     }
                     if (ses.*.split.*.sav_bot_row > @as(c_int, 1)) {
-                        _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s HORIZONTAL TEED BOTTOM RIGHT CORNER %d %d %d %d"))))))), arg2, ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.bot_col + @as(c_int, 1), ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.bot_col + @as(c_int, 1));
+                        _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s HORIZONTAL TEED BOTTOM RIGHT CORNER %d %d %d %d"))))))), .{arg2, ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.bot_col + @as(c_int, 1), ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.bot_col + @as(c_int, 1)});
                     }
                 }
             }
         } else {
             if (ses.*.split.*.sav_top_col != 0) {
-                _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s BOT TEED LINE %d %d %d %d"))))))), arg2, ses.*.split.*.top_row, ses.*.split.*.top_col - @as(c_int, 1), ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.top_col - @as(c_int, 1));
+                _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s BOT TEED LINE %d %d %d %d"))))))), .{arg2, ses.*.split.*.top_row, ses.*.split.*.top_col - @as(c_int, 1), ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.top_col - @as(c_int, 1)});
             }
             if (ses.*.split.*.sav_bot_col != 0) {
-                _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s BOT TEED LINE %d %d %d %d"))))))), arg2, ses.*.split.*.top_row, ses.*.split.*.bot_col + @as(c_int, 1), ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.bot_col + @as(c_int, 1));
+                _ = command(ses, do_draw, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s BOT TEED LINE %d %d %d %d"))))))), .{arg2, ses.*.split.*.top_row, ses.*.split.*.bot_col + @as(c_int, 1), ses.*.split.*.bot_row + @as(c_int, 1), ses.*.split.*.bot_col + @as(c_int, 1)});
             }
         }
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SPLIT")))))))) != 0) {
@@ -9051,7 +9051,7 @@ pub export fn screen_fill(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: 
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCROLL")))))))) != 0) {
         fill_scroll_region(ses, arg2);
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN FILL {TOP|BOT|LEFT|RIGHT|SCROLL|SPLIT|DEFAULT} <ARGUMENT>"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN FILL {TOP|BOT|LEFT|RIGHT|SCROLL|SPLIT|DEFAULT} <ARGUMENT>"))))))), .{});
     }
 }
 pub export fn screen_focus(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -9098,15 +9098,15 @@ pub export fn screen_get(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: [
     var arg2 = arg_arg2;
     _ = &arg2;
     if ((@as(c_int, arg1.*) == @as(c_int, 0)) or (@as(c_int, arg2.*) == @as(c_int, 0))) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {FOCUS} <VAR>"))))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {ROWS|COLS|HEIGHT|WIDTH} <VAR>"))))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {CHAR_HEIGHT|CHAR_WIDTH}"))))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {SPLIT_TOP_BAR|SPLIT_BOT_BAR|SPLIT_LEFT_BAR|SPLIT_RIGHT_BAR} <VAR>"))))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {SCROLL_TOP_ROW|SCROLL_TOP_COL|SCROLL_BOT_ROW|SCROLL_BOT_COL} <VAR>"))))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {INPUT_TOP_ROW|INPUT_TOP_COL|INPUT_BOT_ROW|INPUT_BOT_COL} <VAR>"))))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {SCROLL_ROWS|SCROLL_COLS|INPUT_ROWS|INPUT_COLS} <VAR>"))))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {INPUT_NAME} <VAR>"))))))));
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {CUR_ROW|CUR_COL} <VAR>"))))))));
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {FOCUS} <VAR>"))))))), .{});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {ROWS|COLS|HEIGHT|WIDTH} <VAR>"))))))), .{});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {CHAR_HEIGHT|CHAR_WIDTH}"))))))), .{});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {SPLIT_TOP_BAR|SPLIT_BOT_BAR|SPLIT_LEFT_BAR|SPLIT_RIGHT_BAR} <VAR>"))))))), .{});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {SCROLL_TOP_ROW|SCROLL_TOP_COL|SCROLL_BOT_ROW|SCROLL_BOT_COL} <VAR>"))))))), .{});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {INPUT_TOP_ROW|INPUT_TOP_COL|INPUT_BOT_ROW|INPUT_BOT_COL} <VAR>"))))))), .{});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {SCROLL_ROWS|SCROLL_COLS|INPUT_ROWS|INPUT_COLS} <VAR>"))))))), .{});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {INPUT_NAME} <VAR>"))))))), .{});
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {GET} {CUR_ROW|CUR_COL} <VAR>"))))))), .{});
         return;
     }
     @as([*c]u8, @ptrCast(@alignCast(&gtd.*.is_result))).* = 0;
@@ -9114,81 +9114,81 @@ pub export fn screen_get(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: [
         switch (__helpers.signedRemainder(@as(c_int, arg1.*), @as(c_int, 32))) {
             CTRL_C => {
                 if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CHAR_HEIGHT")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), gtd.*.screen.*.char_height);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{gtd.*.screen.*.char_height});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CHAR_WIDTH")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), gtd.*.screen.*.char_width);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{gtd.*.screen.*.char_width});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("COLS")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), gtd.*.screen.*.cols);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{gtd.*.screen.*.cols});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CUR_COL")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), ses.*.cur_col);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{ses.*.cur_col});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CUR_ROW")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), ses.*.cur_row);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{ses.*.cur_row});
                 }
                 break;
             },
             CTRL_F => {
                 if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("FOCUS")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), gtd.*.screen.*.focus);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{gtd.*.screen.*.focus});
                 }
                 break;
             },
             CTRL_H => {
                 if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("HEIGHT")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), gtd.*.screen.*.height);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{gtd.*.screen.*.height});
                 }
                 break;
             },
             CTRL_I => {
                 if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("INPUT_ROWS")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), (@as(c_int, 1) + ses.*.input.*.bot_row) - ses.*.input.*.top_row);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{(@as(c_int, 1) + ses.*.input.*.bot_row) - ses.*.input.*.top_row});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("INPUT_COLS")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), (@as(c_int, 1) + ses.*.input.*.bot_col) - ses.*.input.*.top_col);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{(@as(c_int, 1) + ses.*.input.*.bot_col) - ses.*.input.*.top_col});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("INPUT_NAME")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), ses.*.input.*.line_name);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{ses.*.input.*.line_name});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("INPUT_TOP_ROW")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), ses.*.input.*.top_row);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{ses.*.input.*.top_row});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("INPUT_TOP_COL")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), ses.*.input.*.top_col);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{ses.*.input.*.top_col});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("INPUT_BOT_ROW")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), ses.*.input.*.bot_row);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{ses.*.input.*.bot_row});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("INPUT_BOT_COL")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), ses.*.input.*.bot_col);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{ses.*.input.*.bot_col});
                 }
                 break;
             },
             CTRL_R => {
                 if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ROWS")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), gtd.*.screen.*.rows);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{gtd.*.screen.*.rows});
                 }
                 break;
             },
             CTRL_S => {
                 if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SPLIT_TOP_BAR")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), ses.*.split.*.sav_top_row);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{ses.*.split.*.sav_top_row});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SPLIT_LEFT_BAR")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), ses.*.split.*.sav_top_col);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{ses.*.split.*.sav_top_col});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SPLIT_BOT_BAR")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), ses.*.split.*.sav_bot_row);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{ses.*.split.*.sav_bot_row});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SPLIT_RIGHT_BAR")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), ses.*.split.*.sav_bot_col);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{ses.*.split.*.sav_bot_col});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCROLL_ROWS")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), get_scroll_rows(ses));
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{get_scroll_rows(ses)});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCROLL_COLS")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), get_scroll_cols(ses));
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{get_scroll_cols(ses)});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCROLL_TOP_ROW")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), ses.*.split.*.top_row);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{ses.*.split.*.top_row});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCROLL_TOP_COL")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), ses.*.split.*.top_col);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{ses.*.split.*.top_col});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCROLL_BOT_ROW")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), ses.*.split.*.bot_row);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{ses.*.split.*.bot_row});
                 } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCROLL_BOT_COL")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), ses.*.split.*.bot_col);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{ses.*.split.*.bot_col});
                 }
                 break;
             },
             CTRL_W => {
                 if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("WIDTH")))))))) != 0) {
-                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), gtd.*.screen.*.width);
+                    _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), .{gtd.*.screen.*.width});
                 }
                 break;
             },
@@ -9219,8 +9219,8 @@ pub export fn screen_info(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: 
     _ = &max;
     if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SAVE")))))))) != 0) {
         _ = strcpy(arg2, "info[SCREEN]");
-        _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{SCROLLMODE}{%d}"))))))), gtd.*.screen.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 6))));
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO: DATA WRITTEN TO {info[SCREEN]}"))))))));
+        _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{SCROLLMODE}{%d}"))))))), .{gtd.*.screen.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))});
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO: DATA WRITTEN TO {info[SCREEN]}"))))))), .{});
         return;
     }
     if (@as(c_int, arg1.*) != 0) {
@@ -9228,49 +9228,49 @@ pub export fn screen_info(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: 
         print_screen();
         return;
     }
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->split->sav_top_row: %4d"))))))), gtd.*.ses.*.split.*.sav_top_row);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->split->sav_top_col: %4d"))))))), gtd.*.ses.*.split.*.sav_top_col);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->split->sav_bot_row: %4d"))))))), gtd.*.ses.*.split.*.sav_bot_row);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->split->sav_bot_col: %4d"))))))), gtd.*.ses.*.split.*.sav_bot_col);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->split->top_row:     %4d"))))))), gtd.*.ses.*.split.*.top_row);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->split->top_col:     %4d"))))))), gtd.*.ses.*.split.*.top_col);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->split->bot_row:     %4d"))))))), gtd.*.ses.*.split.*.bot_row);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->split->bot_col:     %4d"))))))), gtd.*.ses.*.split.*.bot_col);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->wrap:           %4d"))))))), gtd.*.ses.*.wrap);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->cur_row:        %4d"))))))), gtd.*.ses.*.cur_row);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->cur_col:        %4d"))))))), gtd.*.ses.*.cur_col);
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->split->sav_top_row: %4d"))))))), .{gtd.*.ses.*.split.*.sav_top_row});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->split->sav_top_col: %4d"))))))), .{gtd.*.ses.*.split.*.sav_top_col});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->split->sav_bot_row: %4d"))))))), .{gtd.*.ses.*.split.*.sav_bot_row});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->split->sav_bot_col: %4d"))))))), .{gtd.*.ses.*.split.*.sav_bot_col});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->split->top_row:     %4d"))))))), .{gtd.*.ses.*.split.*.top_row});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->split->top_col:     %4d"))))))), .{gtd.*.ses.*.split.*.top_col});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->split->bot_row:     %4d"))))))), .{gtd.*.ses.*.split.*.bot_row});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->split->bot_col:     %4d"))))))), .{gtd.*.ses.*.split.*.bot_col});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->wrap:           %4d"))))))), .{gtd.*.ses.*.wrap});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->cur_row:        %4d"))))))), .{gtd.*.ses.*.cur_row});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->ses->cur_col:        %4d"))))))), .{gtd.*.ses.*.cur_col});
     {
         lvl = 0;
         while (lvl < gtd.*.screen.*.sav_lev) : (lvl += 1) {
-            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->sav_row[%2d]: %4d"))))))), lvl, @as([*c]c_int, @ptrCast(&gtd.*.screen.*.sav_row))[@bitCast(@as(isize, @intCast(lvl)))]);
-            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->sav_col[%2d]: %4d"))))))), lvl, @as([*c]c_int, @ptrCast(&gtd.*.screen.*.sav_col))[@bitCast(@as(isize, @intCast(lvl)))]);
+            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->sav_row[%2d]: %4d"))))))), .{lvl, @as([*c]c_int, @ptrCast(&gtd.*.screen.*.sav_row))[@bitCast(@as(isize, @intCast(lvl)))]});
+            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->sav_col[%2d]: %4d"))))))), .{lvl, @as([*c]c_int, @ptrCast(&gtd.*.screen.*.sav_col))[@bitCast(@as(isize, @intCast(lvl)))]});
         }
     }
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->rows:        %4d"))))))), gtd.*.screen.*.rows);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->cols:        %4d"))))))), gtd.*.screen.*.cols);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->height:      %4d"))))))), gtd.*.screen.*.height);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->width:       %4d"))))))), gtd.*.screen.*.width);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->tot_height:  %4d"))))))), gtd.*.screen.*.tot_height);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->tot_width:   %4d"))))))), gtd.*.screen.*.tot_width);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->char_height: %4d"))))))), gtd.*.screen.*.char_height);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->char_width:  %4d"))))))), gtd.*.screen.*.char_width);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->top_row:     %4d"))))))), gtd.*.screen.*.top_row);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->bot_row:     %4d"))))))), gtd.*.screen.*.bot_row);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->cur_row:     %4d"))))))), gtd.*.screen.*.cur_row);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->cur_col:     %4d"))))))), gtd.*.screen.*.cur_col);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->max_row:     %4d"))))))), gtd.*.screen.*.max_row);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->desk_rows:   %4d"))))))), gtd.*.screen.*.desk_rows);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->desk_cols:   %4d"))))))), gtd.*.screen.*.desk_cols);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->desk_height: %4d"))))))), gtd.*.screen.*.desk_height);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->desk_width:  %4d"))))))), gtd.*.screen.*.desk_width);
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->minimized:   %4d"))))))), gtd.*.screen.*.minimized);
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->rows:        %4d"))))))), .{gtd.*.screen.*.rows});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->cols:        %4d"))))))), .{gtd.*.screen.*.cols});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->height:      %4d"))))))), .{gtd.*.screen.*.height});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->width:       %4d"))))))), .{gtd.*.screen.*.width});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->tot_height:  %4d"))))))), .{gtd.*.screen.*.tot_height});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->tot_width:   %4d"))))))), .{gtd.*.screen.*.tot_width});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->char_height: %4d"))))))), .{gtd.*.screen.*.char_height});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->char_width:  %4d"))))))), .{gtd.*.screen.*.char_width});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->top_row:     %4d"))))))), .{gtd.*.screen.*.top_row});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->bot_row:     %4d"))))))), .{gtd.*.screen.*.bot_row});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->cur_row:     %4d"))))))), .{gtd.*.screen.*.cur_row});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->cur_col:     %4d"))))))), .{gtd.*.screen.*.cur_col});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->max_row:     %4d"))))))), .{gtd.*.screen.*.max_row});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->desk_rows:   %4d"))))))), .{gtd.*.screen.*.desk_rows});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->desk_cols:   %4d"))))))), .{gtd.*.screen.*.desk_cols});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->desk_height: %4d"))))))), .{gtd.*.screen.*.desk_height});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->desk_width:  %4d"))))))), .{gtd.*.screen.*.desk_width});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->minimized:   %4d"))))))), .{gtd.*.screen.*.minimized});
     if (!((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) and (gtd.*.screen.*.rows != ses.*.split.*.bot_row)) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SPLIT mode detected."))))))));
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SPLIT mode detected."))))))), .{});
     }
     {
         cnt = blk: {
@@ -9282,7 +9282,7 @@ pub export fn screen_info(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: 
             max += str_len(gtd.*.screen.*.line[@bitCast(@as(isize, @intCast(cnt)))].*.str);
         }
     }
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->line[%4d]:  %4d"))))))), gtd.*.screen.*.max_row, max);
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->line[%4d]:  %4d"))))))), .{gtd.*.screen.*.max_row, max});
     {
         cnt = blk: {
             const tmp = @as(c_int, 0);
@@ -9293,7 +9293,7 @@ pub export fn screen_info(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: 
             max += str_len(gtd.*.screen.*.grid[@bitCast(@as(isize, @intCast(cnt)))].*.str);
         }
     }
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->grid[%4d]:  %4d"))))))), gtd.*.screen.*.max_row, max);
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gtd->screen->grid[%4d]:  %4d"))))))), .{gtd.*.screen.*.max_row, max});
     return;
 }
 pub export fn screen_inputregion(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -9320,7 +9320,7 @@ pub export fn screen_inputregion(arg_ses: [*c]struct_session, arg_ind: c_int, ar
         return;
     }
     if ((((@as(c_int, arg1.*) == @as(c_int, 0)) or (@as(c_int, arg2.*) == @as(c_int, 0))) or !(is_math(ses, arg1) != 0)) or !(is_math(ses, arg2) != 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN INPUTREGION <TOP ROW> <TOP COL> <BOT ROW> <BOT COL>"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN INPUTREGION <TOP ROW> <TOP COL> <BOT ROW> <BOT COL>"))))))), .{});
         return;
     }
     top_row = @intFromFloat(get_number(ses, arg1));
@@ -9328,7 +9328,7 @@ pub export fn screen_inputregion(arg_ses: [*c]struct_session, arg_ind: c_int, ar
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (((@as(c_int, arg1.*) != 0) and !(is_math(ses, arg1) != 0)) or ((@as(c_int, arg2.*) != 0) and !(is_math(ses, arg2) != 0))) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN INPUT <TOP ROW> <TOP COL> <BOT ROW> <BOT COL>"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN INPUT <TOP ROW> <TOP COL> <BOT ROW> <BOT COL>"))))))), .{});
         return;
     }
     bot_row = @intFromFloat(get_number(ses, arg1));
@@ -9358,7 +9358,7 @@ pub export fn screen_load(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: 
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TITLE")))))))) != 0) {
         screen_csit(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("23"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("2"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {LOAD} {LABEL|NAME|TITLE}"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {LOAD} {LABEL|NAME|TITLE}"))))))), .{});
     }
 }
 pub export fn screen_maximize(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -9381,7 +9381,7 @@ pub export fn screen_maximize(arg_ses: [*c]struct_session, arg_ind: c_int, arg_a
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VERTICALLY")))))))) != 0) {
         screen_csit(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("9"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("2"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {MAXIMIZE} {ON|OFF|VERTICAL|HORIZONTAL}"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {MAXIMIZE} {ON|OFF|VERTICAL|HORIZONTAL}"))))))), .{});
     }
 }
 pub export fn screen_minimize(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -9400,7 +9400,7 @@ pub export fn screen_minimize(arg_ses: [*c]struct_session, arg_ind: c_int, arg_a
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("OFF")))))))) != 0) {
         screen_csit(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("1"))))))), arg2, arg2);
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {MINIMIZE} {ON|OFF}"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {MINIMIZE} {ON|OFF}"))))))), .{});
     }
 }
 pub export fn screen_move(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -9419,29 +9419,29 @@ pub export fn screen_move(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: 
     var width: c_int = undefined;
     _ = &width;
     if (!(is_math(ses, arg1) != 0) or !(is_math(ses, arg2) != 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {MOVE} {HEIGHT} {WIDTH}"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {MOVE} {HEIGHT} {WIDTH}"))))))), .{});
         return;
     }
     height = @intFromFloat(get_number(ses, arg1));
     width = @intFromFloat(get_number(ses, arg2));
     if (height < @as(c_int, 0)) {
         if (gtd.*.screen.*.desk_height == @as(c_int, 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #SCREEN MOVE %d %d: USE #SCREEN RAISE DESKTOP DIMENSIONS FIRST."))))))), height, width);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #SCREEN MOVE %d %d: USE #SCREEN RAISE DESKTOP DIMENSIONS FIRST."))))))), .{height, width});
             return;
         }
         if (gtd.*.screen.*.tot_height == @as(c_int, 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #SCREEN MOVE %d %d: USE #SCREEN RAISE SCREEN DIMENSIONS FIRST."))))))), height, width);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #SCREEN MOVE %d %d: USE #SCREEN RAISE SCREEN DIMENSIONS FIRST."))))))), .{height, width});
             return;
         }
         _ = sprintf(arg1, "%d", ((@as(c_int, 1) + gtd.*.screen.*.desk_height) - gtd.*.screen.*.tot_height) + height);
     }
     if (width < @as(c_int, 0)) {
         if (gtd.*.screen.*.desk_width == @as(c_int, 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #SCREEN MOVE %d %d: USE #SCREEN RAISE DESKTOP DIMENSIONS FIRST."))))))), height, width);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #SCREEN MOVE %d %d: USE #SCREEN RAISE DESKTOP DIMENSIONS FIRST."))))))), .{height, width});
             return;
         }
         if (gtd.*.screen.*.tot_width == @as(c_int, 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #SCREEN MOVE %d %d: USE #SCREEN RAISE SCREEN DIMENSIONS FIRST."))))))), height, width);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #SCREEN MOVE %d %d: USE #SCREEN RAISE SCREEN DIMENSIONS FIRST."))))))), .{height, width});
             return;
         }
         _ = sprintf(arg2, "%d", ((@as(c_int, 1) + gtd.*.screen.*.desk_width) - gtd.*.screen.*.tot_width) + width);
@@ -9473,14 +9473,14 @@ pub export fn screen_raise(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg:
     var arg2 = arg_arg2;
     _ = &arg2;
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RAISE} {SCREEN CHARACTER DIMENSIONS}"))))))));
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RAISE} {SCREEN DESKTOP DIMENSIONS}"))))))));
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RAISE} {SCREEN DIMENSIONS}"))))))));
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RAISE} {SCREEN MINIMIZED}"))))))));
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RAISE} {SCREEN MOUSE LOCATION}"))))))));
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RAISE} {SCREEN LOCATION}"))))))));
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RAISE} {SCREEN RESIZE}"))))))));
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RAISE} {SCREEN SIZE}"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RAISE} {SCREEN CHARACTER DIMENSIONS}"))))))), .{});
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RAISE} {SCREEN DESKTOP DIMENSIONS}"))))))), .{});
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RAISE} {SCREEN DIMENSIONS}"))))))), .{});
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RAISE} {SCREEN MINIMIZED}"))))))), .{});
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RAISE} {SCREEN MOUSE LOCATION}"))))))), .{});
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RAISE} {SCREEN LOCATION}"))))))), .{});
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RAISE} {SCREEN RESIZE}"))))))), .{});
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RAISE} {SCREEN SIZE}"))))))), .{});
         return;
     }
     if (is_abbrev(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN "))))))), arg1) != 0) {
@@ -9497,7 +9497,7 @@ pub export fn screen_raise(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg:
     } else if ((is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("LOCATION")))))))) != 0) or (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("POSITION")))))))) != 0)) {
         screen_csit(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("13"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RESIZE")))))))) != 0) {
-        _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN RESIZE"))))))), ntos(gtd.*.screen.*.rows), ntos(gtd.*.screen.*.cols), ntos(gtd.*.screen.*.height), ntos(gtd.*.screen.*.width));
+        _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN RESIZE"))))))), .{ntos(gtd.*.screen.*.rows), ntos(gtd.*.screen.*.cols), ntos(gtd.*.screen.*.height), ntos(gtd.*.screen.*.width)});
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SIZE")))))))) != 0) {
         screen_csit(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("18"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DIMENSIONS")))))))) != 0) {
@@ -9537,13 +9537,13 @@ pub export fn screen_resize(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg
         if ((@as(c_int, arg2.*) == @as(c_int, 0)) or (is_math(ses, arg2) != 0)) {
             screen_csit(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("8"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), arg2);
         } else {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {SIZE} {HORIZONTALLY} [COLS]"))))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {SIZE} {HORIZONTALLY} [COLS]"))))))), .{});
         }
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VERTICALLY")))))))) != 0) {
         if ((@as(c_int, arg2.*) == @as(c_int, 0)) or (is_math(ses, arg2) != 0)) {
             screen_csit(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("8"))))))), arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))));
         } else {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {SIZE} {VERTICALLY} [ROWS]"))))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {SIZE} {VERTICALLY} [ROWS]"))))))), .{});
         }
     } else if ((@as(c_int, arg1.*) != @as(c_int, 0)) or (@as(c_int, arg2.*) != @as(c_int, 0))) {
         if ((((@as(c_int, arg1.*) != @as(c_int, 0)) and (@as(c_int, arg2.*) != @as(c_int, 0))) and (is_math(ses, arg1) != 0)) and (is_math(ses, arg2) != 0)) {
@@ -9556,9 +9556,9 @@ pub export fn screen_resize(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg
             screen_resize(ses, 0, arg, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         }
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {SIZE} [ROWS] [COLS]"))))))));
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {SIZE} {VERTICALLY} <ROWS>"))))))));
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {SIZE} {HORIZONTALLY} <COLS>"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {SIZE} [ROWS] [COLS]"))))))), .{});
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {SIZE} {VERTICALLY} <ROWS>"))))))), .{});
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {SIZE} {HORIZONTALLY} <COLS>"))))))), .{});
     }
 }
 pub export fn screen_rescale(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -9576,13 +9576,13 @@ pub export fn screen_rescale(arg_ses: [*c]struct_session, arg_ind: c_int, arg_ar
         if (@as(c_int, arg2.*) == @as(c_int, 0)) {
             screen_csit(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("4"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), arg2);
         } else {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RESCALE} {HORIZONTALLY} [WIDTH]"))))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RESCALE} {HORIZONTALLY} [WIDTH]"))))))), .{});
         }
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VERTICALLY")))))))) != 0) {
         if (@as(c_int, arg2.*) == @as(c_int, 0)) {
             screen_csit(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("4"))))))), arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         } else {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RESCALE} {VERTICALLY} [HEIGHT]"))))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RESCALE} {VERTICALLY} [HEIGHT]"))))))), .{});
         }
     } else if ((@as(c_int, arg1.*) == @as(c_int, 0)) or (is_math(ses, arg1) != 0)) {
         if ((@as(c_int, arg2.*) == @as(c_int, 0)) or (is_math(ses, arg2) != 0)) {
@@ -9591,9 +9591,9 @@ pub export fn screen_rescale(arg_ses: [*c]struct_session, arg_ind: c_int, arg_ar
             screen_rescale(ses, 0, arg, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SYNTAX"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         }
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RESCALE} [HEIGHT] [WIDTH]"))))))));
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RESCALE} {VERTICALLY} <HEIGHT>"))))))));
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RESCALE} {HORIZONTALLY} <WIDTH>"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RESCALE} [HEIGHT] [WIDTH]"))))))), .{});
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RESCALE} {VERTICALLY} <HEIGHT>"))))))), .{});
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {RESCALE} {HORIZONTALLY} <WIDTH>"))))))), .{});
     }
 }
 pub export fn screen_save(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -9614,7 +9614,7 @@ pub export fn screen_save(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: 
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TITLE")))))))) != 0) {
         screen_csit(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("22"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("2"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {SAVE} {BOTH|LABEL|TITLE}"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {SAVE} {BOTH|LABEL|TITLE}"))))))), .{});
     }
 }
 pub export fn screen_scrollbar(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -9639,7 +9639,7 @@ pub export fn screen_scrollbar(arg_ses: [*c]struct_session, arg_ind: c_int, arg_
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SHOW")))))))) != 0) {
         screen_csi(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("?"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("30"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("h"))))))));
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {SCROLLBAR} {ON|OFF|HIDE|SHOW}"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {SCROLLBAR} {ON|OFF|HIDE|SHOW}"))))))), .{});
     }
 }
 pub export fn screen_scrollregion(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -9662,7 +9662,7 @@ pub export fn screen_scrollregion(arg_ses: [*c]struct_session, arg_ind: c_int, a
     var bot_col: c_int = undefined;
     _ = &bot_col;
     if (((@as(c_int, arg1.*) != 0) and !(is_math(ses, arg1) != 0)) or ((@as(c_int, arg2.*) != 0) and !(is_math(ses, arg2) != 0))) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN SCROLLREGION <TOP ROW> <TOP COL> <BOT ROW> <BOT COL>"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN SCROLLREGION <TOP ROW> <TOP COL> <BOT ROW> <BOT COL>"))))))), .{});
         return;
     }
     top_row = @intFromFloat(get_number(ses, arg1));
@@ -9670,13 +9670,13 @@ pub export fn screen_scrollregion(arg_ses: [*c]struct_session, arg_ind: c_int, a
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (((@as(c_int, arg1.*) != 0) and !(is_math(ses, arg1) != 0)) or ((@as(c_int, arg2.*) != 0) and !(is_math(ses, arg2) != 0))) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN SCROLL <TOP ROW> <TOP COL> <BOT ROW> <BOT COL>"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN SCROLL <TOP ROW> <TOP COL> <BOT ROW> <BOT COL>"))))))), .{});
         return;
     }
     bot_row = @intFromFloat(get_number(ses, arg1));
     bot_col = @intFromFloat(get_number(ses, arg2));
     if ((((top_row | top_col) | bot_row) | bot_col) == @as(c_int, 0)) {
-        _ = command(ses, do_unsplit, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+        _ = command(ses, do_unsplit, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
         return;
     }
     ses.*.split.*.sav_top_row = top_row;
@@ -9722,7 +9722,7 @@ pub export fn screen_set(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: [
     } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TITLE")))))))) != 0) {
         screen_osc(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("2"))))))), arg2);
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {SET} {COLS|ROWS|LABEL|NAME|TITLE} <ARG>"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SCREEN {SET} {COLS|ROWS|LABEL|NAME|TITLE} <ARG>"))))))), .{});
     }
 }
 pub export fn screen_swap(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -9736,7 +9736,7 @@ pub export fn screen_swap(arg_ses: [*c]struct_session, arg_ind: c_int, arg_arg: 
     _ = &arg1;
     var arg2 = arg_arg2;
     _ = &arg2;
-    _ = command(ses, do_split, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d %d %d"))))))), ses.*.split.*.sav_top_row, if (@as(c_int, 0) > (((gtd.*.screen.*.rows - inputline_rows(ses)) - get_scroll_rows(ses)) - @as(c_int, 1))) @as(c_int, 0) else ((gtd.*.screen.*.rows - inputline_rows(ses)) - get_scroll_rows(ses)) - @as(c_int, 1), ses.*.split.*.sav_top_col, ses.*.split.*.sav_bot_col, get_scroll_rows(ses));
+    _ = command(ses, do_split, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d %d %d %d %d"))))))), .{ses.*.split.*.sav_top_row, if (@as(c_int, 0) > (((gtd.*.screen.*.rows - inputline_rows(ses)) - get_scroll_rows(ses)) - @as(c_int, 1))) @as(c_int, 0) else ((gtd.*.screen.*.rows - inputline_rows(ses)) - get_scroll_rows(ses)) - @as(c_int, 1), ses.*.split.*.sav_top_col, ses.*.split.*.sav_bot_col, get_scroll_rows(ses)});
 }
 pub const SCREEN = fn (ses: [*c]struct_session, ind: c_int, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8) callconv(.c) void;
 pub const struct_screen_type = extern struct {

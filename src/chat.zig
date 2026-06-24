@@ -6440,7 +6440,7 @@ pub const struct_session = extern struct {
     pub const edit_suspend = __root.edit_suspend;
     pub const edit_write = __root.edit_write;
     pub const do_draw = __root.do_draw;
-    pub const check_all_events = __root.check_all_events;
+    pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
     pub const mouse_handler = __root.mouse_handler;
     pub const do_read = __root.do_read;
     pub const do_write = __root.do_write;
@@ -6486,14 +6486,14 @@ pub const struct_session = extern struct {
     pub const logit = __root.logit;
     pub const write_html_header = __root.write_html_header;
     pub const vt102_to_html = __root.vt102_to_html;
-    pub const syserr_printf = __root.syserr_printf;
+    pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
     pub const do_end = __root.do_end;
     pub const do_nop = __root.do_nop;
     pub const do_test = __root.do_test;
-    pub const arachnos_devel = __root.arachnos_devel;
-    pub const arachnos_mudlist = __root.arachnos_mudlist;
+    pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+    pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
     pub const msdp_update_var = __root.msdp_update_var;
-    pub const msdp_update_varf = __root.msdp_update_varf;
+    pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
     pub const msdp_update_var_instant = __root.msdp_update_var_instant;
     pub const msdp_send_update = __root.msdp_send_update;
     pub const msdp_get_var = __root.msdp_get_var;
@@ -6507,16 +6507,16 @@ pub const struct_session = extern struct {
     pub const write_msdp_to_descriptor = __root.write_msdp_to_descriptor;
     pub const search_nest_base_ses = __root.search_nest_base_ses;
     pub const search_nest_node_ses = __root.search_nest_node_ses;
-    pub const set_nest_node_ses = __root.set_nest_node_ses;
-    pub const add_nest_node_ses = __root.add_nest_node_ses;
+    pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
     pub const connect_mud = __root.connect_mud;
     pub const write_line_mud = __root.write_line_mud;
     pub const read_buffer_mud = __root.read_buffer_mud;
     pub const readmud = __root.readmud;
     pub const process_more_output = __root.process_more_output;
     pub const process_one_line = __root.process_one_line;
-    pub const execute = __root.execute;
-    pub const command = __root.command;
+    pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+    pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
     pub const parse_input = __root.parse_input;
     pub const parse_command = __root.parse_command;
     pub const is_speedwalk = __root.is_speedwalk;
@@ -6585,10 +6585,10 @@ pub const struct_session = extern struct {
     pub const close_port = __root.close_port;
     pub const process_port_connections = __root.process_port_connections;
     pub const port_forward_session = __root.port_forward_session;
-    pub const port_socket_printf = __root.port_socket_printf;
-    pub const port_telnet_printf = __root.port_telnet_printf;
-    pub const port_log_printf = __root.port_log_printf;
-    pub const port_printf = __root.port_printf;
+    pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+    pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+    pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+    pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
     pub const process_port_input = __root.process_port_input;
     pub const get_port_commands = __root.get_port_commands;
     pub const port_name_change = __root.port_name_change;
@@ -6630,18 +6630,18 @@ pub const struct_session = extern struct {
     pub const connect_session = __root.connect_session;
     pub const cleanup_session = __root.cleanup_session;
     pub const dispose_session = __root.dispose_session;
-    pub const show_message = __root.show_message;
-    pub const show_error = __root.show_error;
-    pub const show_debug = __root.show_debug;
-    pub const show_info = __root.show_info;
-    pub const tintin_header = __root.tintin_header;
+    pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+    pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+    pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+    pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+    pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
     pub const socket_printf = __root.socket_printf;
     pub const telnet_printf = __root.telnet_printf;
-    pub const print_lines = __root.print_lines;
+    pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
     pub const show_lines = __root.show_lines;
-    pub const tintin_printf = __root.tintin_printf;
-    pub const tintin_printf2 = __root.tintin_printf2;
-    pub const tintin_printf3 = __root.tintin_printf3;
+    pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+    pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+    pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
     pub const tintin_puts = __root.tintin_puts;
     pub const tintin_puts2 = __root.tintin_puts2;
     pub const tintin_puts3 = __root.tintin_puts3;
@@ -7019,8 +7019,8 @@ pub const struct_listroot = extern struct {
     pub const get_nest_node_key = __root.get_nest_node_key;
     pub const get_nest_node_val = __root.get_nest_node_val;
     pub const get_nest_index = __root.get_nest_index;
-    pub const set_nest_node = __root.set_nest_node;
-    pub const add_nest_node = __root.add_nest_node;
+    pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
     pub const copy_nest_node = __root.copy_nest_node;
     pub const node = __root.show_node;
     pub const root = __root.search_nest_root;
@@ -7067,7 +7067,7 @@ pub const struct_chat_data = extern struct {
     file_block_tot: c_int = 0,
     file_block_patch: c_int = 0,
     file_start_time: c_ulonglong = 0,
-    pub const chat_socket_printf = __root.chat_socket_printf;
+    pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
     pub const close_chat = __root.close_chat;
     pub const process_chat_input = __root.process_chat_input;
     pub const get_chat_commands = __root.get_chat_commands;
@@ -7463,14 +7463,14 @@ pub export fn do_chat(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
     cmd = str_alloc_stack(0);
     arg = get_arg_in_braces(ses, arg, cmd, GET_ONE);
     if (@as(c_int, cmd.*) == @as(c_int, 0)) {
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" CHAT OPTIONS "))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" CHAT OPTIONS "))))))), .{});
         {
             cnt = 0;
             while (@as(c_int, chat_table[@bitCast(@as(isize, @intCast(cnt)))].name.*) != @as(c_int, 0)) : (cnt += 1) {
-                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-13s] %s"))))))), chat_table[@bitCast(@as(isize, @intCast(cnt)))].name, chat_table[@bitCast(@as(isize, @intCast(cnt)))].desc);
+                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-13s] %s"))))))), .{chat_table[@bitCast(@as(isize, @intCast(cnt)))].name, chat_table[@bitCast(@as(isize, @intCast(cnt)))].desc});
             }
         }
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), .{});
         return ses;
     }
     {
@@ -7480,7 +7480,7 @@ pub export fn do_chat(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
                 continue;
             }
             if ((chat_table[@bitCast(@as(isize, @intCast(cnt)))].fun != chat_initialize) and (@as(?*anyopaque, @ptrCast(@alignCast(gtd.*.chat))) == @as(?*anyopaque, null))) {
-                tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31m<CHAT> You must initialize a chat port first."))))))));
+                tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31m<CHAT> You must initialize a chat port first."))))))), .{});
                 return ses;
             }
             arg = sub_arg_in_braces(ses, arg, arg1, chat_table[@bitCast(@as(isize, @intCast(cnt)))].lval, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
@@ -7489,7 +7489,7 @@ pub export fn do_chat(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
             return ses;
         }
     }
-    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #CHAT {%s}: INVALID CHAT OPTION."))))))), cmd);
+    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #CHAT {%s}: INVALID CHAT OPTION."))))))), .{cmd});
     return ses;
 }
 pub export fn process_chat_connections(arg_read_set: [*c]fd_set, arg_write_set: [*c]fd_set, arg_exc_set: [*c]fd_set) void {
@@ -7501,7 +7501,7 @@ pub export fn process_chat_connections(arg_read_set: [*c]fd_set, arg_write_set: 
     _ = &exc_set;
     var buddy: [*c]struct_chat_data = undefined;
     _ = &buddy;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("process_chat_connections(%p,%p,%p)"))))))), read_set, write_set, exc_set);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("process_chat_connections(%p,%p,%p)"))))))), .{read_set, write_set, exc_set});
     if (__darwin_fd_isset(gtd.*.chat.*.fd, read_set) != 0) {
         _ = chat_new(gtd.*.chat.*.fd);
     }
@@ -7523,7 +7523,7 @@ pub export fn process_chat_connections(arg_read_set: [*c]fd_set, arg_write_set: 
     pop_call();
     return;
 } // src/chat.c:579:6: warning: TODO unable to translate variadic function, demoted to extern
-pub extern fn chat_socket_printf(buddy: [*c]struct_chat_data, format: [*c]u8, ...) void;
+pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
 pub export fn close_chat(arg_buddy: [*c]struct_chat_data, arg_unlink_1: c_int) void {
     var buddy = arg_buddy;
     _ = &buddy;
@@ -7536,7 +7536,7 @@ pub export fn close_chat(arg_buddy: [*c]struct_chat_data, arg_unlink_1: c_int) v
     if (unlink_1 != 0) {
         {
             if (((@as(?*anyopaque, @ptrCast(@alignCast(buddy.*.prev))) == @as(?*anyopaque, null)) and (buddy != gtd.*.chat.*.next)) or ((@as(?*anyopaque, @ptrCast(@alignCast(buddy.*.next))) == @as(?*anyopaque, null)) and (buddy != gtd.*.chat.*.prev))) {
-                tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNLINK ERROR in file %s on line %d"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("src/chat.c"))))))), @as(c_int, 515));
+                tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNLINK ERROR in file %s on line %d"))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("src/chat.c"))))))), @as(c_int, 515)});
                 dump_stack();
             }
             if (@as(?*anyopaque, @ptrCast(@alignCast(buddy.*.prev))) == @as(?*anyopaque, null)) {
@@ -7555,9 +7555,9 @@ pub export fn close_chat(arg_buddy: [*c]struct_chat_data, arg_unlink_1: c_int) v
     }
     if (buddy != gtd.*.chat) {
         if (@as(c_int, buddy.*.name.*) == @as(c_int, 0)) {
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Closing connection to %s D%d"))))))), buddy.*.ip, buddy.*.fd);
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Closing connection to %s D%d"))))))), .{buddy.*.ip, buddy.*.fd});
         } else {
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Closing connection to %s@%s."))))))), buddy.*.name, buddy.*.ip);
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Closing connection to %s@%s."))))))), .{buddy.*.name, buddy.*.ip});
         }
     }
     _ = close(buddy.*.fd);
@@ -7588,7 +7588,7 @@ pub export fn chat_forward_session(arg_ses: [*c]struct_session, arg_linelog: [*c
         buddy = gtd.*.chat.*.next;
         while (buddy != null) : (buddy = buddy.*.next) {
             if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != 0) {
-                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), @as([*c]u8, @ptrCast(@alignCast(&tmp))));
+                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{@as([*c]u8, @ptrCast(@alignCast(&tmp)))});
             }
         }
     }
@@ -7608,7 +7608,7 @@ pub export fn chat_accept(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     if (@as(c_int, arg2.*) != 0) {
         cnt = @intFromFloat(get_number(gtd.*.ses, arg2));
         if ((cnt < @as(c_int, 1)) or (cnt > @as(c_int, 1000))) {
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ERROR: File transfer boost must be between 1 and 1000."))))))));
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ERROR: File transfer boost must be between 1 and 1000."))))))), .{});
             return;
         }
     }
@@ -7617,21 +7617,21 @@ pub export fn chat_accept(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         buddy = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         return;
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(buddy.*.file_name))) == @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ERROR: You don't have a file transfer in progress with %s."))))))), buddy.*.name);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ERROR: You don't have a file transfer in progress with %s."))))))), .{buddy.*.name});
         return;
     }
     if (buddy.*.file_start_time != 0) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ERROR: You already have a file transfer in progress with %s."))))))), buddy.*.name);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ERROR: You already have a file transfer in progress with %s."))))))), .{buddy.*.name});
         return;
     }
     if (@as(c_int, arg2.*) != 0) {
         cnt = @intFromFloat(get_number(gtd.*.ses, arg2));
         if ((cnt <= @as(c_int, 0)) or (cnt >= @as(c_int, 1000))) {
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ERROR: File transfer boost (%s) must be between 1 and 1000."))))))), arg2);
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ERROR: File transfer boost (%s) must be between 1 and 1000."))))))), .{arg2});
             return;
         }
         if (@as(c_longlong, cnt) > @divTrunc(buddy.*.file_size, @as(c_longlong, BLOCK_SIZE * @as(c_int, 10)))) {
@@ -7645,19 +7645,19 @@ pub export fn chat_accept(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
         deny_file(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\nCould not create that file on receiver's end.\n"))))))));
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ERROR: Could not create the file '%s' on your end."))))))), buddy.*.file_name);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ERROR: Could not create the file '%s' on your end."))))))), .{buddy.*.file_name});
         file_cleanup(buddy);
         return;
     }
     buddy.*.file_start_time = utime();
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Started file transfer from %s, file: %s, size: %lld, boost: %d"))))))), buddy.*.name, buddy.*.file_name, buddy.*.file_size, cnt);
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Started file transfer from %s, file: %s, size: %lld, boost: %d"))))))), .{buddy.*.name, buddy.*.file_name, buddy.*.file_size, cnt});
     while ((blk: {
         const ref = &cnt;
         const tmp = ref.*;
         ref.* -= 1;
         break :blk tmp;
     }) != 0) {
-        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c"))))))), CHAT_FILE_BLOCK_REQUEST, CHAT_END_OF_COMMAND);
+        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c"))))))), .{CHAT_FILE_BLOCK_REQUEST, CHAT_END_OF_COMMAND});
     }
 }
 pub export fn chat_call(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -7676,7 +7676,7 @@ pub export fn chat_call(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var thread: pthread_t = undefined;
     _ = &thread;
     if (((strlen(arg1) +% strlen(arg2)) +% @as(usize, 5)) >= @as(usize, 200)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("The call arguments {%s} and {%s} exceed the maximum length of 200 characters."))))))), arg1, arg2);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("The call arguments {%s} and {%s} exceed the maximum length of 200 characters."))))))), .{arg1, arg2});
         return;
     }
     _ = sprintf(@ptrCast(@alignCast(&static_local_buf.buf[@bitCast(@as(isize, @intCast(static_local_i.i)))])), "{%s} {%s}", arg1, arg2);
@@ -7701,7 +7701,7 @@ pub export fn chat_cancelfile(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         buddy = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         return;
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(buddy.*.file_pt))) == @as(?*anyopaque, null)) {
@@ -7709,8 +7709,8 @@ pub export fn chat_cancelfile(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     }
     _ = fclose(buddy.*.file_pt);
     buddy.*.file_pt = null;
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Okay, file transfer canceled"))))))));
-    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c"))))))), CHAT_FILE_CANCEL, CHAT_END_OF_COMMAND);
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Okay, file transfer canceled"))))))), .{});
+    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c"))))))), .{CHAT_FILE_CANCEL, CHAT_END_OF_COMMAND});
 }
 pub export fn chat_color(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var arg1 = arg_arg1;
@@ -7718,7 +7718,7 @@ pub export fn chat_color(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var arg2 = arg_arg2;
     _ = &arg2;
     if ((@as(c_int, arg1.*) == @as(c_int, 0)) or !(is_color_name(arg1) != 0)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Valid colors are:\n\nreset, bold, dim, light, dark, underscore, blink, reverse, black, red, green, yellow, blue, magenta, cyan, white, b black, b red, b green, b yellow, b blue, b magenta, b cyan, b white"))))))));
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Valid colors are:\n\nreset, bold, dim, light, dark, underscore, blink, reverse, black, red, green, yellow, blue, magenta, cyan, white, b black, b red, b green, b yellow, b blue, b magenta, b cyan, b white"))))))), .{});
         return;
     }
     _ = get_color_names(gtd.*.ses, arg1, arg2);
@@ -7728,7 +7728,7 @@ pub export fn chat_color(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         }
         gtd.*.chat.*.color = strdup(arg2);
     }
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Color has been set to %s."))))))), arg1);
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Color has been set to %s."))))))), .{arg1});
 }
 pub export fn chat_decline(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var arg1 = arg_arg1;
@@ -7742,15 +7742,15 @@ pub export fn chat_decline(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         buddy = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         return;
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(buddy.*.file_pt))) == @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You don't have a file transfer in progress with %s."))))))), buddy.*.name);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You don't have a file transfer in progress with %s."))))))), .{buddy.*.name});
         return;
     }
     if (buddy.*.file_start_time != 0) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You already have a file transfer in progress with %s."))))))), buddy.*.name);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You already have a file transfer in progress with %s."))))))), .{buddy.*.name});
         return;
     }
     deny_file(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\nYour file transfer was rejected.\n"))))))));
@@ -7762,9 +7762,9 @@ pub export fn chat_dnd(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     _ = &arg2;
     gtd.*.chat.*.flags ^= @as(c_int, 1) << @intCast(@as(c_int, 7));
     if ((gtd.*.chat.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("New connections are no longer accepted."))))))));
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("New connections are no longer accepted."))))))), .{});
     } else {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("New connections are accepted."))))))));
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("New connections are accepted."))))))), .{});
     }
 }
 pub export fn chat_downloaddir(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -7781,7 +7781,7 @@ pub export fn chat_downloaddir(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         }
         gtd.*.chat.*.download = strdup(@ptrCast(@alignCast(&dir)));
     }
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Download directory set to '%s'"))))))), gtd.*.chat.*.download);
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Download directory set to '%s'"))))))), .{gtd.*.chat.*.download});
 }
 pub export fn chat_emote(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var arg1 = arg_arg1;
@@ -7792,11 +7792,11 @@ pub export fn chat_emote(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     _ = &buddy;
     _ = substitute(gtd.*.ses, arg2, arg2, (@as(c_int, 1) << @intCast(@as(c_int, 6))) | (@as(c_int, 1) << @intCast(@as(c_int, 7))));
     if (!(strcasecmp(arg1, "ALL") != 0)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You emote to everyone: %s %s"))))))), gtd.*.chat.*.name, arg2);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You emote to everyone: %s %s"))))))), .{gtd.*.chat.*.name, arg2});
         {
             buddy = gtd.*.chat.*.next;
             while (buddy != null) : (buddy = buddy.*.next) {
-                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s %s\n%c"))))))), CHAT_TEXT_EVERYBODY, gtd.*.chat.*.name, arg2, CHAT_END_OF_COMMAND);
+                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s %s\n%c"))))))), .{CHAT_TEXT_EVERYBODY, gtd.*.chat.*.name, arg2, CHAT_END_OF_COMMAND});
             }
         }
     } else {
@@ -7805,20 +7805,20 @@ pub export fn chat_emote(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
             buddy = tmp;
             break :blk tmp;
         }))) != @as(?*anyopaque, null)) {
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You emote to %s: %s %s"))))))), buddy.*.name, gtd.*.chat.*.name, arg2);
-            chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s %s\n%c"))))))), CHAT_TEXT_PERSONAL, gtd.*.chat.*.name, arg2, CHAT_END_OF_COMMAND);
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You emote to %s: %s %s"))))))), .{buddy.*.name, gtd.*.chat.*.name, arg2});
+            chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s %s\n%c"))))))), .{CHAT_TEXT_PERSONAL, gtd.*.chat.*.name, arg2, CHAT_END_OF_COMMAND});
         } else if (@as(?*anyopaque, @ptrCast(@alignCast(find_group(arg1)))) != @as(?*anyopaque, null)) {
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You emote to %s: %s"))))))), arg1, arg2);
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You emote to %s: %s"))))))), .{arg1, arg2});
             {
                 buddy = gtd.*.chat.*.next;
                 while (buddy != null) : (buddy = buddy.*.next) {
                     if (!(strcmp(buddy.*.group, arg1) != 0)) {
-                        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%-15s\n%s %s\n%c"))))))), CHAT_TEXT_GROUP, buddy.*.group, gtd.*.chat.*.name, arg2, CHAT_END_OF_COMMAND);
+                        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%-15s\n%s %s\n%c"))))))), .{CHAT_TEXT_GROUP, buddy.*.group, gtd.*.chat.*.name, arg2, CHAT_END_OF_COMMAND});
                     }
                 }
             }
         } else {
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         }
     }
 }
@@ -7834,18 +7834,18 @@ pub export fn chat_filestat(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         buddy = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         return;
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(buddy.*.file_pt))) == @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You have no file transfer in progress with %s."))))))), buddy.*.name);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You have no file transfer in progress with %s."))))))), .{buddy.*.name});
         return;
     }
-    tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  Contact: %s"))))))), buddy.*.name);
-    tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" Filename: %s"))))))), buddy.*.file_name);
-    tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" Filesize: %lld"))))))), buddy.*.file_size);
-    tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" Received: %d"))))))), buddy.*.file_block_cnt * BLOCK_SIZE);
-    tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("    Speed: %lld KB/s"))))))), @as(c_ulonglong, @bitCast(@as(c_longlong, (@as(c_int, 1000) * buddy.*.file_block_cnt) * BLOCK_SIZE))) / (utime() -% buddy.*.file_start_time));
+    tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  Contact: %s"))))))), .{buddy.*.name});
+    tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" Filename: %s"))))))), .{buddy.*.file_name});
+    tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" Filesize: %lld"))))))), .{buddy.*.file_size});
+    tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" Received: %d"))))))), .{buddy.*.file_block_cnt * BLOCK_SIZE});
+    tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("    Speed: %lld KB/s"))))))), .{@as(c_ulonglong, @bitCast(@as(c_longlong, (@as(c_int, 1000) * buddy.*.file_block_cnt) * BLOCK_SIZE))) / (utime() -% buddy.*.file_start_time)});
 }
 pub export fn chat_group(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var arg1 = arg_arg1;
@@ -7857,22 +7857,22 @@ pub export fn chat_group(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var cnt: c_int = 0;
     _ = &cnt;
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     %-15s  %-20s  %-5s  %-15s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Address"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Port"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Group"))))))));
-        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  ====================  =====  ==================== "))))))));
+        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     %-15s  %-20s  %-5s  %-15s"))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Address"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Port"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Group")))))))});
+        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  ====================  =====  ==================== "))))))), .{});
         {
             buddy = gtd.*.chat.*.next;
             while (buddy != null) : (buddy = buddy.*.next) {
-                tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %03d %-15s  %-20s  %-5u  %-20s"))))))), blk: {
+                tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %03d %-15s  %-20s  %-5u  %-20s"))))))), .{blk: {
                     const ref = &cnt;
                     const tmp = ref.*;
                     ref.* += 1;
                     break :blk tmp;
-                }, buddy.*.name, buddy.*.ip, buddy.*.port, buddy.*.group);
+                }, buddy.*.name, buddy.*.ip, buddy.*.port, buddy.*.group});
             }
         }
-        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  ====================  =====  ==================== "))))))));
+        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  ====================  =====  ==================== "))))))), .{});
     } else if (!(strcasecmp(arg1, "ALL") != 0)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You set everyone's group to '%s'"))))))), arg2);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You set everyone's group to '%s'"))))))), .{arg2});
         {
             buddy = gtd.*.chat.*.next;
             while (buddy != null) : (buddy = buddy.*.next) {
@@ -7896,9 +7896,9 @@ pub export fn chat_group(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
                 }
                 buddy.*.group = strdup(arg2);
             }
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You set %s's group to '%s'"))))))), buddy.*.name, arg2);
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You set %s's group to '%s'"))))))), .{buddy.*.name, arg2});
         } else {
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         }
     }
 }
@@ -7914,16 +7914,16 @@ pub export fn chat_forward(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         buddy = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         return;
     }
     buddy.*.flags ^= @as(c_int, 1) << @intCast(@as(c_int, 4));
     if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) {
-        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is now forwarding to you.\n%c"))))))), CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND);
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are now forwarding to %s."))))))), buddy.*.name);
+        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is now forwarding to you.\n%c"))))))), .{CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND});
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are now forwarding to %s."))))))), .{buddy.*.name});
     } else {
-        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is no longer forwarding to you.\n%c"))))))), CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND);
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are no longer forwarding to %s."))))))), buddy.*.name);
+        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is no longer forwarding to you.\n%c"))))))), .{CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND});
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are no longer forwarding to %s."))))))), .{buddy.*.name});
     }
 }
 pub export fn chat_forwardall(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -7938,16 +7938,16 @@ pub export fn chat_forwardall(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         buddy = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         return;
     }
     buddy.*.flags ^= @as(c_int, 1) << @intCast(@as(c_int, 6));
     if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != 0) {
-        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is now forwarding session output to you.\n%c"))))))), CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND);
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are now forwarding session output to %s."))))))), buddy.*.name);
+        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is now forwarding session output to you.\n%c"))))))), .{CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND});
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are now forwarding session output to %s."))))))), .{buddy.*.name});
     } else {
-        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is no longer forwarding session output to you.\n%c"))))))), CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND);
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are no longer forwarding session output to %s."))))))), buddy.*.name);
+        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is no longer forwarding session output to you.\n%c"))))))), .{CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND});
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are no longer forwarding session output to %s."))))))), .{buddy.*.name});
     }
 }
 pub export fn chat_ignore(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -7962,14 +7962,14 @@ pub export fn chat_ignore(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         buddy = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         return;
     }
     buddy.*.flags ^= @as(c_int, 1) << @intCast(@as(c_int, 3));
     if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are now ignoring %s."))))))), buddy.*.name);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are now ignoring %s."))))))), .{buddy.*.name});
     } else {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are no longer ignoring %s."))))))), buddy.*.name);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are no longer ignoring %s."))))))), .{buddy.*.name});
     }
 }
 pub const struct_in_addr = extern struct {
@@ -8004,7 +8004,7 @@ pub export fn chat_initialize(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var optval: c_int = 0;
     _ = &optval;
     if (gtd.*.chat != null) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Already initialised"))))))));
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Already initialised"))))))), .{});
         return;
     }
     port = if (atoi(arg1) != 0) atoi(arg1) else DEFAULT_PORT;
@@ -8013,25 +8013,25 @@ pub export fn chat_initialize(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     sa.sin_addr.s_addr = @bitCast(@as(c_int, @as(c_int, 0)));
     sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < @as(c_int, 0)) {
-        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("chat_initialize: socket"))))))));
+        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("chat_initialize: socket"))))))), .{});
         return;
     }
     if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, @ptrCast(@alignCast(&optval)), @truncate(@sizeOf(c_int))) == -@as(c_int, 1)) {
-        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("chat_initialize: setsockopt"))))))));
+        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("chat_initialize: setsockopt"))))))), .{});
     }
     ld.l_onoff = 0;
     ld.l_linger = 100;
     _ = setsockopt(sock, SOL_SOCKET, SO_LINGER, @ptrCast(@alignCast(@as([*c]u8, @ptrCast(@alignCast(&ld))))), @truncate(@sizeOf(@TypeOf(ld))));
     if (fcntl(sock, F_SETFL, O_NONBLOCK | O_NONBLOCK) == -@as(c_int, 1)) {
-        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("chat_initialize: fcntl O_NDELAY|O_NONBLOCK"))))))));
+        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("chat_initialize: fcntl O_NDELAY|O_NONBLOCK"))))))), .{});
     }
     if (bind(sock, @ptrCast(@alignCast(&sa)), @truncate(@sizeOf(@TypeOf(sa)))) < @as(c_int, 0)) {
-        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Port %d is already in use, cannot initiate chat."))))))), port);
+        tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Port %d is already in use, cannot initiate chat."))))))), .{port});
         _ = close(sock);
         return;
     }
     if (listen(sock, 32) == -@as(c_int, 1)) {
-        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("chat_initialize: listen"))))))));
+        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("chat_initialize: listen"))))))), .{});
         _ = close(sock);
         return;
     }
@@ -8044,21 +8044,21 @@ pub export fn chat_initialize(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     gtd.*.chat.*.name = strdup("TinTin");
     gtd.*.chat.*.reply = strdup("");
     gtd.*.chat.*.prefix = strdup("<CHAT> ");
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Initialized chat on port %d."))))))), gtd.*.chat.*.port);
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Initialized chat on port %d."))))))), .{gtd.*.chat.*.port});
 }
 pub export fn chat_info(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var arg1 = arg_arg1;
     _ = &arg1;
     var arg2 = arg_arg2;
     _ = &arg2;
-    tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name                 : %s"))))))), gtd.*.chat.*.name);
-    tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IP Address           : %s"))))))), gtd.*.chat.*.ip);
-    tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Chat Port            : %d"))))))), gtd.*.chat.*.port);
-    tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Download Dir         : %s"))))))), gtd.*.chat.*.download);
-    tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Reply                : %s"))))))), gtd.*.chat.*.reply);
-    tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Prefix               : %s"))))))), gtd.*.chat.*.prefix);
-    tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Color                : %s"))))))), str_convert_meta(gtd.*.chat.*.color, TRUE));
-    tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DND                  : %s"))))))), if ((gtd.*.chat.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Yes"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("No"))))))));
+    tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name                 : %s"))))))), .{gtd.*.chat.*.name});
+    tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IP Address           : %s"))))))), .{gtd.*.chat.*.ip});
+    tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Chat Port            : %d"))))))), .{gtd.*.chat.*.port});
+    tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Download Dir         : %s"))))))), .{gtd.*.chat.*.download});
+    tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Reply                : %s"))))))), .{gtd.*.chat.*.reply});
+    tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Prefix               : %s"))))))), .{gtd.*.chat.*.prefix});
+    tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Color                : %s"))))))), .{str_convert_meta(gtd.*.chat.*.color, TRUE)});
+    tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DND                  : %s"))))))), .{if ((gtd.*.chat.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Yes"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("No")))))))});
 }
 pub export fn chat_ip(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var arg1 = arg_arg1;
@@ -8071,7 +8071,7 @@ pub export fn chat_ip(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         }
         gtd.*.chat.*.ip = strdup(arg1);
     }
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IP changed to %s"))))))), gtd.*.chat.*.ip);
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IP changed to %s"))))))), .{gtd.*.chat.*.ip});
 }
 pub export fn chat_message(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var arg1 = arg_arg1;
@@ -8082,11 +8082,11 @@ pub export fn chat_message(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     _ = &buddy;
     _ = substitute(gtd.*.ses, arg2, arg2, (@as(c_int, 1) << @intCast(@as(c_int, 6))) | (@as(c_int, 1) << @intCast(@as(c_int, 7))));
     if (!(strcasecmp(arg1, "ALL") != 0)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You chat to everyone, '%s'"))))))), arg2);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You chat to everyone, '%s'"))))))), .{arg2});
         {
             buddy = gtd.*.chat.*.next;
             while (buddy != null) : (buddy = buddy.*.next) {
-                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s chats to everyone, '%s'\n%c"))))))), CHAT_TEXT_EVERYBODY, gtd.*.chat.*.name, arg2, CHAT_END_OF_COMMAND);
+                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s chats to everyone, '%s'\n%c"))))))), .{CHAT_TEXT_EVERYBODY, gtd.*.chat.*.name, arg2, CHAT_END_OF_COMMAND});
             }
         }
     } else {
@@ -8095,20 +8095,20 @@ pub export fn chat_message(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
             buddy = tmp;
             break :blk tmp;
         }))) != @as(?*anyopaque, null)) {
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You chat to %s, '%s'"))))))), buddy.*.name, arg2);
-            chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s chats to you, '%s'\n%c"))))))), CHAT_TEXT_PERSONAL, gtd.*.chat.*.name, arg2, CHAT_END_OF_COMMAND);
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You chat to %s, '%s'"))))))), .{buddy.*.name, arg2});
+            chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s chats to you, '%s'\n%c"))))))), .{CHAT_TEXT_PERSONAL, gtd.*.chat.*.name, arg2, CHAT_END_OF_COMMAND});
         } else if (@as(?*anyopaque, @ptrCast(@alignCast(find_group(arg1)))) != @as(?*anyopaque, null)) {
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You chat to %s, '%s'"))))))), arg1, arg2);
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You chat to %s, '%s'"))))))), .{arg1, arg2});
             {
                 buddy = gtd.*.chat.*.next;
                 while (buddy != null) : (buddy = buddy.*.next) {
                     if (!(strcmp(buddy.*.group, arg1) != 0)) {
-                        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%-15s\n%s chats to the group, '%s'\n%c"))))))), CHAT_TEXT_GROUP, buddy.*.group, gtd.*.chat.*.name, arg2, CHAT_END_OF_COMMAND);
+                        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%-15s\n%s chats to the group, '%s'\n%c"))))))), .{CHAT_TEXT_GROUP, buddy.*.group, gtd.*.chat.*.name, arg2, CHAT_END_OF_COMMAND});
                     }
                 }
             }
         } else {
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         }
     }
 }
@@ -8121,15 +8121,15 @@ pub export fn chat_name(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     _ = &buddy;
     _ = substitute(gtd.*.ses, arg1, arg1, (@as(c_int, 1) << @intCast(@as(c_int, 6))) | (@as(c_int, 1) << @intCast(@as(c_int, 7))));
     if (!(strcmp(gtd.*.chat.*.name, arg1) != 0)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your name is already set to %s."))))))), gtd.*.chat.*.name);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your name is already set to %s."))))))), .{gtd.*.chat.*.name});
         return;
     }
     if (strip_vt102_strlen(gtd.*.ses, arg1) > @as(c_int, 20)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your name cannot be longer than 20 characters."))))))));
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your name cannot be longer than 20 characters."))))))), .{});
         return;
     }
     if (strlen(arg1) > @as(usize, 200)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your name cannot be longer than 200 bytes."))))))));
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your name cannot be longer than 200 bytes."))))))), .{});
         return;
     }
     {
@@ -8141,10 +8141,10 @@ pub export fn chat_name(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     {
         buddy = gtd.*.chat.*.next;
         while (buddy != null) : (buddy = buddy.*.next) {
-            chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s%c"))))))), CHAT_NAME_CHANGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND);
+            chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s%c"))))))), .{CHAT_NAME_CHANGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND});
         }
     }
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name changed to %s."))))))), gtd.*.chat.*.name);
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name changed to %s."))))))), .{gtd.*.chat.*.name});
 }
 pub export fn chat_paste(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var arg1 = arg_arg1;
@@ -8180,11 +8180,11 @@ pub export fn chat_paste(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
             gtd.*.chat.*.paste_buf = strdup(@ptrCast(@alignCast(&temp)));
         }
         if (!(strcasecmp(@ptrCast(@alignCast(&name)), "ALL") != 0)) {
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You paste to everyone:\n%s"))))))), gtd.*.chat.*.paste_buf);
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You paste to everyone:\n%s"))))))), .{gtd.*.chat.*.paste_buf});
             {
                 buddy = gtd.*.chat.*.next;
                 while (buddy != null) : (buddy = buddy.*.next) {
-                    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s pastes to everyone:\n%s\n%c"))))))), CHAT_TEXT_EVERYBODY, gtd.*.chat.*.name, gtd.*.chat.*.paste_buf, CHAT_END_OF_COMMAND);
+                    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s pastes to everyone:\n%s\n%c"))))))), .{CHAT_TEXT_EVERYBODY, gtd.*.chat.*.name, gtd.*.chat.*.paste_buf, CHAT_END_OF_COMMAND});
                 }
             }
         } else {
@@ -8193,24 +8193,24 @@ pub export fn chat_paste(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
                 buddy = tmp;
                 break :blk tmp;
             }))) != @as(?*anyopaque, null)) {
-                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You paste to %s:\n%s"))))))), buddy.*.name, gtd.*.chat.*.paste_buf);
-                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s pastes to you:\n%s\n%c"))))))), CHAT_TEXT_EVERYBODY, gtd.*.chat.*.name, gtd.*.chat.*.paste_buf, CHAT_END_OF_COMMAND);
+                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You paste to %s:\n%s"))))))), .{buddy.*.name, gtd.*.chat.*.paste_buf});
+                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s pastes to you:\n%s\n%c"))))))), .{CHAT_TEXT_EVERYBODY, gtd.*.chat.*.name, gtd.*.chat.*.paste_buf, CHAT_END_OF_COMMAND});
             } else if (@as(?*anyopaque, @ptrCast(@alignCast(find_group(@ptrCast(@alignCast(&name)))))) != @as(?*anyopaque, null)) {
-                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You paste to %s:\n%s"))))))), @as([*c]u8, @ptrCast(@alignCast(&name))), gtd.*.chat.*.paste_buf);
+                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You paste to %s:\n%s"))))))), .{@as([*c]u8, @ptrCast(@alignCast(&name))), gtd.*.chat.*.paste_buf});
                 {
                     buddy = gtd.*.chat.*.next;
                     while (buddy != null) : (buddy = buddy.*.next) {
                         if (!(strcmp(buddy.*.group, @ptrCast(@alignCast(&name))) != 0)) {
-                            chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%-15s\n%s pastes to the group:\n%s\n%c"))))))), CHAT_TEXT_GROUP, buddy.*.group, gtd.*.chat.*.name, gtd.*.chat.*.paste_buf, CHAT_END_OF_COMMAND);
+                            chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%-15s\n%s pastes to the group:\n%s\n%c"))))))), .{CHAT_TEXT_GROUP, buddy.*.group, gtd.*.chat.*.name, gtd.*.chat.*.paste_buf, CHAT_END_OF_COMMAND});
                         }
                     }
                 }
             } else {
-                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), @as([*c]u8, @ptrCast(@alignCast(&name))));
+                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{@as([*c]u8, @ptrCast(@alignCast(&name)))});
             }
         }
         if (gtd.*.screen.*.rows != gtd.*.ses.*.split.*.bot_row) {
-            _ = command(gtd.*.ses, do_cursor, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("clear"))))))));
+            _ = command(gtd.*.ses, do_cursor, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("clear"))))))), .{});
         }
         gtd.*.chat.*.paste_time = 0;
         return;
@@ -8247,10 +8247,10 @@ pub export fn chat_peek(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         buddy = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         return;
     }
-    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c"))))))), CHAT_PEEK_CONNECTIONS, CHAT_END_OF_COMMAND);
+    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c"))))))), .{CHAT_PEEK_CONNECTIONS, CHAT_END_OF_COMMAND});
 }
 pub export fn chat_ping(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var arg1 = arg_arg1;
@@ -8264,11 +8264,11 @@ pub export fn chat_ping(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         buddy = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         return;
     }
-    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%lld%c"))))))), CHAT_PING_REQUEST, utime(), CHAT_END_OF_COMMAND);
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Ping request sent to %s."))))))), buddy.*.name);
+    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%lld%c"))))))), .{CHAT_PING_REQUEST, utime(), CHAT_END_OF_COMMAND});
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Ping request sent to %s."))))))), .{buddy.*.name});
 }
 pub export fn chat_prefix(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var arg1 = arg_arg1;
@@ -8281,7 +8281,7 @@ pub export fn chat_prefix(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         }
         gtd.*.chat.*.prefix = strdup(arg1);
     }
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Prefix set to '%s'"))))))), gtd.*.chat.*.prefix);
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Prefix set to '%s'"))))))), .{gtd.*.chat.*.prefix});
 }
 pub export fn chat_private(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var arg1 = arg_arg1;
@@ -8295,8 +8295,8 @@ pub export fn chat_private(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
             buddy = gtd.*.chat.*.next;
             while (buddy != null) : (buddy = buddy.*.next) {
                 if (!((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0)) {
-                    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s marked your connection private.\n%c"))))))), CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND);
-                    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your connection with %s is now private."))))))), buddy.*.name);
+                    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s marked your connection private.\n%c"))))))), .{CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND});
+                    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your connection with %s is now private."))))))), .{buddy.*.name});
                     buddy.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 0));
                 }
             }
@@ -8308,11 +8308,11 @@ pub export fn chat_private(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
             break :blk tmp;
         }))) != @as(?*anyopaque, null)) {
             if (!((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0)) {
-                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s marked your connection private.\n%c"))))))), CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND);
-                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your connection with %s is now private."))))))), buddy.*.name);
+                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s marked your connection private.\n%c"))))))), .{CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND});
+                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your connection with %s is now private."))))))), .{buddy.*.name});
                 buddy.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 0));
             } else {
-                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your connection with %s is already private."))))))), buddy.*.name);
+                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your connection with %s is already private."))))))), .{buddy.*.name});
             }
         }
     }
@@ -8329,8 +8329,8 @@ pub export fn chat_public(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
             buddy = gtd.*.chat.*.next;
             while (buddy != null) : (buddy = buddy.*.next) {
                 if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) {
-                    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s marked your connection public.\n%c"))))))), CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND);
-                    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your connection with %s is now public."))))))), buddy.*.name);
+                    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s marked your connection public.\n%c"))))))), .{CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND});
+                    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your connection with %s is now public."))))))), .{buddy.*.name});
                     buddy.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 0)));
                 }
             }
@@ -8342,11 +8342,11 @@ pub export fn chat_public(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
             break :blk tmp;
         }))) != @as(?*anyopaque, null)) {
             if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) {
-                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s marked your connection public.\n%c"))))))), CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND);
-                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your connection with %s is now public."))))))), buddy.*.name);
+                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s marked your connection public.\n%c"))))))), .{CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND});
+                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your connection with %s is now public."))))))), .{buddy.*.name});
                 buddy.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 0)));
             } else {
-                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your connection with %s is already public."))))))), buddy.*.name);
+                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Your connection with %s is already public."))))))), .{buddy.*.name});
             }
         }
     }
@@ -8364,10 +8364,10 @@ pub export fn chat_reply(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         buddy = tmp;
         break :blk tmp;
     }))) != @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You reply to %s, '%s'"))))))), buddy.*.name, arg1);
-        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s replies to you, '%s'\n%c"))))))), CHAT_TEXT_PERSONAL, gtd.*.chat.*.name, arg1, CHAT_END_OF_COMMAND);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You reply to %s, '%s'"))))))), .{buddy.*.name, arg1});
+        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s replies to you, '%s'\n%c"))))))), .{CHAT_TEXT_PERSONAL, gtd.*.chat.*.name, arg1, CHAT_END_OF_COMMAND});
     } else {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), gtd.*.chat.*.reply);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{gtd.*.chat.*.reply});
     }
 }
 pub export fn chat_request(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -8382,11 +8382,11 @@ pub export fn chat_request(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         buddy = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         return;
     }
-    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c"))))))), CHAT_REQUEST_CONNECTIONS, CHAT_END_OF_COMMAND);
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You request %s's public connections."))))))), buddy.*.name);
+    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c"))))))), .{CHAT_REQUEST_CONNECTIONS, CHAT_END_OF_COMMAND});
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You request %s's public connections."))))))), .{buddy.*.name});
     buddy.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 1));
     return;
 }
@@ -8402,7 +8402,7 @@ pub export fn chat_send(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         {
             buddy = gtd.*.chat.*.next;
             while (buddy != null) : (buddy = buddy.*.next) {
-                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), arg2);
+                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{arg2});
             }
         }
     } else {
@@ -8411,18 +8411,18 @@ pub export fn chat_send(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
             buddy = tmp;
             break :blk tmp;
         }))) != @as(?*anyopaque, null)) {
-            chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), arg2);
+            chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{arg2});
         } else if (@as(?*anyopaque, @ptrCast(@alignCast(find_group(arg1)))) != @as(?*anyopaque, null)) {
             {
                 buddy = gtd.*.chat.*.next;
                 while (buddy != null) : (buddy = buddy.*.next) {
                     if (!(strcmp(buddy.*.group, arg1) != 0)) {
-                        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), arg2);
+                        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{arg2});
                     }
                 }
             }
         } else {
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         }
     }
 }
@@ -8434,7 +8434,7 @@ pub export fn chat_sendfile(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var buddy: [*c]struct_chat_data = undefined;
     _ = &buddy;
     if ((@as(c_int, arg1.*) == @as(c_int, 0)) or (@as(c_int, arg2.*) == @as(c_int, 0))) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("USAGE: #sendfile <person> <filename>"))))))));
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("USAGE: #sendfile <person> <filename>"))))))), .{});
         return;
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(blk: {
@@ -8442,11 +8442,11 @@ pub export fn chat_sendfile(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         buddy = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         return;
     }
     if (buddy.*.file_pt != null) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ERROR: You already have a file transfer in progress with that person."))))))));
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ERROR: You already have a file transfer in progress with that person."))))))), .{});
         return;
     }
     buddy.*.file_block_cnt = 0;
@@ -8457,7 +8457,7 @@ pub export fn chat_sendfile(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         buddy.*.file_pt = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ERROR: No such file."))))))));
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ERROR: No such file."))))))), .{});
         file_cleanup(buddy);
         return;
     }
@@ -8466,19 +8466,19 @@ pub export fn chat_sendfile(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         buddy.*.file_size = tmp;
         break :blk tmp;
     }) == @as(c_longlong, 0)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Cannot send an empty file."))))))));
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Cannot send an empty file."))))))), .{});
         file_cleanup(buddy);
         return;
     }
     buddy.*.file_block_tot = @truncate(@divTrunc(buddy.*.file_size, @as(c_longlong, BLOCK_SIZE)) + @as(c_longlong, if (__helpers.signedRemainder(buddy.*.file_size, @as(c_longlong, BLOCK_SIZE)) != 0) @as(c_int, 1) else @as(c_int, 0)));
     if (@as(c_int, buddy.*.file_name.*) == @as(c_int, 0)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Must be a file, directories not accepted."))))))));
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Must be a file, directories not accepted."))))))), .{});
         file_cleanup(buddy);
         return;
     }
     buddy.*.file_start_time = utime();
-    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s,%lld%c"))))))), CHAT_FILE_START, buddy.*.file_name, buddy.*.file_size, CHAT_END_OF_COMMAND);
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Sending file to: %s, File: %s, Size: %lld"))))))), buddy.*.name, buddy.*.file_name, buddy.*.file_size);
+    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s,%lld%c"))))))), .{CHAT_FILE_START, buddy.*.file_name, buddy.*.file_size, CHAT_END_OF_COMMAND});
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Sending file to: %s, File: %s, Size: %lld"))))))), .{buddy.*.name, buddy.*.file_name, buddy.*.file_size});
     return;
 }
 pub extern fn chat_transfer(arg1: [*c]u8, arg2: [*c]u8) void;
@@ -8494,16 +8494,16 @@ pub export fn chat_serve(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         buddy = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         return;
     }
     buddy.*.flags ^= @as(c_int, 1) << @intCast(@as(c_int, 2));
     if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are now chat serving %s."))))))), buddy.*.name);
-        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is now chat serving you.\n%c"))))))), CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are now chat serving %s."))))))), .{buddy.*.name});
+        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is now chat serving you.\n%c"))))))), .{CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND});
     } else {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are no longer chat serving %s."))))))), buddy.*.name);
-        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is no longer chat serving you.\n%c"))))))), CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are no longer chat serving %s."))))))), .{buddy.*.name});
+        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is no longer chat serving you.\n%c"))))))), .{CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND});
     }
 }
 pub export fn chat_uninitialize(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -8518,7 +8518,7 @@ pub export fn chat_uninitialize(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     }
     close_chat(gtd.*.chat, FALSE);
     gtd.*.chat = null;
-    show_message(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: UNINITIALIZED CHAT ON PORT %d."))))))), port);
+    show_message(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: UNINITIALIZED CHAT ON PORT %d."))))))), .{port});
 }
 pub export fn chat_who(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var arg1 = arg_arg1;
@@ -8529,20 +8529,20 @@ pub export fn chat_who(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     _ = &buddy;
     var cnt: c_int = 1;
     _ = &cnt;
-    tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     %-15s  %-5s  %-20s  %-5s  %-15s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Flags"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Address"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Port"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Client"))))))));
-    tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  =====  ====================  =====  ==================== "))))))));
+    tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     %-15s  %-5s  %-20s  %-5s  %-15s"))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Flags"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Address"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Port"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Client")))))))});
+    tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  =====  ====================  =====  ==================== "))))))), .{});
     {
         buddy = gtd.*.chat.*.next;
         while (buddy != null) : (buddy = buddy.*.next) {
-            tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %03d %-15s  %s%s%s%s%s  %-20s  %-5u  %-20s"))))))), blk: {
+            tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %03d %-15s  %s%s%s%s%s  %-20s  %-5u  %-20s"))))))), .{blk: {
                 const ref = &cnt;
                 const tmp = ref.*;
                 ref.* += 1;
                 break :blk tmp;
-            }, buddy.*.name, if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("P"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("I"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("S"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("A"))))))) else if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("F"))))))) else if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("f"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), buddy.*.ip, buddy.*.port, buddy.*.version);
+            }, buddy.*.name, if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("P"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("I"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("S"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("A"))))))) else if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("F"))))))) else if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("f"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" "))))))), buddy.*.ip, buddy.*.port, buddy.*.version});
         }
     }
-    tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  =====  ====================  =====  ==================== "))))))));
+    tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("     ===============  =====  ====================  =====  ==================== "))))))), .{});
 }
 pub export fn chat_zap(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var arg1 = arg_arg1;
@@ -8563,7 +8563,7 @@ pub export fn chat_zap(arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
         }) != null) {
             close_chat(buddy, TRUE);
         } else {
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), arg1);
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("You are not connected to anyone named '%s'."))))))), .{arg1});
         }
     }
 }
@@ -8641,7 +8641,7 @@ pub extern fn str_convert_meta(input: [*c]u8, eol: c_int) [*c]u8;
 pub extern fn echo_command(ses: [*c]struct_session, line: [*c]u8) void;
 pub extern fn init_input(ses: [*c]struct_session, top_row: c_int, top_col: c_int, bot_row: c_int, bot_col: c_int) void;
 pub extern fn free_input(ses: [*c]struct_session) void;
-pub extern fn input_printf(format: [*c]u8, ...) void;
+pub fn input_printf(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").input_printf(arg_format, args); }
 pub extern fn modified_input() void;
 pub extern fn do_map(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn delete_room_data(room: [*c]struct_room_data) void;
@@ -8742,8 +8742,8 @@ pub extern fn insert_node_list(root: [*c]struct_listroot, node: [*c]struct_listn
 pub extern fn insert_index_list(root: [*c]struct_listroot, node: [*c]struct_listnode, index: c_int) [*c]struct_listnode;
 pub extern fn update_node_list(root: [*c]struct_listroot, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_listnode;
 pub extern fn search_node_list(root: [*c]struct_listroot, text: [*c]u8) [*c]struct_listnode;
-pub extern fn push_call(format: [*c]u8, ...) void;
-pub extern fn push_call_printf(format: [*c]u8, ...) c_int;
+pub fn push_call(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").push_call(arg_format, args); }
+pub fn push_call_printf(arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").push_call_printf(arg_format, args)); }
 pub extern fn pop_call() void;
 pub extern fn dump_stack() void;
 pub extern fn do_dictionary(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -8769,7 +8769,7 @@ pub extern fn delete_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn insert_line(edit: [*c]struct_edit_data, index: c_int, str: [*c]u8) void;
 pub extern fn remove_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn do_draw(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
-pub extern fn check_all_events(ses: [*c]struct_session, flags: c_int, args: c_int, vars: c_int, fmt: [*c]u8, ...) c_int;
+pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
 pub extern fn mouse_handler(ses: [*c]struct_session, val1: c_int, val2: c_int, val3: c_int) void;
 pub extern fn do_read(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn do_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -8827,7 +8827,7 @@ pub extern fn main(argc: c_int, argv: [*c][*c]u8) c_int;
 pub extern fn init_tintin(greeting: c_int) void;
 pub extern fn quitmsg(message: [*c]u8) void;
 pub extern fn syserr_fatal(signal: c_int, msg: [*c]u8) void;
-pub extern fn syserr_printf(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
+pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
 pub extern fn zlib_alloc(@"opaque": ?*anyopaque, items: c_uint, size: c_uint) ?*anyopaque;
 pub extern fn zlib_free(@"opaque": ?*anyopaque, address: ?*anyopaque) void;
 pub extern fn restring(point: [*c]u8, string: [*c]u8) [*c]u8;
@@ -8865,11 +8865,11 @@ pub extern fn do_nop(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [
 pub extern fn do_test(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn init_msdp_table() void;
 pub extern fn msdp_find(@"var": [*c]u8) c_int;
-pub extern fn arachnos_devel(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn arachnos_mudlist(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn msdp_update_all(@"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
+pub fn msdp_update_all(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_all(arg0, arg_format, args); }
 pub extern fn msdp_update_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, str: [*c]u8) void;
-pub extern fn msdp_update_varf(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
 pub extern fn msdp_update_var_instant(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
 pub extern fn msdp_send_update(ses: [*c]struct_session, buddy: [*c]struct_port_data) void;
 pub extern fn msdp_get_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8) [*c]u8;
@@ -8906,10 +8906,10 @@ pub extern fn get_nest_index(root: [*c]struct_listroot, variable: [*c]u8, result
 pub extern fn show_nest_node(node: [*c]struct_listnode, result: [*c][*c]u8, initialize: c_int) void;
 pub extern fn view_nest_node_json(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int) void;
 pub extern fn view_nest_node(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int, color: c_int) void;
-pub extern fn set_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn set_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
+pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
 pub extern fn copy_nest_node(dst_root: [*c]struct_listroot, dst: [*c]struct_listnode, src: [*c]struct_listnode) void;
 pub extern fn connect_mud(ses: [*c]struct_session, host: [*c]u8, port: [*c]u8) c_int;
 pub extern fn write_line_mud(ses: [*c]struct_session, line: [*c]u8, size: c_int) void;
@@ -8922,8 +8922,8 @@ pub extern fn is_abbrev_cmp(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_member(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_vowel(str: [*c]u8) c_int;
 pub extern fn filename_string(input: [*c]u8, output: [*c]u8) void;
-pub extern fn execute(ses: [*c]struct_session, format: [*c]u8, ...) [*c]struct_session;
-pub extern fn command(ses: [*c]struct_session, cmd: ?*const COMMAND, format: [*c]u8, ...) [*c]struct_session;
+pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
 pub extern fn parse_input(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn parse_command(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn is_speedwalk(ses: [*c]struct_session, input: [*c]u8) c_int;
@@ -8994,10 +8994,10 @@ pub extern fn port_new(ses: [*c]struct_session, s: c_int) c_int;
 pub extern fn close_port(ses: [*c]struct_session, buddy: [*c]struct_port_data, unlink: c_int) void;
 pub extern fn process_port_connections(ses: [*c]struct_session, read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
 pub extern fn port_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
-pub extern fn port_socket_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_telnet_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, length: usize, format: [*c]u8, ...) void;
-pub extern fn port_log_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
 pub extern fn process_port_input(ses: [*c]struct_session, buddy: [*c]struct_port_data) c_int;
 pub extern fn get_port_commands(ses: [*c]struct_session, buddy: [*c]struct_port_data, buf: [*c]u8, len: c_int) void;
 pub extern fn port_name_change(ses: [*c]struct_session, buddy: [*c]struct_port_data, txt: [*c]u8) void;
@@ -9053,18 +9053,18 @@ pub extern fn new_session(ses: [*c]struct_session, name: [*c]u8, address: [*c]u8
 pub extern fn connect_session(ses: [*c]struct_session) [*c]struct_session;
 pub extern fn cleanup_session(ses: [*c]struct_session) void;
 pub extern fn dispose_session(ses: [*c]struct_session) void;
-pub extern fn show_message(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_error(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_debug(ses: [*c]struct_session, index: c_int, node: [*c]struct_listnode, format: [*c]u8, ...) void;
-pub extern fn show_info(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn tintin_header(ses: [*c]struct_session, width: c_int, format: [*c]u8, ...) void;
+pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
 pub extern fn socket_printf(ses: [*c]struct_session, length: usize, format: [*c]u8, ...) void;
 pub extern fn telnet_printf(ses: [*c]struct_session, length: c_int, format: [*c]u8, ...) void;
-pub extern fn print_lines(ses: [*c]struct_session, flags: c_int, color: [*c]u8, format: [*c]u8, ...) void;
+pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
 pub extern fn show_lines(ses: [*c]struct_session, color: [*c]u8, str: [*c]u8) void;
-pub extern fn tintin_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf2(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf3(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
 pub extern fn tintin_puts(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts2(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts3(ses: [*c]struct_session, string: [*c]u8, prompt: c_int) void;
@@ -9794,11 +9794,11 @@ pub export fn chat_new(arg_s: c_int) c_int {
         fd = tmp;
         break :blk tmp;
     }) < @as(c_int, 0)) {
-        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("chat_new: accept"))))))));
+        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("chat_new: accept"))))))), .{});
         return -@as(c_int, 1);
     }
     if (fcntl(fd, F_SETFL, O_NONBLOCK | O_NONBLOCK) == -@as(c_int, 1)) {
-        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("chat_new: fcntl O_NDELAY|O_NONBLOCK"))))))));
+        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("chat_new: fcntl O_NDELAY|O_NONBLOCK"))))))), .{});
     }
     if ((gtd.*.chat.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) {
         _ = close(fd);
@@ -9825,10 +9825,10 @@ pub export fn chat_new(arg_s: c_int) c_int {
         new_buddy.*.prev = gtd.*.chat.*.prev;
         gtd.*.chat.*.prev = new_buddy;
     }
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("New connection: %s D%d."))))))), new_buddy.*.ip, new_buddy.*.fd);
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("New connection: %s D%d."))))))), .{new_buddy.*.ip, new_buddy.*.fd});
     return 0;
 } // src/chat.c:603:6: warning: TODO unable to translate variadic function, demoted to extern
-pub extern fn chat_printf(format: [*c]u8, ...) void;
+pub fn chat_printf(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_printf(arg_format, args); }
 pub export fn process_chat_input(arg_buddy: [*c]struct_chat_data) c_int {
     var buddy = arg_buddy;
     _ = &buddy;
@@ -9846,7 +9846,7 @@ pub export fn process_chat_input(arg_buddy: [*c]struct_chat_data) c_int {
     _ = &sep;
     var size: c_int = undefined;
     _ = &size;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("process_chat_input(%p)"))))))), buddy);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("process_chat_input(%p)"))))))), .{buddy});
     buf = str_alloc_stack(0);
     size = @truncate(read(buddy.*.fd, @ptrCast(@alignCast(buf)), @bitCast(@as(c_long, @divTrunc(BUFFER_SIZE, @as(c_int, 3))))));
     if (size <= @as(c_int, 0)) {
@@ -9878,8 +9878,8 @@ pub export fn process_chat_input(arg_buddy: [*c]struct_chat_data) c_int {
             }
             buddy.*.timeout = 0;
             if (strlen(buddy.*.name) > @as(usize, 20)) {
-                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s has refused your connection because your name is too long.\n%c"))))))), CHAT_MESSAGE, gtd.*.chat.*.name, name, CHAT_END_OF_COMMAND);
-                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Refusing connection from %.21s:%d, name too long. (%d characters)"))))))), buddy.*.ip, buddy.*.port, strlen(buddy.*.name));
+                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s has refused your connection because your name is too long.\n%c"))))))), .{CHAT_MESSAGE, gtd.*.chat.*.name, name, CHAT_END_OF_COMMAND});
+                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Refusing connection from %.21s:%d, name too long. (%d characters)"))))))), .{buddy.*.ip, buddy.*.port, strlen(buddy.*.name)});
                 pop_call();
                 return -@as(c_int, 1);
             }
@@ -9891,8 +9891,8 @@ pub export fn process_chat_input(arg_buddy: [*c]struct_chat_data) c_int {
                             close_chat(node, TRUE);
                             break;
                         } else {
-                            chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is already connected to someone named %s.\n%c"))))))), CHAT_MESSAGE, gtd.*.chat.*.name, name, CHAT_END_OF_COMMAND);
-                            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Refusing connection from %s:%d, already connected to someone named %s."))))))), buddy.*.ip, buddy.*.port, name);
+                            chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is already connected to someone named %s.\n%c"))))))), .{CHAT_MESSAGE, gtd.*.chat.*.name, name, CHAT_END_OF_COMMAND});
+                            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Refusing connection from %s:%d, already connected to someone named %s."))))))), .{buddy.*.ip, buddy.*.port, name});
                             pop_call();
                             return -@as(c_int, 1);
                         }
@@ -9900,20 +9900,20 @@ pub export fn process_chat_input(arg_buddy: [*c]struct_chat_data) c_int {
                 }
             }
             if (!(strcasecmp(buddy.*.name, "ALL") != 0)) {
-                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is an invalid name.\n%c"))))))), CHAT_MESSAGE, name, CHAT_END_OF_COMMAND);
-                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Refusing connection from %s:%d, %s is an invalid name."))))))), buddy.*.ip, buddy.*.port, name);
+                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is an invalid name.\n%c"))))))), .{CHAT_MESSAGE, name, CHAT_END_OF_COMMAND});
+                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Refusing connection from %s:%d, %s is an invalid name."))))))), .{buddy.*.ip, buddy.*.port, name});
                 pop_call();
                 return -@as(c_int, 1);
             }
         } else {
-            chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s has refused your connection due to an invalid handshake. (%s)\n%c"))))))), CHAT_MESSAGE, gtd.*.chat.*.name, buf, CHAT_END_OF_COMMAND);
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Refusing connection from %.21s:%d, invalid handshake."))))))), buddy.*.ip, buddy.*.port);
+            chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s has refused your connection due to an invalid handshake. (%s)\n%c"))))))), .{CHAT_MESSAGE, gtd.*.chat.*.name, buf, CHAT_END_OF_COMMAND});
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Refusing connection from %.21s:%d, invalid handshake."))))))), .{buddy.*.ip, buddy.*.port});
             pop_call();
             return -@as(c_int, 1);
         }
         _ = strip_vt102_codes(gtd.*.chat.*.name, name);
-        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("YES:%s\n"))))))), name);
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Connected to %s@%s:%d"))))))), buddy.*.name, buddy.*.ip, buddy.*.port);
+        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("YES:%s\n"))))))), .{name});
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Connected to %s@%s:%d"))))))), .{buddy.*.name, buddy.*.ip, buddy.*.port});
         pop_call();
         return 1;
     }
@@ -9938,19 +9938,19 @@ pub export fn process_chat_input(arg_buddy: [*c]struct_chat_data) c_int {
                 buddy.*.name = strdup(name);
             }
             buddy.*.timeout = 0;
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Connection made to %s."))))))), buddy.*.name);
-            chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s %s%c"))))))), CHAT_VERSION, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TinTin++"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("2.02.61 "))))))), CHAT_END_OF_COMMAND);
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Connection made to %s."))))))), .{buddy.*.name});
+            chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s %s%c"))))))), .{CHAT_VERSION, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TinTin++"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("2.02.61 "))))))), CHAT_END_OF_COMMAND});
             get_chat_commands(buddy, sep, @bitCast(@as(c_uint, @truncate((@as(usize, @bitCast(@as(c_long, size))) -% strlen(temp)) -% @as(usize, 1)))));
             pop_call();
             return 0;
         } else {
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Error in processing connection negotiation with %s@%s"))))))), buddy.*.name, buddy.*.ip);
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Error in processing connection negotiation with %s@%s"))))))), .{buddy.*.name, buddy.*.ip});
             pop_call();
             return -@as(c_int, 1);
         }
     }
     if (!(strncmp(buf, "NO", 2) != 0)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Connection negotation refused by %s@%s"))))))), buddy.*.name, buddy.*.ip);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Connection negotation refused by %s@%s"))))))), .{buddy.*.name, buddy.*.ip});
         pop_call();
         return -@as(c_int, 1);
     }
@@ -9975,7 +9975,7 @@ pub export fn get_chat_commands(arg_buddy: [*c]struct_chat_data, arg_buf: [*c]u8
     _ = &ptc;
     var size: c_int = undefined;
     _ = &size;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("get_chat_commands(%s,%d,%s)"))))))), buddy.*.name, len, buf);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("get_chat_commands(%s,%d,%s)"))))))), .{buddy.*.name, len, buf});
     txt = str_alloc_stack(0);
     pti = @ptrCast(@alignCast(buf));
     pto = @ptrCast(@alignCast(txt));
@@ -10009,7 +10009,7 @@ pub export fn get_chat_commands(arg_buddy: [*c]struct_chat_data, arg_buf: [*c]u8
         }
         while (@as(c_int, pti.*) != CHAT_END_OF_COMMAND) {
             if (@as(c_int, pti.*) == @as(c_int, 0)) {
-                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Unterminated command: %d %s"))))))), ptc, buf);
+                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Unterminated command: %d %s"))))))), .{ptc, buf});
                 pop_call();
                 return;
             }
@@ -10070,16 +10070,16 @@ pub export fn get_chat_commands(arg_buddy: [*c]struct_chat_data, arg_buf: [*c]u8
                     break;
                 },
                 CHAT_DO_NOT_DISTURB => {
-                    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s has enabled DND."))))))), buddy.*.name);
+                    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s has enabled DND."))))))), .{buddy.*.name});
                     break;
                 },
                 CHAT_SEND_ACTION, CHAT_SEND_ALIAS, CHAT_SEND_VARIABLE, CHAT_SEND_EVENT, CHAT_SEND_GAG, CHAT_SEND_HIGHLIGHT, CHAT_SEND_LIST, CHAT_SEND_ARRAY, CHAT_SEND_BARITEM => {
-                    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s%c"))))))), CHAT_MESSAGE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\nTintin++ does not support this.\n"))))))), CHAT_END_OF_COMMAND);
+                    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s%c"))))))), .{CHAT_MESSAGE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\nTintin++ does not support this.\n"))))))), CHAT_END_OF_COMMAND});
                     break;
                 },
                 CHAT_VERSION => {
                     if ((@as(c_int, buddy.*.version.*) == @as(c_int, 0)) and (@as(c_int, txt.*) != @as(c_int, 0))) {
-                        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s %s%c"))))))), CHAT_VERSION, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TinTin++"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("2.02.61 "))))))), CHAT_END_OF_COMMAND);
+                        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s %s%c"))))))), .{CHAT_VERSION, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TinTin++"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("2.02.61 "))))))), CHAT_END_OF_COMMAND});
                         {
                             if (buddy.*.version != null) {
                                 free(@ptrCast(@alignCast(buddy.*.version)));
@@ -10102,16 +10102,16 @@ pub export fn get_chat_commands(arg_buddy: [*c]struct_chat_data, arg_buf: [*c]u8
                     break;
                 },
                 CHAT_FILE_END => {
-                    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("File transfer completion acknowledged."))))))));
+                    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("File transfer completion acknowledged."))))))), .{});
                     break;
                 },
                 CHAT_FILE_CANCEL => {
-                    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("File cancel request received."))))))));
+                    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("File cancel request received."))))))), .{});
                     file_cleanup(buddy);
                     break;
                 },
                 CHAT_PING_REQUEST => {
-                    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s%c"))))))), CHAT_PING_RESPONSE, txt, CHAT_END_OF_COMMAND);
+                    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s%c"))))))), .{CHAT_PING_RESPONSE, txt, CHAT_END_OF_COMMAND});
                     break;
                 },
                 CHAT_PING_RESPONSE => {
@@ -10127,7 +10127,7 @@ pub export fn get_chat_commands(arg_buddy: [*c]struct_chat_data, arg_buf: [*c]u8
                     break;
                 },
                 CHAT_SNOOP_START => {
-                    _ = check_all_events(gts, @as(c_int, 1) << @intCast(@as(c_int, 10)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CHAT SNOOP REQUEST"))))))), buddy.*.name, buddy.*.ip, ntos(buddy.*.port));
+                    _ = check_all_events(gts, @as(c_int, 1) << @intCast(@as(c_int, 10)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CHAT SNOOP REQUEST"))))))), .{buddy.*.name, buddy.*.ip, ntos(buddy.*.port)});
                     break;
                 },
                 CHAT_SNOOP_DATA => {
@@ -10138,7 +10138,7 @@ pub export fn get_chat_commands(arg_buddy: [*c]struct_chat_data, arg_buf: [*c]u8
                     break;
                 },
                 else => {
-                    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("get_chat_commands: unknown option [%d] from %s@%s:%d (%s)"))))))), ptc, buddy.*.name, buddy.*.ip, buddy.*.port, txt);
+                    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("get_chat_commands: unknown option [%d] from %s@%s:%d (%s)"))))))), .{ptc, buddy.*.name, buddy.*.ip, buddy.*.port, txt});
                     break;
                 },
             }
@@ -10157,8 +10157,8 @@ pub export fn chat_name_change(arg_buddy: [*c]struct_chat_data, arg_name: [*c]u8
     var node: [*c]struct_chat_data = undefined;
     _ = &node;
     if (strlen(name) > @as(usize, 20)) {
-        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s has refused your name change because your name is too long.\n%c"))))))), CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND);
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Refusing connection from %.21s:%d, name too long. (%d characters)"))))))), buddy.*.ip, buddy.*.port, strlen(name));
+        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s has refused your name change because your name is too long.\n%c"))))))), .{CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND});
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Refusing connection from %.21s:%d, name too long. (%d characters)"))))))), .{buddy.*.ip, buddy.*.port, strlen(name)});
         close_chat(buddy, TRUE);
         return;
     }
@@ -10166,21 +10166,21 @@ pub export fn chat_name_change(arg_buddy: [*c]struct_chat_data, arg_name: [*c]u8
         node = gtd.*.chat;
         while (node != null) : (node = node.*.next) {
             if ((node != buddy) and !(strcmp(name, node.*.name) != 0)) {
-                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is already connected to someone named %s.\n%c"))))))), CHAT_MESSAGE, gtd.*.chat.*.name, name, CHAT_END_OF_COMMAND);
-                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Refusing name change from %s@%s:%d, already connected to someone named %s."))))))), buddy.*.name, buddy.*.ip, buddy.*.port, name);
+                chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is already connected to someone named %s.\n%c"))))))), .{CHAT_MESSAGE, gtd.*.chat.*.name, name, CHAT_END_OF_COMMAND});
+                chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Refusing name change from %s@%s:%d, already connected to someone named %s."))))))), .{buddy.*.name, buddy.*.ip, buddy.*.port, name});
                 close_chat(buddy, TRUE);
                 return;
             }
         }
     }
     if (!(strcasecmp(name, "ALL") != 0)) {
-        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is an invalid name.\n%c"))))))), CHAT_MESSAGE, name, CHAT_END_OF_COMMAND);
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Refusing name change from %s@%s:%d, %s is an invalid name."))))))), buddy.*.name, buddy.*.ip, buddy.*.port, name);
+        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s is an invalid name.\n%c"))))))), .{CHAT_MESSAGE, name, CHAT_END_OF_COMMAND});
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Refusing name change from %s@%s:%d, %s is an invalid name."))))))), .{buddy.*.name, buddy.*.ip, buddy.*.port, name});
         close_chat(buddy, TRUE);
         return;
     }
     if (strcmp(name, buddy.*.name) != 0) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s changed their name to %s."))))))), buddy.*.name, name);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s changed their name to %s."))))))), .{buddy.*.name, name});
         {
             if (buddy.*.name != null) {
                 free(@ptrCast(@alignCast(buddy.*.name)));
@@ -10199,13 +10199,13 @@ pub export fn chat_receive_text_everybody(arg_buddy: [*c]struct_chat_data, arg_t
     if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) {
         return;
     }
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), txt);
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{txt});
     if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) {
         {
             node = gtd.*.chat.*.next;
             while (node != null) : (node = node.*.next) {
                 if (node != buddy) {
-                    chat_socket_printf(node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s %s[Served By %s%s]\n%c"))))))), CHAT_MESSAGE, txt, gtd.*.chat.*.color, gtd.*.chat.*.name, gtd.*.chat.*.color, CHAT_END_OF_COMMAND);
+                    chat_socket_printf(node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s %s[Served By %s%s]\n%c"))))))), .{CHAT_MESSAGE, txt, gtd.*.chat.*.color, gtd.*.chat.*.name, gtd.*.chat.*.color, CHAT_END_OF_COMMAND});
                 }
             }
         }
@@ -10214,7 +10214,7 @@ pub export fn chat_receive_text_everybody(arg_buddy: [*c]struct_chat_data, arg_t
             node = gtd.*.chat.*.next;
             while (node != null) : (node = node.*.next) {
                 if ((node.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) {
-                    chat_socket_printf(node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s %s[Served By %s%s]\n%c"))))))), CHAT_MESSAGE, txt, gtd.*.chat.*.color, gtd.*.chat.*.name, gtd.*.chat.*.color, CHAT_END_OF_COMMAND);
+                    chat_socket_printf(node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s %s[Served By %s%s]\n%c"))))))), .{CHAT_MESSAGE, txt, gtd.*.chat.*.color, gtd.*.chat.*.name, gtd.*.chat.*.color, CHAT_END_OF_COMMAND});
                 }
             }
         }
@@ -10234,7 +10234,7 @@ pub export fn chat_receive_text_personal(arg_buddy: [*c]struct_chat_data, arg_tx
         }
         gtd.*.chat.*.reply = strdup(buddy.*.name);
     }
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), txt);
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{txt});
 }
 pub export fn chat_receive_text_group(arg_buddy: [*c]struct_chat_data, arg_txt: [*c]u8) void {
     var buddy = arg_buddy;
@@ -10245,7 +10245,7 @@ pub export fn chat_receive_text_group(arg_buddy: [*c]struct_chat_data, arg_txt: 
         return;
     }
     if (strlen(txt) > @as(usize, 16)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), &txt[@as(c_int, 16)]);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{&txt[@as(c_int, 16)]});
     }
 }
 pub export fn chat_receive_message(arg_buddy: [*c]struct_chat_data, arg_txt: [*c]u8) void {
@@ -10256,7 +10256,7 @@ pub export fn chat_receive_message(arg_buddy: [*c]struct_chat_data, arg_txt: [*c
     if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) {
         return;
     }
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), txt);
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{txt});
 }
 pub export fn chat_receive_snoop_data(arg_buddy: [*c]struct_chat_data, arg_txt: [*c]u8) void {
     var buddy = arg_buddy;
@@ -10266,14 +10266,14 @@ pub export fn chat_receive_snoop_data(arg_buddy: [*c]struct_chat_data, arg_txt: 
     if ((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) {
         return;
     }
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), txt);
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{txt});
 }
 pub export fn ping_response(arg_ch: [*c]struct_chat_data, arg_time_1: [*c]u8) void {
     var ch = arg_ch;
     _ = &ch;
     var time_1 = arg_time_1;
     _ = &time_1;
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Ping response time for %s: %lld ms"))))))), ch.*.name, (utime() -% @as(c_ulonglong, @bitCast(@as(c_longlong, strtoll(time_1, null, 10))))) / @as(c_ulonglong, 1000));
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Ping response time for %s: %lld ms"))))))), .{ch.*.name, (utime() -% @as(c_ulonglong, @bitCast(@as(c_longlong, strtoll(time_1, null, 10))))) / @as(c_ulonglong, 1000)});
 }
 pub export fn request_response(arg_requester: [*c]struct_chat_data) void {
     var requester = arg_requester;
@@ -10284,7 +10284,7 @@ pub export fn request_response(arg_requester: [*c]struct_chat_data) void {
     _ = &buf;
     var tmp: [50000]u8 = undefined;
     _ = &tmp;
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s has requested your public connections."))))))), requester.*.name);
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s has requested your public connections."))))))), .{requester.*.name});
     {
         buf[@as(c_int, 0)] = 0;
         buddy = gtd.*.chat.*.next;
@@ -10298,7 +10298,7 @@ pub export fn request_response(arg_requester: [*c]struct_chat_data) void {
             }
         }
     }
-    chat_socket_printf(requester, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s%c"))))))), CHAT_CONNECTION_LIST, @as([*c]u8, @ptrCast(@alignCast(&buf))), CHAT_END_OF_COMMAND);
+    chat_socket_printf(requester, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s%c"))))))), .{CHAT_CONNECTION_LIST, @as([*c]u8, @ptrCast(@alignCast(&buf))), CHAT_END_OF_COMMAND});
     return;
 }
 pub export fn parse_requested_connections(arg_buddy: [*c]struct_chat_data, arg_txt: [*c]u8) void {
@@ -10315,7 +10315,7 @@ pub export fn parse_requested_connections(arg_buddy: [*c]struct_chat_data, arg_t
     var port: [50000]u8 = undefined;
     _ = &port;
     if (!((buddy.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s tried to force your client to connect to: %s."))))))), buddy.*.name, txt);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s tried to force your client to connect to: %s."))))))), .{buddy.*.name, txt});
         return;
     }
     ip[@as(c_int, 0)] = 0;
@@ -10339,7 +10339,7 @@ pub export fn parse_requested_connections(arg_buddy: [*c]struct_chat_data, arg_t
                 node = gtd.*.chat.*.next;
                 while (node != null) : (node = node.*.next) {
                     if (!(strcmp(@ptrCast(@alignCast(&ip)), node.*.ip) != 0) and (atoi(@ptrCast(@alignCast(&port))) == node.*.port)) {
-                        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("skipping known address: %s port %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&ip))), @as([*c]u8, @ptrCast(@alignCast(&port))));
+                        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("skipping known address: %s port %s"))))))), .{@as([*c]u8, @ptrCast(@alignCast(&ip))), @as([*c]u8, @ptrCast(@alignCast(&port)))});
                         break;
                     }
                 }
@@ -10370,7 +10370,7 @@ pub export fn peek_response(arg_peeker: [*c]struct_chat_data) void {
             }
         }
     }
-    chat_socket_printf(peeker, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s%c"))))))), CHAT_PEEK_LIST, @as([*c]u8, @ptrCast(@alignCast(&buf))), CHAT_END_OF_COMMAND);
+    chat_socket_printf(peeker, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s%c"))))))), .{CHAT_PEEK_LIST, @as([*c]u8, @ptrCast(@alignCast(&buf))), CHAT_END_OF_COMMAND});
     return;
 }
 pub export fn parse_peeked_connections(arg_buddy: [*c]struct_chat_data, arg_txt: [*c]u8) void {
@@ -10387,7 +10387,7 @@ pub export fn parse_peeked_connections(arg_buddy: [*c]struct_chat_data, arg_txt:
     var name: [50000]u8 = undefined;
     _ = &name;
     if (@as(c_int, txt.*) == @as(c_int, 0)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s has no public connections."))))))), buddy.*.name);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s has no public connections."))))))), .{buddy.*.name});
         return;
     }
     ip[@as(c_int, 0)] = blk: {
@@ -10400,8 +10400,8 @@ pub export fn parse_peeked_connections(arg_buddy: [*c]struct_chat_data, arg_txt:
         break :blk tmp;
     };
     comma = txt;
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %-15s   %-15s   %-5s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Address"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Port"))))))));
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" ---------------   ---------------   ----- "))))))));
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %-15s   %-15s   %-5s"))))))), .{@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Name"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Address"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Port")))))))});
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" ---------------   ---------------   ----- "))))))), .{});
     while (comma != null) {
         comma = strchr(txt, '~');
         if (comma != null) {
@@ -10418,7 +10418,7 @@ pub export fn parse_peeked_connections(arg_buddy: [*c]struct_chat_data, arg_txt:
             txt += strlen(txt) +% @as(usize, 1);
         }
         if (((@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&ip))).*) != 0) and (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&port))).*) != 0)) and (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&name))).*) != 0)) {
-            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %-15s   %-15s   %-5s"))))))), @as([*c]u8, @ptrCast(@alignCast(&name))), @as([*c]u8, @ptrCast(@alignCast(&ip))), @as([*c]u8, @ptrCast(@alignCast(&port))));
+            chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %-15s   %-15s   %-5s"))))))), .{@as([*c]u8, @ptrCast(@alignCast(&name))), @as([*c]u8, @ptrCast(@alignCast(&ip))), @as([*c]u8, @ptrCast(@alignCast(&port)))});
             @as([*c]u8, @ptrCast(@alignCast(&port))).* = 0;
             @as([*c]u8, @ptrCast(@alignCast(&ip))).* = 0;
             @as([*c]u8, @ptrCast(@alignCast(&name))).* = 0;
@@ -10435,7 +10435,7 @@ pub export fn chat_receive_file(arg_arg: [*c]u8, arg_buddy: [*c]struct_chat_data
     _ = &path;
     var comma: [*c]u8 = undefined;
     _ = &comma;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("chat_receive_file(%p,%p)"))))))), arg, buddy);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("chat_receive_file(%p,%p)"))))))), .{arg, buddy});
     if (buddy.*.file_pt != null) {
         deny_file(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\nThere is a transfer already in progress.\n"))))))));
         pop_call();
@@ -10470,14 +10470,14 @@ pub export fn chat_receive_file(arg_arg: [*c]u8, arg_buddy: [*c]struct_chat_data
     }
     buddy.*.file_block_tot = @truncate(@divTrunc(buddy.*.file_size, @as(c_longlong, BLOCK_SIZE)) + @as(c_longlong, if (__helpers.signedRemainder(buddy.*.file_size, @as(c_longlong, BLOCK_SIZE)) != 0) @as(c_int, 1) else @as(c_int, 0)));
     _ = sprintf(@ptrCast(@alignCast(&path)), "%s%s", gtd.*.chat.*.download, buddy.*.file_name);
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("File transfer from %s, file: %s, size: %d."))))))), buddy.*.name, buddy.*.file_name, buddy.*.file_size);
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Use %cchat <accept|decline> %s [boost] to proceed."))))))), gtd.*.tintin_char, buddy.*.name);
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("File transfer from %s, file: %s, size: %d."))))))), .{buddy.*.name, buddy.*.file_name, buddy.*.file_size});
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Use %cchat <accept|decline> %s [boost] to proceed."))))))), .{gtd.*.tintin_char, buddy.*.name});
     if (@as(?*anyopaque, @ptrCast(@alignCast(blk: {
         const tmp = fopen(@ptrCast(@alignCast(&path)), "r");
         buddy.*.file_pt = tmp;
         break :blk tmp;
     }))) != @as(?*anyopaque, null)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Warning, the file already exists on your end."))))))));
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Warning, the file already exists on your end."))))))), .{});
         _ = fclose(buddy.*.file_pt);
         buddy.*.file_pt = null;
     }
@@ -10501,7 +10501,7 @@ pub export fn send_block(arg_buddy: [*c]struct_chat_data) void {
     }
     if (buddy.*.file_block_cnt == @as(c_int, 0)) {
         buddy.*.file_start_time = utime();
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s started a file transfer, file: %s, size: %lld"))))))), buddy.*.name, buddy.*.file_name, buddy.*.file_size);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s started a file transfer, file: %s, size: %lld"))))))), .{buddy.*.name, buddy.*.file_name, buddy.*.file_size});
     }
     pto = @ptrCast(@alignCast(&block));
     (blk: {
@@ -10526,12 +10526,12 @@ pub export fn send_block(arg_buddy: [*c]struct_chat_data) void {
         }
     }
     if (write(buddy.*.fd, @ptrCast(@alignCast(@as([*c]u8, @ptrCast(@alignCast(&block))))), 501) == @as(isize, -@as(c_int, 1))) {
-        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("send_block: write"))))))));
+        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("send_block: write"))))))), .{});
     }
     buddy.*.file_block_cnt += 1;
     if (i < BLOCK_SIZE) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("File transfer: %s, to %s completed at %lld.%lld KB/s."))))))), buddy.*.file_name, buddy.*.name, @as(c_ulonglong, @bitCast(@as(c_longlong, @as(c_longlong, 1000) * buddy.*.file_size))) / (utime() -% buddy.*.file_start_time), (@as(c_ulonglong, @bitCast(@as(c_longlong, @as(c_longlong, 10000) * buddy.*.file_size))) / (utime() -% buddy.*.file_start_time)) % @as(c_ulonglong, 10));
-        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c"))))))), CHAT_FILE_END, CHAT_END_OF_COMMAND);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("File transfer: %s, to %s completed at %lld.%lld KB/s."))))))), .{buddy.*.file_name, buddy.*.name, @as(c_ulonglong, @bitCast(@as(c_longlong, @as(c_longlong, 1000) * buddy.*.file_size))) / (utime() -% buddy.*.file_start_time), (@as(c_ulonglong, @bitCast(@as(c_longlong, @as(c_longlong, 10000) * buddy.*.file_size))) / (utime() -% buddy.*.file_start_time)) % @as(c_ulonglong, 10)});
+        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c"))))))), .{CHAT_FILE_END, CHAT_END_OF_COMMAND});
         file_cleanup(buddy);
     }
 }
@@ -10552,7 +10552,7 @@ pub export fn receive_block(arg_str: [*c]u8, arg_buddy: [*c]struct_chat_data, ar
         return if (len < BLOCK_SIZE) len else BLOCK_SIZE;
     }
     if ((gtd.*.chat.*.file_block_patch == @as(c_int, 0)) and (len < BLOCK_SIZE)) {
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("receive_block %04d: packet length %03d: fragmentation detected."))))))), buddy.*.file_block_cnt, len);
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("receive_block %04d: packet length %03d: fragmentation detected."))))))), .{buddy.*.file_block_cnt, len});
         gtd.*.chat.*.file_block_patch = len;
         _ = memcpy(@ptrCast(@alignCast(@as([*c]u8, @ptrCast(@alignCast(&static_local_file_block_buf.file_block_buf))))), @ptrCast(@alignCast(str)), @bitCast(@as(c_long, len)));
         return len;
@@ -10574,11 +10574,11 @@ pub export fn receive_block(arg_str: [*c]u8, arg_buddy: [*c]struct_chat_data, ar
     if (buddy.*.file_block_cnt == buddy.*.file_block_tot) {
         size = @truncate(__helpers.signedRemainder(buddy.*.file_size, @as(c_longlong, BLOCK_SIZE)));
         _ = fwrite(@ptrCast(@alignCast(str)), 1, @bitCast(@as(c_long, size)), buddy.*.file_pt);
-        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Transfer of %s completed, size: %lld, speed: %lld.%lld KB/s."))))))), buddy.*.file_name, buddy.*.file_size, @as(c_ulonglong, @bitCast(@as(c_longlong, @as(c_longlong, 1000) * buddy.*.file_size))) / (utime() -% buddy.*.file_start_time), (@as(c_ulonglong, @bitCast(@as(c_longlong, @as(c_longlong, 10000) * buddy.*.file_size))) / (utime() -% buddy.*.file_start_time)) % @as(c_ulonglong, 10));
+        chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Transfer of %s completed, size: %lld, speed: %lld.%lld KB/s."))))))), .{buddy.*.file_name, buddy.*.file_size, @as(c_ulonglong, @bitCast(@as(c_longlong, @as(c_longlong, 1000) * buddy.*.file_size))) / (utime() -% buddy.*.file_start_time), (@as(c_ulonglong, @bitCast(@as(c_longlong, @as(c_longlong, 10000) * buddy.*.file_size))) / (utime() -% buddy.*.file_start_time)) % @as(c_ulonglong, 10)});
         file_cleanup(buddy);
     } else {
         _ = fwrite(@ptrCast(@alignCast(str)), 1, @bitCast(@as(c_long, size)), buddy.*.file_pt);
-        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c"))))))), CHAT_FILE_BLOCK_REQUEST, CHAT_END_OF_COMMAND);
+        chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c"))))))), .{CHAT_FILE_BLOCK_REQUEST, CHAT_END_OF_COMMAND});
     }
     return len;
 }
@@ -10587,14 +10587,14 @@ pub export fn deny_file(arg_ch: [*c]struct_chat_data, arg_arg: [*c]u8) void {
     _ = &ch;
     var arg = arg_arg;
     _ = &arg;
-    chat_socket_printf(ch, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s%c"))))))), CHAT_FILE_DENY, arg, CHAT_END_OF_COMMAND);
+    chat_socket_printf(ch, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s%c"))))))), .{CHAT_FILE_DENY, arg, CHAT_END_OF_COMMAND});
 }
 pub export fn file_denied(arg_buddy: [*c]struct_chat_data, arg_txt: [*c]u8) void {
     var buddy = arg_buddy;
     _ = &buddy;
     var txt = arg_txt;
     _ = &txt;
-    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), txt);
+    chat_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{txt});
     file_cleanup(buddy);
 }
 pub export fn file_cleanup(arg_buddy: [*c]struct_chat_data) void {

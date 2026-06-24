@@ -5,7 +5,7 @@ pub const base = @import("base.zig");
 pub const buffer = @import("buffer.zig");
 pub const chat = @import("chat.zig");
 pub const class = @import("class.zig");
-pub const command = @import("command.zig");
+pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
 pub const config = @import("config.zig");
 pub const cursor = @import("cursor.zig");
 pub const daemon = @import("daemon.zig");

@@ -6265,7 +6265,7 @@ pub const struct_session = extern struct {
     pub const edit_suspend = __root.edit_suspend;
     pub const edit_write = __root.edit_write;
     pub const do_draw = __root.do_draw;
-    pub const check_all_events = __root.check_all_events;
+    pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
     pub const mouse_handler = __root.mouse_handler;
     pub const do_read = __root.do_read;
     pub const do_write = __root.do_write;
@@ -6311,14 +6311,14 @@ pub const struct_session = extern struct {
     pub const logit = __root.logit;
     pub const write_html_header = __root.write_html_header;
     pub const vt102_to_html = __root.vt102_to_html;
-    pub const syserr_printf = __root.syserr_printf;
+    pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
     pub const do_end = __root.do_end;
     pub const do_nop = __root.do_nop;
     pub const do_test = __root.do_test;
-    pub const arachnos_devel = __root.arachnos_devel;
-    pub const arachnos_mudlist = __root.arachnos_mudlist;
+    pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+    pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
     pub const msdp_update_var = __root.msdp_update_var;
-    pub const msdp_update_varf = __root.msdp_update_varf;
+    pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
     pub const msdp_update_var_instant = __root.msdp_update_var_instant;
     pub const msdp_send_update = __root.msdp_send_update;
     pub const msdp_get_var = __root.msdp_get_var;
@@ -6332,16 +6332,16 @@ pub const struct_session = extern struct {
     pub const write_msdp_to_descriptor = __root.write_msdp_to_descriptor;
     pub const search_nest_base_ses = __root.search_nest_base_ses;
     pub const search_nest_node_ses = __root.search_nest_node_ses;
-    pub const set_nest_node_ses = __root.set_nest_node_ses;
-    pub const add_nest_node_ses = __root.add_nest_node_ses;
+    pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
     pub const connect_mud = __root.connect_mud;
     pub const write_line_mud = __root.write_line_mud;
     pub const read_buffer_mud = __root.read_buffer_mud;
     pub const readmud = __root.readmud;
     pub const process_more_output = __root.process_more_output;
     pub const process_one_line = __root.process_one_line;
-    pub const execute = __root.execute;
-    pub const command = __root.command;
+    pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+    pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
     pub const parse_input = __root.parse_input;
     pub const parse_command = __root.parse_command;
     pub const is_speedwalk = __root.is_speedwalk;
@@ -6410,10 +6410,10 @@ pub const struct_session = extern struct {
     pub const close_port = __root.close_port;
     pub const process_port_connections = __root.process_port_connections;
     pub const port_forward_session = __root.port_forward_session;
-    pub const port_socket_printf = __root.port_socket_printf;
-    pub const port_telnet_printf = __root.port_telnet_printf;
-    pub const port_log_printf = __root.port_log_printf;
-    pub const port_printf = __root.port_printf;
+    pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+    pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+    pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+    pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
     pub const process_port_input = __root.process_port_input;
     pub const get_port_commands = __root.get_port_commands;
     pub const port_name_change = __root.port_name_change;
@@ -6455,18 +6455,18 @@ pub const struct_session = extern struct {
     pub const connect_session = __root.connect_session;
     pub const cleanup_session = __root.cleanup_session;
     pub const dispose_session = __root.dispose_session;
-    pub const show_message = __root.show_message;
-    pub const show_error = __root.show_error;
-    pub const show_debug = __root.show_debug;
-    pub const show_info = __root.show_info;
-    pub const tintin_header = __root.tintin_header;
+    pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+    pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+    pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+    pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+    pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
     pub const socket_printf = __root.socket_printf;
     pub const telnet_printf = __root.telnet_printf;
-    pub const print_lines = __root.print_lines;
+    pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
     pub const show_lines = __root.show_lines;
-    pub const tintin_printf = __root.tintin_printf;
-    pub const tintin_printf2 = __root.tintin_printf2;
-    pub const tintin_printf3 = __root.tintin_printf3;
+    pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+    pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+    pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
     pub const tintin_puts = __root.tintin_puts;
     pub const tintin_puts2 = __root.tintin_puts2;
     pub const tintin_puts3 = __root.tintin_puts3;
@@ -6864,8 +6864,8 @@ pub const struct_listroot = extern struct {
     pub const get_nest_node_key = __root.get_nest_node_key;
     pub const get_nest_node_val = __root.get_nest_node_val;
     pub const get_nest_index = __root.get_nest_index;
-    pub const set_nest_node = __root.set_nest_node;
-    pub const add_nest_node = __root.add_nest_node;
+    pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+    pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
     pub const copy_nest_node = __root.copy_nest_node;
     pub const node = __root.show_node;
     pub const root = __root.search_nest_root;
@@ -6912,7 +6912,7 @@ pub const struct_chat_data = extern struct {
     file_block_tot: c_int = 0,
     file_block_patch: c_int = 0,
     file_start_time: c_ulonglong = 0,
-    pub const chat_socket_printf = __root.chat_socket_printf;
+    pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
     pub const close_chat = __root.close_chat;
     pub const chat = __root.close_chat;
 };
@@ -7260,7 +7260,7 @@ pub extern fn buffer_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, a
 pub extern fn buffer_info(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8) void;
 pub extern fn do_chat(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn process_chat_connections(read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
-pub extern fn chat_socket_printf(buddy: [*c]struct_chat_data, format: [*c]u8, ...) void;
+pub fn chat_socket_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").chat_socket_printf(arg0, arg_format, args); }
 pub extern fn close_chat(buddy: [*c]struct_chat_data, unlink: c_int) void;
 pub extern fn chat_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
 pub extern fn chat_accept(arg1: [*c]u8, arg2: [*c]u8) void;
@@ -7370,7 +7370,7 @@ pub extern fn str_convert_meta(input: [*c]u8, eol: c_int) [*c]u8;
 pub extern fn echo_command(ses: [*c]struct_session, line: [*c]u8) void;
 pub extern fn init_input(ses: [*c]struct_session, top_row: c_int, top_col: c_int, bot_row: c_int, bot_col: c_int) void;
 pub extern fn free_input(ses: [*c]struct_session) void;
-pub extern fn input_printf(format: [*c]u8, ...) void;
+pub fn input_printf(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").input_printf(arg_format, args); }
 pub extern fn modified_input() void;
 pub extern fn do_map(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn delete_room_data(room: [*c]struct_room_data) void;
@@ -7471,8 +7471,8 @@ pub extern fn insert_node_list(root: [*c]struct_listroot, node: [*c]struct_listn
 pub extern fn insert_index_list(root: [*c]struct_listroot, node: [*c]struct_listnode, index: c_int) [*c]struct_listnode;
 pub extern fn update_node_list(root: [*c]struct_listroot, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_listnode;
 pub extern fn search_node_list(root: [*c]struct_listroot, text: [*c]u8) [*c]struct_listnode;
-pub extern fn push_call(format: [*c]u8, ...) void;
-pub extern fn push_call_printf(format: [*c]u8, ...) c_int;
+pub fn push_call(arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").push_call(arg_format, args); }
+pub fn push_call_printf(arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").push_call_printf(arg_format, args)); }
 pub extern fn pop_call() void;
 pub extern fn dump_stack() void;
 pub extern fn do_dictionary(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -7498,7 +7498,7 @@ pub extern fn delete_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn insert_line(edit: [*c]struct_edit_data, index: c_int, str: [*c]u8) void;
 pub extern fn remove_line(edit: [*c]struct_edit_data, index: c_int) void;
 pub extern fn do_draw(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
-pub extern fn check_all_events(ses: [*c]struct_session, flags: c_int, args: c_int, vars: c_int, fmt: [*c]u8, ...) c_int;
+pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anytype, arg_format: [*c]const u8, args: anytype) c_int { return @intCast(@import("variadics.zig").check_all_events(arg0, arg1, arg2, arg3, arg_format, args)); }
 pub extern fn mouse_handler(ses: [*c]struct_session, val1: c_int, val2: c_int, val3: c_int) void;
 pub extern fn do_read(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn do_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -7556,7 +7556,7 @@ pub extern fn main(argc: c_int, argv: [*c][*c]u8) c_int;
 pub extern fn init_tintin(greeting: c_int) void;
 pub extern fn quitmsg(message: [*c]u8) void;
 pub extern fn syserr_fatal(signal: c_int, msg: [*c]u8) void;
-pub extern fn syserr_printf(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
+pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
 pub extern fn zlib_alloc(@"opaque": ?*anyopaque, items: c_uint, size: c_uint) ?*anyopaque;
 pub extern fn zlib_free(@"opaque": ?*anyopaque, address: ?*anyopaque) void;
 pub extern fn restring(point: [*c]u8, string: [*c]u8) [*c]u8;
@@ -7594,11 +7594,11 @@ pub extern fn do_nop(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [
 pub extern fn do_test(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn init_msdp_table() void;
 pub extern fn msdp_find(@"var": [*c]u8) c_int;
-pub extern fn arachnos_devel(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn arachnos_mudlist(ses: [*c]struct_session, fmt: [*c]u8, ...) void;
-pub extern fn msdp_update_all(@"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn arachnos_devel(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_devel(arg0, arg_format, args); }
+pub fn arachnos_mudlist(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").arachnos_mudlist(arg0, arg_format, args); }
+pub fn msdp_update_all(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_all(arg0, arg_format, args); }
 pub extern fn msdp_update_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, str: [*c]u8) void;
-pub extern fn msdp_update_varf(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
+pub fn msdp_update_varf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").msdp_update_varf(arg0, arg1, arg2, arg_format, args); }
 pub extern fn msdp_update_var_instant(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8, fmt: [*c]u8, ...) void;
 pub extern fn msdp_send_update(ses: [*c]struct_session, buddy: [*c]struct_port_data) void;
 pub extern fn msdp_get_var(ses: [*c]struct_session, buddy: [*c]struct_port_data, @"var": [*c]u8) [*c]u8;
@@ -7635,10 +7635,10 @@ pub extern fn get_nest_index(root: [*c]struct_listroot, variable: [*c]u8, result
 pub extern fn show_nest_node(node: [*c]struct_listnode, result: [*c][*c]u8, initialize: c_int) void;
 pub extern fn view_nest_node_json(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int) void;
 pub extern fn view_nest_node(node: [*c]struct_listnode, str_result: [*c][*c]u8, nest: c_int, initialize: c_int, color: c_int) void;
-pub extern fn set_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn set_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
-pub extern fn add_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]u8, ...) [*c]struct_listnode;
+pub fn set_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node_ses(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node_ses(arg0, arg1, arg_format, args))))); }
+pub fn set_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").set_nest_node(arg0, arg1, arg_format, args))))); }
+pub fn add_nest_node(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_listnode { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").add_nest_node(arg0, arg1, arg_format, args))))); }
 pub extern fn copy_nest_node(dst_root: [*c]struct_listroot, dst: [*c]struct_listnode, src: [*c]struct_listnode) void;
 pub extern fn connect_mud(ses: [*c]struct_session, host: [*c]u8, port: [*c]u8) c_int;
 pub extern fn write_line_mud(ses: [*c]struct_session, line: [*c]u8, size: c_int) void;
@@ -7651,8 +7651,8 @@ pub extern fn is_abbrev_cmp(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_member(str1: [*c]u8, str2: [*c]u8) c_int;
 pub extern fn is_vowel(str: [*c]u8) c_int;
 pub extern fn filename_string(input: [*c]u8, output: [*c]u8) void;
-pub extern fn execute(ses: [*c]struct_session, format: [*c]u8, ...) [*c]struct_session;
-pub extern fn command(ses: [*c]struct_session, cmd: ?*const COMMAND, format: [*c]u8, ...) [*c]struct_session;
+pub fn execute(arg0: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").execute(arg0, arg_format, args))))); }
+pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
 pub extern fn parse_input(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn parse_command(ses: [*c]struct_session, input: [*c]u8) [*c]struct_session;
 pub extern fn is_speedwalk(ses: [*c]struct_session, input: [*c]u8) c_int;
@@ -7723,10 +7723,10 @@ pub extern fn port_new(ses: [*c]struct_session, s: c_int) c_int;
 pub extern fn close_port(ses: [*c]struct_session, buddy: [*c]struct_port_data, unlink: c_int) void;
 pub extern fn process_port_connections(ses: [*c]struct_session, read_set: [*c]fd_set, write_set: [*c]fd_set, exc_set: [*c]fd_set) void;
 pub extern fn port_forward_session(ses: [*c]struct_session, linelog: [*c]u8) void;
-pub extern fn port_socket_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_telnet_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, length: usize, format: [*c]u8, ...) void;
-pub extern fn port_log_printf(ses: [*c]struct_session, buddy: [*c]struct_port_data, format: [*c]u8, ...) void;
-pub extern fn port_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn port_socket_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_socket_printf(arg0, arg1, arg_format, args); }
+pub fn port_telnet_printf(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_telnet_printf(arg0, arg1, arg2, arg_format, args); }
+pub fn port_log_printf(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_log_printf(arg0, arg1, arg_format, args); }
+pub fn port_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").port_printf(arg0, arg_format, args); }
 pub extern fn process_port_input(ses: [*c]struct_session, buddy: [*c]struct_port_data) c_int;
 pub extern fn get_port_commands(ses: [*c]struct_session, buddy: [*c]struct_port_data, buf: [*c]u8, len: c_int) void;
 pub extern fn port_name_change(ses: [*c]struct_session, buddy: [*c]struct_port_data, txt: [*c]u8) void;
@@ -7782,18 +7782,18 @@ pub extern fn new_session(ses: [*c]struct_session, name: [*c]u8, address: [*c]u8
 pub extern fn connect_session(ses: [*c]struct_session) [*c]struct_session;
 pub extern fn cleanup_session(ses: [*c]struct_session) void;
 pub extern fn dispose_session(ses: [*c]struct_session) void;
-pub extern fn show_message(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_error(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn show_debug(ses: [*c]struct_session, index: c_int, node: [*c]struct_listnode, format: [*c]u8, ...) void;
-pub extern fn show_info(ses: [*c]struct_session, index: c_int, format: [*c]u8, ...) void;
-pub extern fn tintin_header(ses: [*c]struct_session, width: c_int, format: [*c]u8, ...) void;
+pub fn show_message(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_message(arg0, arg1, arg_format, args); }
+pub fn show_error(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_error(arg0, arg1, arg_format, args); }
+pub fn show_debug(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_debug(arg0, arg1, arg2, arg_format, args); }
+pub fn show_info(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").show_info(arg0, arg1, arg_format, args); }
+pub fn tintin_header(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_header(arg0, arg1, arg_format, args); }
 pub extern fn socket_printf(ses: [*c]struct_session, length: usize, format: [*c]u8, ...) void;
 pub extern fn telnet_printf(ses: [*c]struct_session, length: c_int, format: [*c]u8, ...) void;
-pub extern fn print_lines(ses: [*c]struct_session, flags: c_int, color: [*c]u8, format: [*c]u8, ...) void;
+pub fn print_lines(arg0: anytype, arg1: anytype, arg2: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").print_lines(arg0, arg1, arg2, arg_format, args); }
 pub extern fn show_lines(ses: [*c]struct_session, color: [*c]u8, str: [*c]u8) void;
-pub extern fn tintin_printf(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf2(ses: [*c]struct_session, format: [*c]u8, ...) void;
-pub extern fn tintin_printf3(ses: [*c]struct_session, format: [*c]u8, ...) void;
+pub fn tintin_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf(arg0, arg_format, args); }
+pub fn tintin_printf2(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf2(arg0, arg_format, args); }
+pub fn tintin_printf3(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").tintin_printf3(arg0, arg_format, args); }
 pub extern fn tintin_puts(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts2(ses: [*c]struct_session, string: [*c]u8) void;
 pub extern fn tintin_puts3(ses: [*c]struct_session, string: [*c]u8, prompt: c_int) void;
@@ -8049,7 +8049,7 @@ pub export fn do_replace(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = get_arg_in_braces(ses, arg, arg3, GET_ALL);
     if ((@as(c_int, arg1.*) == @as(c_int, 0)) or (@as(c_int, arg2.*) == @as(c_int, 0))) {
-        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #REPLACE <VARIABLE> <OLD TEXT> <NEW TEXT>"))))))));
+        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #REPLACE <VARIABLE> <OLD TEXT> <NEW TEXT>"))))))), .{});
         return ses;
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(blk: {
@@ -8057,11 +8057,11 @@ pub export fn do_replace(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
         node = tmp_1;
         break :blk tmp_1;
     }))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#REPLACE: VARIABLE {%s} NOT FOUND."))))))), arg1);
+        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#REPLACE: VARIABLE {%s} NOT FOUND."))))))), .{arg1});
         return ses;
     }
     if (tintin_regexp(ses, null, node.*.arg2, arg2, 0, @as(c_int, 1) << @intCast(@as(c_int, 2))) == FALSE) {
-        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#REPLACE: {%s} NOT FOUND IN {%s}."))))))), arg2, node.*.arg2);
+        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#REPLACE: {%s} NOT FOUND IN {%s}."))))))), .{arg2, node.*.arg2});
     } else {
         pti = node.*.arg2;
         str = str_alloc_stack(0);
@@ -8117,7 +8117,7 @@ pub export fn valid_variable(arg_ses: [*c]struct_session, arg_arg: [*c]u8) c_int
         return FALSE;
     }
     if (@as(c_int, is_digit(arg.*)) != 0) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#WARNING: VALIDATE {%s}: VARIABLES SHOULD NOT START WITH A NUMBER."))))))), arg);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#WARNING: VALIDATE {%s}: VARIABLES SHOULD NOT START WITH A NUMBER."))))))), .{arg});
     }
     return TRUE;
 }
@@ -8339,7 +8339,7 @@ pub export fn justify_string(arg_ses: [*c]struct_session, arg_in: [*c]u8, arg_ou
     _ = &cut;
     var temp: [*c]u8 = undefined;
     _ = &temp;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("justify_string(%p,%p,%p,%d,%d)"))))))), ses, in, out, @"align", cut);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("justify_string(%p,%p,%p,%d,%d)"))))))), .{ses, in, out, @"align", cut});
     temp = str_alloc_stack(0);
     if (@"align" < @as(c_int, 0)) {
         _ = sprintf(temp, "%%%d.%ds", @"align" - (@as(c_int, @bitCast(@as(c_uint, @truncate(strlen(in))))) - string_raw_str_len(ses, in, 0, -@as(c_int, 1))), string_str_raw_len(ses, in, 0, cut));
@@ -8495,7 +8495,7 @@ pub export fn format_string(arg_ses: [*c]struct_session, arg_format: [*c]u8, arg
                 while (true) {
                     switch (@as(c_int, ptf.*)) {
                         @as(c_int, 0) => {
-                            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT STRING: UNKNOWN ARGUMENT {%s}."))))))), pts);
+                            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT STRING: UNKNOWN ARGUMENT {%s}."))))))), .{pts});
                             continue;
                         },
                         @as(c_int, 'd'), @as(c_int, 'f'), @as(c_int, 'X') => {
@@ -8756,7 +8756,7 @@ pub export fn format_string(arg_ses: [*c]struct_session, arg_format: [*c]u8, arg
                             break;
                         },
                         else => {
-                            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT STRING: UNKNOWN ARGUMENT {%s%c}."))))))), pts, ptf.*);
+                            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT STRING: UNKNOWN ARGUMENT {%s%c}."))))))), .{pts, ptf.*});
                             break;
                         },
                     }
@@ -8850,29 +8850,29 @@ pub export fn do_variable(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
                 _ = &str_result;
                 str_result = str_alloc_stack(0);
                 view_nest_node(node, &str_result, 0, TRUE, TRUE);
-                print_lines(ses, @as(c_int, 0) << @intCast(@as(c_int, 0)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;184m%c\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}\n\x1b[38;5;164m{\n\x1b[38;5;188m%s\x1b[38;5;164m}\x1b[0m\n"))))))), gtd.*.tintin_char, list_table[LIST_VARIABLE].name, path, str_result);
+                print_lines(ses, @as(c_int, 0) << @intCast(@as(c_int, 0)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;184m%c\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}\n\x1b[38;5;164m{\n\x1b[38;5;188m%s\x1b[38;5;164m}\x1b[0m\n"))))))), .{gtd.*.tintin_char, list_table[LIST_VARIABLE].name, path, str_result});
             } else {
-                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;184m%c\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}\x1b[0m\n"))))))), gtd.*.tintin_char, list_table[LIST_VARIABLE].name, path, node.*.arg2);
+                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;184m%c\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}\x1b[0m\n"))))))), .{gtd.*.tintin_char, list_table[LIST_VARIABLE].name, path, node.*.arg2});
             }
         } else if (show_node_with_wild(ses, arg1, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_VARIABLE]) == FALSE) {
-            show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#VARIABLE: NO MATCHES FOUND FOR {%s}."))))))), arg1);
+            show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#VARIABLE: NO MATCHES FOUND FOR {%s}."))))))), .{arg1});
         }
     } else {
         if (!(valid_variable(ses, arg1) != 0)) {
-            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#VARIABLE: INVALID VARIABLE NAME {%s}."))))))), arg1);
+            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#VARIABLE: INVALID VARIABLE NAME {%s}."))))))), .{arg1});
             return ses;
         }
         str = str_alloc_stack(@bitCast(@as(c_uint, @truncate(strlen(arg)))));
         arg = sub_arg_in_braces(ses, arg, str, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
-        node = set_nest_node(root, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), str);
+        node = set_nest_node(root, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{str});
         while (@as(c_int, arg.*) != 0) {
             arg = sub_arg_in_braces(ses, arg, str, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
             if (@as(c_int, str.*) != 0) {
-                _ = add_nest_node(root, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), str);
+                _ = add_nest_node(root, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{str});
             }
         }
         show_nest_node(node, &str, 1);
-        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: VARIABLE {%s} HAS BEEN SET TO {%s}."))))))), arg1, str);
+        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: VARIABLE {%s} HAS BEEN SET TO {%s}."))))))), .{arg1, str});
     }
     return ses;
 }
@@ -8892,10 +8892,10 @@ pub export fn do_unvariable(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_ar
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     while (true) {
         if (delete_nest_node(@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_VARIABLE], arg1) != 0) {
-            show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: {%s} IS NO LONGER A VARIABLE."))))))), arg1);
+            show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: {%s} IS NO LONGER A VARIABLE."))))))), .{arg1});
         } else {
             if (delete_nest_node_with_wild(@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_VARIABLE], arg1) == FALSE) {
-                show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNVARIABLE: NO MATCHES FOUND FOR {%s}."))))))), arg1);
+                show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNVARIABLE: NO MATCHES FOUND FOR {%s}."))))))), .{arg1});
             }
         }
         arg = sub_arg_in_braces(ses, arg, arg1, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
@@ -8937,22 +8937,22 @@ pub export fn do_local(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
         if (node != null) {
             show_node(root, node, 0);
         } else if (show_node_with_wild(ses, arg1, root) == FALSE) {
-            show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#LOCAL: NO MATCHES FOUND FOR {%s}."))))))), arg1);
+            show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#LOCAL: NO MATCHES FOUND FOR {%s}."))))))), .{arg1});
         }
     } else {
         str = str_alloc_stack(@bitCast(@as(c_uint, @truncate(strlen(arg)))));
         arg = sub_arg_in_braces(ses, arg, str, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
         gtd.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 11)));
-        node = set_nest_node(root, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), str);
+        node = set_nest_node(root, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{str});
         gtd.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 11));
         while (@as(c_int, arg.*) != 0) {
             arg = sub_arg_in_braces(ses, arg, str, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
             if (@as(c_int, str.*) != 0) {
-                _ = add_nest_node(root, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), str);
+                _ = add_nest_node(root, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{str});
             }
         }
         show_nest_node(node, &str, 1);
-        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: LOCAL VARIABLE {%s} HAS BEEN SET TO {%s}."))))))), arg1, str);
+        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: LOCAL VARIABLE {%s} HAS BEEN SET TO {%s}."))))))), .{arg1, str});
     }
     return ses;
 }
@@ -8979,21 +8979,21 @@ pub export fn do_unlocal(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     root = local_list(ses);
     while (true) {
         if (delete_nest_node(root, arg1) != 0) {
-            show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK. {%s} IS NO LONGER A LOCAL VARIABLE."))))))), arg1);
+            show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK. {%s} IS NO LONGER A LOCAL VARIABLE."))))))), .{arg1});
         } else {
             found = FALSE;
             {
                 index_1 = root.*.used - @as(c_int, 1);
                 while (index_1 >= @as(c_int, 0)) : (index_1 -= 1) {
                     if (match(ses, root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1, arg1, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) {
-                        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK. {%s} IS NO LONGER A LOCAL VARIABLE."))))))), root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1);
+                        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK. {%s} IS NO LONGER A LOCAL VARIABLE."))))))), .{root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1});
                         delete_index_list(root, index_1);
                         found = TRUE;
                     }
                 }
             }
             if (found == @as(c_int, 0)) {
-                show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNLOCAL: NO MATCHES FOUND FOR {%s}."))))))), arg1);
+                show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNLOCAL: NO MATCHES FOUND FOR {%s}."))))))), .{arg1});
             }
         }
         arg = sub_arg_in_braces(ses, arg, arg1, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
@@ -9020,20 +9020,20 @@ pub export fn do_cat(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c
     _ = &str;
     arg = sub_arg_in_braces(ses, arg, arg1, GET_NST, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if ((@as(c_int, arg1.*) == @as(c_int, 0)) or (@as(c_int, arg.*) == @as(c_int, 0))) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CAT <VARIABLE> <ARGUMENT>"))))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CAT <VARIABLE> <ARGUMENT>"))))))), .{});
     } else {
         if (!(valid_variable(ses, arg1) != 0)) {
-            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#CAT: INVALID VARIABLE NAME {%s}."))))))), arg1);
+            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#CAT: INVALID VARIABLE NAME {%s}."))))))), .{arg1});
             return ses;
         }
         str = str_alloc_stack(@bitCast(@as(c_uint, @truncate(strlen(arg)))));
         while (true) {
             arg = sub_arg_in_braces(ses, arg, str, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
-            node = add_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), str);
+            node = add_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{str});
             if (!(@as(c_int, arg.*) != 0)) break;
         }
         show_nest_node(node, &str, 1);
-        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#CAT: VARIABLE {%s} HAS BEEN SET TO {%s}."))))))), arg1, str);
+        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#CAT: VARIABLE {%s} HAS BEEN SET TO {%s}."))))))), .{arg1, str});
     }
     return ses;
 }
@@ -9044,7 +9044,7 @@ pub export fn stringtobase(arg_str: [*c]u8, arg_base: [*c]u8) void {
     _ = &base;
     var buf: [*c]u8 = undefined;
     _ = &buf;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("stringtobase(%p,%p)"))))))), str, base);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("stringtobase(%p,%p)"))))))), .{str, base});
     buf = strdup(str);
     while (true) {
         switch (atoi(base)) {
@@ -9057,7 +9057,7 @@ pub export fn stringtobase(arg_str: [*c]u8, arg_base: [*c]u8) void {
                 break;
             },
             else => {
-                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT: UNKNOWN BASE CONVERSION {%s}."))))))), base);
+                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT: UNKNOWN BASE CONVERSION {%s}."))))))), .{base});
                 break;
             },
         }
@@ -9074,7 +9074,7 @@ pub export fn basetostring(arg_str: [*c]u8, arg_base: [*c]u8) void {
     _ = &base;
     var buf: [*c]u8 = undefined;
     _ = &buf;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("basetostring(%p,%p)"))))))), str, base);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("basetostring(%p,%p)"))))))), .{str, base});
     buf = strdup(str);
     while (true) {
         switch (atoi(base)) {
@@ -9087,7 +9087,7 @@ pub export fn basetostring(arg_str: [*c]u8, arg_base: [*c]u8) void {
                 break;
             },
             else => {
-                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT: UNKNOWN BASE CONVERSION {%s}."))))))), base);
+                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT: UNKNOWN BASE CONVERSION {%s}."))))))), .{base});
                 break;
             },
         }
@@ -9103,7 +9103,7 @@ pub export fn stringtobasez(arg_str: [*c]u8, arg_base: [*c]u8) void {
     _ = &base;
     var buf: [*c]u8 = undefined;
     _ = &buf;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("stringtobase(%p,%p)"))))))), str, base);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("stringtobase(%p,%p)"))))))), .{str, base});
     buf = strdup(str);
     while (true) {
         switch (atoi(base)) {
@@ -9116,7 +9116,7 @@ pub export fn stringtobasez(arg_str: [*c]u8, arg_base: [*c]u8) void {
                 break;
             },
             else => {
-                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT: UNKNOWN BASE CONVERSION {%s}."))))))), base);
+                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT: UNKNOWN BASE CONVERSION {%s}."))))))), .{base});
                 break;
             },
         }
@@ -9133,7 +9133,7 @@ pub export fn basetostringz(arg_str: [*c]u8, arg_base: [*c]u8) void {
     _ = &base;
     var buf: [*c]u8 = undefined;
     _ = &buf;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("basetostring(%p,%p)"))))))), str, base);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("basetostring(%p,%p)"))))))), .{str, base});
     buf = strdup(str);
     while (true) {
         switch (atoi(base)) {
@@ -9146,7 +9146,7 @@ pub export fn basetostringz(arg_str: [*c]u8, arg_base: [*c]u8) void {
                 break;
             },
             else => {
-                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT: UNKNOWN BASE CONVERSION {%s}."))))))), base);
+                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT: UNKNOWN BASE CONVERSION {%s}."))))))), .{base});
                 break;
             },
         }
@@ -9199,7 +9199,7 @@ pub export fn colorstring(arg_ses: [*c]struct_session, arg_str: [*c]u8) void {
     _ = &str;
     var result: [*c]u8 = undefined;
     _ = &result;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("colorstring(%p,%p)"))))))), ses, str);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("colorstring(%p,%p)"))))))), .{ses, str});
     result = str_alloc_stack(0);
     _ = get_color_names(ses, str, result);
     _ = strcpy(str, result);
@@ -9221,7 +9221,7 @@ pub export fn headerstring(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg_col
     _ = &len;
     var max: c_int = undefined;
     _ = &max;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("headerstring(%p,%p,%p)"))))))), ses, str, columns);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("headerstring(%p,%p,%p)"))))))), .{ses, str, columns});
     buf = str_alloc_stack(0);
     fill = str_alloc_stack(0);
     max = if (columns.* != 0) atoi(columns) else get_scroll_cols(ses);
@@ -9316,7 +9316,7 @@ pub export fn thousandgroupingstring(arg_ses: [*c]struct_session, arg_str: [*c]u
     _ = &cnt3;
     var cnt4: c_int = undefined;
     _ = &cnt4;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("thousandsgroupingstring(%p,%p)"))))))), ses, str);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("thousandsgroupingstring(%p,%p)"))))))), .{ses, str});
     result = str_alloc_stack(0);
     strold = str_alloc_stack(0);
     get_number_string(ses, str, strold);
@@ -9504,7 +9504,7 @@ pub export fn wrapstring(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg_wrap:
     _ = &width;
     var height: c_int = undefined;
     _ = &height;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("wrapstring(%p,%p,%p)"))))))), ses, str, wrap);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("wrapstring(%p,%p,%p)"))))))), .{ses, str, wrap});
     arg1 = str_alloc_stack(0);
     arg2 = str_alloc_stack(0);
     arg = sub_arg_in_braces(ses, str, arg1, GET_ALL, ((@as(c_int, 1) << @intCast(@as(c_int, 6))) | (@as(c_int, 1) << @intCast(@as(c_int, 11)))) | (@as(c_int, 1) << @intCast(@as(c_int, 7))));
@@ -9522,7 +9522,7 @@ pub export fn wrapstring(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg_wrap:
     if (cnt <= @as(c_int, 0)) {
         cnt = get_scroll_cols(ses) + cnt;
         if (cnt <= @as(c_int, 0)) {
-            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT %w: INVALID LENTGH {%s}"))))))), arg2);
+            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT %w: INVALID LENTGH {%s}"))))))), .{arg2});
             pop_call();
             return;
         }
@@ -9575,7 +9575,7 @@ pub export fn stringlength(arg_ses: [*c]struct_session, arg_str: [*c]u8) c_int {
     _ = &len;
     var temp: [*c]u8 = undefined;
     _ = &temp;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("stringlength(%p,%p)"))))))), ses, str);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("stringlength(%p,%p)"))))))), .{ses, str});
     temp = str_alloc_stack(0);
     _ = substitute(ses, str, temp, (@as(c_int, 1) << @intCast(@as(c_int, 6))) | (@as(c_int, 1) << @intCast(@as(c_int, 7))));
     len = strip_vt102_strlen(ses, temp);
@@ -9677,7 +9677,7 @@ pub export fn timestring(arg_ses: [*c]struct_session, arg_str: [*c]u8) void {
     _ = &timeval_tm;
     var timeval_t: time_t = undefined;
     _ = &timeval_t;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("timestring(%p,%p)"))))))), ses, str);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("timestring(%p,%p)"))))))), .{ses, str});
     arg1 = str_alloc_stack(0);
     arg2 = str_alloc_stack(0);
     arg = get_arg_in_braces(ses, str, arg1, GET_ALL);
@@ -9720,12 +9720,12 @@ pub export fn do_format(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     arg = sub_arg_in_braces(ses, arg, argvar, GET_NST, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, format, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, argvar.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #FORMAT <VARIABLE> <FORMAT> [ARG1] [ARG2] .. [ARG29] [ARG30]"))))))));
+        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #FORMAT <VARIABLE> <FORMAT> [ARG1] [ARG2] .. [ARG29] [ARG30]"))))))), .{});
         return ses;
     }
     format_string(ses, format, arg, result);
-    _ = set_nest_node_ses(ses, argvar, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), result);
-    show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK. VARIABLE {%s} HAS BEEN SET TO {%s}."))))))), argvar, result);
+    _ = set_nest_node_ses(ses, argvar, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), .{result});
+    show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK. VARIABLE {%s} HAS BEEN SET TO {%s}."))))))), .{argvar, result});
     return ses;
 }
 
