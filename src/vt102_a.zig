@@ -395,17 +395,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;
@@ -8022,7 +8026,7 @@ pub export fn init_pos(arg_ses: [*c]struct_session, arg_row: c_int, arg_col: c_i
     _ = &row;
     var col = arg_col;
     _ = &col;
-    push_call(@as([*c]u8, @ptrCast(@constCast("init_pos(%p)"))), ses);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("init_pos(%p)"))))))), ses);
     goto_pos(ses, row, col);
     @as([*c]c_int, @ptrCast(&gtd.*.screen.*.sav_row))[@as(c_int, 0)] = ses.*.cur_row;
     @as([*c]c_int, @ptrCast(&gtd.*.screen.*.sav_col))[@as(c_int, 0)] = ses.*.cur_col;
@@ -8034,14 +8038,14 @@ pub export fn hide_cursor(arg_ses: [*c]struct_session) void {
     var ses = arg_ses;
     _ = &ses;
     if (!((gtd.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 10)))) != 0)) {
-        print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("\x1b[?25l"))));
+        print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[?25l"))))))));
     }
 }
 pub export fn show_cursor(arg_ses: [*c]struct_session) void {
     var ses = arg_ses;
     _ = &ses;
     if (!((gtd.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 10)))) != 0)) {
-        print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("\x1b[?25h"))));
+        print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[?25h"))))))));
     }
 }
 pub export fn save_pos(arg_ses: [*c]struct_session) void {
@@ -8052,7 +8056,7 @@ pub export fn save_pos(arg_ses: [*c]struct_session) void {
     if (gtd.*.screen.*.sav_lev < STACK_SIZE) {
         gtd.*.screen.*.sav_lev += 1;
     } else {
-        syserr_printf(ses, @as([*c]u8, @ptrCast(@constCast("sav_lev++ above 1000."))));
+        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("sav_lev++ above 1000."))))))));
     }
     hide_cursor(ses);
 }
@@ -8064,11 +8068,11 @@ pub export fn goto_pos(arg_ses: [*c]struct_session, arg_row: c_int, arg_col: c_i
     var col = arg_col;
     _ = &col;
     if ((row < @as(c_int, 1)) or (col < @as(c_int, 1))) {
-        tintin_printf2(null, @as([*c]u8, @ptrCast(@constCast("\x1b[1;31merror: invalid row,col: goto_pos(%d,%d)\n"))), row, col);
+        tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31merror: invalid row,col: goto_pos(%d,%d)\n"))))))), row, col);
         dump_stack();
         return;
     }
-    print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("\r\x1b[%d;%dH"))), row, col);
+    print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\r\x1b[%d;%dH"))))))), row, col);
     ses.*.cur_row = row;
     ses.*.cur_col = col;
 }
@@ -8079,7 +8083,7 @@ pub export fn restore_pos(arg_ses: [*c]struct_session) void {
         gtd.*.screen.*.sav_lev -= 1;
     } else {
         gtd.*.screen.*.sav_lev = 0;
-        syserr_printf(ses, @as([*c]u8, @ptrCast(@constCast("restore_pos: sav_lev-- below 0."))));
+        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("restore_pos: sav_lev-- below 0."))))))));
     }
     if (gtd.*.screen.*.sav_lev == @as(c_int, 1)) {
         goto_pos(ses, inputline_cur_row(), inputline_cur_col());
@@ -8092,7 +8096,7 @@ pub export fn erase_cols(arg_cnt: c_int) void {
     var cnt = arg_cnt;
     _ = &cnt;
     if (cnt != 0) {
-        print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("\x1b[%dX"))), cnt);
+        print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%dX"))))))), cnt);
     }
 }
 pub export fn reset(arg_ses: [*c]struct_session) void {
@@ -8100,7 +8104,7 @@ pub export fn reset(arg_ses: [*c]struct_session) void {
     _ = &ses;
     ses.*.cur_row = 1;
     ses.*.cur_col = 1;
-    print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("\x1bc"))));
+    print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1bc"))))))));
 }
 pub export fn scroll_region(arg_ses: [*c]struct_session, arg_top: c_int, arg_bot: c_int) void {
     var ses = arg_ses;
@@ -8109,17 +8113,17 @@ pub export fn scroll_region(arg_ses: [*c]struct_session, arg_top: c_int, arg_bot
     _ = &top;
     var bot = arg_bot;
     _ = &bot;
-    push_call(@as([*c]u8, @ptrCast(@constCast("scroll_region(%p,%d,%d)"))), ses, top, bot);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("scroll_region(%p,%d,%d)"))))))), ses, top, bot);
     if (ses == gtd.*.ses) {
         if (top != @as(c_int, 1)) {
-            print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("\x1b[?1049h\x1b[?7787h\x1b[%d;%dr"))), top, bot);
+            print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[?1049h\x1b[?7787h\x1b[%d;%dr"))))))), top, bot);
         } else {
-            print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("\x1b[?1049l\x1b[?7787l\x1b[%d;%dr"))), top, bot);
+            print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[?1049l\x1b[?7787l\x1b[%d;%dr"))))))), top, bot);
         }
     }
     ses.*.split.*.top_row = top;
     ses.*.split.*.bot_row = bot;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 19)), 0, 4, @as([*c]u8, @ptrCast(@constCast("VT100 SCROLL REGION"))), ntos(top), ntos(bot), ntos(gtd.*.screen.*.rows), ntos(gtd.*.screen.*.cols), ntos(get_scroll_cols(ses)));
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 19)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VT100 SCROLL REGION"))))))), ntos(top), ntos(bot), ntos(gtd.*.screen.*.rows), ntos(gtd.*.screen.*.cols), ntos(get_scroll_cols(ses)));
     pop_call();
     return;
 }
@@ -8127,7 +8131,7 @@ pub export fn reset_scroll_region(arg_ses: [*c]struct_session) void {
     var ses = arg_ses;
     _ = &ses;
     if (ses == gtd.*.ses) {
-        print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("\x1b[?1049l\x1b[?7787l\x1b[r"))));
+        print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[?1049l\x1b[?7787l\x1b[r"))))))));
     }
     ses.*.split.*.top_row = 1;
     ses.*.split.*.top_col = 1;
@@ -9007,7 +9011,7 @@ pub export fn strip_vt102_strstr(arg_str: [*c]u8, arg_buf: [*c]u8, arg_len: [*c]
     _ = &ptm;
     var pts: [*c]u8 = undefined;
     _ = &pts;
-    push_call(@as([*c]u8, @ptrCast(@constCast("strip_vt102_strstr(%p,%p,%p)"))), str, buf, len);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("strip_vt102_strstr(%p,%p,%p)"))))))), str, buf, len);
     pts = str;
     while (@as(c_int, pts.*) != 0) {
         while (skip_vt102_codes(pts) != 0) {

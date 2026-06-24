@@ -395,17 +395,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;
@@ -7346,16 +7350,16 @@ pub export fn process_input() void {
     _ = &len;
     var out: c_int = undefined;
     _ = &out;
-    push_call(@as([*c]u8, @ptrCast(@constCast("process_input(void)"))));
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("process_input(void)"))))))));
     input = str_alloc_stack(0);
     if (gtd.*.detach_port != 0) {
         if (gtd.*.detach_sock > @as(c_int, 0)) {
             len = @truncate(read(gtd.*.detach_sock, @ptrCast(@alignCast(input)), 1));
             if (len <= @as(c_int, 0)) {
                 if (len == -@as(c_int, 1)) {
-                    syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("process_input: read"))), gtd.*.detach_sock);
+                    syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("process_input: read"))))))), gtd.*.detach_sock);
                 } else {
-                    show_message(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#DAEMON UPDATE: DETACHING FROM {%s} DUE TO READ FAILURE."))), gtd.*.detach_file);
+                    show_message(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DAEMON UPDATE: DETACHING FROM {%s} DUE TO READ FAILURE."))))))), gtd.*.detach_file);
                 }
                 gtd.*.detach_sock = close(gtd.*.detach_sock);
                 dirty_screen(gtd.*.ses);
@@ -7377,7 +7381,7 @@ pub export fn process_input() void {
             return;
         }
         gtd.*.attach_sock = close(gtd.*.attach_sock);
-        show_message(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#DAEMON ATTACH: WRITE ERROR: UNATTACHING."))));
+        show_message(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DAEMON ATTACH: WRITE ERROR: UNATTACHING."))))))));
     }
     if ((gtd.*.ses.*.input.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) {
         if (gtd.*.convert_time == @as(c_longlong, 0)) {
@@ -7401,27 +7405,27 @@ pub export fn process_input() void {
     gtd.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 2)));
     if ((gtd.*.chat != null) and (gtd.*.chat.*.paste_time != 0)) {
         chat_paste(gtd.*.ses.*.input.*.buf, null);
-        cursor_enter_finish(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast(""))));
+        cursor_enter_finish(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         pop_call();
         return;
     }
     if ((gtd.*.ses.*.telopts & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) {
         echo_command(gtd.*.ses, gtd.*.ses.*.input.*.buf);
     } else {
-        echo_command(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast(""))));
+        echo_command(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     }
     input_ses = gtd.*.ses;
-    _ = check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 1, @as([*c]u8, @ptrCast(@constCast("RECEIVED INPUT"))), gtd.*.ses.*.input.*.buf);
+    _ = check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RECEIVED INPUT"))))))), gtd.*.ses.*.input.*.buf);
     if (@as(c_int, gtd.*.ses.*.input.*.line_name.*) != 0) {
-        _ = check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 1, 1, @as([*c]u8, @ptrCast(@constCast("RECEIVED INPUT %s"))), gtd.*.ses.*.input.*.line_name, gtd.*.ses.*.input.*.buf);
-        if (check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 1, 1, @as([*c]u8, @ptrCast(@constCast("CATCH RECEIVED INPUT %s"))), gtd.*.ses.*.input.*.line_name, gtd.*.ses.*.input.*.buf) != 0) {
-            cursor_enter_finish(input_ses, @as([*c]u8, @ptrCast(@constCast(""))));
+        _ = check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 1, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RECEIVED INPUT %s"))))))), gtd.*.ses.*.input.*.line_name, gtd.*.ses.*.input.*.buf);
+        if (check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 1, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH RECEIVED INPUT %s"))))))), gtd.*.ses.*.input.*.line_name, gtd.*.ses.*.input.*.buf) != 0) {
+            cursor_enter_finish(input_ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
             pop_call();
             return;
         }
     }
-    if (check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 1, @as([*c]u8, @ptrCast(@constCast("CATCH RECEIVED INPUT"))), gtd.*.ses.*.input.*.buf) == @as(c_int, 1)) {
-        cursor_enter_finish(input_ses, @as([*c]u8, @ptrCast(@constCast(""))));
+    if (check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH RECEIVED INPUT"))))))), gtd.*.ses.*.input.*.buf) == @as(c_int, 1)) {
+        cursor_enter_finish(input_ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         pop_call();
         return;
     }
@@ -7433,7 +7437,7 @@ pub export fn process_input() void {
     if ((input_ses.*.telopts & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) {
         add_line_history(input_ses, input_ses.*.input.*.buf);
     }
-    cursor_enter_finish(input_ses, @as([*c]u8, @ptrCast(@constCast(""))));
+    cursor_enter_finish(input_ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     _ = fflush(null);
     pop_call();
     return;
@@ -7473,17 +7477,17 @@ pub export fn read_line(arg_input: [*c]u8, arg_len: c_int) void {
         }
     }
     if ((gtd.*.ses.*.event_flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != 0) {
-        _ = check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 2))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 2, @as([*c]u8, @ptrCast(@constCast("RECEIVED KEYPRESS"))), input, ntos(index_1));
+        _ = check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 2))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RECEIVED KEYPRESS"))))))), input, ntos(index_1));
     }
     if ((gtd.*.ses.*.event_flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) {
-        if (check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 2))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 2, @as([*c]u8, @ptrCast(@constCast("CATCH RECEIVED KEYPRESS"))), input, ntos(index_1)) == @as(c_int, 1)) {
-            _ = check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 2))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 4, @as([*c]u8, @ptrCast(@constCast("PROCESSED KEYPRESS"))), input, ntos(index_1), ntos(gtd.*.ses.*.input.*.edit.*.update + @as(c_int, 1)), ntos(gtd.*.ses.*.input.*.str_pos + @as(c_int, 1)));
+        if (check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 2))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH RECEIVED KEYPRESS"))))))), input, ntos(index_1)) == @as(c_int, 1)) {
+            _ = check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 2))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PROCESSED KEYPRESS"))))))), input, ntos(index_1), ntos(gtd.*.ses.*.input.*.edit.*.update + @as(c_int, 1)), ntos(gtd.*.ses.*.input.*.str_pos + @as(c_int, 1)));
             return;
         }
     }
     if (check_key(input, len) != 0) {
         if ((gtd.*.ses.*.event_flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != 0) {
-            _ = check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 2))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 4, @as([*c]u8, @ptrCast(@constCast("PROCESSED KEYPRESS"))), input, ntos(index_1), ntos(gtd.*.ses.*.input.*.edit.*.update + @as(c_int, 1)), ntos(gtd.*.ses.*.input.*.str_pos + @as(c_int, 1)));
+            _ = check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 2))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PROCESSED KEYPRESS"))))))), input, ntos(index_1), ntos(gtd.*.ses.*.input.*.edit.*.update + @as(c_int, 1)), ntos(gtd.*.ses.*.input.*.str_pos + @as(c_int, 1)));
         }
         return;
     }
@@ -7506,7 +7510,7 @@ pub export fn read_line(arg_input: [*c]u8, arg_len: c_int) void {
         while (true) {
             switch (@as(c_int, @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[0])) {
                 ASCII_CR, ASCII_LF => {
-                    cursor_enter(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast(""))));
+                    cursor_enter(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
                     _ = memmove(@ptrCast(@alignCast(@as([*c]u8, @ptrCast(@alignCast(&gtd.*.macro_buf))))), @ptrCast(@alignCast(&@as([*c]u8, @ptrCast(&gtd.*.macro_buf))[1])), @as(usize, 1) +% strlen(&@as([*c]u8, @ptrCast(&gtd.*.macro_buf))[1]));
                     break;
                 },
@@ -7522,18 +7526,18 @@ pub export fn read_line(arg_input: [*c]u8, arg_len: c_int) void {
                     _ = snprintf(@ptrCast(@alignCast(&buf)), BUFFER_SIZE, "%.*s", size, @as([*c]u8, @ptrCast(@alignCast(&gtd.*.macro_buf))));
                     inputline_insert(@ptrCast(@alignCast(&buf)), -@as(c_int, 1));
                     if ((gtd.*.ses.*.event_flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != 0) {
-                        _ = check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 2))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 4, @as([*c]u8, @ptrCast(@constCast("RECEIVED INPUT CHARACTER"))), @as([*c]u8, @ptrCast(@alignCast(&buf))), ntos(index_1), ntos(size), ntos(width));
+                        _ = check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 2))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RECEIVED INPUT CHARACTER"))))))), @as([*c]u8, @ptrCast(@alignCast(&buf))), ntos(index_1), ntos(size), ntos(width));
                     }
                     if ((width != 0) and (gtd.*.ses.*.input.*.raw_len != gtd.*.ses.*.input.*.raw_pos)) {
-                        cursor_redraw_line(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast(""))));
+                        cursor_redraw_line(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
                     } else {
-                        input_printf(@as([*c]u8, @ptrCast(@constCast("%.*s"))), size, @as([*c]u8, @ptrCast(@alignCast(&gtd.*.macro_buf))));
+                        input_printf(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s"))))))), size, @as([*c]u8, @ptrCast(@alignCast(&gtd.*.macro_buf))));
                     }
                     _ = memmove(@ptrCast(@alignCast(@as([*c]u8, @ptrCast(@alignCast(&gtd.*.macro_buf))))), @ptrCast(@alignCast(&@as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(size)))])), @as(usize, 1) +% strlen(&@as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(size)))]));
-                    cursor_check_line_modified(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast(""))));
+                    cursor_check_line_modified(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
                     gtd.*.ses.*.input.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 1)));
                     kill_list(@as([*c][*c]struct_listroot, @ptrCast(&gtd.*.ses.*.list))[LIST_COMMAND]);
-                    cursor_history_find(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast(""))));
+                    cursor_history_find(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
                     break;
                 },
             }
@@ -7541,7 +7545,7 @@ pub export fn read_line(arg_input: [*c]u8, arg_len: c_int) void {
         }
     }
     if ((gtd.*.ses.*.event_flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != 0) {
-        _ = check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 2))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 4, @as([*c]u8, @ptrCast(@constCast("PROCESSED KEYPRESS"))), input, ntos(index_1), ntos(gtd.*.ses.*.input.*.edit.*.update + @as(c_int, 1)), ntos(gtd.*.ses.*.input.*.str_pos + @as(c_int, 1)));
+        _ = check_all_events(gtd.*.ses, (@as(c_int, 1) << @intCast(@as(c_int, 2))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PROCESSED KEYPRESS"))))))), input, ntos(index_1), ntos(gtd.*.ses.*.input.*.edit.*.update + @as(c_int, 1)), ntos(gtd.*.ses.*.input.*.str_pos + @as(c_int, 1)));
     }
 }
 pub export fn read_key(arg_input: [*c]u8, arg_len: c_int) void {
@@ -7571,29 +7575,29 @@ pub export fn read_key(arg_input: [*c]u8, arg_len: c_int) void {
             while (true) {
                 switch (@as(c_int, @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(cnt)))])) {
                     ASCII_CR, ASCII_LF => {
-                        _ = str_cpy(&gtd.*.ses.*.input.*.buf, @as([*c]u8, @ptrCast(@constCast(""))));
+                        _ = str_cpy(&gtd.*.ses.*.input.*.buf, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
                         gtd.*.ses.*.input.*.raw_len = 0;
                         gtd.*.ses.*.input.*.str_len = 0;
                         gtd.*.ses.*.input.*.raw_pos = 0;
                         gtd.*.ses.*.input.*.str_pos = 0;
                         if ((gtd.*.ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0) {
-                            socket_printf(gtd.*.ses, 1, @as([*c]u8, @ptrCast(@constCast("%c"))), @as(c_int, '\r'));
+                            socket_printf(gtd.*.ses, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c"))))))), @as(c_int, '\r'));
                         } else {
-                            socket_printf(gtd.*.ses, 2, @as([*c]u8, @ptrCast(@constCast("%c%c"))), @as(c_int, '\r'), @as(c_int, '\n'));
+                            socket_printf(gtd.*.ses, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c"))))))), @as(c_int, '\r'), @as(c_int, '\n'));
                         }
                         break;
                     },
                     else => {
                         if ((@as(c_int, @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(cnt)))]) == @as(c_int, gtd.*.tintin_char)) and (@as(c_int, gtd.*.ses.*.input.*.buf[@as(c_int, 0)]) == @as(c_int, 0))) {
-                            print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("%c"))), @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(cnt)))]);
-                            _ = str_cpy_printf(&gtd.*.ses.*.input.*.buf, @as([*c]u8, @ptrCast(@constCast("%c"))), gtd.*.tintin_char);
+                            print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c"))))))), @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(cnt)))]);
+                            _ = str_cpy_printf(&gtd.*.ses.*.input.*.buf, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c"))))))), gtd.*.tintin_char);
                             gtd.*.ses.*.input.*.raw_len = 1;
                             gtd.*.ses.*.input.*.str_len = 1;
                             gtd.*.ses.*.input.*.raw_pos = 1;
                             gtd.*.ses.*.input.*.str_pos = 1;
                         } else {
-                            socket_printf(gtd.*.ses, 1, @as([*c]u8, @ptrCast(@constCast("%c"))), @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(cnt)))]);
-                            _ = str_cpy(&gtd.*.ses.*.input.*.buf, @as([*c]u8, @ptrCast(@constCast("\r"))));
+                            socket_printf(gtd.*.ses, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c"))))))), @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(cnt)))]);
+                            _ = str_cpy(&gtd.*.ses.*.input.*.buf, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\r"))))))));
                         }
                         break;
                     },
@@ -7621,7 +7625,7 @@ pub export fn check_key(arg_input: [*c]u8, arg_len: c_int) c_int {
     _ = &val;
     var partial: c_int = undefined;
     _ = &partial;
-    push_call(@as([*c]u8, @ptrCast(@constCast("check_key(%p,%d)"))), input, len);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("check_key(%p,%d)"))))))), input, len);
     if (!((gtd.*.ses.*.config_flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0)) {
         root = @as([*c][*c]struct_listroot, @ptrCast(&gtd.*.ses.*.list))[LIST_MACRO];
         if (!((@as(c_int, root.*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0)) {
@@ -7629,12 +7633,12 @@ pub export fn check_key(arg_input: [*c]u8, arg_len: c_int) c_int {
             {
                 root.*.update = 0;
                 while (root.*.update < root.*.used) : (root.*.update += 1) {
-                    node = @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(root.*.update)))];
+                    node = root.*.list[@bitCast(@as(isize, @intCast(root.*.update)))];
                     if ((@as(c_int, node.*.arg1.*) == @as(c_int, '^')) and (gtd.*.ses.*.input.*.raw_len != 0)) {
                         continue;
                     } else if (!(strcmp(@ptrCast(@alignCast(&gtd.*.macro_buf)), node.*.arg4) != 0)) {
                         _ = strcpy(@ptrCast(@alignCast(&buf)), node.*.arg2);
-                        show_debug(gtd.*.ses, LIST_MACRO, node, @as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG MACRO \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))), node.*.arg1);
+                        show_debug(gtd.*.ses, LIST_MACRO, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG MACRO \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))))))), node.*.arg1);
                         if ((node.*.shots != 0) and (@as(c_uint, @bitCast(@as(c_int, @intFromBool((blk: {
                             const ref = &node.*.shots;
                             ref.* -%= 1;
@@ -7685,16 +7689,16 @@ pub export fn check_key(arg_input: [*c]u8, arg_len: c_int) c_int {
                 if (@as(c_int, @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[2]) == @as(c_int, 'I')) {
                     @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[0] = 0;
                     gtd.*.screen.*.focus = 1;
-                    _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 1, @as([*c]u8, @ptrCast(@constCast("SCREEN FOCUS"))), ntos(gtd.*.screen.*.focus));
-                    msdp_update_all(@as([*c]u8, @ptrCast(@constCast("SCREEN_FOCUS"))), @as([*c]u8, @ptrCast(@constCast("%d"))), gtd.*.screen.*.focus);
+                    _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN FOCUS"))))))), ntos(gtd.*.screen.*.focus));
+                    msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_FOCUS"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), gtd.*.screen.*.focus);
                     pop_call();
                     return TRUE;
                 }
                 if (@as(c_int, @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[2]) == @as(c_int, 'O')) {
                     @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[0] = 0;
                     gtd.*.screen.*.focus = 0;
-                    _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 1, @as([*c]u8, @ptrCast(@constCast("SCREEN FOCUS"))), ntos(gtd.*.screen.*.focus));
-                    msdp_update_all(@as([*c]u8, @ptrCast(@constCast("SCREEN_FOCUS"))), @as([*c]u8, @ptrCast(@constCast("%d"))), gtd.*.screen.*.focus);
+                    _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN FOCUS"))))))), ntos(gtd.*.screen.*.focus));
+                    msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_FOCUS"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), gtd.*.screen.*.focus);
                     pop_call();
                     return TRUE;
                 }
@@ -7720,7 +7724,7 @@ pub export fn check_key(arg_input: [*c]u8, arg_len: c_int) c_int {
                         len = 3;
                         while (@as(c_int, @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(len)))]) != 0) : (len += 1) {
                             if (@as(c_int, is_digit(@as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(len)))])) != 0) {
-                                _ = cat_sprintf(input, @as([*c]u8, @ptrCast(@constCast("%c"))), @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(len)))]);
+                                _ = cat_sprintf(input, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c"))))))), @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(len)))]);
                             } else {
                                 while (true) {
                                     switch (@as(c_int, @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(len)))])) {
@@ -7766,7 +7770,7 @@ pub export fn check_key(arg_input: [*c]u8, arg_len: c_int) c_int {
                                             return TRUE;
                                         },
                                         else => {
-                                            print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("unknownmouse input error (%s)\n"))), str_convert_meta(@ptrCast(@alignCast(&gtd.*.macro_buf)), TRUE));
+                                            print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("unknownmouse input error (%s)\n"))))))), str_convert_meta(@ptrCast(@alignCast(&gtd.*.macro_buf)), TRUE));
                                             @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[0] = 0;
                                             pop_call();
                                             return TRUE;
@@ -7794,7 +7798,7 @@ pub export fn check_key(arg_input: [*c]u8, arg_len: c_int) c_int {
                                 cnt = 5;
                             }
                             if (@as(c_int, is_digit(@as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(len)))])) != 0) {
-                                _ = cat_sprintf(input, @as([*c]u8, @ptrCast(@constCast("%c"))), @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(len)))]);
+                                _ = cat_sprintf(input, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c"))))))), @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(len)))]);
                             } else {
                                 while (true) {
                                     switch (@as(c_int, @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(len)))])) {
@@ -7802,7 +7806,7 @@ pub export fn check_key(arg_input: [*c]u8, arg_len: c_int) c_int {
                                             if (@as(c_int, input[@as(c_int, 0)]) == @as(c_int, 0)) {
                                                 _ = strcat(input, "-");
                                             } else {
-                                                tintin_printf2(null, @as([*c]u8, @ptrCast(@constCast("\x1b[1;31merror: bad csi input (%s)\n"))), &@as([*c]u8, @ptrCast(&gtd.*.macro_buf))[1]);
+                                                tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31merror: bad csi input (%s)\n"))))))), &@as([*c]u8, @ptrCast(&gtd.*.macro_buf))[1]);
                                                 @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[0] = 0;
                                                 continue;
                                             }
@@ -7852,16 +7856,16 @@ pub export fn check_key(arg_input: [*c]u8, arg_len: c_int) c_int {
                                             break;
                                         },
                                         @as(c_int, 'c') => {
-                                            telnet_printf(gtd.*.ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@constCast("%.*s"))), len + @as(c_int, 1), @as([*c]u8, @ptrCast(@alignCast(&gtd.*.macro_buf))));
+                                            telnet_printf(gtd.*.ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s"))))))), len + @as(c_int, 1), @as([*c]u8, @ptrCast(@alignCast(&gtd.*.macro_buf))));
                                             @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[0] = 0;
                                             pop_call();
                                             return TRUE;
                                         },
                                         @as(c_int, 'd') => {
                                             if (@as(c_int, @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(len - @as(c_int, 1))))]) == @as(c_int, '#')) {
-                                                _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 3, @as([*c]u8, @ptrCast(@constCast("SCROLLBAR POSITION"))), ntos(val[@as(c_int, 0)]), ntos(val[@as(c_int, 1)]), ntos(val[@as(c_int, 2)]));
-                                                if (!(check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 3, @as([*c]u8, @ptrCast(@constCast("CATCH SCROLLBAR POSITION"))), ntos(val[@as(c_int, 0)]), ntos(val[@as(c_int, 1)]), ntos(val[@as(c_int, 2)])) != 0)) {
-                                                    _ = command(gtd.*.ses, do_buffer, @as([*c]u8, @ptrCast(@constCast("JUMP %d"))), if ((val[@as(c_int, 0)] + get_scroll_rows(gtd.*.ses)) < @as(c_int, 0)) @as(c_int, 0) else if ((val[@as(c_int, 0)] + get_scroll_rows(gtd.*.ses)) > gtd.*.ses.*.scroll.*.used) gtd.*.ses.*.scroll.*.used else val[@as(c_int, 0)] + get_scroll_rows(gtd.*.ses));
+                                                _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCROLLBAR POSITION"))))))), ntos(val[@as(c_int, 0)]), ntos(val[@as(c_int, 1)]), ntos(val[@as(c_int, 2)]));
+                                                if (!(check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH SCROLLBAR POSITION"))))))), ntos(val[@as(c_int, 0)]), ntos(val[@as(c_int, 1)]), ntos(val[@as(c_int, 2)])) != 0)) {
+                                                    _ = command(gtd.*.ses, do_buffer, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("JUMP %d"))))))), if ((val[@as(c_int, 0)] + get_scroll_rows(gtd.*.ses)) < @as(c_int, 0)) @as(c_int, 0) else if ((val[@as(c_int, 0)] + get_scroll_rows(gtd.*.ses)) > gtd.*.ses.*.scroll.*.used) gtd.*.ses.*.scroll.*.used else val[@as(c_int, 0)] + get_scroll_rows(gtd.*.ses));
                                                 }
                                                 @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[0] = 0;
                                                 pop_call();
@@ -7872,24 +7876,24 @@ pub export fn check_key(arg_input: [*c]u8, arg_len: c_int) c_int {
                                         },
                                         @as(c_int, 'e') => {
                                             if (@as(c_int, @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(len - @as(c_int, 1))))]) == @as(c_int, '#')) {
-                                                _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 3, @as([*c]u8, @ptrCast(@constCast("SCROLLBAR MOVE"))), ntos(val[@as(c_int, 0)]), ntos(val[@as(c_int, 1)]), ntos(val[@as(c_int, 2)]));
-                                                if (!(check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 3, @as([*c]u8, @ptrCast(@constCast("CATCH SCROLLBAR MOVE"))), ntos(val[@as(c_int, 0)]), ntos(val[@as(c_int, 1)]), ntos(val[@as(c_int, 2)])) != 0)) {
+                                                _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCROLLBAR MOVE"))))))), ntos(val[@as(c_int, 0)]), ntos(val[@as(c_int, 1)]), ntos(val[@as(c_int, 2)]));
+                                                if (!(check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH SCROLLBAR MOVE"))))))), ntos(val[@as(c_int, 0)]), ntos(val[@as(c_int, 1)]), ntos(val[@as(c_int, 2)])) != 0)) {
                                                     while (true) {
                                                         switch (val[@as(c_int, 0)]) {
                                                             @as(c_int, 5) => {
-                                                                cursor_page(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("up"))));
+                                                                cursor_page(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("up"))))))));
                                                                 break;
                                                             },
                                                             @as(c_int, 6) => {
-                                                                cursor_page(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("down"))));
+                                                                cursor_page(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("down"))))))));
                                                                 break;
                                                             },
                                                             @as(c_int, 65) => {
-                                                                cursor_page(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("up 1"))));
+                                                                cursor_page(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("up 1"))))))));
                                                                 break;
                                                             },
                                                             @as(c_int, 66) => {
-                                                                cursor_page(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("down 1"))));
+                                                                cursor_page(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("down 1"))))))));
                                                                 break;
                                                             },
                                                             else => {},
@@ -7925,8 +7929,8 @@ pub export fn check_key(arg_input: [*c]u8, arg_len: c_int) c_int {
                                             return TRUE;
                                         },
                                         @as(c_int, 'R') => {
-                                            if (!(check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 19)), 0, 2, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 CPR"))), ntos(val[@as(c_int, 0)]), ntos(val[@as(c_int, 1)])) != 0)) {
-                                                telnet_printf(gtd.*.ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@constCast("\x1b[%d;%dR"))), val[@as(c_int, 0)], val[@as(c_int, 1)]);
+                                            if (!(check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 19)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 CPR"))))))), ntos(val[@as(c_int, 0)]), ntos(val[@as(c_int, 1)])) != 0)) {
+                                                telnet_printf(gtd.*.ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%d;%dR"))))))), val[@as(c_int, 0)], val[@as(c_int, 1)]);
                                             }
                                             @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[0] = 0;
                                             pop_call();
@@ -7987,9 +7991,9 @@ pub export fn check_key(arg_input: [*c]u8, arg_len: c_int) c_int {
                                 return TRUE;
                             }
                             if (len >= @as(c_int, 50)) {
-                                print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("\x1b[1;31merror: unknown osc input (%s)\n"))), str_convert_meta(@ptrCast(@alignCast(&gtd.*.macro_buf)), TRUE));
+                                print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31merror: unknown osc input (%s)\n"))))))), str_convert_meta(@ptrCast(@alignCast(&gtd.*.macro_buf)), TRUE));
                             } else {
-                                telnet_printf(gtd.*.ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@constCast("%.*s"))), len + @as(c_int, 1), @as([*c]u8, @ptrCast(@alignCast(&gtd.*.macro_buf))));
+                                telnet_printf(gtd.*.ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%.*s"))))))), len + @as(c_int, 1), @as([*c]u8, @ptrCast(@alignCast(&gtd.*.macro_buf))));
                             }
                             @as([*c]u8, @ptrCast(&gtd.*.macro_buf))[0] = 0;
                             pop_call();
@@ -8018,7 +8022,7 @@ pub export fn convert_meta(arg_input: [*c]u8, arg_output: [*c]u8, arg_eol: c_int
     _ = &pti;
     var pto: [*c]u8 = undefined;
     _ = &pto;
-    push_call(@as([*c]u8, @ptrCast(@constCast("convert_meta(%p,%p,%d)"))), input, output, eol);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("convert_meta(%p,%p,%d)"))))))), input, output, eol);
     pti = input;
     pto = output;
     while ((@as(c_int, pti.*) != 0) and (@divExact(@as(c_long, @bitCast(@intFromPtr(pti) -% @intFromPtr(input))), @sizeOf(u8)) < @as(c_long, @divTrunc(BUFFER_SIZE, @as(c_int, 2))))) {
@@ -8332,10 +8336,10 @@ pub export fn echo_command(arg_ses: [*c]struct_session, arg_line: [*c]u8) void {
     _ = &split;
     ses.*.telopts &= ~(@as(c_int, 1) << @intCast(@as(c_int, 4)));
     if (ses.*.check_output != 0) {
-        process_more_output(ses, @as([*c]u8, @ptrCast(@constCast(""))), split);
+        process_more_output(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), split);
     }
     if (ses.*.scroll.*.line != -@as(c_int, 1)) {
-        buffer_end(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast(""))), @as([*c]u8, @ptrCast(@constCast(""))), @as([*c]u8, @ptrCast(@constCast(""))));
+        buffer_end(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         if (!(split != 0)) {
             _ = printf("%s\n", line);
         }
@@ -8353,7 +8357,7 @@ pub export fn echo_command(arg_ses: [*c]struct_session, arg_line: [*c]u8) void {
         _ = sprintf(@ptrCast(@alignCast(&buffer)), "\x1b[0m");
     }
     gtd.*.level.*.scroll +%= 1;
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("%s%s"))), ses.*.scroll.*.input, @as([*c]u8, @ptrCast(@alignCast(&buffer))));
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s%s"))))))), ses.*.scroll.*.input, @as([*c]u8, @ptrCast(@alignCast(&buffer))));
     gtd.*.level.*.scroll -%= 1;
     add_line_buffer(ses, @ptrCast(@alignCast(&buffer)), -@as(c_int, 1));
 }
@@ -8368,16 +8372,16 @@ pub export fn init_input(arg_ses: [*c]struct_session, arg_top_row: c_int, arg_to
     _ = &bot_row;
     var bot_col = arg_bot_col;
     _ = &bot_col;
-    push_call(@as([*c]u8, @ptrCast(@constCast("init_input(%p,%d,%d,%d,%d)"))), ses, top_row, top_col, bot_row, bot_col);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("init_input(%p,%d,%d,%d,%d)"))))))), ses, top_row, top_col, bot_row, bot_col);
     if (@as(?*anyopaque, @ptrCast(@alignCast(ses.*.input.*.buf))) == @as(?*anyopaque, null)) {
         ses.*.input.*.str_off = 1;
         ses.*.input.*.edit = create_editor();
         ses.*.input.*.line = create_editor();
-        ses.*.input.*.edit_name = str_dup(@as([*c]u8, @ptrCast(@constCast(""))));
-        ses.*.input.*.line_name = str_dup(@as([*c]u8, @ptrCast(@constCast(""))));
-        ses.*.input.*.buf = str_dup(@as([*c]u8, @ptrCast(@constCast(""))));
-        ses.*.input.*.tmp = str_dup(@as([*c]u8, @ptrCast(@constCast(""))));
-        ses.*.input.*.cut = str_dup(@as([*c]u8, @ptrCast(@constCast(""))));
+        ses.*.input.*.edit_name = str_dup(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+        ses.*.input.*.line_name = str_dup(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+        ses.*.input.*.buf = str_dup(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+        ses.*.input.*.tmp = str_dup(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+        ses.*.input.*.cut = str_dup(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     }
     if ((((top_row != 0) and (top_col != 0)) and (bot_row != 0)) and (bot_col != 0)) {
         ses.*.input.*.sav_top_row = top_row;
@@ -8422,7 +8426,7 @@ pub export fn free_input(arg_ses: [*c]struct_session) void {
 pub extern fn input_printf(format: [*c]u8, ...) void;
 pub export fn modified_input() void {
     kill_list(@as([*c][*c]struct_listroot, @ptrCast(&gtd.*.ses.*.list))[LIST_COMMAND]);
-    cursor_history_find(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast(""))));
+    cursor_history_find(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     if ((gtd.*.ses.*.input.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))) != 0) {
         gtd.*.ses.*.input.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 1)));
     }

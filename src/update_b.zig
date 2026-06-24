@@ -395,17 +395,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;

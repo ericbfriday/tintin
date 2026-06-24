@@ -395,17 +395,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;
@@ -7636,7 +7640,7 @@ pub export fn is_abbrev(arg_str1: [*c]u8, arg_str2: [*c]u8) c_int {
         return FALSE;
     }
     if (@as(c_int, str2.*) == @as(c_int, 0)) {
-        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("\x1b[1;31mis_abbrev(%s,%s)"))), str1, str2);
+        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31mis_abbrev(%s,%s)"))))))), str1, str2);
         dump_stack();
         return FALSE;
     }
@@ -7691,7 +7695,7 @@ pub export fn is_member(arg_str1: [*c]u8, arg_str2: [*c]u8) c_int {
         return FALSE;
     }
     if (@as(c_int, str2.*) == @as(c_int, 0)) {
-        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("\x1b[1;31mis_member(%s,%s)"))), str1, str2);
+        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31mis_member(%s,%s)"))))))), str1, str2);
         dump_stack();
         return FALSE;
     }
@@ -7763,7 +7767,7 @@ pub export fn parse_input(arg_ses: [*c]struct_session, arg_input: [*c]u8) [*c]st
     _ = &line;
     var node: [*c]struct_listnode = undefined;
     _ = &node;
-    push_call(@as([*c]u8, @ptrCast(@constCast("parse_input(%s,%s)"))), ses.*.name, input);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("parse_input(%s,%s)"))))))), ses.*.name, input);
     line = str_alloc_stack(0);
     if ((gtd.*.level.*.verbatim != 0) or (@as(c_uint, @bitCast(@as(c_int, @intFromBool((gtd.*.level.*.input == @as(c_uint, 0)) and (((ses.*.config_flags & (@as(c_int, 1) << @intCast(@as(c_int, 16)))) != 0) or ((gtd.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0)))))) != 0)) {
         _ = sub_arg_all(ses, input, line, 1, @as(c_int, 1) << @intCast(@as(c_int, 1)));
@@ -7815,7 +7819,7 @@ pub export fn parse_command(arg_ses: [*c]struct_session, arg_input: [*c]u8) [*c]
     _ = &arg;
     var arg1: [*c]u8 = undefined;
     _ = &arg1;
-    push_call(@as([*c]u8, @ptrCast(@constCast("parse_command(%p,%p)"))), ses, input);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("parse_command(%p,%p)"))))))), ses, input);
     arg1 = str_alloc_stack(0);
     arg = sub_arg_stop_spaces(ses, input, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (!(strncmp(input, arg1, strlen(arg1)) != 0)) {
@@ -7823,7 +7827,7 @@ pub export fn parse_command(arg_ses: [*c]struct_session, arg_input: [*c]u8) [*c]
         return null;
     }
     if (@as(c_int, arg.*) != 0) {
-        _ = cat_sprintf(arg1, @as([*c]u8, @ptrCast(@constCast(" %s"))), arg);
+        _ = cat_sprintf(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %s"))))))), arg);
     }
     _ = strcpy(input, arg1);
     pop_call();
@@ -8014,18 +8018,18 @@ pub export fn parse_tintin_command(arg_ses: [*c]struct_session, arg_input: [*c]u
         }
     }
     if (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&line))).*) == @as(c_int, '!')) {
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#!%s %s"))), @as([*c]u8, @ptrCast(@alignCast(&line))) + @as(usize, @bitCast(@as(isize, @intCast(@as(c_int, 1))))), input);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#!%s %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&line))) + @as(usize, @bitCast(@as(isize, @intCast(@as(c_int, 1))))), input);
         return ses;
     }
-    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 5)), 0, 1, @as([*c]u8, @ptrCast(@constCast("GAG UNKNOWN COMMAND"))), @as([*c]u8, @ptrCast(@alignCast(&line)))) != 0) {
+    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 5)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG UNKNOWN COMMAND"))))))), @as([*c]u8, @ptrCast(@alignCast(&line)))) != 0) {
         return ses;
     }
     if (!(strcasecmp(@ptrCast(@alignCast(&line)), "exit") != 0) or !(strcasecmp(@ptrCast(@alignCast(&line)), "quit") != 0)) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("#ERROR: UNKNOWN TINTIN COMMAND '%s'. SUGGESTION: 'end' OR 'zap'."))), @as([*c]u8, @ptrCast(@alignCast(&line))));
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: UNKNOWN TINTIN COMMAND '%s'. SUGGESTION: 'end' OR 'zap'."))))))), @as([*c]u8, @ptrCast(@alignCast(&line))));
     } else {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("#ERROR: UNKNOWN TINTIN COMMAND '%s'."))), @as([*c]u8, @ptrCast(@alignCast(&line))));
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: UNKNOWN TINTIN COMMAND '%s'."))))))), @as([*c]u8, @ptrCast(@alignCast(&line))));
     }
-    _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 14))), 0, 1, @as([*c]u8, @ptrCast(@constCast("UNKNOWN COMMAND"))), @as([*c]u8, @ptrCast(@alignCast(&line))));
+    _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 14))), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("UNKNOWN COMMAND"))))))), @as([*c]u8, @ptrCast(@alignCast(&line))));
     return ses;
 }
 pub export fn cnt_arg_all(arg_ses: [*c]struct_session, arg_string: [*c]u8, arg_flag: c_int) c_int {
@@ -8167,7 +8171,7 @@ pub export fn get_arg_all(arg_ses: [*c]struct_session, arg_string: [*c]u8, arg_r
             break :blk tmp;
         }).*;
         if (@divExact(@as(c_long, @bitCast(@intFromPtr(pto) -% @intFromPtr(result))), @sizeOf(u8)) >= @as(c_long, BUFFER_SIZE - @as(c_int, 3))) {
-            tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("#ERROR: INPUT BUFFER OVERFLOW."))));
+            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: INPUT BUFFER OVERFLOW."))))))));
             pto -= 1;
             break;
         }
@@ -8192,7 +8196,7 @@ pub export fn sub_arg_all(arg_ses: [*c]struct_session, arg_string: [*c]u8, arg_r
         result.* = 0;
         return string;
     }
-    push_call(@as([*c]u8, @ptrCast(@constCast("sub_arg_all(%p,%p,%p,%d,%d)"))), ses, string, result, verbatim, sub);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("sub_arg_all(%p,%p,%p,%d,%d)"))))))), ses, string, result, verbatim, sub);
     buffer = str_alloc_stack(@bitCast(@as(c_uint, @truncate(strlen(string)))));
     string = get_arg_all(ses, string, buffer, verbatim);
     _ = substitute(ses, buffer, result, sub);
@@ -8296,7 +8300,7 @@ pub export fn get_arg_in_braces(arg_ses: [*c]struct_session, arg_string: [*c]u8,
         }).*;
     }
     if (@as(c_int, pti.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#ERROR: GET BRACED ARGUMENT: UNMATCHED BRACE."))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: GET BRACED ARGUMENT: UNMATCHED BRACE."))))))));
     } else {
         pti += 1;
     }
@@ -8320,7 +8324,7 @@ pub export fn sub_arg_in_braces(arg_ses: [*c]struct_session, arg_string: [*c]u8,
         result.* = 0;
         return string;
     }
-    push_call(@as([*c]u8, @ptrCast(@constCast("sub_arg_in_braces(%p,%p,%p,%d,%d)"))), ses, string, result, flag, sub);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("sub_arg_in_braces(%p,%p,%p,%d,%d)"))))))), ses, string, result, flag, sub);
     buffer = str_alloc_stack(@bitCast(@as(c_uint, @truncate(strlen(string) *% @as(usize, 2)))));
     string = get_arg_in_braces(ses, string, buffer, flag);
     _ = substitute(ses, buffer, result, sub);
@@ -8553,7 +8557,7 @@ pub export fn sub_arg_stop_spaces(arg_ses: [*c]struct_session, arg_string: [*c]u
         result.* = 0;
         return string;
     }
-    push_call(@as([*c]u8, @ptrCast(@constCast("sub_arg_stop_braces(%p,%p,%p,%d,%d)"))), ses, string, result, flag, sub);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("sub_arg_stop_braces(%p,%p,%p,%d,%d)"))))))), ses, string, result, flag, sub);
     buffer = str_alloc_stack(@bitCast(@as(c_uint, @truncate(strlen(string) *% @as(usize, 2)))));
     string = get_arg_stop_spaces(ses, string, buffer, flag);
     _ = substitute(ses, buffer, result, sub);
@@ -8810,7 +8814,7 @@ pub export fn get_arg_at_brackets(arg_ses: [*c]struct_session, arg_string: [*c]u
         }).*;
     }
     if (nest != 0) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#ERROR: GET BRACKETED VARIABLE: UNMATCHED BRACKET."))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: GET BRACKETED VARIABLE: UNMATCHED BRACKET."))))))));
     }
     pto.* = 0;
     return pti;
@@ -8882,7 +8886,7 @@ pub export fn get_arg_in_brackets(arg_ses: [*c]struct_session, arg_string: [*c]u
         }).*;
     }
     if (@as(c_int, pti.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#ERROR: GET BRACKETED ARGUMENT: UNMATCHED BRACKET."))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: GET BRACKETED ARGUMENT: UNMATCHED BRACKET."))))))));
     } else {
         pti += 1;
     }
@@ -8974,7 +8978,7 @@ pub export fn check_one_line(arg_ses: [*c]struct_session, arg_line: [*c]u8) void
     if ((ses.*.config_flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0) {
         return;
     }
-    push_call(@as([*c]u8, @ptrCast(@constCast("do_one_line(%s,%p)"))), ses.*.name, line);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("do_one_line(%s,%p)"))))))), ses.*.name, line);
     _ = push_script_stack(ses, LIST_VARIABLE);
     strip = str_alloc_stack(0);
     buf = str_alloc_stack(0);

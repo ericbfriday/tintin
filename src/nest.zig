@@ -395,17 +395,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;
@@ -7793,7 +7797,7 @@ pub export fn update_nest_root(arg_root: [*c]struct_listroot, arg_arg: [*c]u8) [
     _ = &node;
     node = search_node_list(root, arg);
     if (@as(?*anyopaque, @ptrCast(@alignCast(node))) == @as(?*anyopaque, null)) {
-        node = update_node_list(root, arg, @as([*c]u8, @ptrCast(@constCast(""))), @as([*c]u8, @ptrCast(@constCast(""))), @as([*c]u8, @ptrCast(@constCast(""))));
+        node = update_node_list(root, arg, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(node.*.root))) == @as(?*anyopaque, null)) {
         node.*.root = init_list(root.*.ses, root.*.type, LIST_SIZE);
@@ -7817,7 +7821,7 @@ pub export fn update_nest_node(arg_root: [*c]struct_listroot, arg_arg: [*c]u8) v
         if (@as(c_int, arg2.*) == DEFAULT_OPEN) {
             update_nest_node(update_nest_root(root, arg1), arg2);
         } else {
-            _ = update_node_list(root, arg1, arg2, @as([*c]u8, @ptrCast(@constCast(""))), @as([*c]u8, @ptrCast(@constCast(""))));
+            _ = update_node_list(root, arg1, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         }
         if (@as(c_int, arg.*) == COMMAND_SEPARATOR) {
             arg += 1;
@@ -7885,11 +7889,11 @@ pub export fn delete_nest_node_with_wild(arg_root: [*c]struct_listroot, arg_vari
         {
             index_1 = root.*.used - @as(c_int, 1);
             while (index_1 >= @as(c_int, 0)) : (index_1 -= 1) {
-                if (match(root.*.ses, @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.arg1, @ptrCast(@alignCast(&name)), (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) {
+                if (match(root.*.ses, root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1, @ptrCast(@alignCast(&name)), (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) {
                     if (@as(c_int, ptv.*) != 0) {
-                        show_message(root.*.ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#OK. {%.*s[%s]} IS NO LONGER A VARIABLE."))), @divExact(@as(c_long, @bitCast(@intFromPtr(ptv) -% @intFromPtr(variable))), @sizeOf(u8)), variable, @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.arg1);
+                        show_message(root.*.ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK. {%.*s[%s]} IS NO LONGER A VARIABLE."))))))), @divExact(@as(c_long, @bitCast(@intFromPtr(ptv) -% @intFromPtr(variable))), @sizeOf(u8)), variable, root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1);
                     } else {
-                        show_message(root.*.ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#OK. {%s} IS NO LONGER A VARIABLE."))), @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.arg1);
+                        show_message(root.*.ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK. {%s} IS NO LONGER A VARIABLE."))))))), root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1);
                     }
                     delete_index_list(root, index_1);
                     found = TRUE;
@@ -7915,13 +7919,13 @@ pub export fn get_nest_size_key(arg_root: [*c]struct_listroot, arg_variable: [*c
     var count: c_int = undefined;
     _ = &count;
     arg = get_arg_to_brackets(root.*.ses, variable, @ptrCast(@alignCast(&name)));
-    _ = str_cpy(result, @as([*c]u8, @ptrCast(@constCast(""))));
+    _ = str_cpy(result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     if (!(strcmp(arg, "[]") != 0)) {
         if (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&name))).*) == @as(c_int, 0)) {
             {
                 index_1 = 0;
                 while (index_1 < root.*.used) : (index_1 += 1) {
-                    _ = str_cat_printf(result, @as([*c]u8, @ptrCast(@constCast("{%s}"))), @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.arg1);
+                    _ = str_cat_printf(result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%s}"))))))), root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1);
                 }
             }
             return root.*.used + @as(c_int, 1);
@@ -7946,8 +7950,8 @@ pub export fn get_nest_size_key(arg_root: [*c]struct_listroot, arg_variable: [*c
                             break :blk tmp;
                         };
                         while (index_1 < root.*.used) : (index_1 += 1) {
-                            if (match(root.*.ses, @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.arg1, @ptrCast(@alignCast(&name)), @as(c_int, 0) << @intCast(@as(c_int, 0))) != 0) {
-                                _ = str_cat_printf(result, @as([*c]u8, @ptrCast(@constCast("{%s}"))), @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.arg1);
+                            if (match(root.*.ses, root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1, @ptrCast(@alignCast(&name)), @as(c_int, 0) << @intCast(@as(c_int, 0))) != 0) {
+                                _ = str_cat_printf(result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%s}"))))))), root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1);
                                 count += 1;
                             }
                         }
@@ -7964,7 +7968,7 @@ pub export fn get_nest_size_key(arg_root: [*c]struct_listroot, arg_variable: [*c
                         range = get_ellipsis(root.*.ses, @bitCast(@as(c_int, root.*.used)), @ptrCast(@alignCast(&name)), &min, &max);
                         if (min < max) {
                             while (min <= max) {
-                                _ = str_cat_printf(result, @as([*c]u8, @ptrCast(@constCast("{%s}"))), @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[
+                                _ = str_cat_printf(result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%s}"))))))), root.*.list[
                                     @bitCast(@as(isize, @intCast(blk: {
                                         const ref = &min;
                                         const tmp = ref.*;
@@ -7975,7 +7979,7 @@ pub export fn get_nest_size_key(arg_root: [*c]struct_listroot, arg_variable: [*c
                             }
                         } else {
                             while (min >= max) {
-                                _ = str_cat_printf(result, @as([*c]u8, @ptrCast(@constCast("{%s}"))), @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[
+                                _ = str_cat_printf(result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%s}"))))))), root.*.list[
                                     @bitCast(@as(isize, @intCast(blk: {
                                         const ref = &min;
                                         const tmp = ref.*;
@@ -8000,7 +8004,7 @@ pub export fn get_nest_size_key(arg_root: [*c]struct_listroot, arg_variable: [*c
                 {
                     index_1 = 0;
                     while (index_1 < root.*.used) : (index_1 += 1) {
-                        _ = str_cat_printf(result, @as([*c]u8, @ptrCast(@constCast("{%s}"))), @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.arg1);
+                        _ = str_cat_printf(result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%s}"))))))), root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1);
                     }
                 }
                 return root.*.used + @as(c_int, 1);
@@ -8026,13 +8030,13 @@ pub export fn get_nest_size_val(arg_root: [*c]struct_listroot, arg_variable: [*c
     var count: c_int = undefined;
     _ = &count;
     arg = get_arg_to_brackets(root.*.ses, variable, @ptrCast(@alignCast(&name)));
-    _ = str_cpy(result, @as([*c]u8, @ptrCast(@constCast(""))));
+    _ = str_cpy(result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     if (!(strcmp(arg, "[]") != 0)) {
         if (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&name))).*) == @as(c_int, 0)) {
             {
                 index_1 = 0;
                 while (index_1 < root.*.used) : (index_1 += 1) {
-                    show_nest_node(@as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(index_1)))], result, FALSE);
+                    show_nest_node(root.*.list[@bitCast(@as(isize, @intCast(index_1)))], result, FALSE);
                 }
             }
             return root.*.used + @as(c_int, 1);
@@ -8057,8 +8061,8 @@ pub export fn get_nest_size_val(arg_root: [*c]struct_listroot, arg_variable: [*c
                             break :blk tmp;
                         };
                         while (index_1 < root.*.used) : (index_1 += 1) {
-                            if (match(root.*.ses, @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.arg1, @ptrCast(@alignCast(&name)), @as(c_int, 0) << @intCast(@as(c_int, 0))) != 0) {
-                                show_nest_node(@as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(index_1)))], result, FALSE);
+                            if (match(root.*.ses, root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1, @ptrCast(@alignCast(&name)), @as(c_int, 0) << @intCast(@as(c_int, 0))) != 0) {
+                                show_nest_node(root.*.list[@bitCast(@as(isize, @intCast(index_1)))], result, FALSE);
                                 count += 1;
                             }
                         }
@@ -8075,7 +8079,7 @@ pub export fn get_nest_size_val(arg_root: [*c]struct_listroot, arg_variable: [*c
                         range = get_ellipsis(root.*.ses, @bitCast(@as(c_int, root.*.used)), @ptrCast(@alignCast(&name)), &min, &max);
                         if (min < max) {
                             while (min <= max) {
-                                show_nest_node(@as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[
+                                show_nest_node(root.*.list[
                                     @bitCast(@as(isize, @intCast(blk: {
                                         const ref = &min;
                                         const tmp = ref.*;
@@ -8086,7 +8090,7 @@ pub export fn get_nest_size_val(arg_root: [*c]struct_listroot, arg_variable: [*c
                             }
                         } else {
                             while (min >= max) {
-                                show_nest_node(@as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[
+                                show_nest_node(root.*.list[
                                     @bitCast(@as(isize, @intCast(blk: {
                                         const ref = &min;
                                         const tmp = ref.*;
@@ -8111,7 +8115,7 @@ pub export fn get_nest_size_val(arg_root: [*c]struct_listroot, arg_variable: [*c
                 {
                     index_1 = 0;
                     while (index_1 < root.*.used) : (index_1 += 1) {
-                        show_nest_node(@as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(index_1)))], result, FALSE);
+                        show_nest_node(root.*.list[@bitCast(@as(isize, @intCast(index_1)))], result, FALSE);
                     }
                 }
                 return root.*.used + @as(c_int, 1);
@@ -8140,7 +8144,7 @@ pub export fn get_nest_node_key(arg_root: [*c]struct_listroot, arg_variable: [*c
     }
     node = search_nest_node(root, variable);
     if (node != null) {
-        _ = str_cpy_printf(result, @as([*c]u8, @ptrCast(@constCast("%s"))), node.*.arg1);
+        _ = str_cpy_printf(result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), node.*.arg1);
         if ((node.*.shots != 0) and (@as(c_uint, @bitCast(@as(c_int, @intFromBool((blk: {
             const ref = &node.*.shots;
             ref.* -%= 1;
@@ -8152,9 +8156,9 @@ pub export fn get_nest_node_key(arg_root: [*c]struct_listroot, arg_variable: [*c
     }
     node = search_base_node(root, variable);
     if ((node != null) or (def != 0)) {
-        _ = str_cpy(result, @as([*c]u8, @ptrCast(@constCast(""))));
+        _ = str_cpy(result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     } else {
-        _ = str_cpy_printf(result, @as([*c]u8, @ptrCast(@constCast("*%s"))), variable);
+        _ = str_cpy_printf(result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("*%s"))))))), variable);
     }
     return null;
 }
@@ -8189,9 +8193,9 @@ pub export fn get_nest_node_val(arg_root: [*c]struct_listroot, arg_variable: [*c
     }
     node = search_base_node(root, variable);
     if ((node != null) or (def != 0)) {
-        _ = str_cpy(result, @as([*c]u8, @ptrCast(@constCast(""))));
+        _ = str_cpy(result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     } else {
-        _ = str_cpy_printf(result, @as([*c]u8, @ptrCast(@constCast("$%s"))), variable);
+        _ = str_cpy_printf(result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("$%s"))))))), variable);
     }
     return null;
 }
@@ -8212,13 +8216,13 @@ pub export fn get_nest_index(arg_root: [*c]struct_listroot, arg_variable: [*c]u8
     _ = &size;
     size = get_nest_size_index(root, variable, result);
     if (size != 0) {
-        _ = str_cpy_printf(result, @as([*c]u8, @ptrCast(@constCast("%d"))), size - @as(c_int, 1));
+        _ = str_cpy_printf(result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), size - @as(c_int, 1));
         return -@as(c_int, 1);
     }
     node = search_nest_node(root, variable);
     index_1 = search_nest_index(root, variable);
     if ((node != null) and (index_1 >= @as(c_int, 0))) {
-        _ = str_cpy_printf(result, @as([*c]u8, @ptrCast(@constCast("%d"))), index_1 + @as(c_int, 1));
+        _ = str_cpy_printf(result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), index_1 + @as(c_int, 1));
         if ((node.*.shots != 0) and (@as(c_uint, @bitCast(@as(c_int, @intFromBool((blk: {
             const ref = &node.*.shots;
             ref.* -%= 1;
@@ -8230,9 +8234,9 @@ pub export fn get_nest_index(arg_root: [*c]struct_listroot, arg_variable: [*c]u8
     }
     node = search_base_node(root, variable);
     if ((node != null) or (def != 0)) {
-        _ = str_cpy(result, @as([*c]u8, @ptrCast(@constCast("0"))));
+        _ = str_cpy(result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("0"))))))));
     } else {
-        _ = str_cpy_printf(result, @as([*c]u8, @ptrCast(@constCast("&%s"))), variable);
+        _ = str_cpy_printf(result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("&%s"))))))), variable);
     }
     return -@as(c_int, 1);
 }
@@ -8244,13 +8248,13 @@ pub export fn show_nest_node(arg_node: [*c]struct_listnode, arg_str_result: [*c]
     var initialize = arg_initialize;
     _ = &initialize;
     if (initialize != 0) {
-        _ = str_cpy(str_result, @as([*c]u8, @ptrCast(@constCast(""))));
+        _ = str_cpy(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(node.*.root))) == @as(?*anyopaque, null)) {
         if (initialize != 0) {
             _ = str_cat(str_result, node.*.arg2);
         } else {
-            _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@constCast("{%s}"))), node.*.arg2);
+            _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%s}"))))))), node.*.arg2);
         }
     } else {
         var root: [*c]struct_listroot = node.*.root;
@@ -8258,17 +8262,17 @@ pub export fn show_nest_node(arg_node: [*c]struct_listnode, arg_str_result: [*c]
         var i: c_int = undefined;
         _ = &i;
         if (!(initialize != 0)) {
-            _ = str_cat(str_result, @as([*c]u8, @ptrCast(@constCast("{"))));
+            _ = str_cat(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{"))))))));
         }
         {
             i = 0;
             while (i < root.*.used) : (i += 1) {
-                _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@constCast("{%s}"))), @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(i)))].*.arg1);
-                show_nest_node(@as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(i)))], str_result, FALSE);
+                _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%s}"))))))), root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg1);
+                show_nest_node(root.*.list[@bitCast(@as(isize, @intCast(i)))], str_result, FALSE);
             }
         }
         if (!(initialize != 0)) {
-            _ = str_cat(str_result, @as([*c]u8, @ptrCast(@constCast("}"))));
+            _ = str_cat(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("}"))))))));
         }
     }
 }
@@ -8282,7 +8286,7 @@ pub export fn view_nest_node_json(arg_node: [*c]struct_listnode, arg_str_result:
     var initialize = arg_initialize;
     _ = &initialize;
     if (initialize == TRUE) {
-        _ = str_cpy(str_result, @as([*c]u8, @ptrCast(@constCast(""))));
+        _ = str_cpy(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(node.*.root))) == @as(?*anyopaque, null)) {
         _ = str_cat_printf(str_result, @constCast("\"%s\""), node.*.arg2);
@@ -8292,26 +8296,26 @@ pub export fn view_nest_node_json(arg_node: [*c]struct_listnode, arg_str_result:
         var i: c_int = undefined;
         _ = &i;
         if (initialize != 0) {
-            _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@constCast("%s{\n"))), indent(nest));
+            _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s{\n"))))))), indent(nest));
         } else {
-            _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@constCast("\n%s{\n"))), indent(nest));
+            _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\n%s{\n"))))))), indent(nest));
         }
         nest += 1;
         {
             i = 0;
             while (i < root.*.used) : (i += 1) {
                 if (i != 0) {
-                    _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@constCast(",\n"))));
+                    _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(",\n"))))))));
                 }
-                _ = str_cat_printf(str_result, @constCast("%s\"%s\" : "), indent(nest), @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(i)))].*.arg1);
-                view_nest_node_json(@as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(i)))], str_result, nest, FALSE);
+                _ = str_cat_printf(str_result, @constCast("%s\"%s\" : "), indent(nest), root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg1);
+                view_nest_node_json(root.*.list[@bitCast(@as(isize, @intCast(i)))], str_result, nest, FALSE);
             }
         }
         nest -= 1;
         if (initialize != 0) {
-            _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@constCast("\n%s}\n"))), indent(nest), @as([*c]u8, @ptrCast(@constCast(""))));
+            _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\n%s}\n"))))))), indent(nest), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         } else {
-            _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@constCast("\n%s}"))), indent(nest), @as([*c]u8, @ptrCast(@constCast(""))));
+            _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\n%s}"))))))), indent(nest), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         }
     }
 }
@@ -8327,16 +8331,16 @@ pub export fn view_nest_node(arg_node: [*c]struct_listnode, arg_str_result: [*c]
     var color = arg_color;
     _ = &color;
     if (initialize == TRUE) {
-        _ = str_cpy(str_result, @as([*c]u8, @ptrCast(@constCast(""))));
+        _ = str_cpy(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(node.*.root))) == @as(?*anyopaque, null)) {
         if (initialize != 0) {
             _ = str_cat(str_result, node.*.arg2);
         } else {
             if (color != 0) {
-                _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@constCast("\x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}\n"))), node.*.arg2);
+                _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}\n"))))))), node.*.arg2);
             } else {
-                _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@constCast("{%s}\n"))), node.*.arg2);
+                _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%s}\n"))))))), node.*.arg2);
             }
         }
     } else {
@@ -8346,9 +8350,9 @@ pub export fn view_nest_node(arg_node: [*c]struct_listnode, arg_str_result: [*c]
         _ = &i;
         if (initialize == FALSE) {
             if (color != 0) {
-                _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@constCast("\n\x1b[38;5;164m%s{\n"))), indent(nest));
+                _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\n\x1b[38;5;164m%s{\n"))))))), indent(nest));
             } else {
-                _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@constCast("\n%s{\n"))), indent(nest));
+                _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\n%s{\n"))))))), indent(nest));
             }
         }
         nest += 1;
@@ -8356,19 +8360,19 @@ pub export fn view_nest_node(arg_node: [*c]struct_listnode, arg_str_result: [*c]
             i = 0;
             while (i < root.*.used) : (i += 1) {
                 if (color != 0) {
-                    _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@constCast("\x1b[38;5;164m%s{\x1b[38;5;188m%s\x1b[38;5;164m} "))), indent(nest), @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(i)))].*.arg1);
+                    _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;164m%s{\x1b[38;5;188m%s\x1b[38;5;164m} "))))))), indent(nest), root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg1);
                 } else {
-                    _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@constCast("%s{%s} "))), indent(nest), @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(i)))].*.arg1);
+                    _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s{%s} "))))))), indent(nest), root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg1);
                 }
-                view_nest_node(@as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(i)))], str_result, nest, FALSE, color);
+                view_nest_node(root.*.list[@bitCast(@as(isize, @intCast(i)))], str_result, nest, FALSE, color);
             }
         }
         nest -= 1;
         if (initialize == FALSE) {
             if (color != 0) {
-                _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@constCast("\x1b[38;5;164m%s}\n"))), indent(nest), @as([*c]u8, @ptrCast(@constCast(""))));
+                _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;164m%s}\n"))))))), indent(nest), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
             } else {
-                _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@constCast("%s}\n"))), indent(nest), @as([*c]u8, @ptrCast(@constCast(""))));
+                _ = str_cat_printf(str_result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s}\n"))))))), indent(nest), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
             }
         }
     }
@@ -8867,7 +8871,7 @@ pub export fn get_nest_size(arg_root: [*c]struct_listroot, arg_variable: [*c]u8)
                             break :blk tmp;
                         };
                         while (index_1 < root.*.used) : (index_1 += 1) {
-                            if (match(root.*.ses, @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.arg1, @ptrCast(@alignCast(&name)), @as(c_int, 0) << @intCast(@as(c_int, 0))) != 0) {
+                            if (match(root.*.ses, root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1, @ptrCast(@alignCast(&name)), @as(c_int, 0) << @intCast(@as(c_int, 0))) != 0) {
                                 count += 1;
                             }
                         }
@@ -8917,7 +8921,7 @@ pub export fn get_nest_size_index(arg_root: [*c]struct_listroot, arg_variable: [
     var count: c_int = undefined;
     _ = &count;
     arg = get_arg_to_brackets(root.*.ses, variable, @ptrCast(@alignCast(&name)));
-    _ = str_cpy(result, @as([*c]u8, @ptrCast(@constCast(""))));
+    _ = str_cpy(result, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     if (!(strcmp(arg, "[]") != 0)) {
         if (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&name))).*) == @as(c_int, 0)) {
             return root.*.used + @as(c_int, 1);
@@ -8942,7 +8946,7 @@ pub export fn get_nest_size_index(arg_root: [*c]struct_listroot, arg_variable: [
                             break :blk tmp;
                         };
                         while (index_1 < root.*.used) : (index_1 += 1) {
-                            if (match(root.*.ses, @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.arg1, @ptrCast(@alignCast(&name)), @as(c_int, 0) << @intCast(@as(c_int, 0))) != 0) {
+                            if (match(root.*.ses, root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1, @ptrCast(@alignCast(&name)), @as(c_int, 0) << @intCast(@as(c_int, 0))) != 0) {
                                 count += 1;
                             }
                         }
@@ -18635,3 +18639,269 @@ pub const stamp_type = struct_stamp_type;
 pub const substitution_type = struct_substitution_type;
 pub const timer_type = struct_timer_type;
 pub const telopt_type = struct_telopt_type;
+
+pub export fn set_nest_node_ses_inner(arg_ses: [*c]struct_session, arg_arg1: [*c]u8, arg_arg2: [*c]u8) [*c]struct_listnode {
+    var ses = arg_ses;
+    _ = &ses;
+    var arg1 = arg_arg1;
+    _ = &arg1;
+    var arg2 = arg_arg2;
+    _ = &arg2;
+    var node: [*c]struct_listnode = undefined;
+    _ = &node;
+    var root: [*c]struct_listroot = undefined;
+    _ = &root;
+    var arg: [*c]u8 = undefined;
+    _ = &arg;
+    var name: [50000]u8 = undefined;
+    _ = &name;
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("set_nest_node_ses(%p,%s,%s)"))))), ses, arg1, arg2);
+    arg = get_arg_to_brackets(ses, arg1, @ptrCast(@alignCast(&name)));
+    if ((ses.*.event_flags & (@as(c_int, 1) << @intCast(@as(c_int, 18)))) != 0) {
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 18)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VARIABLE UPDATE %s"))))), @as([*c]u8, @ptrCast(@alignCast(&name))), @as([*c]u8, @ptrCast(@alignCast(&name))), arg2, arg1);
+    }
+    root = search_nest_base_ses(ses, @ptrCast(@alignCast(&name)));
+    if (@as(?*anyopaque, @ptrCast(@alignCast(root))) == @as(?*anyopaque, null)) {
+        if (gtd.*.level.*.local != 0) {
+            root = local_list(ses);
+        } else {
+            root = @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_VARIABLE];
+        }
+    }
+    while (@as(c_int, arg.*) != 0) {
+        root = update_nest_root(root, @ptrCast(@alignCast(&name)));
+        if (root != null) {
+            arg = get_arg_in_brackets(root.*.ses, arg, @ptrCast(@alignCast(&name)));
+        }
+    }
+    node = search_node_list(root, @ptrCast(@alignCast(&name)));
+    if ((node != null) and (node.*.root != null)) {
+        free_list(node.*.root);
+        node.*.root = null;
+    }
+    if (@as(c_int, space_out(arg2).*) == DEFAULT_OPEN) {
+        update_nest_node(update_nest_root(root, @ptrCast(@alignCast(&name))), arg2);
+        node = search_node_list(root, @ptrCast(@alignCast(&name)));
+    } else if (node != null) {
+        _ = str_cpy(&node.*.arg2, arg2);
+    } else {
+        node = update_node_list(root, @ptrCast(@alignCast(&name)), arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+    }
+    if (gtd.*.level.*.shots != 0) {
+        node.*.shots = gtd.*.level.*.mshot;
+    }
+    if ((root.*.ses.*.event_flags & (@as(c_int, 1) << @intCast(@as(c_int, 18)))) != 0) {
+        arg = get_arg_to_brackets(root.*.ses, arg1, @ptrCast(@alignCast(&name)));
+        _ = check_all_events(root.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 18)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VARIABLE UPDATED %s"))))), @as([*c]u8, @ptrCast(@alignCast(&name))), @as([*c]u8, @ptrCast(@alignCast(&name))), arg2, arg1);
+        if (strcmp(arg1, @ptrCast(@alignCast(&name))) != 0) {
+            _ = check_all_events(root.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 18)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VARIABLE UPDATED %s"))))), arg1, @as([*c]u8, @ptrCast(@alignCast(&name))), arg2, arg1);
+        }
+    }
+    pop_call();
+    return node;
+}
+
+pub export fn add_nest_node_ses_inner(arg_ses: [*c]struct_session, arg_arg1: [*c]u8, arg_arg2: [*c]u8) [*c]struct_listnode {
+    var ses = arg_ses;
+    _ = &ses;
+    var arg1 = arg_arg1;
+    _ = &arg1;
+    var arg2 = arg_arg2;
+    _ = &arg2;
+    var node: [*c]struct_listnode = undefined;
+    _ = &node;
+    var root: [*c]struct_listroot = undefined;
+    _ = &root;
+    var arg: [*c]u8 = undefined;
+    _ = &arg;
+    var name: [*c]u8 = undefined;
+    _ = &name;
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("add_nest_node_ses(%p,%s,%s)"))))), ses, arg1, arg2);
+    name = str_alloc_stack(0);
+    arg = get_arg_to_brackets(ses, arg1, name);
+    if ((ses.*.event_flags & (@as(c_int, 1) << @intCast(@as(c_int, 18)))) != 0) {
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 18)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VARIABLE UPDATE %s"))))), name, name, arg2, arg1);
+    }
+    root = search_nest_base_ses(ses, name);
+    if (@as(?*anyopaque, @ptrCast(@alignCast(root))) == @as(?*anyopaque, null)) {
+        root = @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_VARIABLE];
+    }
+    while (@as(c_int, arg.*) != 0) {
+        root = update_nest_root(root, name);
+        if (root != null) {
+            arg = get_arg_in_brackets(root.*.ses, arg, name);
+        }
+    }
+    node = search_node_list(root, name);
+    if (@as(c_int, space_out(arg2).*) == DEFAULT_OPEN) {
+        update_nest_node(update_nest_root(root, name), arg2);
+        node = search_node_list(root, name);
+    } else if (node != null) {
+        _ = str_cat(&node.*.arg2, arg2);
+    } else {
+        node = update_node_list(root, name, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+    }
+    if (gtd.*.level.*.shots != 0) {
+        node.*.shots = gtd.*.level.*.mshot;
+    }
+    if ((root.*.ses.*.event_flags & (@as(c_int, 1) << @intCast(@as(c_int, 18)))) != 0) {
+        arg = get_arg_to_brackets(root.*.ses, arg1, name);
+        _ = check_all_events(root.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 18)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VARIABLE UPDATED %s"))))), name, name, arg2, arg1);
+        if (strcmp(arg1, name) != 0) {
+            _ = check_all_events(root.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 18)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VARIABLE UPDATED %s"))))), arg1, name, arg2, arg1);
+        }
+    }
+    pop_call();
+    return node;
+}
+
+pub export fn set_nest_node_inner(arg_root: [*c]struct_listroot, arg_arg1: [*c]u8, arg_arg2: [*c]u8) [*c]struct_listnode {
+    var root = arg_root;
+    _ = &root;
+    var arg1 = arg_arg1;
+    _ = &arg1;
+    var arg2 = arg_arg2;
+    _ = &arg2;
+    var base: [*c]struct_listroot = undefined;
+    _ = &base;
+    var node: [*c]struct_listnode = undefined;
+    _ = &node;
+    var arg: [*c]u8 = undefined;
+    _ = &arg;
+    var name: [50000]u8 = undefined;
+    _ = &name;
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("set_nest_node(%p,%s,%s)"))))), root, arg1, arg2);
+    arg = get_arg_to_brackets(root.*.ses, arg1, @ptrCast(@alignCast(&name)));
+    if ((root.*.ses.*.event_flags & (@as(c_int, 1) << @intCast(@as(c_int, 18)))) != 0) {
+        _ = check_all_events(root.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 18)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VARIABLE UPDATE %s"))))), @as([*c]u8, @ptrCast(@alignCast(&name))), @as([*c]u8, @ptrCast(@alignCast(&name))), arg2, arg1);
+    }
+    if ((gtd.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 11)))) != 0) {
+        base = search_nest_base_ses(root.*.ses, @ptrCast(@alignCast(&name)));
+        if (base != null) {
+            root = base;
+        }
+    }
+    while (@as(c_int, arg.*) != 0) {
+        root = update_nest_root(root, @ptrCast(@alignCast(&name)));
+        if (root != null) {
+            arg = get_arg_in_brackets(root.*.ses, arg, @ptrCast(@alignCast(&name)));
+        }
+    }
+    node = search_node_list(root, @ptrCast(@alignCast(&name)));
+    if ((node != null) and (node.*.root != null)) {
+        free_list(node.*.root);
+        node.*.root = null;
+    }
+    if (@as(c_int, space_out(arg2).*) == DEFAULT_OPEN) {
+        update_nest_node(update_nest_root(root, @ptrCast(@alignCast(&name))), arg2);
+        node = search_node_list(root, @ptrCast(@alignCast(&name)));
+    } else if (node != null) {
+        _ = str_cpy(&node.*.arg2, arg2);
+    } else {
+        if ((@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&name))).*) == @as(c_int, '-')) or (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&name))).*) == @as(c_int, '+'))) {
+            get_number_string(root.*.ses, @ptrCast(@alignCast(&name)), @ptrCast(@alignCast(&name)));
+        }
+        node = update_node_list(root, @ptrCast(@alignCast(&name)), arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+    }
+    if (gtd.*.level.*.shots != 0) {
+        node.*.shots = gtd.*.level.*.mshot;
+    }
+    if ((root.*.ses.*.event_flags & (@as(c_int, 1) << @intCast(@as(c_int, 18)))) != 0) {
+        arg = get_arg_to_brackets(root.*.ses, arg1, @ptrCast(@alignCast(&name)));
+        _ = check_all_events(root.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 18)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VARIABLE UPDATED %s"))))), @as([*c]u8, @ptrCast(@alignCast(&name))), @as([*c]u8, @ptrCast(@alignCast(&name))), arg2, arg1);
+        if (strcmp(arg1, @ptrCast(@alignCast(&name))) != 0) {
+            _ = check_all_events(root.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 18)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VARIABLE UPDATED %s"))))), arg1, @as([*c]u8, @ptrCast(@alignCast(&name))), arg2, arg1);
+        }
+    }
+    pop_call();
+    return node;
+}
+
+pub export fn add_nest_node_inner(arg_root: [*c]struct_listroot, arg_arg1: [*c]u8, arg_arg2: [*c]u8) [*c]struct_listnode {
+    var root = arg_root;
+    _ = &root;
+    var arg1 = arg_arg1;
+    _ = &arg1;
+    var arg2 = arg_arg2;
+    _ = &arg2;
+    var base: [*c]struct_listroot = undefined;
+    _ = &base;
+    var node: [*c]struct_listnode = undefined;
+    _ = &node;
+    var arg: [*c]u8 = undefined;
+    _ = &arg;
+    var name: [50000]u8 = undefined;
+    _ = &name;
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("add_nest_node(%p,%s,%s)"))))), root, arg1, arg2);
+    arg = get_arg_to_brackets(root.*.ses, arg1, @ptrCast(@alignCast(&name)));
+    if ((root.*.ses.*.event_flags & (@as(c_int, 1) << @intCast(@as(c_int, 18)))) != 0) {
+        _ = check_all_events(root.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 18)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VARIABLE UPDATE %s"))))), @as([*c]u8, @ptrCast(@alignCast(&name))), @as([*c]u8, @ptrCast(@alignCast(&name))), arg2, arg1);
+    }
+    if ((gtd.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 11)))) != 0) {
+        base = search_nest_base_ses(root.*.ses, @ptrCast(@alignCast(&name)));
+        if (base != null) {
+            root = base;
+        }
+    }
+    while (@as(c_int, arg.*) != 0) {
+        root = update_nest_root(root, @ptrCast(@alignCast(&name)));
+        if (root != null) {
+            arg = get_arg_in_brackets(root.*.ses, arg, @ptrCast(@alignCast(&name)));
+        }
+    }
+    node = search_node_list(root, @ptrCast(@alignCast(&name)));
+    if (@as(c_int, space_out(arg2).*) == DEFAULT_OPEN) {
+        root = update_nest_root(root, @ptrCast(@alignCast(&name)));
+        update_nest_node(root, arg2);
+        node = search_node_list(root, @ptrCast(@alignCast(&name)));
+    } else if (node != null) {
+        _ = str_cat(&node.*.arg2, arg2);
+    } else {
+        node = update_node_list(root, @ptrCast(@alignCast(&name)), arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+    }
+    if (gtd.*.level.*.shots != 0) {
+        node.*.shots = gtd.*.level.*.mshot;
+    }
+    if ((root.*.ses.*.event_flags & (@as(c_int, 1) << @intCast(@as(c_int, 18)))) != 0) {
+        arg = get_arg_to_brackets(root.*.ses, arg1, @ptrCast(@alignCast(&name)));
+        _ = check_all_events(root.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 18)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VARIABLE UPDATED %s"))))), @as([*c]u8, @ptrCast(@alignCast(&name))), @as([*c]u8, @ptrCast(@alignCast(&name))), arg2, arg1);
+        if (strcmp(arg1, @ptrCast(@alignCast(&name))) != 0) {
+            _ = check_all_events(root.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 18)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VARIABLE UPDATED %s"))))), arg1, @as([*c]u8, @ptrCast(@alignCast(&name))), arg2, arg1);
+        }
+    }
+    pop_call();
+    return node;
+}
+
+
+pub export fn set_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]const u8, ...) [*c]struct_listnode {
+    var args = @cVaStart();
+    var arg2: [*c]u8 = null;
+    _ = vasprintf(&arg2, format, args);
+    @cVaEnd(&args);
+    return set_nest_node_ses_inner(ses, arg1, arg2);
+}
+
+pub export fn add_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]const u8, ...) [*c]struct_listnode {
+    var args = @cVaStart();
+    var arg2: [*c]u8 = null;
+    _ = vasprintf(&arg2, format, args);
+    @cVaEnd(&args);
+    return add_nest_node_ses_inner(ses, arg1, arg2);
+}
+
+pub export fn set_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]const u8, ...) [*c]struct_listnode {
+    var args = @cVaStart();
+    var arg2: [*c]u8 = null;
+    _ = vasprintf(&arg2, format, args);
+    @cVaEnd(&args);
+    return set_nest_node_inner(root, arg1, arg2);
+}
+
+pub export fn add_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]const u8, ...) [*c]struct_listnode {
+    var args = @cVaStart();
+    var arg2: [*c]u8 = null;
+    _ = vasprintf(&arg2, format, args);
+    @cVaEnd(&args);
+    return add_nest_node_inner(root, arg1, arg2);
+}

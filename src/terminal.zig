@@ -395,17 +395,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;
@@ -7902,7 +7906,7 @@ pub export fn init_terminal(arg_ses: [*c]struct_session) void {
         return;
     }
     if (tcgetattr(0, &gtd.*.old_terminal) != 0) {
-        syserr_fatal(-@as(c_int, 1), @as([*c]u8, @ptrCast(@constCast("init_terminal: tcgetattr 1"))));
+        syserr_fatal(-@as(c_int, 1), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("init_terminal: tcgetattr 1"))))))));
     }
     io = gtd.*.old_terminal;
     io.c_lflag &= @bitCast(@as(c_long, ~ICANON));
@@ -7914,12 +7918,12 @@ pub export fn init_terminal(arg_ses: [*c]struct_session) void {
     io.c_lflag &= @bitCast(@as(c_long, ~(((ECHO | ECHONL) | IEXTEN) | ISIG)));
     io.c_cflag |= @bitCast(@as(c_long, CS8));
     if (tcsetattr(0, TCSANOW, &io) != 0) {
-        syserr_printf(ses, @as([*c]u8, @ptrCast(@constCast("init_terminal: tcsetattr"))));
+        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("init_terminal: tcsetattr"))))))));
     }
     if (tcgetattr(0, &gts.*.cur_terminal) != 0) {
-        syserr_fatal(-@as(c_int, 1), @as([*c]u8, @ptrCast(@constCast("init_terminal: tcgetattr 2"))));
+        syserr_fatal(-@as(c_int, 1), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("init_terminal: tcgetattr 2"))))))));
     }
-    print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("\x1b[?1004h\x1b=\x1b[>4;1m"))));
+    print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[?1004h\x1b=\x1b[>4;1m"))))))));
 }
 pub export fn reset_terminal(arg_ses: [*c]struct_session) void {
     var ses = arg_ses;
@@ -7929,13 +7933,13 @@ pub export fn reset_terminal(arg_ses: [*c]struct_session) void {
     }
     if (gtd.*.detach_port == @as(c_int, 0)) {
         if (tcsetattr(0, TCSANOW, &gtd.*.old_terminal) != 0) {
-            syserr_printf(ses, @as([*c]u8, @ptrCast(@constCast("reset_terminal: tcsetattr"))));
+            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("reset_terminal: tcsetattr"))))))));
         }
     }
     if ((gtd.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) {
-        print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("\x1b[?1000l\x1b[?1002l\x1b[?1006l"))));
+        print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[?1000l\x1b[?1002l\x1b[?1006l"))))))));
     }
-    print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("\x1b[?25h\x1b[23t\x1b[?1004l\x1b[>4n\x1b[>4;0m\x1b[?47l\x1b[r\x1b[0#t"))));
+    print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[?25h\x1b[23t\x1b[?1004l\x1b[>4n\x1b[>4;0m\x1b[?47l\x1b[r\x1b[0#t"))))))));
 }
 pub export fn save_session_terminal(arg_ses: [*c]struct_session) void {
     var ses = arg_ses;
@@ -7967,7 +7971,7 @@ pub export fn echo_off(arg_ses: [*c]struct_session) void {
 pub export fn init_terminal_size(arg_ses: [*c]struct_session) void {
     var ses = arg_ses;
     _ = &ses;
-    push_call(@as([*c]u8, @ptrCast(@constCast("init_terminal_size(%p)"))), ses);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("init_terminal_size(%p)"))))))), ses);
     if (ses == gts) {
         var screen: struct_winsize = undefined;
         _ = &screen;
@@ -8021,16 +8025,16 @@ pub export fn init_resize(arg_ses: [*c]struct_session, arg_rows: c_int, arg_cols
         ses.*.map.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 10));
     }
     init_split(ses, ses.*.split.*.sav_top_row, ses.*.split.*.sav_top_col, ses.*.split.*.sav_bot_row, ses.*.split.*.sav_bot_col);
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 4, @as([*c]u8, @ptrCast(@constCast("SCREEN RESIZE"))), ntos(rows), ntos(cols), ntos(height), ntos(width));
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN RESIZE"))))))), ntos(rows), ntos(cols), ntos(height), ntos(width));
     if ((static_local_old_rows.old_rows <= @divTrunc(static_local_old_cols.old_cols, @as(c_int, 2))) and (rows > @divTrunc(cols, @as(c_int, 2)))) {
-        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 4, @as([*c]u8, @ptrCast(@constCast("SCREEN ROTATE PORTRAIT"))), ntos(rows), ntos(cols), ntos(height), ntos(width));
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN ROTATE PORTRAIT"))))))), ntos(rows), ntos(cols), ntos(height), ntos(width));
     } else if ((static_local_old_rows.old_rows >= @divTrunc(static_local_old_cols.old_cols, @as(c_int, 2))) and (rows < @divTrunc(cols, @as(c_int, 2)))) {
-        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 4, @as([*c]u8, @ptrCast(@constCast("SCREEN ROTATE LANDSCAPE"))), ntos(rows), ntos(cols), ntos(height), ntos(width));
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 12)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN ROTATE LANDSCAPE"))))))), ntos(rows), ntos(cols), ntos(height), ntos(width));
     }
-    msdp_update_all(@as([*c]u8, @ptrCast(@constCast("SCREEN_ROWS"))), @as([*c]u8, @ptrCast(@constCast("%d"))), rows);
-    msdp_update_all(@as([*c]u8, @ptrCast(@constCast("SCREEN_COLS"))), @as([*c]u8, @ptrCast(@constCast("%d"))), cols);
-    msdp_update_all(@as([*c]u8, @ptrCast(@constCast("SCREEN_HEIGHT"))), @as([*c]u8, @ptrCast(@constCast("%d"))), height);
-    msdp_update_all(@as([*c]u8, @ptrCast(@constCast("SCREEN_WIDTH"))), @as([*c]u8, @ptrCast(@constCast("%d"))), width);
+    msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_ROWS"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), rows);
+    msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_COLS"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), cols);
+    msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_HEIGHT"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), height);
+    msdp_update_all(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCREEN_WIDTH"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), width);
 }
 pub export fn get_scroll_rows(arg_ses: [*c]struct_session) c_int {
     var ses = arg_ses;
@@ -8055,7 +8059,7 @@ pub export fn get_charset(arg_ses: [*c]struct_session) [*c]u8 {
             }
         }
     }
-    return @as([*c]u8, @ptrCast(@constCast("ASCII")));
+    return @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ASCII")))))));
 }
 pub extern fn print_line(ses: [*c]struct_session, str: [*c][*c]u8, isaprompt: c_int) void;
 pub extern fn print_stdout(row: c_int, col: c_int, format: [*c]u8, ...) void;

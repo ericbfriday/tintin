@@ -489,3 +489,48 @@ pub export fn ins_cpy(arg_dest: [*c]u8, arg_str: [*c]u8) void {
     _ = strcpy(arg_dest, arg_str);
     _ = strcat(arg_dest, &tmp);
 }
+
+test "utils hex_digit" {
+    var str_0 = "0".*;
+    var str_9 = "9".*;
+    var str_a = "a".*;
+    var str_A = "A".*;
+    var str_f = "f".*;
+    var str_F = "F".*;
+
+    try std.testing.expectEqual(@as(c_int, 0), hex_digit(&str_0));
+    try std.testing.expectEqual(@as(c_int, 9), hex_digit(&str_9));
+    try std.testing.expectEqual(@as(c_int, 10), hex_digit(&str_a));
+    try std.testing.expectEqual(@as(c_int, 10), hex_digit(&str_A));
+    try std.testing.expectEqual(@as(c_int, 15), hex_digit(&str_f));
+    try std.testing.expectEqual(@as(c_int, 15), hex_digit(&str_F));
+}
+
+test "utils hex_number" {
+    var str_1a = "1a".*;
+    var str_ff = "ff".*;
+    var str_deadbeef = "deadbeef".*;
+
+    try std.testing.expectEqual(@as(c_int, 0x1a), hex_number_8bit(&str_1a));
+    try std.testing.expectEqual(@as(c_int, 0xff), hex_number_8bit(&str_ff));
+    try std.testing.expectEqual(@as(c_uint, 0xdeadbeef), hex_number_32bit(&str_deadbeef));
+}
+
+test "utils oct_number" {
+    var str_12 = "12".*;
+    var str_77 = "77".*;
+
+    try std.testing.expectEqual(@as(c_int, 0o12), oct_number(&str_12));
+    try std.testing.expectEqual(@as(c_int, 0o77), oct_number(&str_77));
+}
+
+test "utils is_suffix" {
+    var str_hello = "hello world".*;
+    var suffix_world = "world".*;
+    var suffix_World = "World".*;
+    var suffix_hell = "hell".*;
+
+    try std.testing.expectEqual(@as(c_int, TRUE), is_suffix(&str_hello, &suffix_world));
+    try std.testing.expectEqual(@as(c_int, TRUE), is_suffix(&str_hello, &suffix_World));
+    try std.testing.expectEqual(@as(c_int, FALSE), is_suffix(&str_hello, &suffix_hell));
+}

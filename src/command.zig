@@ -395,17 +395,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;
@@ -7368,7 +7372,7 @@ pub export fn init_commands() void {
         index_1 = 1;
         while (@as(c_int, command_table[@bitCast(@as(isize, @intCast(index_1)))].name.*) != 0) : (index_1 += 1) {
             if (strcmp(command_table[@bitCast(@as(isize, @intCast(index_1 - @as(c_int, 1))))].name, command_table[@bitCast(@as(isize, @intCast(index_1)))].name) > @as(c_int, 0)) {
-                print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("\x1b[1;31minit_tintin() unsorted command table %s vs %s."))), command_table[@bitCast(@as(isize, @intCast(index_1 - @as(c_int, 1))))].name, command_table[@bitCast(@as(isize, @intCast(index_1)))].name);
+                print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31minit_tintin() unsorted command table %s vs %s."))))))), command_table[@bitCast(@as(isize, @intCast(index_1 - @as(c_int, 1))))].name, command_table[@bitCast(@as(isize, @intCast(index_1)))].name);
                 exit(1);
             }
         }
@@ -8187,7 +8191,7 @@ pub export fn do_commands(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
     rows = if (@as(c_int, 1) > @divTrunc(ses.*.wrap, @as(c_int, 20))) @as(c_int, 1) else @divTrunc(ses.*.wrap, @as(c_int, 20));
     cols = @divTrunc(size, rows) + @intFromBool(__helpers.signedRemainder(size, rows) > @as(c_int, 0));
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
-    tintin_header(ses, 0, @as([*c]u8, @ptrCast(@constCast(" %s "))), @as([*c]u8, @ptrCast(@constCast("COMMANDS"))));
+    tintin_header(ses, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" %s "))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("COMMANDS"))))))));
     {
         cmd = blk: {
             const tmp = @as(c_int, 0);
@@ -8207,9 +8211,9 @@ pub export fn do_commands(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
                         continue;
                     }
                     if (command_table[@bitCast(@as(isize, @intCast(cmd)))].type == TOKEN_TYPE_COMMAND) {
-                        _ = cat_sprintf(arg2, @as([*c]u8, @ptrCast(@constCast("%s%-20s"))), @as([*c]u8, @ptrCast(@constCast("\x1b[38;5;044m"))), command_table[@bitCast(@as(isize, @intCast(cmd)))].name);
+                        _ = cat_sprintf(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s%-20s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;044m"))))))), command_table[@bitCast(@as(isize, @intCast(cmd)))].name);
                     } else {
-                        _ = cat_sprintf(arg2, @as([*c]u8, @ptrCast(@constCast("%s%-20s"))), @as([*c]u8, @ptrCast(@constCast("\x1b[38;5;040m"))), command_table[@bitCast(@as(isize, @intCast(cmd)))].name);
+                        _ = cat_sprintf(arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s%-20s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;040m"))))))), command_table[@bitCast(@as(isize, @intCast(cmd)))].name);
                     }
                     if ((@as(c_int, arg1.*) == @as(c_int, 0)) and !((ses.*.config_flags & (@as(c_int, 1) << @intCast(@as(c_int, 12)))) != 0)) {
                         cmd += cols;
@@ -8228,7 +8232,7 @@ pub export fn do_commands(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
     if (@as(c_int, arg2.*) != 0) {
         tintin_puts2(ses, arg2);
     }
-    tintin_header(ses, 0, @as([*c]u8, @ptrCast(@constCast(""))));
+    tintin_header(ses, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     return ses;
 }
 pub extern fn do_action(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -8287,601 +8291,601 @@ pub extern fn do_unvariable(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, 
 pub extern fn do_variable(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub export var command_table: [100]struct_command_type = [100]struct_command_type{
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("action"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("action"))))))),
         .command = do_action,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("alias"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("alias"))))))),
         .command = do_alias,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("all"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("all"))))))),
         .command = do_all,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("banner"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("banner"))))))),
         .command = do_banner,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("bell"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("bell"))))))),
         .command = do_bell,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("break"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("break"))))))),
         .command = do_nop,
         .args = 0,
         .type = TOKEN_TYPE_BREAK,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("buffer"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("buffer"))))))),
         .command = do_buffer,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("button"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("button"))))))),
         .command = do_button,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("case"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("case"))))))),
         .command = do_nop,
         .args = 0,
         .type = TOKEN_TYPE_CASE,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("cat"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cat"))))))),
         .command = do_cat,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("chat"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("chat"))))))),
         .command = do_chat,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("class"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("class"))))))),
         .command = do_class,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("commands"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("commands"))))))),
         .command = do_commands,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("config"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("config"))))))),
         .command = do_configure,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("continue"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("continue"))))))),
         .command = do_nop,
         .args = 0,
         .type = TOKEN_TYPE_CONTINUE,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("cr"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cr"))))))),
         .command = do_cr,
         .args = 0,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("cursor"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("cursor"))))))),
         .command = do_cursor,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("daemon"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("daemon"))))))),
         .command = do_daemon,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("debug"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("debug"))))))),
         .command = do_debug,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("default"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("default"))))))),
         .command = do_nop,
         .args = 0,
         .type = TOKEN_TYPE_DEFAULT,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("delay"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("delay"))))))),
         .command = do_delay,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("dictionary"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("dictionary"))))))),
         .command = do_dictionary,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("draw"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("draw"))))))),
         .command = do_draw,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("echo"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("echo"))))))),
         .command = do_echo,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("edit"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("edit"))))))),
         .command = do_edit,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("else"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("else"))))))),
         .command = do_nop,
         .args = 0,
         .type = TOKEN_TYPE_ELSE,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("elseif"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("elseif"))))))),
         .command = do_nop,
         .args = 0,
         .type = TOKEN_TYPE_ELSEIF,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("end"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("end"))))))),
         .command = do_end,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("event"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("event"))))))),
         .command = do_event,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("foreach"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("foreach"))))))),
         .command = do_nop,
         .args = 3,
         .type = TOKEN_TYPE_FOREACH,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("format"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("format"))))))),
         .command = do_format,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("function"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("function"))))))),
         .command = do_function,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("gag"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("gag"))))))),
         .command = do_gag,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("grep"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("grep"))))))),
         .command = do_grep,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("help"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("help"))))))),
         .command = do_help,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("highlight"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("highlight"))))))),
         .command = do_highlight,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("history"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("history"))))))),
         .command = do_history,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("if"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("if"))))))),
         .command = do_nop,
         .args = 0,
         .type = TOKEN_TYPE_IF,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("ignore"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ignore"))))))),
         .command = do_ignore,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("info"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("info"))))))),
         .command = do_info,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("kill"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("kill"))))))),
         .command = do_kill,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("killall"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("killall"))))))),
         .command = do_killall,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("line"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("line"))))))),
         .command = do_line,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("list"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("list"))))))),
         .command = do_list,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("local"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("local"))))))),
         .command = do_local,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("log"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("log"))))))),
         .command = do_log,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("loop"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("loop"))))))),
         .command = do_nop,
         .args = 3,
         .type = TOKEN_TYPE_LOOP,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("macro"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("macro"))))))),
         .command = do_macro,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("map"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("map"))))))),
         .command = do_map,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("math"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("math"))))))),
         .command = do_math,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("message"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("message"))))))),
         .command = do_message,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("nop"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("nop"))))))),
         .command = do_nop,
         .args = 0,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("parse"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("parse"))))))),
         .command = do_nop,
         .args = 3,
         .type = TOKEN_TYPE_PARSE,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("path"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("path"))))))),
         .command = do_path,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("pathdir"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("pathdir"))))))),
         .command = do_pathdir,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("port"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("port"))))))),
         .command = do_port,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("prompt"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("prompt"))))))),
         .command = do_prompt,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("read"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("read"))))))),
         .command = do_read,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("regexp"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("regexp"))))))),
         .command = do_regexp,
         .args = 3,
         .type = TOKEN_TYPE_REGEX,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("replace"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("replace"))))))),
         .command = do_replace,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("return"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("return"))))))),
         .command = do_nop,
         .args = 0,
         .type = TOKEN_TYPE_RETURN,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("run"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("run"))))))),
         .command = do_run,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("scan"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("scan"))))))),
         .command = do_scan,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("screen"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("screen"))))))),
         .command = do_screen,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("script"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("script"))))))),
         .command = do_script,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("send"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("send"))))))),
         .command = do_send,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("session"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("session"))))))),
         .command = do_session,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("showme"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("showme"))))))),
         .command = do_showme,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("snoop"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("snoop"))))))),
         .command = do_snoop,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("split"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("split"))))))),
         .command = do_split,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("ssl"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ssl"))))))),
         .command = do_ssl,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("substitute"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("substitute"))))))),
         .command = do_substitute,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("switch"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("switch"))))))),
         .command = do_nop,
         .args = 0,
         .type = TOKEN_TYPE_SWITCH,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("system"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("system"))))))),
         .command = do_system,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("tab"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("tab"))))))),
         .command = do_tab,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("test"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("test"))))))),
         .command = do_test,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("textin"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("textin"))))))),
         .command = do_textin,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("ticker"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ticker"))))))),
         .command = do_tick,
         .args = 3,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("unaction"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("unaction"))))))),
         .command = do_unaction,
         .args = 0,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("unalias"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("unalias"))))))),
         .command = do_unalias,
         .args = 0,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("unbutton"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("unbutton"))))))),
         .command = do_unbutton,
         .args = 0,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("undelay"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("undelay"))))))),
         .command = do_undelay,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("unevent"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("unevent"))))))),
         .command = do_unevent,
         .args = 0,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("unfunction"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("unfunction"))))))),
         .command = do_unfunction,
         .args = 0,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("ungag"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ungag"))))))),
         .command = do_ungag,
         .args = 0,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("unhighlight"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("unhighlight"))))))),
         .command = do_unhighlight,
         .args = 0,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("unlocal"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("unlocal"))))))),
         .command = do_unlocal,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("unmacro"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("unmacro"))))))),
         .command = do_unmacro,
         .args = 0,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("unpathdir"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("unpathdir"))))))),
         .command = do_unpathdir,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("unprompt"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("unprompt"))))))),
         .command = do_unprompt,
         .args = 0,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("unsplit"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("unsplit"))))))),
         .command = do_unsplit,
         .args = 0,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("unsubstitute"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("unsubstitute"))))))),
         .command = do_unsubstitute,
         .args = 0,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("untab"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("untab"))))))),
         .command = do_untab,
         .args = 0,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("unticker"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("unticker"))))))),
         .command = do_untick,
         .args = 0,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("unvariable"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("unvariable"))))))),
         .command = do_unvariable,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("variable"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("variable"))))))),
         .command = do_variable,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("while"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("while"))))))),
         .command = do_nop,
         .args = 0,
         .type = TOKEN_TYPE_WHILE,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("write"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("write"))))))),
         .command = do_write,
         .args = 2,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("zap"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("zap"))))))),
         .command = do_zap,
         .args = 1,
         .type = TOKEN_TYPE_COMMAND,
     },
     struct_command_type{
-        .name = @as([*c]u8, @ptrCast(@constCast(""))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))),
         .command = null,
         .args = 0,
         .type = TOKEN_TYPE_COMMAND,
@@ -18546,3 +18550,73 @@ pub const stamp_type = struct_stamp_type;
 pub const substitution_type = struct_substitution_type;
 pub const timer_type = struct_timer_type;
 pub const telopt_type = struct_telopt_type;
+
+pub export fn execute_inner(arg_ses: [*c]struct_session, arg_format: [*c]u8, arg_arg2: [*c]u8) [*c]struct_session {
+    var ses = arg_ses;
+    _ = &ses;
+    var format = arg_format;
+    _ = &format;
+    var arg2 = arg_arg2;
+    _ = &arg2;
+    var buffer: [*c]u8 = arg2;
+    _ = &buffer;
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("execute(%p,%p,...)"))))), ses, format);
+    if ((buffer != null) and (@as(c_int, buffer.*) != 0)) {
+        if (@as(c_int, buffer.*) != @as(c_int, gtd.*.tintin_char)) {
+            buffer.* = gtd.*.tintin_char;
+        }
+        _ = get_arg_all(ses, buffer, buffer, FALSE);
+    }
+    ses = script_driver(ses, LIST_COMMAND, null, buffer);
+    free(@ptrCast(@alignCast(buffer)));
+    pop_call();
+    return ses;
+}
+
+pub export fn command_inner(arg_ses: [*c]struct_session, arg_cmd: ?*const COMMAND, arg_format: [*c]u8, arg_arg2: [*c]u8) [*c]struct_session {
+    var ses = arg_ses;
+    _ = &ses;
+    var cmd = arg_cmd;
+    _ = &cmd;
+    var format = arg_format;
+    _ = &format;
+    var arg2 = arg_arg2;
+    _ = &arg2;
+    var arg1: [*c]u8 = undefined;
+    _ = &arg1;
+    var arg2_stack: [*c]u8 = undefined;
+    _ = &arg2_stack;
+    var arg3: [*c]u8 = undefined;
+    _ = &arg3;
+    var arg4: [*c]u8 = undefined;
+    _ = &arg4;
+    var buffer: [*c]u8 = undefined;
+    _ = &buffer;
+    buffer = arg2;
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("command(%p,%p,%p,...)"))))), ses, cmd, format);
+    arg1 = str_alloc_stack(0);
+    arg2_stack = str_alloc_stack(0);
+    arg3 = str_alloc_stack(0);
+    arg4 = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("")))));
+    ses = cmd.?(ses, buffer, arg1, arg2_stack, arg3, arg4);
+    free(@ptrCast(@alignCast(buffer)));
+    pop_call();
+    return ses;
+}
+
+
+pub export fn execute(ses: [*c]struct_session, format: [*c]const u8, ...) [*c]struct_session {
+    var args = @cVaStart();
+    var arg2: [*c]u8 = null;
+    _ = vasprintf(&arg2, format, args);
+    @cVaEnd(&args);
+    return execute_inner(ses, @as([*c]u8, @ptrCast(@constCast(format))), arg2);
+}
+
+pub export fn command(ses: [*c]struct_session, cmd: ?*const COMMAND, format: [*c]const u8, ...) [*c]struct_session {
+    var args = @cVaStart();
+    var arg2: [*c]u8 = null;
+    _ = vasprintf(&arg2, format, args);
+    @cVaEnd(&args);
+    return command_inner(ses, cmd, @as([*c]u8, @ptrCast(@constCast(format))), arg2);
+}

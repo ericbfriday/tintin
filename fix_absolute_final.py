@@ -34,15 +34,87 @@ def fix_file_final(filepath):
                     return f"@as([*c][*c]struct_listroot, @ptrCast(&{p}.list))[{idx}]"
         return full
     content = re.sub(r'([a-zA-Z0-9_.*]+)\.list\[([^\]]+)\]', repl_list, content)
-    # 3. .val32[...]
-    def repl_val32(m):
-        base = m.group(1)
-        idx = m.group(2)
-        return f'@as([*c]c_int, @ptrCast(@constCast(&{base}.val32)))[{idx}]'
-    content = re.sub(r'([a-zA-Z0-9_.*]+)\.val32\[([^\]]+)\]', repl_val32, content)
+    # 3. .val32[...] & .val16[...] generic fix
+    def fix_val_generic(content, val_name, ptr_type):
+        pos = 0
+        search_str = f'.{val_name}['
+        while True:
+            idx = content.find(search_str, pos)
+            if idx == -1:
+                break
+            
+            # Scan backwards to find the base expression
+            paren_count = 0
+            bracket_count = 0
+            brace_count = 0
+            base_start = -1
+            
+            for i in range(idx - 1, -1, -1):
+                char = content[i]
+                if char == ')':
+                    paren_count += 1
+                elif char == '(':
+                    paren_count -= 1
+                elif char == ']':
+                    bracket_count += 1
+                elif char == '[':
+                    bracket_count -= 1
+                elif char == '}':
+                    brace_count += 1
+                elif char == '{':
+                    brace_count -= 1
+                
+                if paren_count < 0 or bracket_count < 0 or brace_count < 0:
+                    base_start = i + 1
+                    break
+                
+                if paren_count == 0 and bracket_count == 0 and brace_count == 0:
+                    if char in " \t\n\r,;=+-/|&^<>?:":
+                        base_start = i + 1
+                        break
+            
+            if base_start == -1:
+                base_start = 0
+                
+            base = content[base_start:idx]
+            
+            val_start = idx + len(search_str)
+            bracket_cnt = 1
+            val_end = -1
+            for i in range(val_start, len(content)):
+                if content[i] == '[':
+                    bracket_cnt += 1
+                elif content[i] == ']':
+                    bracket_cnt -= 1
+                    if bracket_cnt == 0:
+                        val_end = i
+                        break
+            
+            if val_end == -1:
+                pos = idx + 1
+                continue
+                
+            index_expr = content[val_start:val_end]
+            
+            # Construct the replacement
+            replacement = f'@as([*c]{ptr_type}, @ptrCast(@constCast(&{base}.{val_name})))[{index_expr}]'
+            
+            # Replace in content
+            content = content[:base_start] + replacement + content[val_end + 1:]
+            
+            pos = base_start + len(replacement)
+        return content
+
 
     # 4. Unused structs (Delete them completely to avoid shadowing)
     content = re.sub(r'(const extern_local_[a-zA-Z0-9_]+ = struct \{[^}]+\};\s*(?:_\s*=\s*&extern_local_[a-zA-Z0-9_]+;\s*)?)', '', content)
+
+    # 4b. Remove orphaned dummy references to deleted extern_local structs
+    defined_extern_locals = set(re.findall(r'\bconst\s+(extern_local_[a-zA-Z0-9_]+)\b', content))
+    referenced_extern_locals = re.findall(r'\b_ = &(extern_local_[a-zA-Z0-9_]+);', content)
+    for ref in referenced_extern_locals:
+        if ref not in defined_extern_locals:
+            content = re.sub(r'[^\n]*_ = &' + re.escape(ref) + r';[^\n]*\n?', '', content)
 
     # 5. Remove extern_local prefixes from function calls
     content = re.sub(r'extern_local_[a-zA-Z0-9_]+\.', '', content)
@@ -150,7 +222,6 @@ pub export fn server_telopt_debug(ses: [*c]struct_session, format: [*c]const u8,
     # 12. Fix __darwin_fd_set, __darwin_fd_clr, __darwin_fd_isset
 
 
-
     # 12. Fix __darwin_fd functions
     lines = content.split('\n')
     new_lines = []
@@ -161,21 +232,25 @@ pub export fn server_telopt_debug(ses: [*c]struct_session, format: [*c]const u8,
             new_lines.append('''pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }''')
         elif line.startswith('pub inline fn __darwin_fd_clr('):
             skip = True
             new_lines.append('''pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }''')
         elif line.startswith('pub inline fn __darwin_fd_isset('):
             skip = True
             new_lines.append('''pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }''')
         elif skip and line == '}':
             skip = False
@@ -193,18 +268,16 @@ pub export fn server_telopt_debug(ses: [*c]struct_session, format: [*c]const u8,
     # Fix macro_buf array indexing with bitCast variables
     content = re.sub(r'gtd\.\*\.macro_buf\[@bitCast\(@as\(isize,\s*@intCast\(([^)]+)\)\)\)\]', r'@as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(\1)))]', content)
 
-    # 13. Generic fix for invalid LHS cast of val16
+    # 13. Generic fix for invalid LHS cast of val16 and buf, plus general struct fields
+    content = re.sub(r'@as\(c_int,\s*([a-zA-Z0-9_\.\[\]\*]+)\)\s*\+=', r'\1 +=', content)
+    content = re.sub(r'@as\(c_int,\s*([a-zA-Z0-9_\.\[\]\*]+)\)\s*-=', r'\1 -=', content)
     content = re.sub(r'@as\(c_int,\s*(.*?\.val16\[.*?\])\)\s*\+=', r'\1 +=', content)
     content = re.sub(r'@as\(c_int,\s*(.*?\.val16\[.*?\])\)\s*-=', r'\1 -=', content)
+    content = re.sub(r'@as\(c_int,\s*(buf\[[^\]]+\])\)\s*\+=', r'\1 +=', content)
+    content = re.sub(r'@as\(c_int,\s*(buf\[[^\]]+\])\)\s*-=', r'\1 -=', content)
 
 
 
-    # Final targeted fix for draw.zig val16 read array indexing
-    content = re.sub(
-        r'(@as\(\[\*c\]\[\*c\]struct_listnode, @ptrCast\(&node\.\*\.root\.\*\.list\)\)\[@bitCast\(@as\(isize,\s*@intCast\(([^)]+)\)\)\)\]\.\*\.unnamed_0\.val16)\[@as\(c_int,\s*(\d+)\)\]',
-        r'@as([*c]c_short, @ptrCast(&\1))[\3]',
-        content
-    )
 
     # Final targeted fix for input.zig macro_buf read array indexing with complex expressions
     content = re.sub(
@@ -221,7 +294,8 @@ pub export fn server_telopt_debug(ses: [*c]struct_session, format: [*c]const u8,
         r'@as([*c]u8, @ptrCast(&gtd.*.macro_buf))[@bitCast(@as(usize, @intCast(\1)))]',
         content
     )
-
+    content = fix_val_generic(content, 'val32', 'c_int')
+    content = fix_val_generic(content, 'val16', 'c_short')
 
     with open(filepath, 'w') as f:
         f.write(content)

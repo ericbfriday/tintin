@@ -395,17 +395,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;
@@ -7511,16 +7515,16 @@ pub export fn do_line(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
     _ = &cnt;
     arg = get_arg_in_braces(ses, arg, arg1, GET_ONE);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@constCast(" LINE OPTIONS "))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" LINE OPTIONS "))))))));
         {
             cnt = 0;
             while (@as(?*anyopaque, @ptrCast(@alignCast(@constCast(line_table[@bitCast(@as(isize, @intCast(cnt)))].fun)))) != @as(?*anyopaque, null)) : (cnt += 1) {
                 if (@as(c_int, line_table[@bitCast(@as(isize, @intCast(cnt)))].desc.*) != 0) {
-                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("  [%-13s] %s"))), line_table[@bitCast(@as(isize, @intCast(cnt)))].name, line_table[@bitCast(@as(isize, @intCast(cnt)))].desc);
+                    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-13s] %s"))))))), line_table[@bitCast(@as(isize, @intCast(cnt)))].name, line_table[@bitCast(@as(isize, @intCast(cnt)))].desc);
                 }
             }
         }
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@constCast(""))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         return ses;
     } else {
         {
@@ -7532,7 +7536,7 @@ pub export fn do_line(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
             }
         }
         if (@as(c_int, line_table[@bitCast(@as(isize, @intCast(cnt)))].name.*) == @as(c_int, 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#ERROR: #LINE {%s}: INVALID LINE OPTION."))), arg1);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #LINE {%s}: INVALID LINE OPTION."))))))), arg1);
         } else {
             ses = line_table[@bitCast(@as(isize, @intCast(cnt)))].fun.?(ses, arg, arg1, arg2, arg3);
         }
@@ -7552,7 +7556,7 @@ pub export fn line_background(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_
     _ = &arg3;
     arg = get_arg_in_braces(ses, arg, arg1, GET_ALL);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {BACKGROUND} <COMMAND>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {BACKGROUND} <COMMAND>"))))))));
         return ses;
     }
     gtd.*.level.*.background +%= 1;
@@ -7577,13 +7581,13 @@ pub export fn line_benchmark(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_a
     _ = &end;
     arg = get_arg_in_braces(ses, arg, arg1, GET_ALL);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {BENCHMARK} <COMMAND>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {BENCHMARK} <COMMAND>"))))))));
         return ses;
     }
     start = @bitCast(@as(c_ulonglong, @truncate(utime())));
     ses = script_driver(ses, LIST_COMMAND, null, arg1);
     end = @bitCast(@as(c_ulonglong, @truncate(utime())));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("#LINE BENCHMARK: %lld USEC."))), end - start);
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#LINE BENCHMARK: %lld USEC."))))))), end - start);
     return ses;
 }
 pub export fn line_capture(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) [*c]struct_session {
@@ -7611,7 +7615,7 @@ pub export fn line_capture(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
             ses.*.line_capturefile = null;
         }
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE CAPTURE <VARIABLE> <COMMAND>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE CAPTURE <VARIABLE> <COMMAND>"))))))));
     }
     return ses;
 }
@@ -7628,7 +7632,7 @@ pub export fn line_convert(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
     _ = &arg3;
     arg = get_arg_in_braces(ses, arg, arg1, GET_ALL);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {CONVERT} <COMMAND>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {CONVERT} <COMMAND>"))))))));
         return ses;
     }
     gtd.*.level.*.convert +%= 1;
@@ -7649,7 +7653,7 @@ pub export fn line_debug(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     _ = &arg3;
     arg = get_arg_in_braces(ses, arg, arg1, GET_ALL);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {DEBUG} <COMMAND>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {DEBUG} <COMMAND>"))))))));
         return ses;
     }
     gtd.*.level.*.debug +%= 1;
@@ -7699,7 +7703,7 @@ pub export fn line_gag(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
     if (ses.*.gagline < @as(c_int, 0)) {
         ses.*.gagline = 0;
     }
-    show_debug(ses, LIST_GAG, null, @as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG LINE GAG \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} \x1b[38;5;044m[\x1b[38;5;188m%d\x1b[38;5;044m]"))), arg1, ses.*.gagline);
+    show_debug(ses, LIST_GAG, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG LINE GAG \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} \x1b[38;5;044m[\x1b[38;5;188m%d\x1b[38;5;044m]"))))))), arg1, ses.*.gagline);
     return ses;
 }
 pub export fn line_ignore(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8) [*c]struct_session {
@@ -7715,7 +7719,7 @@ pub export fn line_ignore(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
     _ = &arg3;
     arg = get_arg_in_braces(ses, arg, arg1, GET_ALL);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {IGNORE} <COMMAND>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {IGNORE} <COMMAND>"))))))));
         return ses;
     }
     gtd.*.level.*.ignore +%= 1;
@@ -7737,7 +7741,7 @@ pub export fn line_json(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {JSON} <VARIABLE> <COMMAND>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {JSON} <VARIABLE> <COMMAND>"))))))));
         return ses;
     }
     var str_sub: [*c]u8 = str_alloc_stack(0);
@@ -7751,7 +7755,7 @@ pub export fn line_json(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
             _ = sprintf(str_sub, "\"%s\"\n", node.*.arg2);
         }
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#LINE JSON {%s}: VARIABLE NOT FOUND."))), arg1);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#LINE JSON {%s}: VARIABLE NOT FOUND."))))))), arg1);
     }
     {
         if (@as([*c]u8, @ptrCast(@constCast(&@as([*c][*c]u8, @ptrCast(&gtd.*.cmds))[0]))) != null) {
@@ -7776,7 +7780,7 @@ pub export fn line_local(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     _ = &arg3;
     arg = get_arg_in_braces(ses, arg, arg1, GET_ALL);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {LOCAL} <COMMAND>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {LOCAL} <COMMAND>"))))))));
         return ses;
     }
     gtd.*.level.*.local +%= 1;
@@ -7822,7 +7826,7 @@ pub export fn line_log(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
                 logheader(ses, ses.*.log.*.line_file, (@as(c_int, 1) << @intCast(@as(c_int, 2))) | (ses.*.log.*.mode & (@as(c_int, 1) << @intCast(@as(c_int, 5)))));
                 logit(ses, arg2, ses.*.log.*.line_file, LOG_FLAG_NONE);
             } else {
-                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#ERROR: #LINE LOG {%s}: COULDN'T OPEN FILE."))), arg1);
+                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #LINE LOG {%s}: COULDN'T OPEN FILE."))))))), arg1);
             }
         }
     } else if (@as(c_int, arg1.*) != 0) {
@@ -7842,10 +7846,10 @@ pub export fn line_log(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
             ses.*.log.*.next_time = gtd.*.time;
             ses.*.log.*.mode |= @as(c_int, 1) << @intCast(@as(c_int, 3));
         } else {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#ERROR: #LINE LOG {%s}: COULDN'T OPEN FILE."))), arg1);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #LINE LOG {%s}: COULDN'T OPEN FILE."))))))), arg1);
         }
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {LOG} <FILENAME> [TEXT]"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {LOG} <FILENAME> [TEXT]"))))))));
     }
     return ses;
 }
@@ -7865,22 +7869,22 @@ pub export fn line_logmode(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
     var old_mode: c_int = ses.*.log.*.mode;
     _ = &old_mode;
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
-    if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@constCast("HTML")))) != 0) {
+    if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("HTML")))))))) != 0) {
         ses.*.log.*.mode |= @as(c_int, 1) << @intCast(@as(c_int, 5));
         ses.*.log.*.mode &= ~(@as(c_int, 1) << @intCast(@as(c_int, 6)));
         ses.*.log.*.mode &= ~(@as(c_int, 1) << @intCast(@as(c_int, 7)));
-    } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@constCast("PLAIN")))) != 0) {
+    } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PLAIN")))))))) != 0) {
         ses.*.log.*.mode |= @as(c_int, 1) << @intCast(@as(c_int, 6));
         ses.*.log.*.mode &= ~(@as(c_int, 1) << @intCast(@as(c_int, 5)));
         ses.*.log.*.mode &= ~(@as(c_int, 1) << @intCast(@as(c_int, 7)));
-    } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@constCast("RAW")))) != 0) {
+    } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RAW")))))))) != 0) {
         ses.*.log.*.mode |= @as(c_int, 1) << @intCast(@as(c_int, 7));
         ses.*.log.*.mode &= ~(@as(c_int, 1) << @intCast(@as(c_int, 5)));
         ses.*.log.*.mode &= ~(@as(c_int, 1) << @intCast(@as(c_int, 6)));
-    } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@constCast("STAMP")))) != 0) {
+    } else if (is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("STAMP")))))))) != 0) {
         ses.*.log.*.mode |= @as(c_int, 1) << @intCast(@as(c_int, 8));
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {LOGMODE} {HTML|PLAIN|RAW|STAMP} <COMMAND>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {LOGMODE} {HTML|PLAIN|RAW|STAMP} <COMMAND>"))))))));
         return ses;
     }
     arg = get_arg_in_braces(ses, arg, arg1, GET_ALL);
@@ -7923,7 +7927,7 @@ pub export fn line_logverbatim(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg
                 ses.*.log.*.line_time = gtd.*.time;
                 logit(ses, arg2, ses.*.log.*.line_file, (@as(c_int, 1) << @intCast(@as(c_int, 0))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))));
             } else {
-                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#ERROR: #LINE LOGVERBATIM {%s}: COULDN'T OPEN FILE."))), arg1);
+                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #LINE LOGVERBATIM {%s}: COULDN'T OPEN FILE."))))))), arg1);
             }
         }
     } else if (@as(c_int, arg1.*) != 0) {
@@ -7943,10 +7947,10 @@ pub export fn line_logverbatim(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg
             ses.*.log.*.next_time = gtd.*.time;
             ses.*.log.*.mode |= @as(c_int, 1) << @intCast(@as(c_int, 3));
         } else {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#ERROR: #LINE LOGVERBATIM {%s}: COULDN'T OPEN FILE."))), arg1);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #LINE LOGVERBATIM {%s}: COULDN'T OPEN FILE."))))))), arg1);
         }
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {LOGVERBATIM} <FILENAME> <TEXT>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {LOGVERBATIM} <FILENAME> <TEXT>"))))))));
     }
     return ses;
 }
@@ -7963,7 +7967,7 @@ pub export fn line_msdp(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     _ = &arg3;
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {MSDP} <COMMAND>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {MSDP} <COMMAND>"))))))));
         return ses;
     }
     _ = tintin2msdp(arg1, arg2);
@@ -7987,7 +7991,7 @@ pub export fn line_multishot(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_a
     arg = get_arg_in_braces(ses, arg, arg2, GET_ALL);
     shots = @intFromFloat(get_number(ses, arg1));
     if (!(is_math(ses, arg1) != 0) or (@as(c_int, arg2.*) == @as(c_int, 0))) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {MULTISHOT} <NUMBER> <COMMAND>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {MULTISHOT} <NUMBER> <COMMAND>"))))))));
         return ses;
     }
     gtd.*.level.*.shots +%= 1;
@@ -8010,7 +8014,7 @@ pub export fn line_oneshot(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
     _ = &arg3;
     arg = get_arg_in_braces(ses, arg, arg1, GET_ALL);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {ONESHOT} <COMMAND>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {ONESHOT} <COMMAND>"))))))));
         return ses;
     }
     gtd.*.level.*.shots +%= 1;
@@ -8032,7 +8036,7 @@ pub export fn line_quiet(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     _ = &arg3;
     arg = get_arg_in_braces(ses, arg, arg1, GET_ALL);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {QUIET} <COMMAND>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {QUIET} <COMMAND>"))))))));
         return ses;
     }
     gtd.*.level.*.quiet +%= 1;
@@ -8053,7 +8057,7 @@ pub export fn line_strip(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     _ = &arg3;
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 7))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {STRIP} <COMMAND>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {STRIP} <COMMAND>"))))))));
         return ses;
     }
     _ = strip_vt102_codes(arg1, arg2);
@@ -8081,7 +8085,7 @@ pub export fn line_substitute(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_
         {
             i = 0;
             while (@as(c_int, substitution_table[@bitCast(@as(isize, @intCast(i)))].name.*) != 0) : (i += 1) {
-                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {SUBSTITUTE} {%s} <COMMAND>"))), substitution_table[@bitCast(@as(isize, @intCast(i)))].name);
+                show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {SUBSTITUTE} {%s} <COMMAND>"))))))), substitution_table[@bitCast(@as(isize, @intCast(i)))].name);
             }
         }
         return ses;
@@ -8118,7 +8122,7 @@ pub export fn line_verbatim(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_ar
     _ = &arg3;
     arg = get_arg_in_braces(ses, arg, arg1, GET_ALL);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {VERBATIM} <COMMAND>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {VERBATIM} <COMMAND>"))))))));
         return ses;
     }
     gtd.*.level.*.verbatim +%= 1;
@@ -8139,7 +8143,7 @@ pub export fn line_verbose(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
     _ = &arg3;
     arg = get_arg_in_braces(ses, arg, arg1, GET_ALL);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {VERBOSE} <COMMAND>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #LINE {VERBOSE} <COMMAND>"))))))));
         return ses;
     }
     gtd.*.level.*.verbose +%= 1;
@@ -8680,109 +8684,109 @@ pub const struct_line_type = extern struct {
 };
 pub export var line_table: [21]struct_line_type = [21]struct_line_type{
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("BACKGROUND"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("BACKGROUND"))))))),
         .fun = line_background,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Execute line without stealing session focus."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Execute line without stealing session focus."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("BENCHMARK"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("BENCHMARK"))))))),
         .fun = line_benchmark,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Execute line and provide timing information."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Execute line and provide timing information."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("CAPTURE"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CAPTURE"))))))),
         .fun = line_capture,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Capture output in the given variable."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Capture output in the given variable."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("CONVERT"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CONVERT"))))))),
         .fun = line_convert,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Execute line in convert meta data mode."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Execute line in convert meta data mode."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("DEBUG"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DEBUG"))))))),
         .fun = line_debug,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Execute line in debug mode."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Execute line in debug mode."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("GAG"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG"))))))),
         .fun = line_gag,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Gag the next line."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Gag the next line."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("IGNORE"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IGNORE"))))))),
         .fun = line_ignore,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Execute line with triggers ignored."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Execute line with triggers ignored."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("JSON"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("JSON"))))))),
         .fun = line_json,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Execute line with json conversion."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Execute line with json conversion."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("LOCAL"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("LOCAL"))))))),
         .fun = line_local,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Execute line with local scope."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Execute line with local scope."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("LOG"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("LOG"))))))),
         .fun = line_log,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Log the next line or given line."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Log the next line or given line."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("LOGMODE"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("LOGMODE"))))))),
         .fun = line_logmode,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Execute line with given log mode."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Execute line with given log mode."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("LOGVERBATIM"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("LOGVERBATIM"))))))),
         .fun = line_logverbatim,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Log the line as plain text verbatim."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Log the line as plain text verbatim."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("MSDP"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MSDP"))))))),
         .fun = line_msdp,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Execute line with msdp conversion."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Execute line with msdp conversion."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("MULTISHOT"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MULTISHOT"))))))),
         .fun = line_multishot,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Execute line creating multishot triggers."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Execute line creating multishot triggers."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("ONESHOT"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ONESHOT"))))))),
         .fun = line_oneshot,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Execute line creating oneshot triggers."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Execute line creating oneshot triggers."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("QUIET"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("QUIET"))))))),
         .fun = line_quiet,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Execute line with all system messages off."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Execute line with all system messages off."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("STRIP"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("STRIP"))))))),
         .fun = line_strip,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Execute line with escape codes stripped."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Execute line with escape codes stripped."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("SUBSTITUTE"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SUBSTITUTE"))))))),
         .fun = line_substitute,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Execute line with given substitution."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Execute line with given substitution."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("VERBATIM"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VERBATIM"))))))),
         .fun = line_verbatim,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Execute line as plain text."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Execute line as plain text."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast("VERBOSE"))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VERBOSE"))))))),
         .fun = line_verbose,
-        .desc = @as([*c]u8, @ptrCast(@constCast("Execute line with all system messages on."))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Execute line with all system messages on."))))))),
     },
     struct_line_type{
-        .name = @as([*c]u8, @ptrCast(@constCast(""))),
+        .name = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))),
         .fun = null,
-        .desc = @as([*c]u8, @ptrCast(@constCast(""))),
+        .desc = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))),
     },
 };
 

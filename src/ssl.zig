@@ -395,17 +395,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;
@@ -7814,7 +7818,7 @@ pub export fn ssl_negotiate(arg_ses: [*c]struct_session) gnutls_session_t {
         if (!((ret == -@as(c_int, 28)) or (ret == -@as(c_int, 52)))) break;
     }
     if (ret != 0) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("#SSL: handshake failed error: %s"))), gnutls_strerror(ret));
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL: handshake failed error: %s"))))))), gnutls_strerror(ret));
         gnutls_deinit(ssl_ses);
         return null;
     }
@@ -8105,7 +8109,7 @@ pub fn ssl_check_cert(arg_ses: [*c]struct_session, arg_ssl_ses: gnutls_session_t
     load_cert(ses, &oldcert);
     while (true) {
         if (gnutls_certificate_type_get(ssl_ses) != @as(gnutls_certificate_type_t, GNUTLS_CRT_X509)) {
-            err = @as([*c]u8, @ptrCast(@constCast("#SSL: SERVER DOES NOT USE x509 -> NO KEY RETENTION.")));
+            err = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL: SERVER DOES NOT USE x509 -> NO KEY RETENTION.")))))));
             break;
         }
         if (@as(?*anyopaque, @ptrCast(@alignCast(@constCast(blk: {
@@ -8113,22 +8117,22 @@ pub fn ssl_check_cert(arg_ses: [*c]struct_session, arg_ssl_ses: gnutls_session_t
             cert_list = tmp;
             break :blk tmp;
         })))) == @as(?*anyopaque, null)) {
-            err = @as([*c]u8, @ptrCast(@constCast("#SSL: SERVER HAS NO x509 CERTIFICATE -> NO KEY RETENTION.")));
+            err = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL: SERVER HAS NO x509 CERTIFICATE -> NO KEY RETENTION.")))))));
             break;
         }
         _ = gnutls_x509_crt_init(&cert);
         if (gnutls_x509_crt_import(cert, &cert_list[@as(c_int, 0)], GNUTLS_X509_FMT_DER) < @as(c_int, 0)) {
-            err = @as([*c]u8, @ptrCast(@constCast("#SSL: SERVER'S CERTIFICATE IS INVALID.")));
+            err = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL: SERVER'S CERTIFICATE IS INVALID.")))))));
             gnutls_x509_crt_deinit(cert);
             break;
         }
         t = time(null);
         if (gnutls_x509_crt_get_activation_time(cert) > t) {
-            _ = sprintf(@ptrCast(@alignCast(&buf2)), "CERTIFICATE ACTIVATION TIME IS IN THE FUTURE (%s)", str_time(ses, @as([*c]u8, @ptrCast(@constCast("%c"))), gnutls_x509_crt_get_activation_time(cert)));
+            _ = sprintf(@ptrCast(@alignCast(&buf2)), "CERTIFICATE ACTIVATION TIME IS IN THE FUTURE (%s)", str_time(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c"))))))), gnutls_x509_crt_get_activation_time(cert)));
             err = @ptrCast(@alignCast(&buf2));
         }
         if (gnutls_x509_crt_get_expiration_time(cert) < t) {
-            _ = sprintf(@ptrCast(@alignCast(&buf2)), "CERTIFICATE HAS EXPIRED (%s)", str_time(ses, @as([*c]u8, @ptrCast(@constCast("%c"))), gnutls_x509_crt_get_expiration_time(cert)));
+            _ = sprintf(@ptrCast(@alignCast(&buf2)), "CERTIFICATE HAS EXPIRED (%s)", str_time(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c"))))))), gnutls_x509_crt_get_expiration_time(cert)));
             err = @ptrCast(@alignCast(&buf2));
         }
         if (!(oldcert != null)) {
@@ -8148,9 +8152,9 @@ pub fn ssl_check_cert(arg_ses: [*c]struct_session, arg_ssl_ses: gnutls_session_t
                 err = @ptrCast(@alignCast(&buf2));
             } else {
                 if (t > @as(time_t, 0)) {
-                    tintin_printf(ses, @as([*c]u8, @ptrCast(@constCast("#SSL: SERVER CERTIFICATE HAS CHANGED, BUT THE OLD ONE WAS EXPIRED."))));
+                    tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL: SERVER CERTIFICATE HAS CHANGED, BUT THE OLD ONE WAS EXPIRED."))))))));
                 } else {
-                    tintin_printf(ses, @as([*c]u8, @ptrCast(@constCast("#SSL: SERVER CERTIFICATE HAS CHANGED, BUT THE OLD ONE WAS ABOUT TO EXPIRE."))));
+                    tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL: SERVER CERTIFICATE HAS CHANGED, BUT THE OLD ONE WAS ABOUT TO EXPIRE."))))))));
                 }
                 save_cert(ses, cert, 0);
                 gnutls_x509_crt_deinit(oldcert);
@@ -8168,17 +8172,17 @@ pub fn ssl_check_cert(arg_ses: [*c]struct_session, arg_ssl_ses: gnutls_session_t
     }
     if (err != null) {
         if (oldcert != null) {
-            tintin_printf(ses, @as([*c]u8, @ptrCast(@constCast("#SSL ERROR: %s"))), err);
+            tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL ERROR: %s"))))))), err);
             _ = get_cert_file(ses, @ptrCast(@alignCast(&filename)));
-            tintin_printf(ses, @as([*c]u8, @ptrCast(@constCast("#SSL ALERT: THE SERVER'S SETTINGS WERE CHANGED IN AN UNEXPECTED WAY."))));
-            tintin_printf(ses, @as([*c]u8, @ptrCast(@constCast("#SSL ALERT: YOU MAY BE VULNERABLE TO MAN-IN-THE-MIDDLE ATTACKS."))));
-            tintin_printf(ses, @as([*c]u8, @ptrCast(@constCast("#SSL ALERT: TO CONTINUE, PLEASE DELETE THE FILE:"))));
-            tintin_printf(ses, @as([*c]u8, @ptrCast(@constCast("#SSL ALERT: %s"))), @as([*c]u8, @ptrCast(@alignCast(&filename))));
-            tintin_printf(ses, @as([*c]u8, @ptrCast(@constCast("#SSL ERROR: ABORTING CONNECTION."))));
+            tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL ALERT: THE SERVER'S SETTINGS WERE CHANGED IN AN UNEXPECTED WAY."))))))));
+            tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL ALERT: YOU MAY BE VULNERABLE TO MAN-IN-THE-MIDDLE ATTACKS."))))))));
+            tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL ALERT: TO CONTINUE, PLEASE DELETE THE FILE:"))))))));
+            tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL ALERT: %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&filename))));
+            tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL ERROR: ABORTING CONNECTION."))))))));
             return 0;
         } else {
-            tintin_printf(ses, @as([*c]u8, @ptrCast(@constCast("#SSL ALERT: %s"))), err);
-            tintin_printf(ses, @as([*c]u8, @ptrCast(@constCast("#SSL ALERT: YOU MAY BE VULNERABLE TO MAN-IN-THE-MIDDLE ATTACKS."))));
+            tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL ALERT: %s"))))))), err);
+            tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL ALERT: YOU MAY BE VULNERABLE TO MAN-IN-THE-MIDDLE ATTACKS."))))))));
             return 2;
         }
     } else {
@@ -8204,7 +8208,7 @@ pub export fn do_ssl(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c
     arg = @ptrCast(@alignCast(&temp));
     arg = get_arg_in_braces(ses, arg, arg1, GET_ONE);
     if ((@as(c_int, arg1.*) == @as(c_int, 0)) or (@as(c_int, arg.*) == @as(c_int, 0))) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SSL <NAME> <HOST> <PORT>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #SSL <NAME> <HOST> <PORT>"))))))));
     } else {
         ses = new_session(ses, arg1, arg, 0, 1);
     }
@@ -8289,37 +8293,37 @@ pub fn save_cert(arg_ses: [*c]struct_session, arg_cert: gnutls_x509_crt_t, arg_n
     }
     _ = sprintf(@ptrCast(@alignCast(&filename)), "%s", gtd.*.system.*.tt_dir);
     if ((mkdir(@ptrCast(@alignCast(&filename)), 493) != 0) and (__error().* != EEXIST)) {
-        tintin_printf(ses, @as([*c]u8, @ptrCast(@constCast("#SSL: FAILED TO CREATE TINTIN DIR %s (%s)"))), @as([*c]u8, @ptrCast(@alignCast(&filename))), strerror(__error().*));
+        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL: FAILED TO CREATE TINTIN DIR %s (%s)"))))))), @as([*c]u8, @ptrCast(@alignCast(&filename))), strerror(__error().*));
         return;
     }
     _ = sprintf(@ptrCast(@alignCast(&filename)), "%s/ssl", gtd.*.system.*.tt_dir);
     if ((mkdir(@ptrCast(@alignCast(&filename)), 493) != 0) and (__error().* != EEXIST)) {
-        tintin_printf(ses, @as([*c]u8, @ptrCast(@constCast("#SSL: CANNOT CREATE CERTS DIR %s (%s)"))), @as([*c]u8, @ptrCast(@alignCast(&filename))), strerror(__error().*));
+        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL: CANNOT CREATE CERTS DIR %s (%s)"))))))), @as([*c]u8, @ptrCast(@alignCast(&filename))), strerror(__error().*));
         return;
     }
     if (!(get_cert_file(ses, @ptrCast(@alignCast(&filename))) != 0)) {
         return;
     }
     if (new != 0) {
-        tintin_printf(ses, @as([*c]u8, @ptrCast(@constCast("#SSL: THIS IS THE FIRST TIME YOU CONNECT TO THIS SERVER."))));
+        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL: THIS IS THE FIRST TIME YOU CONNECT TO THIS SERVER."))))))));
     }
-    tintin_printf(ses, @as([*c]u8, @ptrCast(@constCast("#SSL: SAVING SERVER CERTIFICATE TO %s"))), @as([*c]u8, @ptrCast(@alignCast(&filename))));
+    tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL: SAVING SERVER CERTIFICATE TO %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&filename))));
     if (@as(?*anyopaque, @ptrCast(@alignCast(blk: {
         const tmp = fopen(@ptrCast(@alignCast(&filename)), "w");
         fp = tmp;
         break :blk tmp;
     }))) == @as(?*anyopaque, null)) {
-        tintin_printf(ses, @as([*c]u8, @ptrCast(@constCast("#SSL: SAVE FAILED (%s)"))), strerror(__error().*));
+        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL: SAVE FAILED (%s)"))))))), strerror(__error().*));
         return;
     }
     if (fwrite(@ptrCast(@alignCast(@as([*c]u8, @ptrCast(@alignCast(&buf))))), 1, len, fp) != len) {
-        tintin_printf(ses, @as([*c]u8, @ptrCast(@constCast("#SSL: SAVE FAILED (%s)"))), strerror(__error().*));
+        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL: SAVE FAILED (%s)"))))))), strerror(__error().*));
         _ = fclose(fp);
         _ = unlink(@ptrCast(@alignCast(&filename)));
         return;
     }
     if (fclose(fp) != 0) {
-        tintin_printf(ses, @as([*c]u8, @ptrCast(@constCast("#SSL: SAVE FAILED (%s)"))), strerror(__error().*));
+        tintin_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL: SAVE FAILED (%s)"))))))), strerror(__error().*));
     }
 }
 pub fn diff_certs(arg_c1: gnutls_x509_crt_t, arg_c2: gnutls_x509_crt_t) callconv(.c) c_int {

@@ -395,17 +395,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;
@@ -8242,11 +8246,11 @@ pub export fn catch_vt102_codes(arg_ses: [*c]struct_session, arg_str: [*c]u8, ar
     _ = &len;
     var val: [5]c_int = undefined;
     _ = &val;
-    push_call(@as([*c]u8, @ptrCast(@constCast("catch_vt102_codes(%p)"))), str);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("catch_vt102_codes(%p)"))))))), str);
     while (true) {
         switch (@as(c_int, str[@as(c_int, 0)])) {
             ASCII_ENQ => {
-                if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 1, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 ENQ"))), gtd.*.system.*.term) != 0) {
+                if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 ENQ"))))))), gtd.*.system.*.term) != 0) {
                     pop_call();
                     return 1;
                 }
@@ -8299,7 +8303,7 @@ pub export fn catch_vt102_codes(arg_ses: [*c]struct_session, arg_str: [*c]u8, ar
                                         break;
                                     },
                                     @as(c_int, 'c') => {
-                                        if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 19)), 0, 1, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 DA"))), ntos(val[@as(c_int, 0)])) != 0) {
+                                        if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 19)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 DA"))))))), ntos(val[@as(c_int, 0)])) != 0) {
                                             pop_call();
                                             return len + @as(c_int, 1);
                                         }
@@ -8308,8 +8312,8 @@ pub export fn catch_vt102_codes(arg_ses: [*c]struct_session, arg_str: [*c]u8, ar
                                     },
                                     @as(c_int, 'n') => {
                                         if (val[@as(c_int, 0)] == @as(c_int, 5)) {
-                                            if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 19)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 DSR")))) != 0)) {
-                                                telnet_printf(ses, 4, @as([*c]u8, @ptrCast(@constCast("\x1b[0n"))));
+                                            if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 19)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 DSR")))))))) != 0)) {
+                                                telnet_printf(ses, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0n"))))))));
                                             }
                                             pop_call();
                                             return len + @as(c_int, 1);
@@ -8318,7 +8322,7 @@ pub export fn catch_vt102_codes(arg_ses: [*c]struct_session, arg_str: [*c]u8, ar
                                         return 0;
                                     },
                                     @as(c_int, 'r') => {
-                                        if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 2, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 SCROLL REGION"))), ntos(val[@as(c_int, 0)]), ntos(val[@as(c_int, 1)])) != 0) {
+                                        if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 SCROLL REGION"))))))), ntos(val[@as(c_int, 0)]), ntos(val[@as(c_int, 1)])) != 0) {
                                             pop_call();
                                             return len + @as(c_int, 1);
                                         }
@@ -8326,7 +8330,7 @@ pub export fn catch_vt102_codes(arg_ses: [*c]struct_session, arg_str: [*c]u8, ar
                                         return 0;
                                     },
                                     @as(c_int, 'H'), @as(c_int, 'f') => {
-                                        if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 2, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 CURSOR H"))), ntos(val[@as(c_int, 0)]), ntos(val[@as(c_int, 1)])) != 0) {
+                                        if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 CURSOR H"))))))), ntos(val[@as(c_int, 0)]), ntos(val[@as(c_int, 1)])) != 0) {
                                             pop_call();
                                             return len + @as(c_int, 1);
                                         }
@@ -8335,25 +8339,25 @@ pub export fn catch_vt102_codes(arg_ses: [*c]struct_session, arg_str: [*c]u8, ar
                                     },
                                     @as(c_int, 'J') => {
                                         if (val[@as(c_int, 0)] == @as(c_int, 0)) {
-                                            if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 ERASE SCREEN BELOW")))) != 0) {
+                                            if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 ERASE SCREEN BELOW")))))))) != 0) {
                                                 pop_call();
                                                 return len + @as(c_int, 1);
                                             }
                                         }
                                         if (val[@as(c_int, 0)] == @as(c_int, 1)) {
-                                            if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 ERASE SCREEN ABOVE")))) != 0) {
+                                            if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 ERASE SCREEN ABOVE")))))))) != 0) {
                                                 pop_call();
                                                 return len + @as(c_int, 1);
                                             }
                                         }
                                         if (val[@as(c_int, 0)] == @as(c_int, 2)) {
-                                            if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 ERASE SCREEN ALL")))) != 0) {
+                                            if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 ERASE SCREEN ALL")))))))) != 0) {
                                                 pop_call();
                                                 return len + @as(c_int, 1);
                                             }
                                         }
                                         if (val[@as(c_int, 0)] == @as(c_int, 3)) {
-                                            if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 ERASE SCREEN SAVED")))) != 0) {
+                                            if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 ERASE SCREEN SAVED")))))))) != 0) {
                                                 pop_call();
                                                 return len + @as(c_int, 1);
                                             }
@@ -8363,19 +8367,19 @@ pub export fn catch_vt102_codes(arg_ses: [*c]struct_session, arg_str: [*c]u8, ar
                                     },
                                     @as(c_int, 'K') => {
                                         if (val[@as(c_int, 0)] == @as(c_int, 0)) {
-                                            if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 ERASE LINE RIGHT")))) != 0) {
+                                            if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 ERASE LINE RIGHT")))))))) != 0) {
                                                 pop_call();
                                                 return len + @as(c_int, 1);
                                             }
                                         }
                                         if (val[@as(c_int, 0)] == @as(c_int, 1)) {
-                                            if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 ERASE LINE LEFT")))) != 0) {
+                                            if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 ERASE LINE LEFT")))))))) != 0) {
                                                 pop_call();
                                                 return len + @as(c_int, 1);
                                             }
                                         }
                                         if (val[@as(c_int, 0)] == @as(c_int, 2)) {
-                                            if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 ERASE LINE ALL")))) != 0) {
+                                            if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 ERASE LINE ALL")))))))) != 0) {
                                                 pop_call();
                                                 return len + @as(c_int, 1);
                                             }
@@ -8384,7 +8388,7 @@ pub export fn catch_vt102_codes(arg_ses: [*c]struct_session, arg_str: [*c]u8, ar
                                         return 0;
                                     },
                                     @as(c_int, 't') => {
-                                        if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 1, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 XTWINOPS"))), ntos(val[@as(c_int, 0)])) != 0) {
+                                        if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 XTWINOPS"))))))), ntos(val[@as(c_int, 0)])) != 0) {
                                             pop_call();
                                             return len + @as(c_int, 1);
                                         }
@@ -8392,7 +8396,7 @@ pub export fn catch_vt102_codes(arg_ses: [*c]struct_session, arg_str: [*c]u8, ar
                                             gtd.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 16));
                                         }
                                         if (val[@as(c_int, 0)] == @as(c_int, 18)) {
-                                            telnet_printf(ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@constCast("\x1b[8;%d;%dt"))), gtd.*.screen.*.rows, gtd.*.screen.*.cols);
+                                            telnet_printf(ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[8;%d;%dt"))))))), gtd.*.screen.*.rows, gtd.*.screen.*.cols);
                                         }
                                         pop_call();
                                         return 0;
@@ -8418,8 +8422,8 @@ pub export fn catch_vt102_codes(arg_ses: [*c]struct_session, arg_str: [*c]u8, ar
                     if (@as(c_int, str[@as(c_int, 2)]) == @as(c_int, 'P')) {
                         if (cplen >= @as(c_int, 10)) {
                             _ = sprintf(osc, "%.*s", @as(c_int, 8), str + @as(usize, @bitCast(@as(isize, @intCast(@as(c_int, 3))))));
-                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 19)), 0, 1, @as([*c]u8, @ptrCast(@constCast("VT100 OSC COLOR PALETTE"))), osc);
-                            if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 1, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 OSC"))), osc) != 0) {
+                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 19)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VT100 OSC COLOR PALETTE"))))))), osc);
+                            if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 OSC"))))))), osc) != 0) {
                                 pop_call();
                                 return 11;
                             }
@@ -8454,8 +8458,8 @@ pub export fn catch_vt102_codes(arg_ses: [*c]struct_session, arg_str: [*c]u8, ar
                             skip += 1;
                         }
                         _ = snprintf(osc, BUFFER_SIZE, "%.*s", skip - @as(c_int, 2), str + @as(usize, @bitCast(@as(isize, @intCast(@as(c_int, 2))))));
-                        _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 19))), 0, 1, @as([*c]u8, @ptrCast(@constCast("VT100 OSC"))), osc);
-                        if (check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 1, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 OSC"))), osc) != 0) {
+                        _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 19))), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("VT100 OSC"))))))), osc);
+                        if (check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 OSC"))))))), osc) != 0) {
                             pop_call();
                             return skip + @as(c_int, 1);
                         }
@@ -8464,7 +8468,7 @@ pub export fn catch_vt102_codes(arg_ses: [*c]struct_session, arg_str: [*c]u8, ar
                 break;
             },
             @as(c_int, 'Z') => {
-                if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 19)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 DECID")))) != 0) {
+                if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 19)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 DECID")))))))) != 0) {
                     pop_call();
                     return 2;
                 }

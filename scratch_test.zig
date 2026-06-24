@@ -1,18 +1,13 @@
 const std = @import("std");
-pub const tintin_c = @cImport({
-    @cInclude("tintin.h");
-});
 
-pub fn main() void {
-    _ = tintin_c.quadsort;
-    _ = tintin_c.cmp_num;
-    _ = tintin_c.cmp_str;
-    _ = tintin_c.str_len;
-    _ = tintin_c.str_resize;
-    _ = tintin_c.is_euc_head;
-    _ = tintin_c.get_euc_size;
-    _ = tintin_c.is_utf8_head;
-    _ = tintin_c.get_utf8_size;
-    _ = tintin_c.malloc;
-    _ = tintin_c.free;
+pub const struct_exit_data = extern struct {
+    vnum: c_int = 0,
+};
+
+pub const struct_room_data = extern struct {
+    exit_grid: [11][*c]struct_exit_data = std.mem.zeroes([11][*c]struct_exit_data),
+};
+
+pub fn test_func(room_list: [*c][*c]struct_room_data, vnum: c_int, dir: c_int) [*c]struct_exit_data {
+    return room_list[@bitCast(@as(isize, @intCast(vnum)))].*.exit_grid[@as(usize, @intCast(dir))];
 }

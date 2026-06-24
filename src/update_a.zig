@@ -396,17 +396,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;
@@ -7988,21 +7992,21 @@ pub export fn mainloop() void {
     static_local_pulse.pulse.update_terminal = @bitCast(@as(i8, @truncate(@as(c_int, 7) + PULSE_UPDATE_TERMINAL)));
     static_local_pulse.pulse.update_memory = @bitCast(@as(i8, @truncate(@as(c_int, 8) + PULSE_UPDATE_MEMORY)));
     static_local_pulse.pulse.update_time = @bitCast(@as(i8, @truncate(@as(c_int, 9) + PULSE_UPDATE_TIME)));
-    push_call(@as([*c]u8, @ptrCast(@constCast("mainloop()"))));
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("mainloop()"))))))));
     init_cpu();
     while (true) {
         static_local_start_utime.start_utime = utime();
         gtd.*.total_io_exec += static_local_span_time_val.span_time_val;
         gtd.*.total_io_delay += static_local_wait_time_val.wait_time_val;
         if (gtd.*.memory.*.stack_len > @as(c_int, 0)) {
-            tintin_printf2(null, @as([*c]u8, @ptrCast(@constCast("\x1b[1;31merror: memory_stack leak detected.\n"))));
+            tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31merror: memory_stack leak detected.\n"))))))));
             gtd.*.memory.*.debug_len = gtd.*.memory.*.debug_max;
             dump_stack();
             gtd.*.memory.*.debug_len = 1;
             gtd.*.memory.*.stack_len = 0;
         }
         if (gtd.*.memory.*.debug_len > @as(c_int, 1)) {
-            tintin_printf2(null, @as([*c]u8, @ptrCast(@constCast("\x1b[1;31merror: debug_stack leak detected.\n"))));
+            tintin_printf2(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31merror: debug_stack leak detected.\n"))))))));
             gtd.*.memory.*.debug_len = gtd.*.memory.*.debug_max;
             dump_stack();
             gtd.*.memory.*.debug_len = 1;
@@ -8163,17 +8167,17 @@ pub export fn show_cpu(arg_ses: [*c]struct_session) void {
     _ = &total_cpu;
     var timer: c_int = undefined;
     _ = &timer;
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("Section                           Time (usec)    Freq (msec)  %%Prog         %%CPU"))));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast(""))));
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Section                           Time (usec)    Freq (msec)  %%Prog         %%CPU"))))))));
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     {
         timer = 0;
         while (timer < TIMER_CPU) : (timer += 1) {
             total_cpu += display_timer(ses, timer);
         }
     }
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast(""))));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("Unknown CPU Usage:             %7.3f percent"))), (@as(f64, @floatFromInt(gtd.*.total_io_exec - total_cpu)) * @as(f64, 100.0)) / @as(f64, @floatFromInt(gtd.*.total_io_delay + gtd.*.total_io_exec)));
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("Average CPU Usage:             %7.3f percent"))), (@as(f64, @floatFromInt(gtd.*.total_io_exec)) * @as(f64, 100.0)) / @as(f64, @floatFromInt(gtd.*.total_io_delay + gtd.*.total_io_exec)));
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Unknown CPU Usage:             %7.3f percent"))))))), (@as(f64, @floatFromInt(gtd.*.total_io_exec - total_cpu)) * @as(f64, 100.0)) / @as(f64, @floatFromInt(gtd.*.total_io_delay + gtd.*.total_io_exec)));
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("Average CPU Usage:             %7.3f percent"))))))), (@as(f64, @floatFromInt(gtd.*.total_io_exec)) * @as(f64, 100.0)) / @as(f64, @floatFromInt(gtd.*.total_io_delay + gtd.*.total_io_exec)));
 }
 pub extern fn is_number(str: [*c]u8) c_int;
 pub extern fn hex_number_64bit(str: [*c]u8) c_ulonglong;
@@ -8564,24 +8568,24 @@ pub export fn update_sessions() void {
                     ses.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 5));
                     if (ses == gtd.*.ses) {
                         if ((ses.*.scroll.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) {
-                            buffer_refresh(ses, @as([*c]u8, @ptrCast(@constCast(""))), @as([*c]u8, @ptrCast(@constCast(""))), @as([*c]u8, @ptrCast(@constCast(""))));
+                            buffer_refresh(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
                         } else {
                             print_scroll_region(ses);
                         }
                     } else {
-                        buffer_end(ses, @as([*c]u8, @ptrCast(@constCast(""))), @as([*c]u8, @ptrCast(@constCast(""))), @as([*c]u8, @ptrCast(@constCast(""))));
+                        buffer_end(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
                     }
                     ses.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 5)));
                 }
                 if ((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0) {
-                    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 17)), 0, 0, @as([*c]u8, @ptrCast(@constCast("BUFFER UPDATE"))));
+                    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 17)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("BUFFER UPDATE"))))))));
                     ses.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 0)));
                 }
             }
         }
     }
     if ((gtd.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0) {
-        _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 17)), 0, 0, @as([*c]u8, @ptrCast(@constCast("DISPLAY UPDATE"))));
+        _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 17)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DISPLAY UPDATE"))))))));
         gtd.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 8)));
         _ = fflush(__stdoutp);
     }
@@ -8623,40 +8627,40 @@ pub export fn update_daemon() void {
                 if (__darwin_fd_isset(gtd.*.detach_port, &read_fd) != 0) {
                     gtd.*.time_daemon = gtd.*.time + @as(time_t, 10);
                     if (gtd.*.detach_sock != 0) {
-                        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("#DAEMON UPDATE: ANOTHER CONNECTION IS TAKING OVER {%s}."))), gtd.*.detach_file);
+                        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DAEMON UPDATE: ANOTHER CONNECTION IS TAKING OVER {%s}."))))))), gtd.*.detach_file);
                         _ = kill(gtd.*.detach_sock, SIGTSTP);
                         _ = close(gtd.*.detach_sock);
                     }
                     gtd.*.detach_sock = accept(gtd.*.detach_port, null, null);
                     if (gtd.*.detach_sock < @as(c_int, 0)) {
-                        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("update_daemon: detach_port: accept"))));
+                        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("update_daemon: detach_port: accept"))))))));
                         gtd.*.detach_sock = close(gtd.*.detach_sock);
                         break;
                     }
                     if (fcntl(gtd.*.detach_sock, F_SETFL, O_NONBLOCK | O_NONBLOCK) == -@as(c_int, 1)) {
-                        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("update_daemon: detach_port: fcntl O_NDELAY|O_NONBLOCK"))));
+                        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("update_daemon: detach_port: fcntl O_NDELAY|O_NONBLOCK"))))))));
                         gtd.*.detach_sock = close(gtd.*.detach_sock);
                         break;
                     }
                     len = @truncate(@sizeOf(struct_process_data));
                     if (getsockopt(gtd.*.detach_sock, SOL_SOCKET, SO_PEERCRED, @ptrCast(@alignCast(&gtd.*.detach_info)), &len) == -@as(c_int, 1)) {
-                        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("update_daemon: getsockopt:"))));
+                        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("update_daemon: getsockopt:"))))))));
                         gtd.*.detach_sock = close(gtd.*.detach_sock);
                         break;
                     }
                     if (geteuid() != gtd.*.detach_info.uid) {
-                        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("#DAEMON UPDATE: YOUR UID IS %d WHILE {%s} HAS UID {%d}."))), geteuid(), gtd.*.detach_file, gtd.*.detach_info.uid);
+                        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DAEMON UPDATE: YOUR UID IS %d WHILE {%s} HAS UID {%d}."))))))), geteuid(), gtd.*.detach_file, gtd.*.detach_info.uid);
                         gtd.*.detach_sock = close(gtd.*.detach_sock);
                         break;
                     }
                     winch_handler(0);
                     dirty_screen(gtd.*.ses);
-                    tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("#DAEMON UPDATE: ATTACHED {%s} TO PID {%d}."))), gtd.*.detach_file, gtd.*.detach_info.pid);
-                    _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 14)), 0, 2, @as([*c]u8, @ptrCast(@constCast("DAEMON ATTACHED"))), gtd.*.detach_file, ntos(gtd.*.detach_info.pid));
+                    tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DAEMON UPDATE: ATTACHED {%s} TO PID {%d}."))))))), gtd.*.detach_file, gtd.*.detach_info.pid);
+                    _ = check_all_events(gtd.*.ses, @as(c_int, 1) << @intCast(@as(c_int, 14)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DAEMON ATTACHED"))))))), gtd.*.detach_file, ntos(gtd.*.detach_info.pid));
                 }
             } else if (rv < @as(c_int, 0)) {
                 if (__error().* != EINTR) {
-                    syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("update_daemon: select:"))));
+                    syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("update_daemon: select:"))))))));
                 }
             }
             if (!false) break;
@@ -8673,13 +8677,13 @@ pub export fn update_daemon() void {
                 } else if (rv < @as(c_int, 0)) {
                     __darwin_fd_clr(gtd.*.detach_sock, &read_fd);
                     gtd.*.detach_sock = close(gtd.*.detach_sock);
-                    syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("update_daemon: detach_sock: select:"))));
+                    syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("update_daemon: detach_sock: select:"))))))));
                     break;
                 } else if (rv > @as(c_int, 0)) {
                     if (__darwin_fd_isset(gtd.*.detach_sock, &error_fd) != 0) {
                         __darwin_fd_clr(gtd.*.detach_sock, &read_fd);
                         gtd.*.detach_sock = close(gtd.*.detach_sock);
-                        show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("update_daemon: detach_sock: error_fd"))));
+                        show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("update_daemon: detach_sock: error_fd"))))))));
                         break;
                     }
                     if (!(__darwin_fd_isset(gtd.*.detach_sock, &read_fd) != 0)) {
@@ -8699,7 +8703,7 @@ pub export fn update_daemon() void {
         rv = select(__DARWIN_FD_SETSIZE, &read_fd, null, &error_fd, &static_local_timeout.timeout);
         if (rv < @as(c_int, 0)) {
             gtd.*.attach_sock = close(gtd.*.attach_sock);
-            show_message(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#DAEMON UPDATE: UNATTACHING {%s} DUE TO SELECT ERROR."))), gtd.*.attach_file);
+            show_message(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DAEMON UPDATE: UNATTACHING {%s} DUE TO SELECT ERROR."))))))), gtd.*.attach_file);
         } else if (rv > @as(c_int, 0)) {
             if (__darwin_fd_isset(gtd.*.attach_sock, &read_fd) != 0) {
                 var buffer: [50000]u8 = undefined;
@@ -8708,12 +8712,12 @@ pub export fn update_daemon() void {
                 rv = @truncate(read(gtd.*.attach_sock, @ptrCast(@alignCast(@as([*c]u8, @ptrCast(@alignCast(&buffer))))), @bitCast(@as(c_long, BUFFER_SIZE - @as(c_int, 1)))));
                 if (rv <= @as(c_int, 0)) {
                     if (rv < @as(c_int, 0)) {
-                        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("update_daemon: attach_sock: read:"))));
+                        syserr_printf(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("update_daemon: attach_sock: read:"))))))));
                     }
                     gtd.*.attach_sock = close(gtd.*.attach_sock);
                     winch_handler(0);
                     dirty_screen(gtd.*.ses);
-                    show_message(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#DAEMON UPDATE: UNATTACHING {%s}."))), gtd.*.attach_file);
+                    show_message(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DAEMON UPDATE: UNATTACHING {%s}."))))))), gtd.*.attach_file);
                 } else {
                     buffer[@bitCast(@as(isize, @intCast(rv)))] = 0;
                     if (gtd.*.level.*.quiet == @as(c_uint, 0)) {
@@ -8722,7 +8726,7 @@ pub export fn update_daemon() void {
                     if (__darwin_fd_isset(gtd.*.attach_sock, &error_fd) != 0) {
                         __darwin_fd_clr(gtd.*.attach_sock, &read_fd);
                         gtd.*.attach_sock = close(gtd.*.attach_sock);
-                        show_message(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#DAEMON UPDATE: UNATTACHING {%s} DUE TO EXCEPTION ERROR."))), gtd.*.attach_file);
+                        show_message(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#DAEMON UPDATE: UNATTACHING {%s} DUE TO EXCEPTION ERROR."))))))), gtd.*.attach_file);
                     }
                 }
                 _ = fflush(__stdoutp);
@@ -8755,7 +8759,7 @@ pub export fn update_chat() void {
             while (@as(?*anyopaque, @ptrCast(@alignCast(buddy))) != @as(?*anyopaque, null)) : (buddy = buddy_next) {
                 buddy_next = buddy.*.next;
                 if ((buddy.*.timeout != 0) and (@as(time_t, @intFromBool(buddy.*.timeout < gtd.*.time)) != 0)) {
-                    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@constCast("%c\n%s closed the connection because no handshake was completed.\n%c"))), CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND);
+                    chat_socket_printf(buddy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c\n%s closed the connection because no handshake was completed.\n%c"))))))), CHAT_MESSAGE, gtd.*.chat.*.name, CHAT_END_OF_COMMAND);
                     close_chat(buddy, TRUE);
                 }
             }
@@ -8780,7 +8784,7 @@ pub export fn update_chat() void {
             if ((rv == @as(c_int, 0)) or (__error().* == EINTR)) {
                 return;
             }
-            syserr_fatal(-@as(c_int, 1), @as([*c]u8, @ptrCast(@constCast("update_chat: select"))));
+            syserr_fatal(-@as(c_int, 1), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("update_chat: select"))))))));
         }
         process_chat_connections(&read_fd, &write_fd, &error_fd);
     }
@@ -8824,7 +8828,7 @@ pub export fn update_port() void {
                     if ((rv == @as(c_int, 0)) or (__error().* == EINTR)) {
                         continue;
                     }
-                    syserr_fatal(-@as(c_int, 1), @as([*c]u8, @ptrCast(@constCast("update_port: select"))));
+                    syserr_fatal(-@as(c_int, 1), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("update_port: select"))))))));
                 }
                 process_port_connections(ses, &read_fd, &write_fd, &error_fd);
             }
@@ -8850,21 +8854,21 @@ pub export fn tick_update() void {
             {
                 root.*.update = 0;
                 while (root.*.update < root.*.used) : (root.*.update += 1) {
-                    node = @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(root.*.update)))];
+                    node = root.*.list[@bitCast(@as(isize, @intCast(root.*.update)))];
                     if (node.*.unnamed_0.val64 == @as(c_longlong, 0)) {
-                        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("error: tick_update: node->val64 == 0"))));
+                        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("error: tick_update: node->val64 == 0"))))))));
                     }
                     if ((ses == gts) and (node.*.shots == @as(c_uint, 0))) {
                         continue;
                     }
                     if (@as(c_ulonglong, @bitCast(@as(c_longlong, node.*.unnamed_0.val64))) <= gtd.*.utime) {
                         node.*.unnamed_0.val64 += @intFromFloat(get_number(ses, node.*.arg3) * @as(c_longdouble, @floatFromInt(@as(c_longlong, 1000000))));
-                        show_info(ses, LIST_TICKER, @as([*c]u8, @ptrCast(@constCast("#INFO TICKER {%s} INITIALIZED WITH TIMESTAMP {%lld}"))), node.*.arg1, node.*.unnamed_0.val64);
+                        show_info(ses, LIST_TICKER, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#INFO TICKER {%s} INITIALIZED WITH TIMESTAMP {%lld}"))))))), node.*.arg1, node.*.unnamed_0.val64);
                         if (@as(c_ulonglong, @bitCast(@as(c_longlong, node.*.unnamed_0.val64))) < gtd.*.utime_next_tick) {
                             gtd.*.utime_next_tick = @bitCast(@as(c_longlong, node.*.unnamed_0.val64));
                         }
                         if (!((@as(c_int, root.*.flags) & (@as(c_int, 1) << @intCast(@as(c_int, 0)))) != 0)) {
-                            show_debug(ses, LIST_TICKER, node, @as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG TICKER \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))), node.*.arg2);
+                            show_debug(ses, LIST_TICKER, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG TICKER \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))))))), node.*.arg2);
                             if ((node.*.shots != 0) and (@as(c_uint, @bitCast(@as(c_int, @intFromBool((blk: {
                                 const ref = &node.*.shots;
                                 ref.* -%= 1;
@@ -8903,9 +8907,9 @@ pub export fn delay_update() void {
             {
                 root.*.update = 0;
                 while (root.*.update < root.*.used) : (root.*.update += 1) {
-                    node = @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(root.*.update)))];
+                    node = root.*.list[@bitCast(@as(isize, @intCast(root.*.update)))];
                     if (@as(c_ulonglong, @bitCast(@as(c_longlong, node.*.unnamed_0.val64))) <= gtd.*.utime) {
-                        show_debug(ses, LIST_DELAY, node, @as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG DELAY \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))), node.*.arg2);
+                        show_debug(ses, LIST_DELAY, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG DELAY \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))))))), node.*.arg2);
                         delete_index_list(root, root.*.update);
                         _ = script_driver(ses, LIST_DELAY, node, node.*.arg2);
                     } else {
@@ -8935,14 +8939,14 @@ pub export fn path_update() void {
                 continue;
             }
             if (root.*.update < root.*.used) {
-                node = @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(root.*.update)))];
+                node = root.*.list[@bitCast(@as(isize, @intCast(root.*.update)))];
                 if ((node.*.unnamed_0.val64 > @as(c_longlong, 0)) and (@as(c_ulonglong, @bitCast(@as(c_longlong, node.*.unnamed_0.val64))) <= gtd.*.utime)) {
                     root.*.update += 1;
                     node.*.unnamed_0.val64 = 0;
-                    show_debug(ses, LIST_PATH, node, @as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG PATH \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))), node.*.arg1);
+                    show_debug(ses, LIST_PATH, node, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG PATH \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}"))))))), node.*.arg1);
                     _ = script_driver(ses, LIST_PATH, null, node.*.arg1);
                     if (root.*.update == root.*.used) {
-                        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 0, @as([*c]u8, @ptrCast(@constCast("END OF RUN"))));
+                        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("END OF RUN"))))))));
                     }
                 }
             }
@@ -8957,7 +8961,7 @@ pub export fn packet_update() void {
         while (@as(?*anyopaque, @ptrCast(@alignCast(ses))) != @as(?*anyopaque, null)) : (ses = gtd.*.update) {
             gtd.*.update = ses.*.next;
             if ((ses.*.check_output != 0) and (@as(c_ulonglong, @bitCast(@as(c_longlong, @intFromBool(gtd.*.utime > ses.*.check_output)))) != 0)) {
-                process_more_output(ses, @as([*c]u8, @ptrCast(@constCast(""))), TRUE);
+                process_more_output(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), TRUE);
             }
             if ((ses.*.telopts & (@as(c_int, 1) << @intCast(@as(c_int, 9)))) != 0) {
                 _ = client_send_sb_naws(ses, 0, null);
@@ -8969,9 +8973,9 @@ pub export fn packet_update() void {
         var line: c_int = if (gtd.*.ses.*.scroll.*.line >= @as(c_int, 0)) gtd.*.ses.*.scroll.*.line else gtd.*.ses.*.scroll.*.used + @as(c_int, 1);
         _ = &line;
         line = if ((line - get_scroll_rows(gtd.*.ses)) < @as(c_int, 1)) @as(c_int, 1) else if ((line - get_scroll_rows(gtd.*.ses)) > gtd.*.ses.*.scroll.*.used) gtd.*.ses.*.scroll.*.used else line - get_scroll_rows(gtd.*.ses);
-        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 17)), 0, 2, @as([*c]u8, @ptrCast(@constCast("SCROLLBAR UPDATE"))), ntos(line), ntos(gtd.*.ses.*.scroll.*.used));
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 17)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCROLLBAR UPDATE"))))))), ntos(line), ntos(gtd.*.ses.*.scroll.*.used));
         gtd.*.screen.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 7)));
-        print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("\x1b[%d;%d#t"))), line, gtd.*.ses.*.scroll.*.used);
+        print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%d;%d#t"))))))), line, gtd.*.ses.*.scroll.*.used);
     }
 }
 pub export fn terminal_update() void {
@@ -8983,7 +8987,7 @@ pub export fn terminal_update() void {
             if ((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 14)))) != 0) {
                 ses.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 14)));
                 show_vtmap(ses, 0);
-                _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 0, @as([*c]u8, @ptrCast(@constCast("MAP UPDATED VTMAP"))));
+                _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 7)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MAP UPDATED VTMAP"))))))));
             }
         }
     }
@@ -9134,39 +9138,39 @@ pub export fn time_update() void {
                     if (static_local_calendar.calendar.tm_year != static_local_old_calendar.old_calendar.tm_year) {
                         _ = strftime(@ptrCast(@alignCast(&static_local_str_year.str_year)), 9, "%Y", &static_local_calendar.calendar);
                         static_local_old_calendar.old_calendar.tm_year = static_local_calendar.calendar.tm_year;
-                        _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 0, 7, @as([*c]u8, @ptrCast(@constCast("YEAR"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
-                        _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 1, 7, @as([*c]u8, @ptrCast(@constCast("YEAR %s"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+                        _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 0, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("YEAR"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+                        _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 1, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("YEAR %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
                     }
-                    _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 0, 7, @as([*c]u8, @ptrCast(@constCast("MONTH"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
-                    _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 1, 7, @as([*c]u8, @ptrCast(@constCast("MONTH %s"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+                    _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 0, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MONTH"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+                    _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 1, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MONTH %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
                 }
-                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 0, 7, @as([*c]u8, @ptrCast(@constCast("WEEK"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
-                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 1, 7, @as([*c]u8, @ptrCast(@constCast("WEEK %s"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
-                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 2, 7, @as([*c]u8, @ptrCast(@constCast("DATE %s-%s"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
-                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 0, 7, @as([*c]u8, @ptrCast(@constCast("DAY"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
-                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 1, 7, @as([*c]u8, @ptrCast(@constCast("DAY %s"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 0, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("WEEK"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 1, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("WEEK %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 2, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DATE %s-%s"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 0, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DAY"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+                _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 1, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DAY %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
             }
-            _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 0, 7, @as([*c]u8, @ptrCast(@constCast("HOUR"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
-            _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 1, 7, @as([*c]u8, @ptrCast(@constCast("HOUR %s"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+            _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 0, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("HOUR"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+            _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 1, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("HOUR %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
         }
         if (event_table[@bitCast(@as(isize, @intCast(static_local_event_date.event_date)))].level != 0) {
-            _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 4, 7, @as([*c]u8, @ptrCast(@constCast("DATE %s-%s %s:%s"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+            _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 4, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DATE %s-%s %s:%s"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
         }
         if (event_table[@bitCast(@as(isize, @intCast(static_local_event_time.event_time)))].level != 0) {
-            _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 2, 7, @as([*c]u8, @ptrCast(@constCast("TIME %s:%s"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+            _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 2, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TIME %s:%s"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
         }
         if (event_table[@bitCast(@as(isize, @intCast(static_local_event_minute.event_minute)))].level != 0) {
-            _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 0, 7, @as([*c]u8, @ptrCast(@constCast("MINUTE"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
-            _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 1, 7, @as([*c]u8, @ptrCast(@constCast("MINUTE %s"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+            _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 0, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MINUTE"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+            _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 1, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MINUTE %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
         }
     }
     static_local_old_calendar.old_calendar.tm_sec = static_local_calendar.calendar.tm_sec;
     if (event_table[@bitCast(@as(isize, @intCast(static_local_event_time.event_time)))].level != 0) {
-        _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 3, 7, @as([*c]u8, @ptrCast(@constCast("TIME %s:%s:%s"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+        _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 3, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TIME %s:%s:%s"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
     }
     if (event_table[@bitCast(@as(isize, @intCast(static_local_event_second.event_second)))].level != 0) {
-        _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 0, 7, @as([*c]u8, @ptrCast(@constCast("SECOND"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
-        _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 1, 7, @as([*c]u8, @ptrCast(@constCast("SECOND %s"))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+        _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 0, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SECOND"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
+        _ = check_all_events(null, @as(c_int, 1) << @intCast(@as(c_int, 16)), 1, 7, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SECOND %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_year.str_year))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mon.str_mon))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_wday.str_wday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_mday.str_mday))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_hour.str_hour))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_min.str_min))), @as([*c]u8, @ptrCast(@alignCast(&static_local_str_sec.str_sec))));
     }
     return;
 }
@@ -9187,7 +9191,7 @@ pub export fn display_timer(arg_ses: [*c]struct_session, arg_timer: c_int) c_lon
         return 0;
     }
     indicated_usage = cpu_timer[@bitCast(@as(isize, @intCast(timer)))][@as(c_int, 0)];
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("%-29s %8.1f       %8lld      %8.2f     %8.3f"))), timer_table[@bitCast(@as(isize, @intCast(timer)))].name, @as(f64, @floatFromInt(cpu_timer[@bitCast(@as(isize, @intCast(timer)))][@as(c_int, 0)])) / @as(f64, @floatFromInt(cpu_timer[@bitCast(@as(isize, @intCast(timer)))][@as(c_int, 1)])), @divTrunc(@divTrunc(cpu_timer[@bitCast(@as(isize, @intCast(timer)))][@as(c_int, 3)], cpu_timer[@bitCast(@as(isize, @intCast(timer)))][@as(c_int, 4)]), @as(c_longlong, 1000)), @as(f64, @floatFromInt(@divTrunc(@as(c_longlong, 100000) * indicated_usage, gtd.*.total_io_exec))) / @as(f64, 1000.0), @as(f64, @floatFromInt(@divTrunc(@as(c_longlong, 100000) * indicated_usage, total_usage))) / @as(f64, 1000.0));
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%-29s %8.1f       %8lld      %8.2f     %8.3f"))))))), timer_table[@bitCast(@as(isize, @intCast(timer)))].name, @as(f64, @floatFromInt(cpu_timer[@bitCast(@as(isize, @intCast(timer)))][@as(c_int, 0)])) / @as(f64, @floatFromInt(cpu_timer[@bitCast(@as(isize, @intCast(timer)))][@as(c_int, 1)])), @divTrunc(@divTrunc(cpu_timer[@bitCast(@as(isize, @intCast(timer)))][@as(c_int, 3)], cpu_timer[@bitCast(@as(isize, @intCast(timer)))][@as(c_int, 4)]), @as(c_longlong, 1000)), @as(f64, @floatFromInt(@divTrunc(@as(c_longlong, 100000) * indicated_usage, gtd.*.total_io_exec))) / @as(f64, 1000.0), @as(f64, @floatFromInt(@divTrunc(@as(c_longlong, 100000) * indicated_usage, total_usage))) / @as(f64, 1000.0));
     return indicated_usage;
 }
 pub export fn open_timer(arg_timer: c_int) void {

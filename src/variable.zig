@@ -395,17 +395,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;
@@ -8045,7 +8049,7 @@ pub export fn do_replace(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = get_arg_in_braces(ses, arg, arg3, GET_ALL);
     if ((@as(c_int, arg1.*) == @as(c_int, 0)) or (@as(c_int, arg2.*) == @as(c_int, 0))) {
-        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #REPLACE <VARIABLE> <OLD TEXT> <NEW TEXT>"))));
+        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #REPLACE <VARIABLE> <OLD TEXT> <NEW TEXT>"))))))));
         return ses;
     }
     if (@as(?*anyopaque, @ptrCast(@alignCast(blk: {
@@ -8053,11 +8057,11 @@ pub export fn do_replace(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
         node = tmp_1;
         break :blk tmp_1;
     }))) == @as(?*anyopaque, null)) {
-        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#REPLACE: VARIABLE {%s} NOT FOUND."))), arg1);
+        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#REPLACE: VARIABLE {%s} NOT FOUND."))))))), arg1);
         return ses;
     }
     if (tintin_regexp(ses, null, node.*.arg2, arg2, 0, @as(c_int, 1) << @intCast(@as(c_int, 2))) == FALSE) {
-        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#REPLACE: {%s} NOT FOUND IN {%s}."))), arg2, node.*.arg2);
+        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#REPLACE: {%s} NOT FOUND IN {%s}."))))))), arg2, node.*.arg2);
     } else {
         pti = node.*.arg2;
         str = str_alloc_stack(0);
@@ -8071,7 +8075,7 @@ pub export fn do_replace(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
             ptm = pti + @as([*c]usize, @ptrCast(&gtd.*.match))[@as(c_int, 1)];
             _ = substitute(ses, arg3, tmp, @as(c_int, 1) << @intCast(@as(c_int, 3)));
             _ = substitute(ses, tmp, tmp, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
-            _ = str_cat_printf(&str, @as([*c]u8, @ptrCast(@constCast("%s%s"))), pti, tmp);
+            _ = str_cat_printf(&str, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s%s"))))))), pti, tmp);
             pti = ptm;
             if ((@as(c_int, arg2[@as(c_int, 0)]) == @as(c_int, '\\')) and (@as(c_int, arg2[@as(c_int, 1)]) == @as(c_int, 'A'))) {
                 break;
@@ -8113,7 +8117,7 @@ pub export fn valid_variable(arg_ses: [*c]struct_session, arg_arg: [*c]u8) c_int
         return FALSE;
     }
     if (@as(c_int, is_digit(arg.*)) != 0) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#WARNING: VALIDATE {%s}: VARIABLES SHOULD NOT START WITH A NUMBER."))), arg);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#WARNING: VALIDATE {%s}: VARIABLES SHOULD NOT START WITH A NUMBER."))))))), arg);
     }
     return TRUE;
 }
@@ -8335,7 +8339,7 @@ pub export fn justify_string(arg_ses: [*c]struct_session, arg_in: [*c]u8, arg_ou
     _ = &cut;
     var temp: [*c]u8 = undefined;
     _ = &temp;
-    push_call(@as([*c]u8, @ptrCast(@constCast("justify_string(%p,%p,%p,%d,%d)"))), ses, in, out, @"align", cut);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("justify_string(%p,%p,%p,%d,%d)"))))))), ses, in, out, @"align", cut);
     temp = str_alloc_stack(0);
     if (@"align" < @as(c_int, 0)) {
         _ = sprintf(temp, "%%%d.%ds", @"align" - (@as(c_int, @bitCast(@as(c_uint, @truncate(strlen(in))))) - string_raw_str_len(ses, in, 0, -@as(c_int, 1))), string_str_raw_len(ses, in, 0, cut));
@@ -8402,7 +8406,7 @@ pub export fn format_string(arg_ses: [*c]struct_session, arg_format: [*c]u8, arg
     {
         i = max;
         while (i < @as(c_int, 30)) : (i += 1) {
-            arglist[@bitCast(@as(isize, @intCast(i)))] = @as([*c]u8, @ptrCast(@constCast("")));
+            arglist[@bitCast(@as(isize, @intCast(i)))] = @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("")))))));
         }
     }
     i = 0;
@@ -8491,7 +8495,7 @@ pub export fn format_string(arg_ses: [*c]struct_session, arg_format: [*c]u8, arg
                 while (true) {
                     switch (@as(c_int, ptf.*)) {
                         @as(c_int, 0) => {
-                            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#FORMAT STRING: UNKNOWN ARGUMENT {%s}."))), pts);
+                            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT STRING: UNKNOWN ARGUMENT {%s}."))))))), pts);
                             continue;
                         },
                         @as(c_int, 'd'), @as(c_int, 'f'), @as(c_int, 'X') => {
@@ -8752,7 +8756,7 @@ pub export fn format_string(arg_ses: [*c]struct_session, arg_format: [*c]u8, arg
                             break;
                         },
                         else => {
-                            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#FORMAT STRING: UNKNOWN ARGUMENT {%s%c}."))), pts, ptf.*);
+                            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT STRING: UNKNOWN ARGUMENT {%s%c}."))))))), pts, ptf.*);
                             break;
                         },
                     }
@@ -8846,29 +8850,29 @@ pub export fn do_variable(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
                 _ = &str_result;
                 str_result = str_alloc_stack(0);
                 view_nest_node(node, &str_result, 0, TRUE, TRUE);
-                print_lines(ses, @as(c_int, 0) << @intCast(@as(c_int, 0)), @as([*c]u8, @ptrCast(@constCast(""))), @as([*c]u8, @ptrCast(@constCast("\x1b[38;5;184m%c\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}\n\x1b[38;5;164m{\n\x1b[38;5;188m%s\x1b[38;5;164m}\x1b[0m\n"))), gtd.*.tintin_char, list_table[LIST_VARIABLE].name, path, str_result);
+                print_lines(ses, @as(c_int, 0) << @intCast(@as(c_int, 0)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;184m%c\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m}\n\x1b[38;5;164m{\n\x1b[38;5;188m%s\x1b[38;5;164m}\x1b[0m\n"))))))), gtd.*.tintin_char, list_table[LIST_VARIABLE].name, path, str_result);
             } else {
-                tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("\x1b[38;5;184m%c\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}\x1b[0m\n"))), gtd.*.tintin_char, list_table[LIST_VARIABLE].name, path, node.*.arg2);
+                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;184m%c\x1b[38;5;044m%s \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} {\x1b[38;5;188m%s\x1b[38;5;164m}\x1b[0m\n"))))))), gtd.*.tintin_char, list_table[LIST_VARIABLE].name, path, node.*.arg2);
             }
         } else if (show_node_with_wild(ses, arg1, @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_VARIABLE]) == FALSE) {
-            show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#VARIABLE: NO MATCHES FOUND FOR {%s}."))), arg1);
+            show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#VARIABLE: NO MATCHES FOUND FOR {%s}."))))))), arg1);
         }
     } else {
         if (!(valid_variable(ses, arg1) != 0)) {
-            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#VARIABLE: INVALID VARIABLE NAME {%s}."))), arg1);
+            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#VARIABLE: INVALID VARIABLE NAME {%s}."))))))), arg1);
             return ses;
         }
         str = str_alloc_stack(@bitCast(@as(c_uint, @truncate(strlen(arg)))));
         arg = sub_arg_in_braces(ses, arg, str, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
-        node = set_nest_node(root, arg1, @as([*c]u8, @ptrCast(@constCast("%s"))), str);
+        node = set_nest_node(root, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), str);
         while (@as(c_int, arg.*) != 0) {
             arg = sub_arg_in_braces(ses, arg, str, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
             if (@as(c_int, str.*) != 0) {
-                _ = add_nest_node(root, arg1, @as([*c]u8, @ptrCast(@constCast("%s"))), str);
+                _ = add_nest_node(root, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), str);
             }
         }
         show_nest_node(node, &str, 1);
-        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#OK: VARIABLE {%s} HAS BEEN SET TO {%s}."))), arg1, str);
+        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: VARIABLE {%s} HAS BEEN SET TO {%s}."))))))), arg1, str);
     }
     return ses;
 }
@@ -8888,10 +8892,10 @@ pub export fn do_unvariable(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_ar
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     while (true) {
         if (delete_nest_node(@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_VARIABLE], arg1) != 0) {
-            show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#OK: {%s} IS NO LONGER A VARIABLE."))), arg1);
+            show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: {%s} IS NO LONGER A VARIABLE."))))))), arg1);
         } else {
             if (delete_nest_node_with_wild(@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_VARIABLE], arg1) == FALSE) {
-                show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#UNVARIABLE: NO MATCHES FOUND FOR {%s}."))), arg1);
+                show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNVARIABLE: NO MATCHES FOUND FOR {%s}."))))))), arg1);
             }
         }
         arg = sub_arg_in_braces(ses, arg, arg1, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
@@ -8933,22 +8937,22 @@ pub export fn do_local(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [
         if (node != null) {
             show_node(root, node, 0);
         } else if (show_node_with_wild(ses, arg1, root) == FALSE) {
-            show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#LOCAL: NO MATCHES FOUND FOR {%s}."))), arg1);
+            show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#LOCAL: NO MATCHES FOUND FOR {%s}."))))))), arg1);
         }
     } else {
         str = str_alloc_stack(@bitCast(@as(c_uint, @truncate(strlen(arg)))));
         arg = sub_arg_in_braces(ses, arg, str, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
         gtd.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 11)));
-        node = set_nest_node(root, arg1, @as([*c]u8, @ptrCast(@constCast("%s"))), str);
+        node = set_nest_node(root, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), str);
         gtd.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 11));
         while (@as(c_int, arg.*) != 0) {
             arg = sub_arg_in_braces(ses, arg, str, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
             if (@as(c_int, str.*) != 0) {
-                _ = add_nest_node(root, arg1, @as([*c]u8, @ptrCast(@constCast("%s"))), str);
+                _ = add_nest_node(root, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), str);
             }
         }
         show_nest_node(node, &str, 1);
-        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#OK: LOCAL VARIABLE {%s} HAS BEEN SET TO {%s}."))), arg1, str);
+        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK: LOCAL VARIABLE {%s} HAS BEEN SET TO {%s}."))))))), arg1, str);
     }
     return ses;
 }
@@ -8975,21 +8979,21 @@ pub export fn do_unlocal(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     root = local_list(ses);
     while (true) {
         if (delete_nest_node(root, arg1) != 0) {
-            show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#OK. {%s} IS NO LONGER A LOCAL VARIABLE."))), arg1);
+            show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK. {%s} IS NO LONGER A LOCAL VARIABLE."))))))), arg1);
         } else {
             found = FALSE;
             {
                 index_1 = root.*.used - @as(c_int, 1);
                 while (index_1 >= @as(c_int, 0)) : (index_1 -= 1) {
-                    if (match(ses, @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.arg1, arg1, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) {
-                        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#OK. {%s} IS NO LONGER A LOCAL VARIABLE."))), @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(index_1)))].*.arg1);
+                    if (match(ses, root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1, arg1, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) {
+                        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK. {%s} IS NO LONGER A LOCAL VARIABLE."))))))), root.*.list[@bitCast(@as(isize, @intCast(index_1)))].*.arg1);
                         delete_index_list(root, index_1);
                         found = TRUE;
                     }
                 }
             }
             if (found == @as(c_int, 0)) {
-                show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#UNLOCAL: NO MATCHES FOUND FOR {%s}."))), arg1);
+                show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#UNLOCAL: NO MATCHES FOUND FOR {%s}."))))))), arg1);
             }
         }
         arg = sub_arg_in_braces(ses, arg, arg1, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
@@ -9016,20 +9020,20 @@ pub export fn do_cat(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c
     _ = &str;
     arg = sub_arg_in_braces(ses, arg, arg1, GET_NST, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if ((@as(c_int, arg1.*) == @as(c_int, 0)) or (@as(c_int, arg.*) == @as(c_int, 0))) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CAT <VARIABLE> <ARGUMENT>"))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #CAT <VARIABLE> <ARGUMENT>"))))))));
     } else {
         if (!(valid_variable(ses, arg1) != 0)) {
-            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#CAT: INVALID VARIABLE NAME {%s}."))), arg1);
+            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#CAT: INVALID VARIABLE NAME {%s}."))))))), arg1);
             return ses;
         }
         str = str_alloc_stack(@bitCast(@as(c_uint, @truncate(strlen(arg)))));
         while (true) {
             arg = sub_arg_in_braces(ses, arg, str, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
-            node = add_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@constCast("%s"))), str);
+            node = add_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), str);
             if (!(@as(c_int, arg.*) != 0)) break;
         }
         show_nest_node(node, &str, 1);
-        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#CAT: VARIABLE {%s} HAS BEEN SET TO {%s}."))), arg1, str);
+        show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#CAT: VARIABLE {%s} HAS BEEN SET TO {%s}."))))))), arg1, str);
     }
     return ses;
 }
@@ -9040,7 +9044,7 @@ pub export fn stringtobase(arg_str: [*c]u8, arg_base: [*c]u8) void {
     _ = &base;
     var buf: [*c]u8 = undefined;
     _ = &buf;
-    push_call(@as([*c]u8, @ptrCast(@constCast("stringtobase(%p,%p)"))), str, base);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("stringtobase(%p,%p)"))))))), str, base);
     buf = strdup(str);
     while (true) {
         switch (atoi(base)) {
@@ -9053,7 +9057,7 @@ pub export fn stringtobase(arg_str: [*c]u8, arg_base: [*c]u8) void {
                 break;
             },
             else => {
-                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("#FORMAT: UNKNOWN BASE CONVERSION {%s}."))), base);
+                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT: UNKNOWN BASE CONVERSION {%s}."))))))), base);
                 break;
             },
         }
@@ -9070,7 +9074,7 @@ pub export fn basetostring(arg_str: [*c]u8, arg_base: [*c]u8) void {
     _ = &base;
     var buf: [*c]u8 = undefined;
     _ = &buf;
-    push_call(@as([*c]u8, @ptrCast(@constCast("basetostring(%p,%p)"))), str, base);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("basetostring(%p,%p)"))))))), str, base);
     buf = strdup(str);
     while (true) {
         switch (atoi(base)) {
@@ -9083,7 +9087,7 @@ pub export fn basetostring(arg_str: [*c]u8, arg_base: [*c]u8) void {
                 break;
             },
             else => {
-                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("#FORMAT: UNKNOWN BASE CONVERSION {%s}."))), base);
+                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT: UNKNOWN BASE CONVERSION {%s}."))))))), base);
                 break;
             },
         }
@@ -9099,7 +9103,7 @@ pub export fn stringtobasez(arg_str: [*c]u8, arg_base: [*c]u8) void {
     _ = &base;
     var buf: [*c]u8 = undefined;
     _ = &buf;
-    push_call(@as([*c]u8, @ptrCast(@constCast("stringtobase(%p,%p)"))), str, base);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("stringtobase(%p,%p)"))))))), str, base);
     buf = strdup(str);
     while (true) {
         switch (atoi(base)) {
@@ -9112,7 +9116,7 @@ pub export fn stringtobasez(arg_str: [*c]u8, arg_base: [*c]u8) void {
                 break;
             },
             else => {
-                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("#FORMAT: UNKNOWN BASE CONVERSION {%s}."))), base);
+                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT: UNKNOWN BASE CONVERSION {%s}."))))))), base);
                 break;
             },
         }
@@ -9129,7 +9133,7 @@ pub export fn basetostringz(arg_str: [*c]u8, arg_base: [*c]u8) void {
     _ = &base;
     var buf: [*c]u8 = undefined;
     _ = &buf;
-    push_call(@as([*c]u8, @ptrCast(@constCast("basetostring(%p,%p)"))), str, base);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("basetostring(%p,%p)"))))))), str, base);
     buf = strdup(str);
     while (true) {
         switch (atoi(base)) {
@@ -9142,7 +9146,7 @@ pub export fn basetostringz(arg_str: [*c]u8, arg_base: [*c]u8) void {
                 break;
             },
             else => {
-                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@constCast("#FORMAT: UNKNOWN BASE CONVERSION {%s}."))), base);
+                tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT: UNKNOWN BASE CONVERSION {%s}."))))))), base);
                 break;
             },
         }
@@ -9195,7 +9199,7 @@ pub export fn colorstring(arg_ses: [*c]struct_session, arg_str: [*c]u8) void {
     _ = &str;
     var result: [*c]u8 = undefined;
     _ = &result;
-    push_call(@as([*c]u8, @ptrCast(@constCast("colorstring(%p,%p)"))), ses, str);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("colorstring(%p,%p)"))))))), ses, str);
     result = str_alloc_stack(0);
     _ = get_color_names(ses, str, result);
     _ = strcpy(str, result);
@@ -9217,7 +9221,7 @@ pub export fn headerstring(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg_col
     _ = &len;
     var max: c_int = undefined;
     _ = &max;
-    push_call(@as([*c]u8, @ptrCast(@constCast("headerstring(%p,%p,%p)"))), ses, str, columns);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("headerstring(%p,%p,%p)"))))))), ses, str, columns);
     buf = str_alloc_stack(0);
     fill = str_alloc_stack(0);
     max = if (columns.* != 0) atoi(columns) else get_scroll_cols(ses);
@@ -9231,7 +9235,7 @@ pub export fn headerstring(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg_col
     } else {
         _ = memset(@ptrCast(@alignCast(fill)), '#', @bitCast(@as(c_long, max)));
     }
-    _ = snprintf(buf, BUFFER_SIZE, "%.*s%s%.*s%s", @divTrunc(max - len, @as(c_int, 2)), fill, str, @divTrunc(max - len, @as(c_int, 2)), fill, if (__helpers.signedRemainder(max - len, @as(c_int, 2)) != 0) @as([*c]u8, @ptrCast(@constCast("#"))) else @as([*c]u8, @ptrCast(@constCast(""))));
+    _ = snprintf(buf, BUFFER_SIZE, "%.*s%s%.*s%s", @divTrunc(max - len, @as(c_int, 2)), fill, str, @divTrunc(max - len, @as(c_int, 2)), fill, if (__helpers.signedRemainder(max - len, @as(c_int, 2)) != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     _ = strcpy(str, buf);
     pop_call();
     return;
@@ -9312,7 +9316,7 @@ pub export fn thousandgroupingstring(arg_ses: [*c]struct_session, arg_str: [*c]u
     _ = &cnt3;
     var cnt4: c_int = undefined;
     _ = &cnt4;
-    push_call(@as([*c]u8, @ptrCast(@constCast("thousandsgroupingstring(%p,%p)"))), ses, str);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("thousandsgroupingstring(%p,%p)"))))))), ses, str);
     result = str_alloc_stack(0);
     strold = str_alloc_stack(0);
     get_number_string(ses, str, strold);
@@ -9500,7 +9504,7 @@ pub export fn wrapstring(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg_wrap:
     _ = &width;
     var height: c_int = undefined;
     _ = &height;
-    push_call(@as([*c]u8, @ptrCast(@constCast("wrapstring(%p,%p,%p)"))), ses, str, wrap);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("wrapstring(%p,%p,%p)"))))))), ses, str, wrap);
     arg1 = str_alloc_stack(0);
     arg2 = str_alloc_stack(0);
     arg = sub_arg_in_braces(ses, str, arg1, GET_ALL, ((@as(c_int, 1) << @intCast(@as(c_int, 6))) | (@as(c_int, 1) << @intCast(@as(c_int, 11)))) | (@as(c_int, 1) << @intCast(@as(c_int, 7))));
@@ -9518,7 +9522,7 @@ pub export fn wrapstring(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg_wrap:
     if (cnt <= @as(c_int, 0)) {
         cnt = get_scroll_cols(ses) + cnt;
         if (cnt <= @as(c_int, 0)) {
-            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#FORMAT %w: INVALID LENTGH {%s}"))), arg2);
+            show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#FORMAT %w: INVALID LENTGH {%s}"))))))), arg2);
             pop_call();
             return;
         }
@@ -9543,7 +9547,7 @@ pub export fn wrapstring(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg_wrap:
                 break :blk tmp;
             }).* = 0;
             _ = substitute(ses, pts, arg1, @as(c_int, 1) << @intCast(@as(c_int, 1)));
-            _ = cat_sprintf(str, @as([*c]u8, @ptrCast(@constCast("{%d}{%s}"))), blk: {
+            _ = cat_sprintf(str, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d}{%s}"))))))), blk: {
                 const ref = &cnt;
                 ref.* += 1;
                 break :blk ref.*;
@@ -9554,7 +9558,7 @@ pub export fn wrapstring(arg_ses: [*c]struct_session, arg_str: [*c]u8, arg_wrap:
         }
     }
     _ = substitute(ses, pts, arg1, @as(c_int, 1) << @intCast(@as(c_int, 1)));
-    _ = cat_sprintf(str, @as([*c]u8, @ptrCast(@constCast("{%d}{%s}"))), blk: {
+    _ = cat_sprintf(str, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d}{%s}"))))))), blk: {
         const ref = &cnt;
         ref.* += 1;
         break :blk ref.*;
@@ -9571,7 +9575,7 @@ pub export fn stringlength(arg_ses: [*c]struct_session, arg_str: [*c]u8) c_int {
     _ = &len;
     var temp: [*c]u8 = undefined;
     _ = &temp;
-    push_call(@as([*c]u8, @ptrCast(@constCast("stringlength(%p,%p)"))), ses, str);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("stringlength(%p,%p)"))))))), ses, str);
     temp = str_alloc_stack(0);
     _ = substitute(ses, str, temp, (@as(c_int, 1) << @intCast(@as(c_int, 6))) | (@as(c_int, 1) << @intCast(@as(c_int, 7))));
     len = strip_vt102_strlen(ses, temp);
@@ -9673,7 +9677,7 @@ pub export fn timestring(arg_ses: [*c]struct_session, arg_str: [*c]u8) void {
     _ = &timeval_tm;
     var timeval_t: time_t = undefined;
     _ = &timeval_t;
-    push_call(@as([*c]u8, @ptrCast(@constCast("timestring(%p,%p)"))), ses, str);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("timestring(%p,%p)"))))))), ses, str);
     arg1 = str_alloc_stack(0);
     arg2 = str_alloc_stack(0);
     arg = get_arg_in_braces(ses, str, arg1, GET_ALL);
@@ -9716,12 +9720,12 @@ pub export fn do_format(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     arg = sub_arg_in_braces(ses, arg, argvar, GET_NST, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, format, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, argvar.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#SYNTAX: #FORMAT <VARIABLE> <FORMAT> [ARG1] [ARG2] .. [ARG29] [ARG30]"))));
+        show_error(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #FORMAT <VARIABLE> <FORMAT> [ARG1] [ARG2] .. [ARG29] [ARG30]"))))))));
         return ses;
     }
     format_string(ses, format, arg, result);
-    _ = set_nest_node_ses(ses, argvar, @as([*c]u8, @ptrCast(@constCast("%s"))), result);
-    show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@constCast("#OK. VARIABLE {%s} HAS BEEN SET TO {%s}."))), argvar, result);
+    _ = set_nest_node_ses(ses, argvar, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), result);
+    show_message(ses, LIST_VARIABLE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#OK. VARIABLE {%s} HAS BEEN SET TO {%s}."))))))), argvar, result);
     return ses;
 }
 

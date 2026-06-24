@@ -1099,6 +1099,41 @@ struct tablenode
 };
 */
 
+struct scriptdata
+{
+	long long              min;
+	long long              max;
+	long long              cnt;
+	int                    inc;
+	char                 * cpy;
+	char                 * hlt;
+	char                 * str;
+	char                 * arg;
+};
+
+struct script_regex
+{
+	char                 * str;
+	char                 * bod;
+	char                 * buf;
+	int                    val;
+};
+
+struct scriptnode
+{
+	struct scriptnode    * next;
+	struct scriptnode    * prev;
+	union
+	{
+		struct scriptdata   * data;
+		struct script_regex * regex;
+	};
+	char                 * str;
+	short                  lvl;
+	short                  type;
+	short                  cmd;
+};
+
 struct scriptroot
 {
 	struct scriptnode    * next;

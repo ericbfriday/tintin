@@ -33,6 +33,16 @@ else
 fi
 
 # Add more tests here as they are developed
+echo "Running string regression test..."
+OUTPUT=$($TT_BIN -H "tests/string_regression.tin" 2>&1)
+
+if echo "$OUTPUT" | grep -q "FORMAT 1: '     hello'" && echo "$OUTPUT" | grep -q "FORMAT 2: 'world     '" && echo "$OUTPUT" | grep -q "FORMAT 3: '    center'" && echo "$OUTPUT" | grep -q "FORMAT 5: 'tru'"; then
+    echo "String regression test passed!"
+else
+    echo "String regression test failed. Output:"
+    echo "$OUTPUT"
+    exit 1
+fi
 
 echo "All tests completed successfully."
 exit 0

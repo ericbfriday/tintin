@@ -1150,6 +1150,7 @@ void tintin_printf3(struct session *ses, char *format, ...)
 	return;
 }
 
+#if 0
 // --- Extracted from src/nest.c ---
 
 struct listnode *set_nest_node(struct listroot *root, char *arg1, char *format, ...)
@@ -1592,6 +1593,7 @@ struct session *command(struct session *ses, COMMAND *cmd, char *format, ...)
 	pop_call();
 	return ses;
 }
+#endif
 
 
 // --- Extracted from src/text.c ---

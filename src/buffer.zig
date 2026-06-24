@@ -395,17 +395,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;
@@ -7238,14 +7242,14 @@ pub export fn do_buffer(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     arg = get_arg_in_braces(ses, arg, arg1, GET_ONE);
     check_buffer(ses);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" BUFFER OPTIONS "))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" BUFFER OPTIONS "))))))));
         {
             cnt = 0;
             while (@as(c_int, buffer_table[@bitCast(@as(isize, @intCast(cnt)))].name.*) != @as(c_int, 0)) : (cnt += 1) {
-                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-13s] %s"))))), buffer_table[@bitCast(@as(isize, @intCast(cnt)))].name, buffer_table[@bitCast(@as(isize, @intCast(cnt)))].desc);
+                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-13s] %s"))))))), buffer_table[@bitCast(@as(isize, @intCast(cnt)))].name, buffer_table[@bitCast(@as(isize, @intCast(cnt)))].desc);
             }
         }
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         return ses;
     }
     {
@@ -7258,7 +7262,7 @@ pub export fn do_buffer(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
             return ses;
         }
     }
-    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #BUFFER {%s}: INVALID BUFFER OPTION."))))), arg1);
+    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #BUFFER {%s}: INVALID BUFFER OPTION."))))))), arg1);
     return ses;
 }
 pub export fn do_grep(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8, arg_arg3: [*c]u8, arg_arg4: [*c]u8) [*c]struct_session {
@@ -7303,14 +7307,14 @@ pub export fn do_grep(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
     grep_max = (ses.*.split.*.bot_row - ses.*.split.*.top_row) - @as(c_int, 2);
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #GREP [PAGE] <SEARCH TEXT>"))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #GREP [PAGE] <SEARCH TEXT>"))))))));
         return ses;
     }
     if (is_math(ses, arg1) != 0) {
         page = @intFromFloat(get_number(ses, arg1));
         arg = sub_arg_in_braces(ses, arg, arg1, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
         if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #GREP {%s} <SEARCH TEXT>"))))), arg1);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #GREP {%s} <SEARCH TEXT>"))))))), arg1);
             return ses;
         }
     } else {
@@ -7324,7 +7328,7 @@ pub export fn do_grep(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
         grep_max = grep_max * (page * -@as(c_int, 1));
     }
     gtd.*.level.*.grep +%= 1;
-    tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" GREPPING PAGE %d FOR %s "))))), page, arg1);
+    tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" GREPPING PAGE %d FOR %s "))))))), page, arg1);
     if (page > @as(c_int, 0)) {
         {
             scroll_cnt = ses.*.scroll.*.used - @as(c_int, 1);
@@ -7342,7 +7346,7 @@ pub export fn do_grep(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
             }
         }
         if (grep_cnt <= grep_min) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#GREP: #NO MATCHES FOUND."))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#GREP: #NO MATCHES FOUND."))))))));
             gtd.*.level.*.grep -%= 1;
             return ses;
         }
@@ -7383,12 +7387,12 @@ pub export fn do_grep(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
             }
         }
         if (grep_cnt == @as(c_int, 0)) {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#GREP: #NO MATCHES FOUND."))))));
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#GREP: #NO MATCHES FOUND."))))))));
             gtd.*.level.*.grep -%= 1;
             return ses;
         }
     }
-    tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+    tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     gtd.*.level.*.grep -%= 1;
     return ses;
 }
@@ -7399,7 +7403,7 @@ pub export fn init_buffer(arg_ses: [*c]struct_session, arg_size: c_int) void {
     _ = &size;
     var cnt: c_int = undefined;
     _ = &cnt;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("init_buffer(%p,%p)"))))), ses, size);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("init_buffer(%p,%p)"))))))), ses, size);
     if ((size != 0) and (size == ses.*.scroll.*.size)) {
         pop_call();
         return;
@@ -7417,11 +7421,11 @@ pub export fn init_buffer(arg_ses: [*c]struct_session, arg_size: c_int) void {
     }
     if (size != 0) {
         ses.*.scroll.*.buffer = @ptrCast(@alignCast(calloc(@bitCast(@as(c_long, size)), @sizeOf([*c]struct_buffer_data))));
-        ses.*.scroll.*.input = str_dup(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+        ses.*.scroll.*.input = str_dup(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         ses.*.scroll.*.size = size;
         ses.*.scroll.*.used = 0;
         ses.*.scroll.*.wrap = get_scroll_cols(ses);
-        add_line_buffer(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), 0);
+        add_line_buffer(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), 0);
         ses.*.scroll.*.line = -@as(c_int, 1);
     } else {
         free(@ptrCast(@alignCast(ses.*.scroll)));
@@ -7458,7 +7462,7 @@ pub export fn add_line_buffer(arg_ses: [*c]struct_session, arg_line: [*c]u8, arg
     _ = &bot_row;
     var buffer: [*c]struct_buffer_data = undefined;
     _ = &buffer;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("add_line_buffer(%p,%s,%d)"))))), ses, line, prompt);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("add_line_buffer(%p,%s,%d)"))))))), ses, line, prompt);
     if ((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 12)))) != 0) {
         gtd.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 1));
         ses.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 6));
@@ -7481,7 +7485,7 @@ pub export fn add_line_buffer(arg_ses: [*c]struct_session, arg_line: [*c]u8, arg
     top_row = ses.*.split.*.top_row;
     bot_row = ses.*.split.*.bot_row;
     if (((@as(usize, @bitCast(@as(c_long, str_len(ses.*.scroll.*.input)))) +% strlen(line)) +% @as(usize, 100)) >= @as(usize, BUFFER_SIZE)) {
-        _ = str_cat_printf(&ses.*.scroll.*.input, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\n\x1b[1;31m#BUFFER: LINE LENGTH OF (%d) EXEEDS MAXIMUM SIZE OF (%d)%s\n"))))), @as(usize, @bitCast(@as(c_long, str_len(ses.*.scroll.*.input)))) +% strlen(line), BUFFER_SIZE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))));
+        _ = str_cat_printf(&ses.*.scroll.*.input, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\n\x1b[1;31m#BUFFER: LINE LENGTH OF (%d) EXEEDS MAXIMUM SIZE OF (%d)%s\n"))))))), @as(usize, @bitCast(@as(c_long, str_len(ses.*.scroll.*.input)))) +% strlen(line), BUFFER_SIZE, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))))));
         prompt = FALSE;
     } else {
         if (prompt == TRUE) {
@@ -7561,10 +7565,10 @@ pub export fn add_line_buffer(arg_ses: [*c]struct_session, arg_line: [*c]u8, arg
     }
     pto.* = 0;
     if (((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 11)))) != 0) and (ses != gtd.*.ses)) {
-        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s[%s] %s%s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))), ses.*.name, ses.*.scroll.*.input, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))));
+        tintin_printf2(gtd.*.ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s[%s] %s%s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))))), ses.*.name, ses.*.scroll.*.input, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))))));
     }
     if (ses.*.proxy != null) {
-        port_socket_printf(ses, ses.*.proxy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s%s"))))), ses.*.scroll.*.input, if (prompt != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\n"))))));
+        port_socket_printf(ses, ses.*.proxy, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s%s"))))))), ses.*.scroll.*.input, if (prompt != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\n"))))))));
     }
     if (!((ses.*.log.*.mode & (@as(c_int, 1) << @intCast(@as(c_int, 4)))) != 0)) {
         if (ses.*.log.*.file != null) {
@@ -7586,7 +7590,7 @@ pub export fn add_line_buffer(arg_ses: [*c]struct_session, arg_line: [*c]u8, arg
         }
     }
     ses.*.scroll.*.used += 1;
-    _ = str_cpy(&ses.*.scroll.*.input, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+    _ = str_cpy(&ses.*.scroll.*.input, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     if (gtd.*.chat != null) {
         chat_forward_session(ses, temp);
     }
@@ -7707,7 +7711,7 @@ pub export fn buffer_clear(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
         max = if (max < @as(c_int, 1)) @as(c_int, 1) else if (max > (ses.*.scroll.*.used - @as(c_int, 1))) ses.*.scroll.*.used - @as(c_int, 1) else max;
     }
     if (min > max) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #BUFFER CLEAR {%d} {%d}: LOWER BOUND EXCEEDS UPPER BOUND."))))), min, max);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #BUFFER CLEAR {%d} {%d}: LOWER BOUND EXCEEDS UPPER BOUND."))))))), min, max);
         return;
     }
     range = (max - min) + @as(c_int, 1);
@@ -7759,7 +7763,7 @@ pub export fn buffer_down(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
                 ref.* += 1;
                 break :blk ref.*;
             }) >= ses.*.scroll.*.used) {
-                buffer_end(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+                buffer_end(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
                 return;
             }
             ses.*.scroll.*.base = ses.*.scroll.*.buffer[@bitCast(@as(isize, @intCast(ses.*.scroll.*.line)))].*.height;
@@ -7786,7 +7790,7 @@ pub export fn buffer_get(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     check_buffer(ses);
     arg = sub_arg_in_braces(ses, arg, arg1, GET_NST, @as(c_int, 0) << @intCast(@as(c_int, 0)));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #BUFFER GET <VARIABLE> [LOWER BOUND] [UPPER BOUND]"))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #BUFFER GET <VARIABLE> [LOWER BOUND] [UPPER BOUND]"))))))));
         return;
     }
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
@@ -7797,7 +7801,7 @@ pub export fn buffer_get(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     min = if (min < @as(c_int, 1)) @as(c_int, 1) else if (min > (ses.*.scroll.*.used - @as(c_int, 1))) ses.*.scroll.*.used - @as(c_int, 1) else min;
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg2.*) == @as(c_int, 0)) {
-        _ = set_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), ses.*.scroll.*.buffer[@bitCast(@as(isize, @intCast(min)))].*.str);
+        _ = set_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), ses.*.scroll.*.buffer[@bitCast(@as(isize, @intCast(min)))].*.str);
         return;
     }
     max = @intFromFloat(get_number(ses, arg2));
@@ -7806,11 +7810,11 @@ pub export fn buffer_get(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     }
     max = if (max < @as(c_int, 1)) @as(c_int, 1) else if (max > (ses.*.scroll.*.used - @as(c_int, 1))) ses.*.scroll.*.used - @as(c_int, 1) else max;
     if (min > max) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #BUFFER GET {%s} {%d} {%d}: LOWER BOUND EXCEEDS UPPER BOUND."))))), arg1, min, max);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #BUFFER GET {%s} {%d} {%d}: LOWER BOUND EXCEEDS UPPER BOUND."))))))), arg1, min, max);
         return;
     }
     cnt = 0;
-    _ = set_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+    _ = set_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     while (min <= max) {
         _ = substitute(ses, ses.*.scroll.*.buffer[
             @bitCast(@as(isize, @intCast(blk: {
@@ -7820,13 +7824,13 @@ pub export fn buffer_get(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
                 break :blk tmp;
             })))
         ].*.str, arg2, @as(c_int, 1) << @intCast(@as(c_int, 1)));
-        _ = add_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d}{%s}"))))), blk: {
+        _ = add_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d}{%s}"))))))), blk: {
             const ref = &cnt;
             ref.* += 1;
             break :blk ref.*;
         }, arg2);
     }
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER GET: %d LINES SAVED TO {%s}."))))), cnt, arg1);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER GET: %d LINES SAVED TO {%s}."))))))), cnt, arg1);
     return;
 }
 pub export fn buffer_home(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -7841,7 +7845,7 @@ pub export fn buffer_home(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
     check_buffer(ses);
     ses.*.scroll.*.line = 0;
     ses.*.scroll.*.base = 0;
-    buffer_down(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+    buffer_down(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
 }
 pub export fn buffer_end(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
     var ses = arg_ses;
@@ -7890,14 +7894,14 @@ pub export fn buffer_find(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
     };
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #BUFFER FIND [PAGE] <SEARCH TEXT>"))))));
+        show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #BUFFER FIND [PAGE] <SEARCH TEXT>"))))))));
         return;
     }
     if (is_math(ses, arg1) != 0) {
         page = @intFromFloat(get_number(ses, arg1));
         arg = sub_arg_in_braces(ses, arg, arg2, GET_ALL, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
         if (@as(c_int, arg2.*) == @as(c_int, 0)) {
-            show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #BUFFER FIND {%d} <SEARCH TEXT>"))))), page);
+            show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #BUFFER FIND {%d} <SEARCH TEXT>"))))))), page);
             return;
         }
     } else {
@@ -7937,11 +7941,11 @@ pub export fn buffer_find(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
         }
     }
     if ((scroll_cnt < @as(c_int, 0)) or (scroll_cnt >= ses.*.scroll.*.used)) {
-        show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER FIND: NO MATCHES FOUND."))))));
+        show_error(gtd.*.ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER FIND: NO MATCHES FOUND."))))))));
         return;
     }
     if (@as(c_int, arg3.*) != 0) {
-        _ = set_nest_node_ses(ses, arg3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))), scroll_cnt);
+        _ = set_nest_node_ses(ses, arg3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%d"))))))), scroll_cnt);
     } else {
         ses.*.scroll.*.line = scroll_cnt;
         buffer_down(ses, ntos(get_scroll_rows(ses) - @as(c_int, 1)), arg1, arg2);
@@ -7967,7 +7971,7 @@ pub export fn buffer_jump(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
         line = if ((ses.*.scroll.*.used + line) < @as(c_int, 0)) @as(c_int, 0) else if ((ses.*.scroll.*.used + line) > (ses.*.scroll.*.used - @as(c_int, 1))) ses.*.scroll.*.used - @as(c_int, 1) else ses.*.scroll.*.used + line;
     }
     if (line >= (ses.*.scroll.*.used - @as(c_int, 1))) {
-        buffer_end(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+        buffer_end(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         return;
     }
     if (line != ses.*.scroll.*.line) {
@@ -7993,12 +7997,12 @@ pub export fn buffer_lock(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
             ses.*.scroll.*.line = ses.*.scroll.*.used - @as(c_int, 1);
         }
     } else if (!(strcasecmp(arg1, "OFF") != 0)) {
-        buffer_end(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+        buffer_end(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     } else {
         if (ses.*.scroll.*.line == -@as(c_int, 1)) {
             ses.*.scroll.*.line = ses.*.scroll.*.used - @as(c_int, 1);
         } else {
-            buffer_end(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+            buffer_end(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         }
     }
 }
@@ -8023,7 +8027,7 @@ pub export fn buffer_refresh(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_a
         return;
     }
     if (ses.*.scroll.*.line == -@as(c_int, 1)) {
-        buffer_end(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+        buffer_end(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     } else {
         _ = show_buffer(ses);
     }
@@ -8045,14 +8049,14 @@ pub export fn buffer_write(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
     check_buffer(ses);
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #BUFFER WRITE <FILENAME>"))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #BUFFER WRITE <FILENAME>"))))))));
     } else {
         if ((blk: {
             const tmp = fopen(arg1, "w");
             fp = tmp;
             break :blk tmp;
         }) != null) {
-            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER WRITE: %d LINES WRITTEN TO {%s}."))))), ses.*.scroll.*.used - @as(c_int, 1), arg1);
+            show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER WRITE: %d LINES WRITTEN TO {%s}."))))))), ses.*.scroll.*.used - @as(c_int, 1), arg1);
             logheader(ses, fp, ses.*.log.*.mode | (@as(c_int, 1) << @intCast(@as(c_int, 1))));
             {
                 cnt = 1;
@@ -8069,7 +8073,7 @@ pub export fn buffer_write(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
             }
             _ = fclose(fp);
         } else {
-            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #BUFFER WRITE {%s}: COULDN'T OPEN FILE."))))), arg1);
+            show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #BUFFER WRITE {%s}: COULDN'T OPEN FILE."))))))), arg1);
         }
     }
     return;
@@ -8091,13 +8095,13 @@ pub export fn buffer_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER INFO: BASE   = %d"))))), ses.*.scroll.*.base);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER INFO: LINE   = %d"))))), ses.*.scroll.*.line);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER INFO: SIZE   = %d"))))), ses.*.scroll.*.size);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER INFO: USED   = %d"))))), ses.*.scroll.*.used);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER INFO: WIDTH  = %d"))))), ses.*.scroll.*.width);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER INFO: WRAP   = %d"))))), ses.*.scroll.*.wrap);
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER INFO: BASE   = %d"))))))), ses.*.scroll.*.base);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER INFO: LINE   = %d"))))))), ses.*.scroll.*.line);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER INFO: SIZE   = %d"))))))), ses.*.scroll.*.size);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER INFO: USED   = %d"))))))), ses.*.scroll.*.used);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER INFO: WIDTH  = %d"))))))), ses.*.scroll.*.width);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER INFO: WRAP   = %d"))))))), ses.*.scroll.*.wrap);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         memory = 0;
         {
             index_1 = 0;
@@ -8108,16 +8112,16 @@ pub export fn buffer_info(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
                 }
             }
         }
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER INFO: MEMORY = %d"))))), memory);
-    } else if ((is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SAVE")))))) != 0) and (@as(c_int, arg2.*) != 0)) {
-        _ = add_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{BASE}{%d}"))))), ses.*.scroll.*.base);
-        _ = add_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{LINE}{%d}"))))), ses.*.scroll.*.line);
-        _ = add_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{SIZE}{%d}"))))), ses.*.scroll.*.size);
-        _ = add_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{USED}{%d}"))))), ses.*.scroll.*.used);
-        _ = add_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{WRAP}{%d}"))))), ses.*.scroll.*.wrap);
-        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER INFO: DATA SAVED TO {%s}"))))), arg2);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER INFO: MEMORY = %d"))))))), memory);
+    } else if ((is_abbrev(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SAVE")))))))) != 0) and (@as(c_int, arg2.*) != 0)) {
+        _ = add_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{BASE}{%d}"))))))), ses.*.scroll.*.base);
+        _ = add_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{LINE}{%d}"))))))), ses.*.scroll.*.line);
+        _ = add_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{SIZE}{%d}"))))))), ses.*.scroll.*.size);
+        _ = add_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{USED}{%d}"))))))), ses.*.scroll.*.used);
+        _ = add_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{WRAP}{%d}"))))))), ses.*.scroll.*.wrap);
+        show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#BUFFER INFO: DATA SAVED TO {%s}"))))))), arg2);
     } else {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #BUFFER INFO [SAVE] [<VARIABLE>]"))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #BUFFER INFO [SAVE] [<VARIABLE>]"))))))));
     }
 }
 pub extern fn do_chat(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
@@ -8937,8 +8941,8 @@ pub export fn update_scrollbar(arg_ses: [*c]struct_session) void {
             var line: c_int = if (gtd.*.ses.*.scroll.*.line >= @as(c_int, 0)) gtd.*.ses.*.scroll.*.line else gtd.*.ses.*.scroll.*.used + @as(c_int, 1);
             _ = &line;
             line = if ((line - get_scroll_rows(gtd.*.ses)) < @as(c_int, 1)) @as(c_int, 1) else if ((line - get_scroll_rows(gtd.*.ses)) > gtd.*.ses.*.scroll.*.used) gtd.*.ses.*.scroll.*.used else line - get_scroll_rows(gtd.*.ses);
-            print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%d;%d#t"))))), line, gtd.*.ses.*.scroll.*.used);
-            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 17)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCROLLBAR UPDATE"))))), ntos(line), ntos(gtd.*.ses.*.scroll.*.used));
+            print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[%d;%d#t"))))))), line, gtd.*.ses.*.scroll.*.used);
+            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 17)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SCROLLBAR UPDATE"))))))), ntos(line), ntos(gtd.*.ses.*.scroll.*.used));
             gtd.*.screen.*.flags &= ~(@as(c_int, 1) << @intCast(@as(c_int, 7)));
         }
     }
@@ -8970,7 +8974,7 @@ pub export fn buffer_print(arg_ses: [*c]struct_session, arg_index_1: c_int, arg_
     _ = &height;
     var width: c_int = 0;
     _ = &width;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("buffer_print(%p,%d,%d,%d)"))))), ses, index_1, start, end);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("buffer_print(%p,%d,%d,%d)"))))))), ses, index_1, start, end);
     col_len = get_scroll_cols(ses);
     if ((start == @as(c_int, 0)) and (end == @as(c_int, 0))) {
         if (((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) or (ses.*.scroll.*.line == (ses.*.scroll.*.used - @as(c_int, 1)))) {
@@ -8979,9 +8983,9 @@ pub export fn buffer_print(arg_ses: [*c]struct_session, arg_index_1: c_int, arg_
             _ = strcpy(@ptrCast(@alignCast(&temp)), "");
         }
         if (ses.*.cur_row != ses.*.split.*.bot_row) {
-            print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31m%02d\x1b[0m \x1b[1;32mmisaligned (%d)"))))), ses.*.cur_row, ses.*.scroll.*.line);
+            print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[1;31m%02d\x1b[0m \x1b[1;32mmisaligned (%d)"))))))), ses.*.cur_row, ses.*.scroll.*.line);
         } else {
-            print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), @as([*c]u8, @ptrCast(@alignCast(&temp))));
+            print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), @as([*c]u8, @ptrCast(@alignCast(&temp))));
             add_line_screen(ses, @ptrCast(@alignCast(&temp)), ses.*.cur_row);
             erase_cols(col_len - width);
         }
@@ -8989,7 +8993,7 @@ pub export fn buffer_print(arg_ses: [*c]struct_session, arg_index_1: c_int, arg_
         buffer = ses.*.scroll.*.buffer[@bitCast(@as(isize, @intCast(index_1)))];
         if (buffer.*.height == @as(c_int, 1)) {
             _ = word_wrap_split(ses, buffer.*.str, @ptrCast(@alignCast(&temp)), ses.*.wrap, start, end, 0, &height, &width);
-            print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), @as([*c]u8, @ptrCast(@alignCast(&temp))));
+            print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), @as([*c]u8, @ptrCast(@alignCast(&temp))));
             add_line_screen(ses, @ptrCast(@alignCast(&temp)), ses.*.cur_row);
             erase_cols(col_len - buffer.*.width);
             goto_pos(ses, ses.*.cur_row + @as(c_int, 1), ses.*.split.*.top_col);
@@ -9002,7 +9006,7 @@ pub export fn buffer_print(arg_ses: [*c]struct_session, arg_index_1: c_int, arg_
                     swap = pti[@bitCast(@as(isize, @intCast(col)))];
                     pti[@bitCast(@as(isize, @intCast(col)))] = 0;
                     str_len_2 = strip_vt102_strlen(ses, pti);
-                    print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), pti);
+                    print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), pti);
                     add_line_screen(ses, pti, ses.*.cur_row);
                     erase_cols(col_len - str_len_2);
                     pti += @as(usize, @bitCast(@as(isize, @intCast(col + @as(c_int, 1)))));

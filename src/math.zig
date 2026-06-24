@@ -2836,7 +2836,7 @@ pub export fn del_math_node(arg_node: [*c]struct_math_node) void {
     _ = &node;
     {
         if (((node.*.prev == @as([*c]struct_math_node, @ptrCast(@alignCast(@as(?*anyopaque, @ptrFromInt(@as(c_int, 0))))))) and (node != math_head)) or ((node.*.next == @as([*c]struct_math_node, @ptrCast(@alignCast(@as(?*anyopaque, @ptrFromInt(@as(c_int, 0))))))) and (node != math_tail))) {
-            tintin_printf2(null, @as([*c]u8, @ptrCast(@constCast(@volatileCast("#UNLINK ERROR in file %s on line %d")))), "src/math.c", @as(c_int, 340));
+            std.log.err("#UNLINK ERROR in file src/math.c on line 340", .{});
             dump_stack();
         }
         if (node.*.prev == @as([*c]struct_math_node, @ptrCast(@alignCast(@as(?*anyopaque, @ptrFromInt(@as(c_int, 0))))))) {
@@ -2856,3 +2856,9 @@ pub export fn del_math_node(arg_node: [*c]struct_math_node) void {
     free(@as(?*anyopaque, @ptrCast(node)));
 }
 pub const __llvm__ = @as(c_int, 1);
+
+test "math tintoi basics" {
+    var num_str = "123".*;
+    const res = tintoi(&num_str);
+    try std.testing.expectEqual(@as(c_longdouble, 123.0), res);
+}

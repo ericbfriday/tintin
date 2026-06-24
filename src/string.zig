@@ -872,7 +872,7 @@ pub export fn str_len_raw(ses: [*c]struct_session, str: [*c]u8, start: c_int, en
 }
 // /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_string.h:132:3: warning: TODO implement function '__builtin___memmove_chk' in std.zig.c_builtins
 
-pub export fn str_ins_str(ses: [*c]struct_session, str: [*c][*c]u8, ins: [*c]u8, str_start: c_int, str_end_in: c_int) [*c]u8 {
+pub fn strInsStrIdiomatic(ses: [*c]struct_session, str: [*c][*c]u8, ins: [*c]u8, str_start: c_int, str_end_in: c_int) !void {
     var str_end = str_end_in;
     if (str_end == -1) {
         str_end = str_start + strip_vt102_strlen(ses, ins);
@@ -908,47 +908,34 @@ pub export fn str_ins_str(ses: [*c]struct_session, str: [*c][*c]u8, ins: [*c]u8,
 
     const col_len = @as(c_int, @intCast(std.mem.len(old)));
 
-    _ = tintin_c.str_resize(str, ins_raw_len + col_len + 1);
+    var new_str = std.ArrayList(u8).empty;
+    defer new_str.deinit(std.heap.c_allocator);
+
+    try new_str.appendSlice(std.heap.c_allocator, str.*[0..@as(usize, @intCast(raw_start))]);
+    try new_str.appendSlice(std.heap.c_allocator, ins[0..@as(usize, @intCast(ins_raw_len))]);
 
     if (raw_len < raw_end + ins_raw_len or raw_len > raw_end) {
-        _ = memmove(
-            str.* + @as(usize, @intCast(raw_start + ins_raw_len + col_len)),
-            str.* + @as(usize, @intCast(raw_end)),
-            @as(usize, @intCast(raw_len - raw_end + 1)),
-        );
-        _ = memcpy(
-            str.* + @as(usize, @intCast(raw_start + ins_raw_len)),
-            old,
-            @as(usize, @intCast(col_len)),
-        );
-        _ = memcpy(
-            str.* + @as(usize, @intCast(raw_start)),
-            ins,
-            @as(usize, @intCast(ins_raw_len)),
-        );
-    } else if (raw_len > raw_end) {
-        _ = memmove(
-            str.* + @as(usize, @intCast(raw_start + ins_raw_len)),
-            str.* + @as(usize, @intCast(raw_end)),
-            @as(usize, @intCast(raw_len - raw_end + 1)),
-        );
-        _ = memcpy(
-            str.* + @as(usize, @intCast(raw_start)),
-            ins,
-            @as(usize, @intCast(ins_raw_len)),
-        );
-    } else {
-        _ = memcpy(
-            str.* + @as(usize, @intCast(raw_start)),
-            ins,
-            @as(usize, @intCast(ins_raw_len)),
-        );
-        if (len < str_end) {
-            str.*[@as(usize, @intCast(raw_start + ins_raw_len))] = 0;
+        try new_str.appendSlice(std.heap.c_allocator, old[0..@as(usize, @intCast(col_len))]);
+        if (raw_len > raw_end) {
+            try new_str.appendSlice(std.heap.c_allocator, str.*[@as(usize, @intCast(raw_end))..@as(usize, @intCast(raw_len))]);
         }
+    } else if (raw_len > raw_end) {
+        try new_str.appendSlice(std.heap.c_allocator, str.*[@as(usize, @intCast(raw_end))..@as(usize, @intCast(raw_len))]);
+    } else {
+        // If len >= str_end, there is no suffix anyway since raw_len == raw_end
     }
-    _ = tintin_c.str_fix(str.*);
 
+    _ = tintin_c.str_resize(str, @as(c_int, @intCast(new_str.items.len)));
+    @memcpy(str.*[0..new_str.items.len], new_str.items[0..new_str.items.len]);
+    str.*[new_str.items.len] = 0;
+
+    _ = tintin_c.str_fix(str.*);
+}
+
+pub export fn str_ins_str(ses: [*c]struct_session, str: [*c][*c]u8, ins: [*c]u8, str_start: c_int, str_end_in: c_int) [*c]u8 {
+    strInsStrIdiomatic(ses, str, ins, str_start, str_end_in) catch |err| {
+        std.log.err("str_ins_str memory allocation failed: {}", .{err});
+    };
     return str.*;
 }
 // /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_stdio.h:76:2: warning: TODO implement function '__builtin___snprintf_chk' in std.zig.c_builtins
@@ -1514,4 +1501,10 @@ test "char_cmp" {
     try std.testing.expectEqual(@as(u8, 1), char_cmp('Z', 'z'));
     // Different letters: should not match
     try std.testing.expectEqual(@as(u8, 0), char_cmp('a', 'b'));
+}
+
+test "is_digit" {
+    try std.testing.expectEqual(@as(u8, 1), is_digit('0'));
+    try std.testing.expectEqual(@as(u8, 1), is_digit('9'));
+    try std.testing.expectEqual(@as(u8, 0), is_digit('a'));
 }

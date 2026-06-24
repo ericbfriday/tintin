@@ -1,0 +1,18 @@
+#nop Test for string manipulation and formatting
+
+#format {test1} {%10s} {hello}
+#showme {FORMAT 1: '$test1'}
+
+#format {test2} {%-10s} {world}
+#showme {FORMAT 2: '$test2'}
+
+#format {test3} {%+10s} {center}
+#showme {FORMAT 3: '$test3'}
+
+#format {test4} {%p} {capital}
+#showme {FORMAT 4: '$test4'}
+
+#format {test5} {%.3s} {truncate}
+#showme {FORMAT 5: '$test5'}
+
+#end

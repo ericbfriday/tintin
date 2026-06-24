@@ -395,17 +395,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;
@@ -7778,7 +7782,7 @@ pub export fn show_lines(arg_ses: [*c]struct_session, arg_color: [*c]u8, arg_str
     _ = &str;
     var ptf: [*c]u8 = undefined;
     _ = &ptf;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("show_lines(%p,%p,...)"))))), ses, str);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("show_lines(%p,%p,...)"))))))), ses, str);
     while (@as(c_int, str.*) != 0) {
         ptf = strchr(str, '\n');
         if (@as(?*anyopaque, @ptrCast(@alignCast(ptf))) == @as(?*anyopaque, null)) {
@@ -7791,7 +7795,7 @@ pub export fn show_lines(arg_ses: [*c]struct_session, arg_color: [*c]u8, arg_str
             break :blk tmp;
         }).* = 0;
         if (@as(c_int, color.*) != 0) {
-            tintin_printf3(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s%s"))))), color, str);
+            tintin_printf3(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s%s"))))))), color, str);
         } else {
             tintin_puts3(ses, str, FALSE);
         }
@@ -7815,7 +7819,7 @@ pub export fn tintin_puts(arg_ses: [*c]struct_session, arg_string: [*c]u8) void 
     if (ses.*.gagline > @as(c_int, 0)) {
         ses.*.gagline -= 1;
         gtd.*.level.*.ignore +%= 1;
-        show_debug(ses, LIST_GAG, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG GAG \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} \x1b[38;5;044m[\x1b[38;5;188m%d\x1b[38;5;044m]"))))), string, ses.*.gagline + @as(c_int, 1));
+        show_debug(ses, LIST_GAG, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG GAG \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} \x1b[38;5;044m[\x1b[38;5;188m%d\x1b[38;5;044m]"))))))), string, ses.*.gagline + @as(c_int, 1));
         gtd.*.level.*.ignore -%= 1;
     } else {
         tintin_puts2(ses, string);
@@ -7828,9 +7832,9 @@ pub export fn tintin_puts2(arg_ses: [*c]struct_session, arg_string: [*c]u8) void
     _ = &string;
     var output: [*c]u8 = undefined;
     _ = &output;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("tintin_puts2(%p,%p)"))))), ses, string);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("tintin_puts2(%p,%p)"))))))), ses, string);
     output = str_alloc_stack(0);
-    _ = str_cpy_printf(&output, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s%s%s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))), string, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))));
+    _ = str_cpy_printf(&output, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s%s%s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))))), string, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))))));
     tintin_puts3(ses, output, FALSE);
     pop_call();
     return;
@@ -7844,7 +7848,7 @@ pub export fn tintin_puts3(arg_ses: [*c]struct_session, arg_string: [*c]u8, arg_
     _ = &prompt;
     var output: [*c]u8 = undefined;
     _ = &output;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("tintin_puts3(%p,%p,%d)"))))), ses, string, prompt);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("tintin_puts3(%p,%p,%d)"))))))), ses, string, prompt);
     if (@as(?*anyopaque, @ptrCast(@alignCast(ses))) == @as(?*anyopaque, null)) {
         ses = gtd.*.ses;
     }
@@ -7853,14 +7857,14 @@ pub export fn tintin_puts3(arg_ses: [*c]struct_session, arg_string: [*c]u8, arg_
         _ = &buf;
         _ = substitute(ses, string, @ptrCast(@alignCast(&buf)), @as(c_int, 1) << @intCast(@as(c_int, 2)));
         if (ses.*.line_captureindex == @as(c_int, 1)) {
-            _ = set_nest_node_ses(ses, ses.*.line_capturefile, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d}{%s}"))))), blk: {
+            _ = set_nest_node_ses(ses, ses.*.line_capturefile, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d}{%s}"))))))), blk: {
                 const ref = &ses.*.line_captureindex;
                 const tmp = ref.*;
                 ref.* += 1;
                 break :blk tmp;
             }, @as([*c]u8, @ptrCast(@alignCast(&buf))));
         } else {
-            _ = add_nest_node_ses(ses, ses.*.line_capturefile, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d}{%s}"))))), blk: {
+            _ = add_nest_node_ses(ses, ses.*.line_capturefile, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{%d}{%s}"))))))), blk: {
                 const ref = &ses.*.line_captureindex;
                 const tmp = ref.*;
                 ref.* += 1;
@@ -7873,11 +7877,11 @@ pub export fn tintin_puts3(arg_ses: [*c]struct_session, arg_string: [*c]u8, arg_
         return;
     }
     if (ses.*.check_output != 0) {
-        process_more_output(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), FALSE);
+        process_more_output(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), FALSE);
     }
     output = str_alloc_stack(0);
     if ((gtd.*.level.*.scroll == @as(c_uint, 0)) and (@as(c_int, ses.*.scroll.*.input.*) != 0)) {
-        _ = str_cpy(&output, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\n"))))));
+        _ = str_cpy(&output, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\n"))))))));
     }
     _ = str_cat(&output, string);
     add_line_buffer(ses, output, prompt);
@@ -8184,7 +8188,7 @@ pub export fn do_showme(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     out = str_alloc_stack(0);
     tmp = str_alloc_stack(0);
     arg = get_arg_in_braces(ses, arg, arg1, GET_ALL);
-    prompt = @intFromBool((is_suffix(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\\")))))) != 0) and !(is_suffix(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\\\\")))))) != 0));
+    prompt = @intFromBool((is_suffix(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\\")))))))) != 0) and !(is_suffix(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\\\\")))))))) != 0));
     _ = substitute(ses, arg1, tmp, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     _ = substitute(ses, tmp, arg1, (@as(c_int, 1) << @intCast(@as(c_int, 6))) | (@as(c_int, 1) << @intCast(@as(c_int, 7))));
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
@@ -8197,14 +8201,14 @@ pub export fn do_showme(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     }
     if (ses.*.gagline > @as(c_int, 0)) {
         ses.*.gagline -= 1;
-        show_debug(ses, LIST_GAG, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG GAG \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} \x1b[38;5;044m[\x1b[38;5;188m%d\x1b[38;5;044m]"))))), arg1, ses.*.gagline + @as(c_int, 1));
+        show_debug(ses, LIST_GAG, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG GAG \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} \x1b[38;5;044m[\x1b[38;5;188m%d\x1b[38;5;044m]"))))))), arg1, ses.*.gagline + @as(c_int, 1));
         return ses;
     }
     if (@as(c_int, arg2.*) != 0) {
         split_show(ses, arg1, arg2, arg3);
         return ses;
     }
-    _ = str_cpy_printf(&out, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s%s%s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))), arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))));
+    _ = str_cpy_printf(&out, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s%s%s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))))), arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))))));
     tintin_puts3(ses, out, prompt);
     return ses;
 }
@@ -8237,7 +8241,7 @@ pub export fn do_echo(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
         _ = strcpy(arg1, result);
         arg += strlen(arg);
     }
-    prompt = @intFromBool((is_suffix(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\\")))))) != 0) and !(is_suffix(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\\\\")))))) != 0));
+    prompt = @intFromBool((is_suffix(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\\")))))))) != 0) and !(is_suffix(arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\\\\")))))))) != 0));
     _ = substitute(ses, arg1, arg1, (@as(c_int, 1) << @intCast(@as(c_int, 6))) | (@as(c_int, 1) << @intCast(@as(c_int, 7))));
     arg = sub_arg_in_braces(ses, arg, arg2, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     arg = sub_arg_in_braces(ses, arg, arg3, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
@@ -8245,7 +8249,7 @@ pub export fn do_echo(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*
         split_show(ses, arg1, arg2, arg3);
         return ses;
     }
-    _ = str_cpy_printf(&out, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s%s%s"))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))), arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))));
+    _ = str_cpy_printf(&out, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s%s%s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))))), arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))))));
     tintin_puts3(ses, out, prompt);
     return ses;
 }

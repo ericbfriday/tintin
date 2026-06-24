@@ -395,17 +395,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;
@@ -7499,14 +7503,14 @@ pub export fn do_history(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     _ = &cnt;
     arg = get_arg_in_braces(ses, arg, arg1, GET_ONE);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" HISTORY COMMANDS "))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(" HISTORY COMMANDS "))))))));
         {
             cnt = 0;
             while (@as(c_int, history_table[@bitCast(@as(isize, @intCast(cnt)))].name.*) != @as(c_int, 0)) : (cnt += 1) {
-                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-13s] %s"))))), history_table[@bitCast(@as(isize, @intCast(cnt)))].name, history_table[@bitCast(@as(isize, @intCast(cnt)))].desc);
+                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("  [%-13s] %s"))))))), history_table[@bitCast(@as(isize, @intCast(cnt)))].name, history_table[@bitCast(@as(isize, @intCast(cnt)))].desc);
             }
         }
-        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+        tintin_header(ses, 80, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         return ses;
     }
     {
@@ -7519,7 +7523,7 @@ pub export fn do_history(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
             return ses;
         }
     }
-    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #HISTORY {%s}: INVALID HISTORY OPTION."))))), arg1);
+    show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #HISTORY {%s}: INVALID HISTORY OPTION."))))))), arg1);
     return ses;
 }
 pub export fn add_line_history(arg_ses: [*c]struct_session, arg_line: [*c]u8) void {
@@ -7539,14 +7543,14 @@ pub export fn add_line_history(arg_ses: [*c]struct_session, arg_line: [*c]u8) vo
         return;
     }
     last = root.*.used;
-    _ = update_node_list(@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_HISTORY], line, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+    _ = update_node_list(@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_HISTORY], line, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     if (last < root.*.used) {
         gtd.*.flags |= @as(c_int, 1) << @intCast(@as(c_int, 0));
     }
     while (root.*.used > gtd.*.history_size) {
         delete_index_list(@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_HISTORY], 0);
     }
-    _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 2))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("HISTORY UPDATE"))))), line);
+    _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 2))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("HISTORY UPDATE"))))))), line);
     return;
 }
 pub extern fn insert_line_history(ses: [*c]struct_session, line: [*c]u8) void;
@@ -7562,16 +7566,16 @@ pub export fn repeat_history(arg_ses: [*c]struct_session, arg_line: [*c]u8) [*c]
     {
         i = root.*.used - @as(c_int, 1);
         while (i >= @as(c_int, 0)) : (i -= 1) {
-            if (!(strncmp(@as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(i)))].*.arg1, line, strlen(line)) != 0)) {
-                add_line_history(gtd.*.ses, @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(i)))].*.arg1);
+            if (!(strncmp(root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg1, line, strlen(line)) != 0)) {
+                add_line_history(gtd.*.ses, root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg1);
                 gtd.*.level.*.repeat +%= 1;
-                ses = script_driver(ses, LIST_COMMAND, null, @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(root.*.used - @as(c_int, 1))))].*.arg1);
+                ses = script_driver(ses, LIST_COMMAND, null, root.*.list[@bitCast(@as(isize, @intCast(root.*.used - @as(c_int, 1))))].*.arg1);
                 gtd.*.level.*.repeat -%= 1;
                 return ses;
             }
         }
     }
-    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#REPEAT: NO MATCH FOUND FOR '%s'"))))), line);
+    tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#REPEAT: NO MATCH FOUND FOR '%s'"))))))), line);
     return ses;
 }
 pub extern fn write_history(ses: [*c]struct_session, filename: [*c]u8) c_int;
@@ -7611,7 +7615,7 @@ pub export fn history_get(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
     _ = &max;
     arg = get_arg_in_braces(ses, arg, arg1, GET_ONE);
     if (@as(c_int, arg1.*) == @as(c_int, 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #HISTORY GET <VARIABLE> [LOWER BOUND] [UPPER BOUND]"))))));
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SYNTAX: #HISTORY GET <VARIABLE> [LOWER BOUND] [UPPER BOUND]"))))))));
         return;
     }
     arg = get_arg_in_braces(ses, arg, arg2, GET_ONE);
@@ -7623,8 +7627,8 @@ pub export fn history_get(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
     arg3 = str_alloc_stack(0);
     arg = sub_arg_in_braces(ses, arg, arg3, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     if (@as(c_int, arg3.*) == @as(c_int, 0)) {
-        _ = substitute(ses, @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(min)))].*.arg1, arg3, @as(c_int, 1) << @intCast(@as(c_int, 1)));
-        _ = set_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), arg3);
+        _ = substitute(ses, root.*.list[@bitCast(@as(isize, @intCast(min)))].*.arg1, arg3, @as(c_int, 1) << @intCast(@as(c_int, 1)));
+        _ = set_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), arg3);
         return;
     }
     max = @intFromFloat(get_number(ses, arg3));
@@ -7633,18 +7637,18 @@ pub export fn history_get(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
     }
     max = if (max < @as(c_int, 0)) @as(c_int, 0) else if (max > (root.*.used - @as(c_int, 1))) root.*.used - @as(c_int, 1) else max;
     if (min > max) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #HISTORY GET {%s} {%d} {%d} LOWER BOUND EXCEEDS UPPER BOUND."))))), arg1, min, max);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#ERROR: #HISTORY GET {%s} {%d} {%d} LOWER BOUND EXCEEDS UPPER BOUND."))))))), arg1, min, max);
         return;
     }
     cnt = 0;
-    _ = set_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+    _ = set_nest_node_ses(ses, arg1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     while (min <= max) {
         _ = sprintf(arg2, "%s[%d]", arg1, blk: {
             const ref = &cnt;
             ref.* += 1;
             break :blk ref.*;
         });
-        _ = substitute(ses, @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[
+        _ = substitute(ses, root.*.list[
             @bitCast(@as(isize, @intCast(blk: {
                 const ref = &min;
                 const tmp = ref.*;
@@ -7652,9 +7656,9 @@ pub export fn history_get(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1
                 break :blk tmp;
             })))
         ].*.arg1, arg3, @as(c_int, 1) << @intCast(@as(c_int, 1)));
-        _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), arg3);
+        _ = set_nest_node_ses(ses, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), arg3);
     }
-    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#HISTORY GET: %d LINES SAVED TO {%s}."))))), cnt, arg1);
+    show_message(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#HISTORY GET: %d LINES SAVED TO {%s}."))))))), cnt, arg1);
     return;
 }
 pub export fn history_insert(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: [*c]u8, arg_arg2: [*c]u8) void {
@@ -7702,19 +7706,19 @@ pub export fn history_read(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     file = fopen(arg1, "r");
     if (@as(?*anyopaque, @ptrCast(@alignCast(file))) == @as(?*anyopaque, null)) {
-        show_message(ses, LIST_HISTORY, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#HISTORY READ {%s}: COULDN'T OPEN FILE."))))), arg1);
+        show_message(ses, LIST_HISTORY, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#HISTORY READ {%s}: COULDN'T OPEN FILE."))))))), arg1);
         return;
     }
     kill_list(root);
     while (fread_one_line(&arg2, file) != null) {
         if (@as(c_int, arg2.*) != 0) {
-            _ = create_node_list(root, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+            _ = create_node_list(root, arg2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         }
     }
-    _ = create_node_list(root, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+    _ = create_node_list(root, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     _ = fclose(file);
     if (@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_HISTORY].*.used > gtd.*.history_size) {
-        _ = command(gts, do_configure, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{HISTORY SIZE} {%d}"))))), if (@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_HISTORY].*.used < @as(c_int, 9999)) @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_HISTORY].*.used else @as(c_int, 9999));
+        _ = command(gts, do_configure, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("{HISTORY SIZE} {%d}"))))))), if (@as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_HISTORY].*.used < @as(c_int, 9999)) @as([*c][*c]struct_listroot, @ptrCast(&ses.*.list))[LIST_HISTORY].*.used else @as(c_int, 9999));
     }
     return;
 }
@@ -7736,13 +7740,13 @@ pub export fn history_write(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_ar
     arg = sub_arg_in_braces(ses, arg, arg1, GET_ONE, (@as(c_int, 1) << @intCast(@as(c_int, 4))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))));
     file = fopen(arg1, "w");
     if (@as(?*anyopaque, @ptrCast(@alignCast(file))) == @as(?*anyopaque, null)) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#HISTORY WRITE {%s}: COULDN'T OPEN FILE."))))), arg1);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#HISTORY WRITE {%s}: COULDN'T OPEN FILE."))))))), arg1);
         return;
     }
     {
         i = 0;
         while (i < root.*.used) : (i += 1) {
-            _ = fprintf(file, "%s\n", @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(i)))].*.arg1);
+            _ = fprintf(file, "%s\n", root.*.list[@bitCast(@as(isize, @intCast(i)))].*.arg1);
         }
     }
     _ = fclose(file);

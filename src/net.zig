@@ -396,17 +396,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;
@@ -7681,7 +7685,7 @@ pub export fn connect_mud(arg_ses: [*c]struct_session, arg_host: [*c]u8, arg_por
     var ip: [100]u8 = undefined;
     _ = &ip;
     if (!(is_number(port) != 0)) {
-        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#CONNECT: THE PORT {%s} SHOULD BE A NUMBER."))))), port);
+        show_error(ses, LIST_COMMAND, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#CONNECT: THE PORT {%s} SHOULD BE A NUMBER."))))))), port);
         return -@as(c_int, 1);
     }
     static_local_hints.hints.ai_family = AF_INET;
@@ -7692,25 +7696,25 @@ pub export fn connect_mud(arg_ses: [*c]struct_session, arg_host: [*c]u8, arg_por
         static_local_hints.hints.ai_family = AF_INET6;
         @"error" = getaddrinfo(host, port, &static_local_hints.hints, &address);
         if (@"error" != 0) {
-            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SESSION '%s' COULD NOT CONNECT - UNKNOWN HOST."))))), ses.*.name);
+            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SESSION '%s' COULD NOT CONNECT - UNKNOWN HOST."))))))), ses.*.name);
             return -@as(c_int, 1);
         }
     }
     sock = socket(address.*.ai_family, address.*.ai_socktype, address.*.ai_protocol);
     if (sock < @as(c_int, 0)) {
-        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("connect_mud: socket"))))));
+        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("connect_mud: socket"))))))));
         freeaddrinfo(address);
         return -@as(c_int, 1);
     }
     optval = 1;
     if (setsockopt(sock, SOL_SOCKET, SO_KEEPALIVE, @ptrCast(@alignCast(&optval)), @truncate(@sizeOf(@TypeOf(optval)))) < @as(c_int, 0)) {
-        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("connect_mud: setsockopt:"))))));
+        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("connect_mud: setsockopt:"))))))));
     }
     if (gts.*.connect_retry == @as(c_ulonglong, 0)) {
         ses.*.connect_error = connect(sock, address.*.ai_addr, address.*.ai_addrlen);
     }
     if (fcntl(sock, F_SETFL, O_NONBLOCK | O_NONBLOCK) == -@as(c_int, 1)) {
-        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("connect_mud: fcntl O_NDELAY|O_NONBLOCK"))))));
+        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("connect_mud: fcntl O_NDELAY|O_NONBLOCK"))))))));
         _ = close(sock);
         freeaddrinfo(address);
         return -@as(c_int, 1);
@@ -7723,7 +7727,7 @@ pub export fn connect_mud(arg_ses: [*c]struct_session, arg_host: [*c]u8, arg_por
     }
     if (ses.*.connect_error != 0) {
         if (gts.*.connect_retry == @as(c_ulonglong, 0)) {
-            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("connect_mud: connect"))))));
+            syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("connect_mud: connect"))))))));
         }
         _ = close(sock);
         freeaddrinfo(address);
@@ -7731,7 +7735,7 @@ pub export fn connect_mud(arg_ses: [*c]struct_session, arg_host: [*c]u8, arg_por
     }
     @"error" = getnameinfo(address.*.ai_addr, address.*.ai_addrlen, @ptrCast(@alignCast(&ip)), 100, null, 0, NI_NUMERICHOST);
     if (@"error" != 0) {
-        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("connect_mud: getnameinfo:"))))));
+        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("connect_mud: getnameinfo:"))))))));
     } else {
         {
             if (ses.*.session_ip != null) {
@@ -7752,26 +7756,26 @@ pub export fn write_line_mud(arg_ses: [*c]struct_session, arg_line: [*c]u8, arg_
     _ = &size;
     var result: c_int = undefined;
     _ = &result;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("write_line_mud(%p,%p)"))))), line, ses);
-    _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SEND OUTPUT"))))), line, ntos(size));
-    if (check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH SEND OUTPUT"))))), line, ntos(size)) != 0) {
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("write_line_mud(%p,%p)"))))))), line, ses);
+    _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SEND OUTPUT"))))))), line, ntos(size));
+    if (check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH SEND OUTPUT"))))))), line, ntos(size)) != 0) {
         pop_call();
         return;
     }
     if (ses == gts) {
         if ((gtd.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) {
-            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#NO SESSION ACTIVE. TINTIN IS CHILD LOCKED, PRESS CTRL-D TO EXIT."))))));
+            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#NO SESSION ACTIVE. TINTIN IS CHILD LOCKED, PRESS CTRL-D TO EXIT."))))))));
         } else {
-            _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("NO SESSION ACTIVE"))))), line, ntos(size));
-            if (!(check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG NO SESSION ACTIVE"))))), line, ntos(size)) != 0)) {
-                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#NO SESSION ACTIVE. USE: %csession {name} {host} {port} TO START ONE."))))), gtd.*.tintin_char);
+            _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("NO SESSION ACTIVE"))))))), line, ntos(size));
+            if (!(check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 5))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("GAG NO SESSION ACTIVE"))))))), line, ntos(size)) != 0)) {
+                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#NO SESSION ACTIVE. USE: %csession {name} {host} {port} TO START ONE."))))))), gtd.*.tintin_char);
             }
         }
         pop_call();
         return;
     }
     if (!((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0)) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#THIS SESSION IS NOT CONNECTED, CANNOT SEND: %s"))))), line);
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#THIS SESSION IS NOT CONNECTED, CANNOT SEND: %s"))))))), line);
         pop_call();
         return;
     }
@@ -7793,7 +7797,7 @@ pub export fn write_line_mud(arg_ses: [*c]struct_session, arg_line: [*c]u8, arg_
         } else {
             result = @truncate(write(ses.*.socket, @ptrCast(@alignCast(line)), @bitCast(@as(c_long, size))));
             if (result == -@as(c_int, 1)) {
-                syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("write_line_mud: write"))))));
+                syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("write_line_mud: write"))))))));
             }
         }
         if (result == -@as(c_int, 1)) {
@@ -7802,7 +7806,7 @@ pub export fn write_line_mud(arg_ses: [*c]struct_session, arg_line: [*c]u8, arg_
             return;
         }
     }
-    _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT OUTPUT"))))), line, ntos(size));
+    _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 6))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT OUTPUT"))))))), line, ntos(size));
     pop_call();
     return;
 }
@@ -7813,14 +7817,14 @@ pub export fn read_buffer_mud(arg_ses: [*c]struct_session) c_int {
     _ = &buffer;
     var size: c_int = undefined;
     _ = &size;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("read_buffer_mud(%p)"))))), ses);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("read_buffer_mud(%p)"))))))), ses);
     if (ses.*.ssl != null) {
         while (true) {
             size = @truncate(gnutls_record_recv(ses.*.ssl, @ptrCast(@alignCast(@as([*c]u8, @ptrCast(@alignCast(&buffer))))), @bitCast(@as(c_long, BUFFER_SIZE - @as(c_int, 1)))));
             if (!((size == -@as(c_int, 52)) or (size == -@as(c_int, 28)))) break;
         }
         if (size < @as(c_int, 0)) {
-            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL ERROR: %s"))))), gnutls_strerror(size));
+            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#SSL ERROR: %s"))))))), gnutls_strerror(size));
         }
     } else {
         size = @truncate(read(ses.*.socket, @ptrCast(@alignCast(@as([*c]u8, @ptrCast(@alignCast(&buffer))))), @bitCast(@as(c_long, BUFFER_SIZE - @as(c_int, 1000)))));
@@ -7847,19 +7851,19 @@ pub export fn readmud(arg_ses: [*c]struct_session) void {
     _ = &len;
     var cts: [*c]struct_session = undefined;
     _ = &cts;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("readmud(%p)"))))), ses);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("readmud(%p)"))))))), ses);
     line = gtd.*.mud_output_buf;
     if ((ses.*.check_output != 0) and (@as(c_ulonglong, @bitCast(@as(c_longlong, @intFromBool(@as(c_int, line.*) == @as(c_int, '\n'))))) != 0)) {
         line += 1;
-        process_more_output(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))), FALSE);
+        process_more_output(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))), FALSE);
     } else if ((ses.*.config_flags & (@as(c_int, 1) << @intCast(@as(c_int, 3)))) != 0) {
         if ((@as(c_int, ses.*.scroll.*.input.*) == @as(c_int, 0)) and (@as(c_int, line.*) == @as(c_int, '\n'))) {
             line += 1;
         }
     }
     gtd.*.mud_output_strip_len = strip_vt102_codes(line, gtd.*.mud_output_strip_buf);
-    _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 9))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RECEIVED OUTPUT"))))), gtd.*.mud_output_buf, gtd.*.mud_output_strip_buf);
-    if (check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH RECEIVED OUTPUT"))))), gtd.*.mud_output_buf, gtd.*.mud_output_strip_buf) != 0) {
+    _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 9))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RECEIVED OUTPUT"))))))), gtd.*.mud_output_buf, gtd.*.mud_output_strip_buf);
+    if (check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH RECEIVED OUTPUT"))))))), gtd.*.mud_output_buf, gtd.*.mud_output_strip_buf) != 0) {
         gtd.*.mud_output_len = 0;
         pop_call();
         return;
@@ -7901,13 +7905,13 @@ pub export fn readmud(arg_ses: [*c]struct_session) void {
                             if (!(detect_prompt(ses, line) != 0)) {
                                 _ = str_cat(&ses.*.more_output, line);
                                 ses.*.check_output = gtd.*.utime +% (if (ses.*.packet_patch != 0) ses.*.packet_patch else @as(c_ulonglong, 500000));
-                                _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 9)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PACKET PATCH"))))));
+                                _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 9)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PACKET PATCH"))))))));
                                 break;
                             }
                         } else if ((ses.*.packet_patch != 0) or (@as(c_ulonglong, @bitCast(@as(c_longlong, ses.*.config_flags & (@as(c_int, 1) << @intCast(@as(c_int, 1)))))) != 0)) {
                             _ = str_cat(&ses.*.more_output, line);
                             ses.*.check_output = gtd.*.utime +% (if (ses.*.packet_patch != 0) ses.*.packet_patch else @as(c_ulonglong, 500000));
-                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 9)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PACKET PATCH"))))));
+                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 9)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PACKET PATCH"))))))));
                             break;
                         }
                     }
@@ -7961,7 +7965,7 @@ pub export fn process_more_output(arg_ses: [*c]struct_session, arg_append: [*c]u
     } else {
         _ = strcpy(@ptrCast(@alignCast(&line)), ses.*.more_output);
     }
-    _ = str_cpy(&ses.*.more_output, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))));
+    _ = str_cpy(&ses.*.more_output, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
     ses.*.check_output = 0;
     process_one_line(ses, @ptrCast(@alignCast(&line)), prompt);
     if (readmud_1 == @as(c_int, 0)) {
@@ -7984,23 +7988,23 @@ pub export fn process_one_line(arg_ses: [*c]struct_session, arg_linebuf: [*c]u8,
     _ = &str_len_1;
     var raw_len: c_int = undefined;
     _ = &raw_len;
-    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("process_one_line(%p,%p,%d)"))))), ses, linebuf, prompt);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("process_one_line(%p,%p,%d)"))))))), ses, linebuf, prompt);
     raw_len = @bitCast(@as(c_uint, @truncate(strlen(linebuf))));
     str_len_1 = strip_vt102_codes(linebuf, @ptrCast(@alignCast(&temp)));
-    _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 9))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RECEIVED LINE"))))), linebuf, @as([*c]u8, @ptrCast(@alignCast(&temp))));
-    if (check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH RECEIVED LINE"))))), linebuf, @as([*c]u8, @ptrCast(@alignCast(&temp)))) != 0) {
+    _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 9))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RECEIVED LINE"))))))), linebuf, @as([*c]u8, @ptrCast(@alignCast(&temp))));
+    if (check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH RECEIVED LINE"))))))), linebuf, @as([*c]u8, @ptrCast(@alignCast(&temp)))) != 0) {
         pop_call();
         return;
     }
     if ((str_len_1 != 0) and (prompt != 0)) {
-        _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 9))), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RECEIVED PROMPT"))))), linebuf, @as([*c]u8, @ptrCast(@alignCast(&temp))), ntos(raw_len), ntos(str_len_1));
-        if (check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH RECEIVED PROMPT"))))), linebuf, @as([*c]u8, @ptrCast(@alignCast(&temp))), ntos(raw_len), ntos(str_len_1)) != 0) {
+        _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 9))), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RECEIVED PROMPT"))))))), linebuf, @as([*c]u8, @ptrCast(@alignCast(&temp))), ntos(raw_len), ntos(str_len_1));
+        if (check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH RECEIVED PROMPT"))))))), linebuf, @as([*c]u8, @ptrCast(@alignCast(&temp))), ntos(raw_len), ntos(str_len_1)) != 0) {
             pop_call();
             return;
         }
     }
     if ((ses.*.config_flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) {
-        _ = sprintf(@ptrCast(@alignCast(&temp)), "%s%s%s", @as([*c]u8, @ptrCast(@alignCast(&ses.*.color_patch))), linebuf, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))));
+        _ = sprintf(@ptrCast(@alignCast(&temp)), "%s%s%s", @as([*c]u8, @ptrCast(@alignCast(&ses.*.color_patch))), linebuf, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[0m"))))))));
         get_color_codes(@ptrCast(@alignCast(&ses.*.color_patch)), linebuf, @ptrCast(@alignCast(&ses.*.color_patch)), GET_ALL);
         _ = strcpy(linebuf, @ptrCast(@alignCast(&temp)));
     }
@@ -8008,16 +8012,16 @@ pub export fn process_one_line(arg_ses: [*c]struct_session, arg_linebuf: [*c]u8,
     if (ses.*.gagline > @as(c_int, 0)) {
         ses.*.gagline -= 1;
         strip_non_vt102_codes(linebuf, @ptrCast(@alignCast(&temp)));
-        print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))), @as([*c]u8, @ptrCast(@alignCast(&temp))));
+        print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), @as([*c]u8, @ptrCast(@alignCast(&temp))));
         _ = strip_vt102_codes(linebuf, @ptrCast(@alignCast(&temp)));
-        show_debug(ses, LIST_GAG, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG GAG \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} \x1b[38;5;044m[\x1b[38;5;188m%d\x1b[38;5;044m]"))))), @as([*c]u8, @ptrCast(@alignCast(&temp))), ses.*.gagline + @as(c_int, 1));
+        show_debug(ses, LIST_GAG, null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\x1b[38;5;037m#DEBUG GAG \x1b[38;5;164m{\x1b[38;5;188m%s\x1b[38;5;164m} \x1b[38;5;044m[\x1b[38;5;188m%d\x1b[38;5;044m]"))))))), @as([*c]u8, @ptrCast(@alignCast(&temp))), ses.*.gagline + @as(c_int, 1));
         pop_call();
         return;
     }
     if ((ses.*.event_flags & ((@as(c_int, 1) << @intCast(@as(c_int, 9))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))))) != 0) {
         _ = strip_vt102_codes(linebuf, @ptrCast(@alignCast(&temp)));
-        _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 9))), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PROCESSED LINE"))))), linebuf, @as([*c]u8, @ptrCast(@alignCast(&temp))), ntos(prompt));
-        if (check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH PROCESSED LINE"))))), linebuf, @as([*c]u8, @ptrCast(@alignCast(&temp))), ntos(prompt)) != 0) {
+        _ = check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 9))), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PROCESSED LINE"))))))), linebuf, @as([*c]u8, @ptrCast(@alignCast(&temp))), ntos(prompt));
+        if (check_all_events(ses, (@as(c_int, 1) << @intCast(@as(c_int, 1))) | (@as(c_int, 1) << @intCast(@as(c_int, 3))), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH PROCESSED LINE"))))))), linebuf, @as([*c]u8, @ptrCast(@alignCast(&temp))), ntos(prompt)) != 0) {
             pop_call();
             return;
         }
@@ -8852,11 +8856,11 @@ pub export fn wait_on_connect(arg_ses: [*c]struct_session, arg_sock: c_int, arg_
         while (true) {
             switch (select(__DARWIN_FD_SETSIZE, &static_local_rfd.rfd, &static_local_wfd.wfd, null, &static_local_timeout.timeout)) {
                 @as(c_int, 0) => {
-                    syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("wait_on_connect:"))))));
+                    syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("wait_on_connect:"))))))));
                     return -@as(c_int, 1);
                 },
                 -@as(c_int, 1) => {
-                    syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("wait_on_connect: select"))))));
+                    syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("wait_on_connect: select"))))))));
                     return -@as(c_int, 1);
                 },
                 else => {},
@@ -8867,11 +8871,11 @@ pub export fn wait_on_connect(arg_ses: [*c]struct_session, arg_sock: c_int, arg_
         while (true) {
             switch (select(sock + @as(c_int, 1), null, &static_local_wfd.wfd, null, &static_local_timeout.timeout)) {
                 @as(c_int, 0) => {
-                    syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("wait_on_connect2:"))))));
+                    syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("wait_on_connect2:"))))))));
                     return -@as(c_int, 1);
                 },
                 -@as(c_int, 1) => {
-                    syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("wait_on_connect2: select"))))));
+                    syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("wait_on_connect2: select"))))))));
                     return -@as(c_int, 1);
                 },
                 else => {},
@@ -8881,12 +8885,12 @@ pub export fn wait_on_connect(arg_ses: [*c]struct_session, arg_sock: c_int, arg_
     }
     len = @truncate(@sizeOf(@TypeOf(val)));
     if (getsockopt(sock, SOL_SOCKET, SO_ERROR, @ptrCast(@alignCast(&val)), &len) == -@as(c_int, 1)) {
-        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("wait_on_connect: getsockopt:"))))));
+        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("wait_on_connect: getsockopt:"))))))));
         return -@as(c_int, 1);
     }
     if (val != 0) {
         __error().* = @bitCast(@as(c_uint, @truncate(val)));
-        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("wait_on_connect: getsockopt:"))))));
+        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("wait_on_connect: getsockopt:"))))))));
         return -@as(c_int, 1);
     }
     return 0;
@@ -8910,7 +8914,7 @@ pub export fn detect_prompt(arg_ses: [*c]struct_session, arg_original: [*c]u8) c
     {
         root.*.update = 0;
         while (root.*.update < root.*.used) : (root.*.update += 1) {
-            node = @as([*c][*c]struct_listnode, @ptrCast(&root.*.list))[@bitCast(@as(isize, @intCast(root.*.update)))];
+            node = root.*.list[@bitCast(@as(isize, @intCast(root.*.update)))];
             if (check_one_regexp(ses, node, @ptrCast(@alignCast(&strip)), original, 0) != 0) {
                 return TRUE;
             }

@@ -395,17 +395,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;
@@ -7967,7 +7971,7 @@ pub export fn client_translate_telopts(arg_ses: [*c]struct_session, arg_src: [*c
     _ = &cpdst;
     var cpsrc: [*c]u8 = undefined;
     _ = &cpsrc;
-    push_call(@as([*c]u8, @ptrCast(@constCast("client_translate_telopts(%p,%p,%d)"))), ses, src, cplen);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("client_translate_telopts(%p,%p,%d)"))))))), ses, src, cplen);
     if (cplen == @as(c_int, 0)) {
         gtd.*.mud_output_buf[@bitCast(@as(isize, @intCast(gtd.*.mud_output_len)))] = 0;
         pop_call();
@@ -7990,8 +7994,8 @@ pub export fn client_translate_telopts(arg_ses: [*c]struct_session, arg_src: [*c
                             ses.*.mccp2.*.next_out = gtd.*.mccp_buf + @as(usize, @bitCast(@as(isize, @intCast(@divTrunc(gtd.*.mccp_len, @as(c_int, 2))))));
                             continue;
                         } else {
-                            tintin_puts2(ses, @as([*c]u8, @ptrCast(@constCast(""))));
-                            tintin_puts2(ses, @as([*c]u8, @ptrCast(@constCast("#COMPRESSION ERROR, Z_BUF_ERROR, DISABLING MCCP2."))));
+                            tintin_puts2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+                            tintin_puts2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#COMPRESSION ERROR, Z_BUF_ERROR, DISABLING MCCP2."))))))));
                             _ = client_send_dont_mccp2(ses, 0, null);
                             _ = inflateEnd(ses.*.mccp2);
                             free(@ptrCast(@alignCast(ses.*.mccp2)));
@@ -8014,7 +8018,7 @@ pub export fn client_translate_telopts(arg_ses: [*c]struct_session, arg_src: [*c
                         break;
                     },
                     Z_STREAM_END => {
-                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("#COMPRESSION END, DISABLING MCCP2."))));
+                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#COMPRESSION END, DISABLING MCCP2."))))))));
                         cnt = @truncate(@divExact(@as(c_long, @bitCast(@intFromPtr(ses.*.mccp2.*.next_out) -% @intFromPtr(gtd.*.mccp_buf))), @sizeOf(Bytef)));
                         cpsrc = src + (@as(uInt, @bitCast(@as(c_int, cplen))) -% ses.*.mccp2.*.avail_in);
                         cplen = @bitCast(@as(c_uint, @truncate(ses.*.mccp2.*.avail_in)));
@@ -8025,8 +8029,8 @@ pub export fn client_translate_telopts(arg_ses: [*c]struct_session, arg_src: [*c
                         break;
                     },
                     else => {
-                        tintin_puts2(ses, @as([*c]u8, @ptrCast(@constCast(""))));
-                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("#COMPRESSION ERROR, DISABLING MCCP2, RETVAL %d."))), retval);
+                        tintin_puts2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+                        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("#COMPRESSION ERROR, DISABLING MCCP2, RETVAL %d."))))))), retval);
                         _ = client_send_dont_mccp2(ses, 0, null);
                         _ = inflateEnd(ses.*.mccp2);
                         free(@ptrCast(@alignCast(ses.*.mccp2)));
@@ -8066,28 +8070,28 @@ pub export fn client_translate_telopts(arg_ses: [*c]struct_session, arg_src: [*c
                 while (true) {
                     switch (@as(c_int, cpsrc[@as(c_int, 1)])) {
                         NOP, DM, BREAK, IP, AO, AYT, EC, EL, IAC, GA, EOR => {
-                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC %s"))), telcmds[@bitCast(@as(isize, @intCast(@as(c_int, cpsrc[@as(c_int, 1)]) - xEOF)))]);
+                            tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC %s"))))))), telcmds[@bitCast(@as(isize, @intCast(@as(c_int, cpsrc[@as(c_int, 1)]) - xEOF)))]);
                             break;
                         },
                         DO, DONT, WILL, WONT => {
                             if (cplen > @as(c_int, 2)) {
-                                tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC %s %s"))), telcmds[@bitCast(@as(isize, @intCast(@as(c_int, cpsrc[@as(c_int, 1)]) - xEOF)))], telopt_table[cpsrc[@as(c_int, 2)]].name);
+                                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC %s %s"))))))), telcmds[@bitCast(@as(isize, @intCast(@as(c_int, cpsrc[@as(c_int, 1)]) - xEOF)))], telopt_table[cpsrc[@as(c_int, 2)]].name);
                             } else {
-                                tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC %s %d (BAD TELOPT)"))), telcmds[@bitCast(@as(isize, @intCast(@as(c_int, cpsrc[@as(c_int, 1)]) - xEOF)))], cpsrc[@as(c_int, 2)]);
+                                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC %s %d (BAD TELOPT)"))))))), telcmds[@bitCast(@as(isize, @intCast(@as(c_int, cpsrc[@as(c_int, 1)]) - xEOF)))], cpsrc[@as(c_int, 2)]);
                             }
                             break;
                         },
                         SB => {
                             if (cplen > @as(c_int, 2)) {
-                                tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC SB %s"))), telopt_table[cpsrc[@as(c_int, 2)]].name);
+                                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC SB %s"))))))), telopt_table[cpsrc[@as(c_int, 2)]].name);
                             }
                             break;
                         },
                         else => {
                             if (@as(c_int, cpsrc[@as(c_int, 1)]) >= xEOF) {
-                                tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC %s %d"))), telcmds[@bitCast(@as(isize, @intCast(@as(c_int, cpsrc[@as(c_int, 1)]) - xEOF)))], cpsrc[@as(c_int, 2)]);
+                                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC %s %d"))))))), telcmds[@bitCast(@as(isize, @intCast(@as(c_int, cpsrc[@as(c_int, 1)]) - xEOF)))], cpsrc[@as(c_int, 2)]);
                             } else {
-                                tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC %d %d"))), cpsrc[@as(c_int, 1)], cpsrc[@as(c_int, 2)]);
+                                tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC %d %d"))))))), cpsrc[@as(c_int, 1)], cpsrc[@as(c_int, 2)]);
                             }
                             break;
                         },
@@ -8121,7 +8125,7 @@ pub export fn client_translate_telopts(arg_ses: [*c]struct_session, arg_src: [*c
                         },
                         WILL => {
                             if (cplen > @as(c_int, 2)) {
-                                if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 0, @as([*c]u8, @ptrCast(@constCast("IAC WILL %s"))), telopt_table[cpsrc[@as(c_int, 2)]].name) != 0) and !(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 1, 0, @as([*c]u8, @ptrCast(@constCast("CATCH IAC WILL %s"))), telopt_table[cpsrc[@as(c_int, 2)]].name) != 0)) {
+                                if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC WILL %s"))))))), telopt_table[cpsrc[@as(c_int, 2)]].name) != 0) and !(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 1, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC WILL %s"))))))), telopt_table[cpsrc[@as(c_int, 2)]].name) != 0)) {
                                     if (!((@as([*c]c_int, @ptrCast(&ses.*.telopt_flag))[@bitCast(@as(isize, @intCast(@divTrunc(@as(c_int, cpsrc[@as(c_int, 2)]), @as(c_int, 32)))))] & (@as(c_int, 1) << @intCast(__helpers.signedRemainder(@as(c_int, cpsrc[@as(c_int, 2)]), @as(c_int, 32))))) != 0)) {
                                         if (telopt_table[cpsrc[@as(c_int, 2)]].want != 0) {
                                             skip = client_send_do_telopt(ses, cplen, cpsrc);
@@ -8137,7 +8141,7 @@ pub export fn client_translate_telopts(arg_ses: [*c]struct_session, arg_src: [*c
                         },
                         DO => {
                             if (cplen > @as(c_int, 2)) {
-                                if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 0, @as([*c]u8, @ptrCast(@constCast("IAC DO %s"))), telopt_table[cpsrc[@as(c_int, 2)]].name) != 0) and !(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 1, 0, @as([*c]u8, @ptrCast(@constCast("CATCH IAC DO %s"))), telopt_table[cpsrc[@as(c_int, 2)]].name) != 0)) {
+                                if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC DO %s"))))))), telopt_table[cpsrc[@as(c_int, 2)]].name) != 0) and !(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 1, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC DO %s"))))))), telopt_table[cpsrc[@as(c_int, 2)]].name) != 0)) {
                                     if (!((@as([*c]c_int, @ptrCast(&ses.*.telopt_flag))[@bitCast(@as(isize, @intCast(@divTrunc(@as(c_int, cpsrc[@as(c_int, 2)]), @as(c_int, 32)))))] & (@as(c_int, 1) << @intCast(__helpers.signedRemainder(@as(c_int, cpsrc[@as(c_int, 2)]), @as(c_int, 32))))) != 0)) {
                                         if (telopt_table[cpsrc[@as(c_int, 2)]].want != 0) {
                                             skip = client_send_will_telopt(ses, cplen, cpsrc);
@@ -8153,7 +8157,7 @@ pub export fn client_translate_telopts(arg_ses: [*c]struct_session, arg_src: [*c
                         },
                         WONT, DONT => {
                             if (cplen > @as(c_int, 2)) {
-                                _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 2, 0, @as([*c]u8, @ptrCast(@constCast("IAC %s %s"))), telcmds[@bitCast(@as(isize, @intCast(@as(c_int, cpsrc[@as(c_int, 1)]) - xEOF)))], telopt_table[cpsrc[@as(c_int, 2)]].name);
+                                _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 2, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC %s %s"))))))), telcmds[@bitCast(@as(isize, @intCast(@as(c_int, cpsrc[@as(c_int, 1)]) - xEOF)))], telopt_table[cpsrc[@as(c_int, 2)]].name);
                                 @as([*c]c_int, @ptrCast(&ses.*.telopt_flag))[@bitCast(@as(isize, @intCast(@divTrunc(@as(c_int, cpsrc[@as(c_int, 2)]), @as(c_int, 32)))))] &= ~(@as(c_int, 1) << @intCast(__helpers.signedRemainder(@as(c_int, cpsrc[@as(c_int, 2)]), @as(c_int, 32))));
                             }
                             skip = 3;
@@ -8175,7 +8179,7 @@ pub export fn client_translate_telopts(arg_ses: [*c]struct_session, arg_src: [*c
                             break;
                         },
                         else => {
-                            tintin_printf(null, @as([*c]u8, @ptrCast(@constCast("RCVD IAC %d (BAD TELOPT)"))), cpsrc[@as(c_int, 1)]);
+                            tintin_printf(null, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC %d (BAD TELOPT)"))))))), cpsrc[@as(c_int, 1)]);
                             skip = 1;
                             break;
                         },
@@ -8230,7 +8234,7 @@ pub export fn client_translate_telopts(arg_ses: [*c]struct_session, arg_src: [*c
                         continue;
                     },
                     ASCII_ENQ => {
-                        if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 1, @as([*c]u8, @ptrCast(@constCast("CATCH VT100 ENQ"))), gtd.*.system.*.term) != 0) {
+                        if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH VT100 ENQ"))))))), gtd.*.system.*.term) != 0) {
                             cpsrc += 1;
                             cplen -= 1;
                             continue;
@@ -8298,7 +8302,7 @@ pub export fn client_write_compressed(arg_ses: [*c]struct_session, arg_txt: [*c]
     ses.*.mccp3.*.next_out = gtd.*.mccp_buf;
     ses.*.mccp3.*.avail_out = @bitCast(@as(c_int, gtd.*.mccp_len));
     if (deflate(ses.*.mccp3, Z_SYNC_FLUSH) != Z_OK) {
-        syserr_printf(ses, @as([*c]u8, @ptrCast(@constCast("client_write_compressed: deflate"))));
+        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("client_write_compressed: deflate"))))))));
         return 0;
     }
     if (ses.*.ssl != null) {
@@ -8311,7 +8315,7 @@ pub export fn client_write_compressed(arg_ses: [*c]struct_session, arg_txt: [*c]
         result = @truncate(write(ses.*.socket, @ptrCast(@alignCast(gtd.*.mccp_buf)), @as(uInt, @bitCast(@as(c_int, gtd.*.mccp_len))) -% ses.*.mccp3.*.avail_out));
     }
     if (result == -@as(c_int, 1)) {
-        syserr_printf(ses, @as([*c]u8, @ptrCast(@constCast("client_write_compressed: write"))));
+        syserr_printf(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("client_write_compressed: write"))))))));
         return -@as(c_int, 1);
     }
     return result;
@@ -8329,20 +8333,20 @@ pub export fn client_send_sb_naws(arg_ses: [*c]struct_session, arg_cplen: c_int,
     _ = &cols;
     rows = if ((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 13)))) != 0) (ses.*.split.*.bot_row - ses.*.split.*.top_row) + @as(c_int, 1) else gtd.*.screen.*.rows;
     cols = get_scroll_cols(ses);
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 2, @as([*c]u8, @ptrCast(@constCast("IAC SB NAWS"))), ntos(rows), ntos(cols));
-    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 2, @as([*c]u8, @ptrCast(@constCast("CATCH IAC SB NAWS"))), ntos(rows), ntos(cols)) != 0) {
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB NAWS"))))))), ntos(rows), ntos(cols));
+    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC SB NAWS"))))))), ntos(rows), ntos(cols)) != 0) {
         return 3;
     }
     if ((__helpers.signedRemainder(cols, @as(c_int, 256)) == IAC) and (__helpers.signedRemainder(gtd.*.screen.*.rows, @as(c_int, 256)) == IAC)) {
-        telnet_printf(ses, 11, @as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%c%c%c%c%c%c"))), IAC, SB, TELOPT_NAWS, @divTrunc(cols, @as(c_int, 256)), IAC, __helpers.signedRemainder(cols, @as(c_int, 256)), @divTrunc(rows, @as(c_int, 256)), IAC, __helpers.signedRemainder(rows, @as(c_int, 256)), IAC, SE);
+        telnet_printf(ses, 11, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%c%c%c%c%c%c"))))))), IAC, SB, TELOPT_NAWS, @divTrunc(cols, @as(c_int, 256)), IAC, __helpers.signedRemainder(cols, @as(c_int, 256)), @divTrunc(rows, @as(c_int, 256)), IAC, __helpers.signedRemainder(rows, @as(c_int, 256)), IAC, SE);
     } else if (__helpers.signedRemainder(cols, @as(c_int, 256)) == IAC) {
-        telnet_printf(ses, 10, @as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%c%c%c%c%c"))), IAC, SB, TELOPT_NAWS, @divTrunc(cols, @as(c_int, 256)), IAC, __helpers.signedRemainder(cols, @as(c_int, 256)), @divTrunc(rows, @as(c_int, 256)), __helpers.signedRemainder(rows, @as(c_int, 256)), IAC, SE);
+        telnet_printf(ses, 10, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%c%c%c%c%c"))))))), IAC, SB, TELOPT_NAWS, @divTrunc(cols, @as(c_int, 256)), IAC, __helpers.signedRemainder(cols, @as(c_int, 256)), @divTrunc(rows, @as(c_int, 256)), __helpers.signedRemainder(rows, @as(c_int, 256)), IAC, SE);
     } else if (__helpers.signedRemainder(gtd.*.screen.*.rows, @as(c_int, 256)) == IAC) {
-        telnet_printf(ses, 10, @as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%c%c%c%c%c"))), IAC, SB, TELOPT_NAWS, @divTrunc(cols, @as(c_int, 256)), __helpers.signedRemainder(cols, @as(c_int, 256)), @divTrunc(rows, @as(c_int, 256)), IAC, __helpers.signedRemainder(rows, @as(c_int, 256)), IAC, SE);
+        telnet_printf(ses, 10, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%c%c%c%c%c"))))))), IAC, SB, TELOPT_NAWS, @divTrunc(cols, @as(c_int, 256)), __helpers.signedRemainder(cols, @as(c_int, 256)), @divTrunc(rows, @as(c_int, 256)), IAC, __helpers.signedRemainder(rows, @as(c_int, 256)), IAC, SE);
     } else {
-        telnet_printf(ses, 9, @as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%c%c%c%c"))), IAC, SB, TELOPT_NAWS, @divTrunc(cols, @as(c_int, 256)), __helpers.signedRemainder(cols, @as(c_int, 256)), @divTrunc(rows, @as(c_int, 256)), __helpers.signedRemainder(rows, @as(c_int, 256)), IAC, SE);
+        telnet_printf(ses, 9, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%c%c%c%c"))))))), IAC, SB, TELOPT_NAWS, @divTrunc(cols, @as(c_int, 256)), __helpers.signedRemainder(cols, @as(c_int, 256)), @divTrunc(rows, @as(c_int, 256)), __helpers.signedRemainder(rows, @as(c_int, 256)), IAC, SE);
     }
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC SB NAWS %d %d %d %d"))), @divTrunc(cols, @as(c_int, 256)), __helpers.signedRemainder(cols, @as(c_int, 256)), @divTrunc(rows, @as(c_int, 256)), __helpers.signedRemainder(rows, @as(c_int, 256)));
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC SB NAWS %d %d %d %d"))))))), @divTrunc(cols, @as(c_int, 256)), __helpers.signedRemainder(cols, @as(c_int, 256)), @divTrunc(rows, @as(c_int, 256)), __helpers.signedRemainder(rows, @as(c_int, 256)));
     return 3;
 }
 pub extern fn announce_support(ses: [*c]struct_session, buddy: [*c]struct_port_data) void;
@@ -8355,11 +8359,11 @@ pub export fn client_end_mccp2(arg_ses: [*c]struct_session) void {
         return;
     }
     if (inflateEnd(ses.*.mccp2) == -@as(c_int, 2)) {
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("MCCP2: inflateEnd failed:"))));
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MCCP2: inflateEnd failed:"))))))));
     }
     free(@ptrCast(@alignCast(ses.*.mccp2)));
     ses.*.mccp2 = null;
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("MCCP2: COMPRESSION END, DISABLING MCCP2"))));
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MCCP2: COMPRESSION END, DISABLING MCCP2"))))))));
     return;
 }
 pub extern fn end_mccp2(ses: [*c]struct_session, buddy: [*c]struct_port_data) void;
@@ -8374,14 +8378,14 @@ pub export fn client_end_mccp3(arg_ses: [*c]struct_session) void {
     ses.*.mccp3.*.next_out = gtd.*.mccp_buf;
     ses.*.mccp3.*.avail_out = @bitCast(@as(c_int, gtd.*.mccp_len));
     if (deflate(ses.*.mccp3, Z_FINISH) != Z_STREAM_END) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("MCCP3: FAILED TO DEFLATE"))));
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MCCP3: FAILED TO DEFLATE"))))))));
     }
     if (deflateEnd(ses.*.mccp3) != Z_OK) {
-        tintin_printf2(ses, @as([*c]u8, @ptrCast(@constCast("MCCP3: FAILED TO DEFLATE_END"))));
+        tintin_printf2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MCCP3: FAILED TO DEFLATE_END"))))))));
     }
     free(@ptrCast(@alignCast(ses.*.mccp3)));
     ses.*.mccp3 = null;
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("MCCP3: COMPRESSION END, DISABLING MCCP3"))));
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MCCP3: COMPRESSION END, DISABLING MCCP3"))))))));
     return;
 }
 pub extern fn end_mccp3(ses: [*c]struct_session, buddy: [*c]struct_port_data) void;
@@ -8544,9 +8548,9 @@ pub export fn client_mark_prompt(arg_ses: [*c]struct_session, arg_cplen: c_int, 
     ses.*.telopts |= @as(c_int, 1) << @intCast(@as(c_int, 4));
     ses.*.config_flags |= @as(c_int, 1) << @intCast(@as(c_int, 1));
     if (@as(c_int, cpsrc[@as(c_int, 1)]) == GA) {
-        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC GA"))));
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC GA"))))))));
     } else if (@as(c_int, cpsrc[@as(c_int, 1)]) == EOR) {
-        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC EOR"))));
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC EOR"))))))));
     }
     return 2;
 }
@@ -8557,15 +8561,15 @@ pub export fn client_recv_do_naws(arg_ses: [*c]struct_session, arg_cplen: c_int,
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC DO NAWS"))));
-    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH IAC DO NAWS")))) != 0) {
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC DO NAWS"))))))));
+    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC DO NAWS")))))))) != 0) {
         return 3;
     }
     ses.*.telopts |= @as(c_int, 1) << @intCast(@as(c_int, 3));
     if (!((@as([*c]c_int, @ptrCast(&ses.*.telopt_flag))[@divTrunc(TELOPT_NAWS, @as(c_int, 32))] & (@as(c_int, 1) << @intCast(__helpers.signedRemainder(TELOPT_NAWS, @as(c_int, 32))))) != 0)) {
         @as([*c]c_int, @ptrCast(&ses.*.telopt_flag))[@divTrunc(TELOPT_NAWS, @as(c_int, 32))] |= @as(c_int, 1) << @intCast(__helpers.signedRemainder(TELOPT_NAWS, @as(c_int, 32)));
-        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@constCast("%c%c%c"))), IAC, WILL, TELOPT_NAWS);
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC WILL NAWS"))));
+        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c"))))))), IAC, WILL, TELOPT_NAWS);
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC WILL NAWS"))))))));
     }
     return client_send_sb_naws(ses, cplen, cpsrc);
 }
@@ -8576,13 +8580,13 @@ pub export fn client_recv_sb_tspeed(arg_ses: [*c]struct_session, arg_cplen: c_in
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 1, @as([*c]u8, @ptrCast(@constCast("IAC SB TSPEED"))), ntos(cpsrc[@as(c_int, 3)]));
-    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 1, @as([*c]u8, @ptrCast(@constCast("CATCH IAC SB TSPEED"))), ntos(cpsrc[@as(c_int, 3)])) != 0) {
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB TSPEED"))))))), ntos(cpsrc[@as(c_int, 3)]));
+    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC SB TSPEED"))))))), ntos(cpsrc[@as(c_int, 3)])) != 0) {
         return 6;
     }
     ses.*.telopts |= @as(c_int, 1) << @intCast(@as(c_int, 6));
-    telnet_printf(ses, 17, @as([*c]u8, @ptrCast(@constCast("%c%c%c%c%s%c%c"))), IAC, SB, TELOPT_TSPEED, @as(c_int, 0), @as([*c]u8, @ptrCast(@constCast("38400,38400"))), IAC, SE);
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC SB 0 %s 38400,38400 IAC SB"))), telopt_table[TELOPT_TSPEED].name);
+    telnet_printf(ses, 17, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c%c%s%c%c"))))))), IAC, SB, TELOPT_TSPEED, @as(c_int, 0), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("38400,38400"))))))), IAC, SE);
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC SB 0 %s 38400,38400 IAC SB"))))))), telopt_table[TELOPT_TSPEED].name);
     return 6;
 }
 pub export fn client_recv_dont_ttype(arg_ses: [*c]struct_session, arg_cplen: c_int, arg_cpsrc: [*c]u8) c_int {
@@ -8592,8 +8596,8 @@ pub export fn client_recv_dont_ttype(arg_ses: [*c]struct_session, arg_cplen: c_i
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC DONT TTYPE"))));
-    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH IAC DONT TTYPE")))) != 0) {
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC DONT TTYPE"))))))));
+    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC DONT TTYPE")))))))) != 0) {
         return 3;
     }
     ses.*.telopts &= ~(@as(c_int, 1) << @intCast(@as(c_int, 7)));
@@ -8607,23 +8611,23 @@ pub export fn client_recv_sb_ttype(arg_ses: [*c]struct_session, arg_cplen: c_int
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 1, @as([*c]u8, @ptrCast(@constCast("IAC SB TTYPE"))), ntos(cpsrc[@as(c_int, 3)]));
-    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 1, @as([*c]u8, @ptrCast(@constCast("CATCH IAC SB TTYPE"))), ntos(cpsrc[@as(c_int, 3)])) != 0) {
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB TTYPE"))))))), ntos(cpsrc[@as(c_int, 3)]));
+    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC SB TTYPE"))))))), ntos(cpsrc[@as(c_int, 3)])) != 0) {
         return 6;
     }
     if ((ses.*.telopts & (@as(c_int, 1) << @intCast(@as(c_int, 8)))) != 0) {
         var mtts: [50000]u8 = undefined;
         _ = &mtts;
         _ = sprintf(@ptrCast(@alignCast(&mtts)), "MTTS %d", get_mtts_val(ses));
-        telnet_printf(ses, @bitCast(@as(c_uint, @truncate(@as(usize, 6) +% strlen(@ptrCast(@alignCast(&mtts)))))), @as([*c]u8, @ptrCast(@constCast("%c%c%c%c%s%c%c"))), IAC, SB, TELOPT_TTYPE, @as(c_int, 0), @as([*c]u8, @ptrCast(@alignCast(&mtts))), IAC, SE);
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC SB TTYPE %s"))), @as([*c]u8, @ptrCast(@alignCast(&mtts))));
+        telnet_printf(ses, @bitCast(@as(c_uint, @truncate(@as(usize, 6) +% strlen(@ptrCast(@alignCast(&mtts)))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c%c%s%c%c"))))))), IAC, SB, TELOPT_TTYPE, @as(c_int, 0), @as([*c]u8, @ptrCast(@alignCast(&mtts))), IAC, SE);
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC SB TTYPE %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&mtts))));
     } else if ((ses.*.telopts & (@as(c_int, 1) << @intCast(@as(c_int, 7)))) != 0) {
-        telnet_printf(ses, @bitCast(@as(c_uint, @truncate(@as(usize, 6) +% strlen(gtd.*.system.*.term)))), @as([*c]u8, @ptrCast(@constCast("%c%c%c%c%s%c%c"))), IAC, SB, TELOPT_TTYPE, @as(c_int, 0), gtd.*.system.*.term, IAC, SE);
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC SB TTYPE %s"))), gtd.*.system.*.term);
+        telnet_printf(ses, @bitCast(@as(c_uint, @truncate(@as(usize, 6) +% strlen(gtd.*.system.*.term)))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c%c%s%c%c"))))))), IAC, SB, TELOPT_TTYPE, @as(c_int, 0), gtd.*.system.*.term, IAC, SE);
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC SB TTYPE %s"))))))), gtd.*.system.*.term);
         ses.*.telopts |= @as(c_int, 1) << @intCast(@as(c_int, 8));
     } else {
-        telnet_printf(ses, 14, @as([*c]u8, @ptrCast(@constCast("%c%c%c%c%s%c%c"))), IAC, SB, TELOPT_TTYPE, @as(c_int, 0), @as([*c]u8, @ptrCast(@constCast("TINTIN++"))), IAC, SE);
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC SB TTYPE %s"))), @as([*c]u8, @ptrCast(@constCast("TINTIN++"))));
+        telnet_printf(ses, 14, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c%c%s%c%c"))))))), IAC, SB, TELOPT_TTYPE, @as(c_int, 0), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TINTIN++"))))))), IAC, SE);
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC SB TTYPE %s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TINTIN++"))))))));
         ses.*.telopts |= @as(c_int, 1) << @intCast(@as(c_int, 7));
     }
     return 6;
@@ -8637,15 +8641,15 @@ pub export fn client_recv_do_sga(arg_ses: [*c]struct_session, arg_cplen: c_int, 
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC DO SGA"))));
-    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH IAC DO SGA")))) != 0) {
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC DO SGA"))))))));
+    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC DO SGA")))))))) != 0) {
         return 3;
     }
     ses.*.telopts |= @as(c_int, 1) << @intCast(@as(c_int, 1));
     if (!((@as([*c]c_int, @ptrCast(&ses.*.telopt_flag))[@divTrunc(TELOPT_SGA, @as(c_int, 32))] & (@as(c_int, 1) << @intCast(__helpers.signedRemainder(TELOPT_SGA, @as(c_int, 32))))) != 0)) {
         @as([*c]c_int, @ptrCast(&ses.*.telopt_flag))[@divTrunc(TELOPT_SGA, @as(c_int, 32))] |= @as(c_int, 1) << @intCast(__helpers.signedRemainder(TELOPT_SGA, @as(c_int, 32)));
-        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@constCast("%c%c%c"))), IAC, WILL, TELOPT_SGA);
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC WILL %s"))), telopt_table[TELOPT_SGA].name);
+        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c"))))))), IAC, WILL, TELOPT_SGA);
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC WILL %s"))))))), telopt_table[TELOPT_SGA].name);
     }
     return 3;
 }
@@ -8656,15 +8660,15 @@ pub export fn client_recv_will_sga(arg_ses: [*c]struct_session, arg_cplen: c_int
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC WILL SGA"))));
-    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH IAC WILL SGA")))) != 0) {
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC WILL SGA"))))))));
+    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC WILL SGA")))))))) != 0) {
         return 3;
     }
     ses.*.telopts |= @as(c_int, 1) << @intCast(@as(c_int, 1));
     if (!((@as([*c]c_int, @ptrCast(&ses.*.telopt_flag))[@divTrunc(TELOPT_SGA, @as(c_int, 32))] & (@as(c_int, 1) << @intCast(__helpers.signedRemainder(TELOPT_SGA, @as(c_int, 32))))) != 0)) {
         @as([*c]c_int, @ptrCast(&ses.*.telopt_flag))[@divTrunc(TELOPT_SGA, @as(c_int, 32))] |= @as(c_int, 1) << @intCast(__helpers.signedRemainder(TELOPT_SGA, @as(c_int, 32)));
-        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@constCast("%c%c%c"))), IAC, DO, TELOPT_SGA);
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC DO %s"))), telopt_table[TELOPT_SGA].name);
+        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c"))))))), IAC, DO, TELOPT_SGA);
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC DO %s"))))))), telopt_table[TELOPT_SGA].name);
     }
     return 3;
 }
@@ -8676,16 +8680,16 @@ pub export fn client_recv_wont_echo(arg_ses: [*c]struct_session, arg_cplen: c_in
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC WONT ECHO"))));
-    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH IAC WONT ECHO")))) != 0) {
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC WONT ECHO"))))))));
+    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC WONT ECHO")))))))) != 0) {
         return 3;
     }
     ses.*.telopts |= @as(c_int, 1) << @intCast(@as(c_int, 2));
     if ((@as([*c]c_int, @ptrCast(&ses.*.telopt_flag))[@divTrunc(TELOPT_ECHO, @as(c_int, 32))] & (@as(c_int, 1) << @intCast(__helpers.signedRemainder(TELOPT_ECHO, @as(c_int, 32))))) != 0) {
         @as([*c]c_int, @ptrCast(&ses.*.telopt_flag))[@divTrunc(TELOPT_ECHO, @as(c_int, 32))] &= ~(@as(c_int, 1) << @intCast(__helpers.signedRemainder(TELOPT_ECHO, @as(c_int, 32))));
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC DONT ECHO (SKIPPED)"))));
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC DONT ECHO (SKIPPED)"))))))));
     } else {
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("DID NOT SEND IAC DONT ECHO, INFINITE LOOP PROTECTION."))));
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DID NOT SEND IAC DONT ECHO, INFINITE LOOP PROTECTION."))))))));
     }
     return 3;
 }
@@ -8696,17 +8700,17 @@ pub export fn client_recv_will_echo(arg_ses: [*c]struct_session, arg_cplen: c_in
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC WILL ECHO"))));
-    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH IAC WILL ECHO")))) != 0) {
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC WILL ECHO"))))))));
+    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC WILL ECHO")))))))) != 0) {
         return 3;
     }
     ses.*.telopts &= ~(@as(c_int, 1) << @intCast(@as(c_int, 2)));
     if (!((@as([*c]c_int, @ptrCast(&ses.*.telopt_flag))[@divTrunc(TELOPT_ECHO, @as(c_int, 32))] & (@as(c_int, 1) << @intCast(__helpers.signedRemainder(TELOPT_ECHO, @as(c_int, 32))))) != 0)) {
         @as([*c]c_int, @ptrCast(&ses.*.telopt_flag))[@divTrunc(TELOPT_ECHO, @as(c_int, 32))] |= @as(c_int, 1) << @intCast(__helpers.signedRemainder(TELOPT_ECHO, @as(c_int, 32)));
-        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@constCast("%c%c%c"))), IAC, DO, TELOPT_ECHO);
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC DO ECHO"))));
+        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c"))))))), IAC, DO, TELOPT_ECHO);
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC DO ECHO"))))))));
     } else {
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("DID NOT SEND IAC DO ECHO, INFINITE LOOP PROTECTION."))));
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DID NOT SEND IAC DO ECHO, INFINITE LOOP PROTECTION."))))))));
     }
     return 3;
 }
@@ -8717,17 +8721,17 @@ pub export fn client_recv_do_echo(arg_ses: [*c]struct_session, arg_cplen: c_int,
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC DO ECHO"))));
-    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH IAC DO ECHO")))) != 0) {
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC DO ECHO"))))))));
+    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC DO ECHO")))))))) != 0) {
         return 3;
     }
     ses.*.telopts &= ~(@as(c_int, 1) << @intCast(@as(c_int, 2)));
     if (!((@as([*c]c_int, @ptrCast(&ses.*.telopt_flag))[@divTrunc(TELOPT_ECHO, @as(c_int, 32))] & (@as(c_int, 1) << @intCast(__helpers.signedRemainder(TELOPT_ECHO, @as(c_int, 32))))) != 0)) {
         @as([*c]c_int, @ptrCast(&ses.*.telopt_flag))[@divTrunc(TELOPT_ECHO, @as(c_int, 32))] |= @as(c_int, 1) << @intCast(__helpers.signedRemainder(TELOPT_ECHO, @as(c_int, 32)));
-        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@constCast("%c%c%c"))), IAC, WILL, TELOPT_ECHO);
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC WILL ECHO"))));
+        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c"))))))), IAC, WILL, TELOPT_ECHO);
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC WILL ECHO"))))))));
     } else {
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("DID NOT SEND IAC WILL ECHO, INFINITE LOOP PROTECTION."))));
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DID NOT SEND IAC WILL ECHO, INFINITE LOOP PROTECTION."))))))));
     }
     return 3;
 }
@@ -8738,9 +8742,9 @@ pub export fn client_send_ip(arg_ses: [*c]struct_session, arg_cplen: c_int, arg_
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    telnet_printf(ses, 5, @as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c"))), IAC, IP, IAC, DO, TELOPT_TIMINGMARK);
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC IP"))));
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC DO TIMING MARK"))));
+    telnet_printf(ses, 5, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c"))))))), IAC, IP, IAC, DO, TELOPT_TIMINGMARK);
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC IP"))))))));
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC DO TIMING MARK"))))))));
     return 3;
 }
 pub export fn client_send_wont_telopt(arg_ses: [*c]struct_session, arg_cplen: c_int, arg_cpsrc: [*c]u8) c_int {
@@ -8750,8 +8754,8 @@ pub export fn client_send_wont_telopt(arg_ses: [*c]struct_session, arg_cplen: c_
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@constCast("%c%c%c"))), IAC, WONT, cpsrc[@as(c_int, 2)]);
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC WONT %s"))), telopt_table[cpsrc[@as(c_int, 2)]].name);
+    telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c"))))))), IAC, WONT, cpsrc[@as(c_int, 2)]);
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC WONT %s"))))))), telopt_table[cpsrc[@as(c_int, 2)]].name);
     return 3;
 }
 pub export fn client_send_dont_telopt(arg_ses: [*c]struct_session, arg_cplen: c_int, arg_cpsrc: [*c]u8) c_int {
@@ -8761,8 +8765,8 @@ pub export fn client_send_dont_telopt(arg_ses: [*c]struct_session, arg_cplen: c_
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@constCast("%c%c%c"))), IAC, DONT, cpsrc[@as(c_int, 2)]);
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC DONT %s"))), telopt_table[cpsrc[@as(c_int, 2)]].name);
+    telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c"))))))), IAC, DONT, cpsrc[@as(c_int, 2)]);
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC DONT %s"))))))), telopt_table[cpsrc[@as(c_int, 2)]].name);
     return 3;
 }
 pub export fn client_send_will_telopt(arg_ses: [*c]struct_session, arg_cplen: c_int, arg_cpsrc: [*c]u8) c_int {
@@ -8772,8 +8776,8 @@ pub export fn client_send_will_telopt(arg_ses: [*c]struct_session, arg_cplen: c_
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@constCast("%c%c%c"))), IAC, WILL, cpsrc[@as(c_int, 2)]);
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC WILL %s"))), telopt_table[cpsrc[@as(c_int, 2)]].name);
+    telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c"))))))), IAC, WILL, cpsrc[@as(c_int, 2)]);
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC WILL %s"))))))), telopt_table[cpsrc[@as(c_int, 2)]].name);
     return 3;
 }
 pub export fn client_send_do_telopt(arg_ses: [*c]struct_session, arg_cplen: c_int, arg_cpsrc: [*c]u8) c_int {
@@ -8783,8 +8787,8 @@ pub export fn client_send_do_telopt(arg_ses: [*c]struct_session, arg_cplen: c_in
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@constCast("%c%c%c"))), IAC, DO, cpsrc[@as(c_int, 2)]);
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC DO %s"))), telopt_table[cpsrc[@as(c_int, 2)]].name);
+    telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c"))))))), IAC, DO, cpsrc[@as(c_int, 2)]);
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC DO %s"))))))), telopt_table[cpsrc[@as(c_int, 2)]].name);
     return 3;
 }
 pub export fn client_recv_sb_mssp(arg_ses: [*c]struct_session, arg_cplen: c_int, arg_src: [*c]u8) c_int {
@@ -8857,9 +8861,9 @@ pub export fn client_recv_sb_mssp(arg_ses: [*c]struct_session, arg_cplen: c_int,
                         ]);
                     }
                     pto.* = 0;
-                    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC SB MSSP VAR %-20s VAL %s"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
-                    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 2, @as([*c]u8, @ptrCast(@constCast("IAC SB MSSP"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
-                    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 2, @as([*c]u8, @ptrCast(@constCast("IAC SB MSSP %s"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
+                    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC SB MSSP VAR %-20s VAL %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
+                    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB MSSP"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
+                    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB MSSP %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
                     break;
                 },
                 else => {
@@ -8870,8 +8874,8 @@ pub export fn client_recv_sb_mssp(arg_ses: [*c]struct_session, arg_cplen: c_int,
             break;
         }
     }
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC SB MSSP IAC SE"))));
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC SB MSSP IAC SE"))));
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC SB MSSP IAC SE"))))))));
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB MSSP IAC SE"))))))));
     return if ((i + @as(c_int, 1)) < cplen) i + @as(c_int, 1) else cplen;
 }
 pub export fn client_recv_sb_msdp(arg_ses: [*c]struct_session, arg_cplen: c_int, arg_src: [*c]u8) c_int {
@@ -9003,9 +9007,9 @@ pub export fn client_recv_sb_msdp(arg_ses: [*c]struct_session, arg_cplen: c_int,
                         pto.* = 0;
                         if (last != 0) {
                             _ = strip_vt102_codes(@ptrCast(@alignCast(&val)), @ptrCast(@alignCast(&plain)));
-                            client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC SB MSDP VAR %-20s VAL %s"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
-                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 3, @as([*c]u8, @ptrCast(@constCast("IAC SB MSDP %s"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
-                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 3, @as([*c]u8, @ptrCast(@constCast("IAC SB MSDP"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
+                            client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC SB MSDP VAR %-20s VAL %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
+                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB MSDP %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
+                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB MSDP"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
                         }
                         pto = @ptrCast(@alignCast(&@"var"));
                     }
@@ -9040,9 +9044,9 @@ pub export fn client_recv_sb_msdp(arg_ses: [*c]struct_session, arg_cplen: c_int,
                         pto.* = 0;
                         if (last != MSDP_VAR) {
                             _ = strip_vt102_codes(@ptrCast(@alignCast(&val)), @ptrCast(@alignCast(&plain)));
-                            client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC SB MSDP VAR %-20s VAL %s"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
-                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 3, @as([*c]u8, @ptrCast(@constCast("IAC SB MSDP %s"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
-                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 3, @as([*c]u8, @ptrCast(@constCast("IAC SB MSDP"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
+                            client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC SB MSDP VAR %-20s VAL %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
+                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB MSDP %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
+                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB MSDP"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
                         }
                         pto = @ptrCast(@alignCast(&val));
                     }
@@ -9154,9 +9158,9 @@ pub export fn client_recv_sb_msdp(arg_ses: [*c]struct_session, arg_cplen: c_int,
         pto.* = 0;
         if (last != 0) {
             _ = strip_vt102_codes(@ptrCast(@alignCast(&val)), @ptrCast(@alignCast(&plain)));
-            client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC SB MSDP VAR %-20s VAL %s"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
-            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 4, @as([*c]u8, @ptrCast(@constCast("IAC SB MSDP %s"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&plain))), ntos(nest));
-            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 4, @as([*c]u8, @ptrCast(@constCast("IAC SB MSDP"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&plain))), ntos(nest));
+            client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC SB MSDP VAR %-20s VAL %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
+            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB MSDP %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&plain))), ntos(nest));
+            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB MSDP"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&plain))), ntos(nest));
         }
         i += 1;
     }
@@ -9271,8 +9275,8 @@ pub export fn client_recv_sb_msdp(arg_ses: [*c]struct_session, arg_cplen: c_int,
                         pto.* = 0;
                         if (last != 0) {
                             _ = strip_vt102_codes(@ptrCast(@alignCast(&val)), @ptrCast(@alignCast(&plain)));
-                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 2, @as([*c]u8, @ptrCast(@constCast("IAC SB MSDP2JSON %s"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
-                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 2, @as([*c]u8, @ptrCast(@constCast("IAC SB MSDP2JSON"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
+                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB MSDP2JSON %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
+                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB MSDP2JSON"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
                         }
                         pto = @ptrCast(@alignCast(&@"var"));
                     }
@@ -9321,8 +9325,8 @@ pub export fn client_recv_sb_msdp(arg_ses: [*c]struct_session, arg_cplen: c_int,
                         pto.* = 0;
                         if (last != MSDP_VAR) {
                             _ = strip_vt102_codes(@ptrCast(@alignCast(&val)), @ptrCast(@alignCast(&plain)));
-                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 2, @as([*c]u8, @ptrCast(@constCast("IAC SB MSDP2JSON %s"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
-                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 2, @as([*c]u8, @ptrCast(@constCast("IAC SB MSDP2JSON"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
+                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB MSDP2JSON %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
+                            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB MSDP2JSON"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
                         }
                         pto = @ptrCast(@alignCast(&val));
                     }
@@ -9431,13 +9435,13 @@ pub export fn client_recv_sb_msdp(arg_ses: [*c]struct_session, arg_cplen: c_int,
         pto.* = 0;
         if (last != 0) {
             _ = strip_vt102_codes(@ptrCast(@alignCast(&val)), @ptrCast(@alignCast(&plain)));
-            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 2, @as([*c]u8, @ptrCast(@constCast("IAC SB MSDP2JSON %s"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
-            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 2, @as([*c]u8, @ptrCast(@constCast("IAC SB MSDP2JSON"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
+            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB MSDP2JSON %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
+            _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB MSDP2JSON"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&plain))));
         }
         i += 1;
     }
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC SB MSDP IAC SE"))));
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC SB MSDP IAC SE"))));
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC SB MSDP IAC SE"))))))));
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB MSDP IAC SE"))))))));
     return if ((i + @as(c_int, 1)) < cplen) i + @as(c_int, 1) else cplen;
 }
 pub export fn client_recv_sb_gmcp(arg_ses: [*c]struct_session, arg_cplen: c_int, arg_src: [*c]u8) c_int {
@@ -9463,7 +9467,7 @@ pub export fn client_recv_sb_gmcp(arg_ses: [*c]struct_session, arg_cplen: c_int,
     _ = &nest;
     var @"type": c_int = undefined;
     _ = &@"type";
-    push_call(@as([*c]u8, @ptrCast(@constCast("client_recv_sb_gmcp(%p,%d,%p)"))), ses, cplen, src);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("client_recv_sb_gmcp(%p,%d,%p)"))))))), ses, cplen, src);
     if (client_skip_sb(ses, cplen, src) > cplen) {
         pop_call();
         return cplen + @as(c_int, 1);
@@ -9933,9 +9937,9 @@ pub export fn client_recv_sb_gmcp(arg_ses: [*c]struct_session, arg_cplen: c_int,
     while ((i < cplen) and (@as(c_int, src[@bitCast(@as(isize, @intCast(i)))]) != SE)) {
         i += 1;
     }
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("IAC SB GMCP %s IAC SE"))), @as([*c]u8, @ptrCast(@alignCast(&mod))));
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 3, @as([*c]u8, @ptrCast(@constCast("IAC SB GMCP"))), @as([*c]u8, @ptrCast(@alignCast(&mod))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&json))));
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 3, @as([*c]u8, @ptrCast(@constCast("IAC SB GMCP %s IAC SE"))), @as([*c]u8, @ptrCast(@alignCast(&mod))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&json))));
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB GMCP %s IAC SE"))))))), @as([*c]u8, @ptrCast(@alignCast(&mod))));
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB GMCP"))))))), @as([*c]u8, @ptrCast(@alignCast(&mod))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&json))));
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB GMCP %s IAC SE"))))))), @as([*c]u8, @ptrCast(@alignCast(&mod))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&val))), @as([*c]u8, @ptrCast(@alignCast(&json))));
     pop_call();
     return if ((i + @as(c_int, 1)) < cplen) i + @as(c_int, 1) else cplen;
 }
@@ -10014,10 +10018,10 @@ pub export fn client_recv_sb_charset(arg_ses: [*c]struct_session, arg_cplen: c_i
             }
             break;
         }
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC SB CHARSET %s %s"))), @as([*c]u8, @ptrCast(@alignCast(&buf))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))));
-        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 2, @as([*c]u8, @ptrCast(@constCast("IAC SB CHARSET"))), @as([*c]u8, @ptrCast(@alignCast(&buf))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))));
-        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 2, 2, @as([*c]u8, @ptrCast(@constCast("IAC SB CHARSET %s %s"))), @as([*c]u8, @ptrCast(@alignCast(&buf))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&buf))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))));
-        if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 2, 2, @as([*c]u8, @ptrCast(@constCast("CATCH IAC SB CHARSET %s %s"))), @as([*c]u8, @ptrCast(@alignCast(&buf))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&buf))), @as([*c]u8, @ptrCast(@alignCast(&@"var")))) != 0)) {
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC SB CHARSET %s %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&buf))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))));
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB CHARSET"))))))), @as([*c]u8, @ptrCast(@alignCast(&buf))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))));
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 2, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB CHARSET %s %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&buf))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&buf))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))));
+        if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 2, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC SB CHARSET %s %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&buf))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&buf))), @as([*c]u8, @ptrCast(@alignCast(&@"var")))) != 0)) {
             if (!(strcmp(@ptrCast(@alignCast(&buf)), "REQUEST") != 0)) {
                 {
                     j = 0;
@@ -10045,10 +10049,10 @@ pub export fn client_recv_sb_charset(arg_ses: [*c]struct_session, arg_cplen: c_i
                 } else if (!(strcmp(@ptrCast(@alignCast(&@"var")), "KOI8-R") != 0)) {
                     accept_1 = ses.*.charset & (@as(c_int, 1) << @intCast(@as(c_int, 9)));
                 }
-                if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 2, 2, @as([*c]u8, @ptrCast(@constCast("CATCH IAC SB CHARSET %s %s"))), @as([*c]u8, @ptrCast(@alignCast(&buf))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&buf))), @as([*c]u8, @ptrCast(@alignCast(&@"var")))) != 0)) {
+                if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 2, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC SB CHARSET %s %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&buf))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&buf))), @as([*c]u8, @ptrCast(@alignCast(&@"var")))) != 0)) {
                     if ((accept_1 > @as(c_int, 0)) and (found == @as(c_int, 0))) {
-                        telnet_printf(ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@constCast("%c%c%c%c%s%c%c"))), IAC, SB, TELOPT_CHARSET, CHARSET_ACCEPTED, @as([*c]u8, @ptrCast(@alignCast(&@"var"))), IAC, SE);
-                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC SB CHARSET ACCEPTED %s"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))));
+                        telnet_printf(ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c%c%s%c%c"))))))), IAC, SB, TELOPT_CHARSET, CHARSET_ACCEPTED, @as([*c]u8, @ptrCast(@alignCast(&@"var"))), IAC, SE);
+                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC SB CHARSET ACCEPTED %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))));
                         found = 1;
                     }
                 }
@@ -10057,11 +10061,11 @@ pub export fn client_recv_sb_charset(arg_ses: [*c]struct_session, arg_cplen: c_i
         i += 1;
     }
     if ((request == @as(c_int, 1)) and (found == @as(c_int, 0))) {
-        telnet_printf(ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%c"))), IAC, SB, TELOPT_CHARSET, CHARSET_REJECTED, IAC, SE);
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC SB CHARSET REJECTED"))));
+        telnet_printf(ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%c"))))))), IAC, SB, TELOPT_CHARSET, CHARSET_REJECTED, IAC, SE);
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC SB CHARSET REJECTED"))))))));
     }
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC SB CHARSET IAC SE"))));
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC SB CHARSET IAC SE"))));
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC SB CHARSET IAC SE"))))))));
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB CHARSET IAC SE"))))))));
     return i + @as(c_int, 1);
 }
 pub export fn client_recv_sb_new_environ(arg_ses: [*c]struct_session, arg_cplen: c_int, arg_src: [*c]u8) c_int {
@@ -10171,13 +10175,13 @@ pub export fn client_recv_sb_new_environ(arg_ses: [*c]struct_session, arg_cplen:
                         }
                         pto.* = 0;
                         _ = substitute(ses, @ptrCast(@alignCast(&buf)), @ptrCast(@alignCast(&val)), @as(c_int, 1) << @intCast(@as(c_int, 1)));
-                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC SB NEW-ENVIRON %s %s VAR %s VAL %s"))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
-                        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 4, @as([*c]u8, @ptrCast(@constCast("IAC SB NEW-ENVIRON"))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
-                        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 2, 4, @as([*c]u8, @ptrCast(@constCast("IAC SB NEW-ENVIRON %s %s"))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
+                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC SB NEW-ENVIRON %s %s VAR %s VAL %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
+                        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB NEW-ENVIRON"))))))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
+                        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 2, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB NEW-ENVIRON %s %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
                         break;
                     },
                     else => {
-                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC SB NEW-ENVIRON %s (ERROR) %03d %c"))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), src[@bitCast(@as(isize, @intCast(i)))], src[@bitCast(@as(isize, @intCast(i)))]);
+                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC SB NEW-ENVIRON %s (ERROR) %03d %c"))))))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), src[@bitCast(@as(isize, @intCast(i)))], src[@bitCast(@as(isize, @intCast(i)))]);
                         i += 1;
                         break;
                     },
@@ -10206,38 +10210,38 @@ pub export fn client_recv_sb_new_environ(arg_ses: [*c]struct_session, arg_cplen:
         }
         pto.* = 0;
         _ = substitute(ses, @ptrCast(@alignCast(&buf)), @ptrCast(@alignCast(&@"var")), @as(c_int, 1) << @intCast(@as(c_int, 1)));
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC SB NEW-ENVIRON %s %s %s"))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))));
-        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 4, @as([*c]u8, @ptrCast(@constCast("IAC SB NEW-ENVIRON"))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), if (@as(c_int, src[@as(c_int, 4)]) == IAC) @as([*c]u8, @ptrCast(@constCast("USERVAR"))) else @as([*c]u8, @ptrCast(@constCast(""))));
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC SB NEW-ENVIRON %s %s %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))));
+        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB NEW-ENVIRON"))))))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), if (@as(c_int, src[@as(c_int, 4)]) == IAC) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("USERVAR"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
         if ((@as(c_int, src[@as(c_int, 3)]) == ENV_SEND) and !(strcmp(@ptrCast(@alignCast(&sub2)), "VAR") != 0)) {
-            if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 4, @as([*c]u8, @ptrCast(@constCast("CATCH IAC SB NEW-ENVIRON"))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@constCast("")))) != 0)) {
-                _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 4, @as([*c]u8, @ptrCast(@constCast("IAC SB NEW-ENVIRON SEND %s"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@constCast(""))));
-                if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 1, 4, @as([*c]u8, @ptrCast(@constCast("CATCH IAC SB NEW-ENVIRON SEND %s"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@constCast("")))) != 0)) {
+            if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC SB NEW-ENVIRON"))))))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("")))))))) != 0)) {
+                _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB NEW-ENVIRON SEND %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast(""))))))));
+                if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 1, 4, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC SB NEW-ENVIRON SEND %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&sub1))), @as([*c]u8, @ptrCast(@alignCast(&sub2))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("")))))))) != 0)) {
                     if ((@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&@"var"))).*) == @as(c_int, 0)) or !(strcmp(@ptrCast(@alignCast(&@"var")), "CHARSET") != 0)) {
-                        telnet_printf(ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%s%c%s%c%c"))), IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, @as([*c]u8, @ptrCast(@constCast("CHARSET"))), ENV_VAL, get_charset_mnes(ses), IAC, SE);
-                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC SB NEW-ENVIRON IS VAR %s VAL %s"))), @as([*c]u8, @ptrCast(@constCast("CHARSET"))), get_charset(ses));
+                        telnet_printf(ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%s%c%s%c%c"))))))), IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CHARSET"))))))), ENV_VAL, get_charset_mnes(ses), IAC, SE);
+                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC SB NEW-ENVIRON IS VAR %s VAL %s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CHARSET"))))))), get_charset(ses));
                     }
                     if ((@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&@"var"))).*) == @as(c_int, 0)) or !(strcmp(@ptrCast(@alignCast(&@"var")), "CLIENT_NAME") != 0)) {
-                        telnet_printf(ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%s%c%s%c%c"))), IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, @as([*c]u8, @ptrCast(@constCast("CLIENT_NAME"))), ENV_VAL, @as([*c]u8, @ptrCast(@constCast("TinTin++"))), IAC, SE);
-                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC SB NEW-ENVIRON IS VAR %s VAL %s"))), @as([*c]u8, @ptrCast(@constCast("CLIENT_NAME"))), @as([*c]u8, @ptrCast(@constCast("TinTin++"))));
+                        telnet_printf(ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%s%c%s%c%c"))))))), IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CLIENT_NAME"))))))), ENV_VAL, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TinTin++"))))))), IAC, SE);
+                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC SB NEW-ENVIRON IS VAR %s VAL %s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CLIENT_NAME"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TinTin++"))))))));
                     }
                     if ((@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&@"var"))).*) == @as(c_int, 0)) or !(strcmp(@ptrCast(@alignCast(&@"var")), "CLIENT_VERSION") != 0)) {
-                        telnet_printf(ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%s%c%s%c%c"))), IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, @as([*c]u8, @ptrCast(@constCast("CLIENT_VERSION"))), ENV_VAL, @as([*c]u8, @ptrCast(@constCast("2.02.61 "))), IAC, SE);
-                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC SB NEW-ENVIRON IS VAR %s VAL %s"))), @as([*c]u8, @ptrCast(@constCast("CLIENT_VERSION"))), @as([*c]u8, @ptrCast(@constCast("2.02.61 "))));
+                        telnet_printf(ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%s%c%s%c%c"))))))), IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CLIENT_VERSION"))))))), ENV_VAL, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("2.02.61 "))))))), IAC, SE);
+                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC SB NEW-ENVIRON IS VAR %s VAL %s"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CLIENT_VERSION"))))))), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("2.02.61 "))))))));
                     }
                     if (((@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&@"var"))).*) == @as(c_int, 0)) or !(strcmp(@ptrCast(@alignCast(&@"var")), "MTTS") != 0)) or (@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&@"var"))).*) == @as(c_int, 0))) {
-                        telnet_printf(ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%s%c%d%c%c"))), IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, @as([*c]u8, @ptrCast(@constCast("MTTS"))), ENV_VAL, get_mtts_val(ses), IAC, SE);
-                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC SB NEW-ENVIRON IS VAR MTTS VAL %d"))), get_mtts_val(ses));
+                        telnet_printf(ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%s%c%d%c%c"))))))), IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MTTS"))))))), ENV_VAL, get_mtts_val(ses), IAC, SE);
+                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC SB NEW-ENVIRON IS VAR MTTS VAL %d"))))))), get_mtts_val(ses));
                     }
                     if ((@as(c_int, @as([*c]u8, @ptrCast(@alignCast(&@"var"))).*) == @as(c_int, 0)) or !(strcmp(@ptrCast(@alignCast(&@"var")), "TERMINAL_TYPE") != 0)) {
-                        telnet_printf(ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%s%c%s%c%c"))), IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, @as([*c]u8, @ptrCast(@constCast("TERMINAL_TYPE"))), ENV_VAL, gtd.*.system.*.term, IAC, SE);
-                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC SB NEW-ENVIRON IS VAR TERMINAL_TYPE VAL %s"))), gtd.*.system.*.term);
+                        telnet_printf(ses, -@as(c_int, 1), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c%s%c%s%c%c"))))))), IAC, SB, TELOPT_NEW_ENVIRON, ENV_IS, ENV_VAR, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TERMINAL_TYPE"))))))), ENV_VAL, gtd.*.system.*.term, IAC, SE);
+                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC SB NEW-ENVIRON IS VAR TERMINAL_TYPE VAL %s"))))))), gtd.*.system.*.term);
                     }
                 }
             }
         }
     }
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("RCVD IAC SB NEW-ENVIRON IAC SE"))));
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC SB NEW-ENVIRON IAC SE"))));
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("RCVD IAC SB NEW-ENVIRON IAC SE"))))))));
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB NEW-ENVIRON IAC SE"))))))));
     return i + @as(c_int, 2);
 }
 pub export fn client_recv_sb_zmp(arg_ses: [*c]struct_session, arg_cplen: c_int, arg_src: [*c]u8) c_int {
@@ -10311,8 +10315,8 @@ pub export fn client_recv_sb_zmp(arg_ses: [*c]struct_session, arg_cplen: c_int, 
                         ref.* += 1;
                         break :blk tmp;
                     }) != 0) {
-                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("IAC SB ZMP %s"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))));
-                        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 1, @as([*c]u8, @ptrCast(@constCast("IAC SB ZMP %s"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
+                        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB ZMP %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))));
+                        _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 1, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB ZMP %s"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))), @as([*c]u8, @ptrCast(@alignCast(&val))));
                     }
                     break;
                 },
@@ -10320,8 +10324,8 @@ pub export fn client_recv_sb_zmp(arg_ses: [*c]struct_session, arg_cplen: c_int, 
             break;
         }
     }
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("IAC SB ZMP %s IAC SE"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))));
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 0, @as([*c]u8, @ptrCast(@constCast("IAC SB ZMP %s IAC SE"))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))));
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB ZMP %s IAC SE"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))));
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB ZMP %s IAC SE"))))))), @as([*c]u8, @ptrCast(@alignCast(&@"var"))));
     return if ((i + @as(c_int, 1)) < cplen) i + @as(c_int, 1) else cplen;
 }
 pub export fn client_recv_will_mssp(arg_ses: [*c]struct_session, arg_cplen: c_int, arg_cpsrc: [*c]u8) c_int {
@@ -10331,10 +10335,10 @@ pub export fn client_recv_will_mssp(arg_ses: [*c]struct_session, arg_cplen: c_in
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC WILL MSSP")))) != 0) and !(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH IAC WILL MSSP")))) != 0)) {
+    if (!(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC WILL MSSP")))))))) != 0) and !(check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC WILL MSSP")))))))) != 0)) {
         if ((ses.*.telopts & (@as(c_int, 1) << @intCast(@as(c_int, 5)))) != 0) {
-            telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@constCast("%c%c%c"))), IAC, DO, TELOPT_MSSP);
-            client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC DO MSSP"))));
+            telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c"))))))), IAC, DO, TELOPT_MSSP);
+            client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC DO MSSP"))))))));
         }
     }
     return 3;
@@ -10346,16 +10350,16 @@ pub export fn client_recv_will_mccp2(arg_ses: [*c]struct_session, arg_cplen: c_i
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC WILL MCCP2"))));
-    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH IAC WILL MCCP2")))) != 0) {
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC WILL MCCP2"))))))));
+    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC WILL MCCP2")))))))) != 0) {
         return 3;
     }
     if ((ses.*.config_flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != 0) {
-        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@constCast("%c%c%c"))), IAC, DO, TELOPT_MCCP2);
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC DO MCCP2"))));
+        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c"))))))), IAC, DO, TELOPT_MCCP2);
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC DO MCCP2"))))))));
     } else {
-        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@constCast("%c%c%c"))), IAC, DONT, TELOPT_MCCP2);
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC DONT MCCP2 (#CONFIG MCCP HAS BEEN DISABLED)"))));
+        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c"))))))), IAC, DONT, TELOPT_MCCP2);
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC DONT MCCP2 (#CONFIG MCCP HAS BEEN DISABLED)"))))))));
     }
     return 3;
 }
@@ -10366,8 +10370,8 @@ pub export fn client_send_dont_mccp2(arg_ses: [*c]struct_session, arg_cplen: c_i
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@constCast("%c%c%c"))), IAC, DONT, TELOPT_MCCP2);
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT DONT MCCP2"))));
+    telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c"))))))), IAC, DONT, TELOPT_MCCP2);
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT DONT MCCP2"))))))));
     return 3;
 }
 pub export fn client_init_mccp2(arg_ses: [*c]struct_session, arg_cplen: c_int, arg_cpsrc: [*c]u8) c_int {
@@ -10378,7 +10382,7 @@ pub export fn client_init_mccp2(arg_ses: [*c]struct_session, arg_cplen: c_int, a
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
     if (ses.*.mccp2 != null) {
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("INFO MCCP2 ALREADY INITIALIZED"))));
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("INFO MCCP2 ALREADY INITIALIZED"))))))));
         return 5;
     }
     ses.*.mccp2 = @ptrCast(@alignCast(calloc(1, @sizeOf(z_stream))));
@@ -10387,12 +10391,12 @@ pub export fn client_init_mccp2(arg_ses: [*c]struct_session, arg_cplen: c_int, a
     ses.*.mccp2.*.zfree = zlib_free;
     ses.*.mccp2.*.@"opaque" = null;
     if (inflateInit_(ses.*.mccp2, "1.2.12", @bitCast(@as(c_uint, @truncate(@sizeOf(z_stream))))) != Z_OK) {
-        tintin_puts2(ses, @as([*c]u8, @ptrCast(@constCast("MCCP2: FAILED TO INITIALIZE"))));
+        tintin_puts2(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("MCCP2: FAILED TO INITIALIZE"))))))));
         _ = client_send_dont_mccp2(ses, 0, null);
         free(@ptrCast(@alignCast(ses.*.mccp2)));
         ses.*.mccp2 = null;
     } else {
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("INFO MCCP2 INITIALIZED"))));
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("INFO MCCP2 INITIALIZED"))))))));
     }
     return 5;
 }
@@ -10403,17 +10407,17 @@ pub export fn client_recv_will_mccp3(arg_ses: [*c]struct_session, arg_cplen: c_i
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC WILL MCCP3"))));
-    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH IAC WILL MCCP3")))) != 0) {
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC WILL MCCP3"))))))));
+    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC WILL MCCP3")))))))) != 0) {
         return 3;
     }
     if ((ses.*.config_flags & (@as(c_int, 1) << @intCast(@as(c_int, 6)))) != 0) {
-        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@constCast("%c%c%c"))), IAC, DO, TELOPT_MCCP3);
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC DO MCCP3"))));
+        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c"))))))), IAC, DO, TELOPT_MCCP3);
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC DO MCCP3"))))))));
         _ = client_init_mccp3(ses);
     } else {
-        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@constCast("%c%c%c"))), IAC, DONT, TELOPT_MCCP3);
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC DONT MCCP3 (#CONFIG MCCP HAS BEEN DISABLED)"))));
+        telnet_printf(ses, 3, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c"))))))), IAC, DONT, TELOPT_MCCP3);
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC DONT MCCP3 (#CONFIG MCCP HAS BEEN DISABLED)"))))))));
     }
     return 3;
 }
@@ -10424,8 +10428,8 @@ pub export fn client_recv_dont_mccp3(arg_ses: [*c]struct_session, arg_cplen: c_i
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC DONT MCCP3"))));
-    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH IAC DONT MCCP3")))) != 0) {
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC DONT MCCP3"))))))));
+    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC DONT MCCP3")))))))) != 0) {
         return 3;
     }
     if (ses.*.mccp3 != null) {
@@ -10440,8 +10444,8 @@ pub export fn client_recv_wont_mccp3(arg_ses: [*c]struct_session, arg_cplen: c_i
     _ = &cplen;
     var cpsrc = arg_cpsrc;
     _ = &cpsrc;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@constCast("IAC WONT MCCP3"))));
-    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@constCast("CATCH IAC WONT MCCP3")))) != 0) {
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC WONT MCCP3"))))))));
+    if (check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 3)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("CATCH IAC WONT MCCP3")))))))) != 0) {
         return 3;
     }
     if (ses.*.mccp3 != null) {
@@ -10455,7 +10459,7 @@ pub export fn client_init_mccp3(arg_ses: [*c]struct_session) c_int {
     var stream: [*c]z_stream = undefined;
     _ = &stream;
     if (ses.*.mccp3 != null) {
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("INFO MCCP3 ALREADY INITIALIZED"))));
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("INFO MCCP3 ALREADY INITIALIZED"))))))));
         return TRUE;
     }
     stream = @ptrCast(@alignCast(calloc(1, @sizeOf(z_stream))));
@@ -10468,13 +10472,13 @@ pub export fn client_init_mccp3(arg_ses: [*c]struct_session) c_int {
     stream.*.zfree = zlib_free;
     stream.*.@"opaque" = null;
     if (deflateInit_(stream, Z_BEST_COMPRESSION, "1.2.12", @bitCast(@as(c_uint, @truncate(@sizeOf(z_stream))))) != Z_OK) {
-        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("INFO MCCP3 FAILED TO INITIALIZE"))));
+        client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("INFO MCCP3 FAILED TO INITIALIZE"))))))));
         free(@ptrCast(@alignCast(stream)));
         return FALSE;
     }
-    telnet_printf(ses, 5, @as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c"))), IAC, SB, TELOPT_MCCP3, IAC, SE);
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SENT IAC SB MCCP3 IAC SE"))));
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("INFO MCCP3 INITIALIZED"))));
+    telnet_printf(ses, 5, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%c%c%c%c"))))))), IAC, SB, TELOPT_MCCP3, IAC, SE);
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SENT IAC SB MCCP3 IAC SE"))))))));
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("INFO MCCP3 INITIALIZED"))))))));
     ses.*.mccp3 = stream;
     return TRUE;
 }
@@ -10495,7 +10499,7 @@ pub export fn client_skip_sb(arg_ses: [*c]struct_session, arg_cplen: c_int, arg_
             }
         }
     }
-    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@constCast("SKIP SB (%d)"))), cplen);
+    client_telopt_debug(ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("SKIP SB (%d)"))))))), cplen);
     return cplen + @as(c_int, 1);
 }
 pub export fn client_recv_sb(arg_ses: [*c]struct_session, arg_cplen: c_int, arg_cpsrc: [*c]u8) c_int {
@@ -10539,7 +10543,7 @@ pub export fn client_recv_sb(arg_ses: [*c]struct_session, arg_cplen: c_int, arg_
     }
     pt1.* = 0;
     pt2.* = 0;
-    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 2, @as([*c]u8, @ptrCast(@constCast("IAC SB %s"))), telopt_table[cpsrc[@as(c_int, 2)]].name, @as([*c]u8, @ptrCast(@alignCast(&var1))), @as([*c]u8, @ptrCast(@alignCast(&var2))));
+    _ = check_all_events(ses, @as(c_int, 1) << @intCast(@as(c_int, 15)), 1, 2, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("IAC SB %s"))))))), telopt_table[cpsrc[@as(c_int, 2)]].name, @as([*c]u8, @ptrCast(@alignCast(&var1))), @as([*c]u8, @ptrCast(@alignCast(&var2))));
     return i + @as(c_int, 2);
 }
 pub const struct_iac_type = extern struct {
@@ -10801,7 +10805,7 @@ pub export fn get_charset_mnes(arg_ses: [*c]struct_session) [*c]u8 {
             }
         }
     }
-    return @as([*c]u8, @ptrCast(@constCast("ASCII")));
+    return @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("ASCII")))))));
 }
 
 pub const __VERSION__ = "Aro aro-zig";

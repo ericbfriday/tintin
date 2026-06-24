@@ -1,53 +1,39 @@
-import re
-import sys
-import os
+with open("src/mapper.zig", "r") as f:
+    lines = f.readlines()
 
-def fix_file_final(filepath):
-    with open(filepath, 'r') as f:
-        content = f.read()
+for i, line in enumerate(lines):
+    if "const extern_local_is_abbrev" in line:
+        lines[i] = "//" + line
+    elif "extern fn is_abbrev" in line:
+        lines[i] = "//" + line
+    elif "};" in line and i > 0 and "extern fn is_abbrev" in lines[i-1]:
+        lines[i] = "//" + line
+    elif "static_local_room_color.room_color" in line and "sprintf" in line:
+        lines[i] = line.replace('@constCast("")', '@as([*c]const u8, @ptrCast(@constCast("")))').replace('@as([*c]const u8, @ptrCast(@as([*c]const u8, @ptrCast(@constCast("")))))', '@as([*c]const u8, @ptrCast(@constCast(""""")))')
 
-    # 1. string slices
-    content = re.sub(r'@constCast\("([^"]*)"\)', r'@as([*c]u8, @ptrCast(@constCast("\1")))', content)
-    
-    # 2. gtd, gts
-    content = re.sub(r'\bgtd\b', 'tintin_c.gtd', content)
-    content = re.sub(r'\bgts\b', 'tintin_c.gts', content)
-    content = re.sub(r'pub const gtd = tintin_c\.gtd;\n?', '', content)
-    content = re.sub(r'pub const gts = tintin_c\.gts;\n?', '', content)
-    
-    # 3. .list[...]
-    prefixes = [
-        'root.*.ses.*',
-        'tintin_c.gts.*',
-        'newses.*',
-        'ses.*'
-    ]
-    for p in prefixes:
-        p_esc = p.replace('.', r'\.').replace('*', r'\*')
-        content = re.sub(p_esc + r'\.list\[([^\]]+)\]', f'@as([*c][*c]tintin_c.struct_listroot, @ptrCast(&{p}.list))[\\1]', content)
+with open("src/mapper.zig", "w") as f:
+    f.writelines(lines)
 
-    # 4. .val32[...]
-    def repl_val32(m):
-        base = m.group(1)
-        idx = m.group(2)
-        return f'@as([*c]c_int, @ptrCast(&{base}.val32))[{idx}]'
-    content = re.sub(r'([a-zA-Z0-9_.*]+)\.val32\[([^\]]+)\]', repl_val32, content)
+with open("src/buffer.zig", "r") as f:
+    lines = f.readlines()
 
-    # 5. Unused structs
-    content = re.sub(r'(const (extern_local_[a-zA-Z0-9_]+) = struct \{[^}]+\};)', r'\1 _ = &\2;', content)
+for i, line in enumerate(lines):
+    if "extern fn is_math" in line:
+        lines[i] = "//" + line
+    elif "};" in line and i > 0 and "extern fn is_math" in lines[i-1]:
+        lines[i] = "//" + line
 
-    # 6. kill
-    content = re.sub(r'\bstd\.c\.kill\(', 'c_kill(', content)
-    if 'extern "c" fn c_kill' not in content:
-        content = 'extern "c" fn c_kill(pid: c_int, sig: c_int) c_int;\n' + content
+with open("src/buffer.zig", "w") as f:
+    f.writelines(lines)
 
-    with open(filepath, 'w') as f:
-        f.write(content)
+with open("src/cursor.zig", "r") as f:
+    lines = f.readlines()
 
-os.system("git checkout src/session.c src/data.c")
-os.system("zig translate-c -I src -I /opt/homebrew/include -lc src/session.c > src/session.zig")
-os.system("zig translate-c -I src -I /opt/homebrew/include -lc src/data.c > src/data.zig")
+for i, line in enumerate(lines):
+    if "extern fn is_abbrev" in line:
+        lines[i] = "//" + line
+    elif "};" in line and i > 0 and "extern fn is_abbrev" in lines[i-1]:
+        lines[i] = "//" + line
 
-fix_file_final('src/session.zig')
-fix_file_final('src/data.zig')
-
+with open("src/cursor.zig", "w") as f:
+    f.writelines(lines)

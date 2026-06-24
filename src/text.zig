@@ -395,17 +395,21 @@ pub inline fn __darwin_check_fd_set(arg__a: c_int, arg__b: ?*const anyopaque) c_
 pub inline fn __darwin_fd_isset(arg__fd: c_int, _p: anytype) c_int {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    return if ((_p.*.fds_bits[idx] & (@as(c_int, 1) << bit)) != 0) 1 else 0;
+    const arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    const val = arr[idx];
+    return if ((val & (@as(c_int, 1) << bit)) != 0) 1 else 0;
 }
 pub inline fn __darwin_fd_set(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] |= @as(c_int, 1) << bit;
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] |= @as(c_int, 1) << bit;
 }
 pub inline fn __darwin_fd_clr(arg__fd: c_int, _p: anytype) void {
     const idx = @as(usize, @intCast(arg__fd)) / 32;
     const bit = @as(u5, @intCast(@as(usize, @intCast(arg__fd)) % 32));
-    _p.*.fds_bits[idx] &= ~(@as(c_int, 1) << bit);
+    var arr = @as([*c]c_int, @ptrCast(&_p.*.fds_bits));
+    arr[idx] &= ~(@as(c_int, 1) << bit);
 }
 pub const fd_mask = __int32_t;
 pub const pthread_attr_t = __darwin_pthread_attr_t;
@@ -7917,7 +7921,7 @@ pub export fn print_line(arg_ses: [*c]struct_session, arg_str: [*c][*c]u8, arg_p
     _ = &width;
     var out: [*c]u8 = undefined;
     _ = &out;
-    push_call(@as([*c]u8, @ptrCast(@constCast("print_line(%p,%p,%d)"))), ses, str.*, prompt);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("print_line(%p,%p,%d)"))))))), ses, str.*, prompt);
     if ((ses.*.scroll.*.line != -@as(c_int, 1)) and ((ses.*.config_flags & (@as(c_int, 1) << @intCast(@as(c_int, 13)))) != 0)) {
         pop_call();
         return;
@@ -7936,7 +7940,7 @@ pub export fn print_line(arg_ses: [*c]struct_session, arg_str: [*c][*c]u8, arg_p
     if ((@as(c_uint, @bitCast(@as(c_int, ses.*.config_flags & (@as(c_int, 1) << @intCast(@as(c_int, 4)))))) != 0) or (gtd.*.level.*.convert != 0)) {
         convert_meta(str.*, out, TRUE);
         _ = str_cpy(str, out);
-        _ = str_cat(str, if (prompt != 0) @as([*c]u8, @ptrCast(@constCast("\\"))) else @as([*c]u8, @ptrCast(@constCast("\\n"))));
+        _ = str_cat(str, if (prompt != 0) @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\\"))))))) else @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("\\n"))))))));
     }
     if (((ses.*.flags & (@as(c_int, 1) << @intCast(@as(c_int, 13)))) != 0) or ((ses.*.config_flags & (@as(c_int, 1) << @intCast(@as(c_int, 18)))) != 0)) {
         _ = word_wrap(ses, str.*, out, TRUE, &height, &width);
@@ -7944,9 +7948,9 @@ pub export fn print_line(arg_ses: [*c]struct_session, arg_str: [*c][*c]u8, arg_p
         _ = str_cpy(&out, str.*);
     }
     if (prompt != 0) {
-        print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("%s"))), out);
+        print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s"))))))), out);
     } else {
-        print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("%s\n"))), out);
+        print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%s\n"))))))), out);
     }
     pop_call();
     return;
@@ -7999,7 +8003,7 @@ pub export fn word_wrap(arg_ses: [*c]struct_session, arg_textin: [*c]u8, arg_tex
     _ = &wrap;
     var cur_space: c_int = undefined;
     _ = &cur_space;
-    push_call(@as([*c]u8, @ptrCast(@constCast("word_wrap(%s,%p,%p)"))), ses.*.name, textin, textout);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("word_wrap(%s,%p,%p)"))))))), ses.*.name, textin, textout);
     pti = blk: {
         const tmp = blk_1: {
             const tmp_2 = textin;
@@ -8149,7 +8153,7 @@ pub export fn word_wrap(arg_ses: [*c]struct_session, arg_textin: [*c]u8, arg_tex
                 if ((ses.*.cur_col + tab) >= wrap) {
                     tab = wrap - ses.*.cur_col;
                 }
-                pto += @as(usize, @bitCast(@as(isize, @intCast(sprintf(pto, "%.*s", tab, @as([*c]u8, @ptrCast(@constCast("                "))))))));
+                pto += @as(usize, @bitCast(@as(isize, @intCast(sprintf(pto, "%.*s", tab, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("                "))))))))))));
                 pti += 1;
                 cur_width += tab;
                 ses.*.cur_col += tab;
@@ -8236,7 +8240,7 @@ pub export fn word_wrap_split(arg_ses: [*c]struct_session, arg_textin: [*c]u8, a
     _ = &skip;
     var cur_space: c_int = undefined;
     _ = &cur_space;
-    push_call(@as([*c]u8, @ptrCast(@constCast("word_wrap_split(%s,%p,%p,%d,%d,%d,%d)"))), ses.*.name, textin, textout, wrap, start, end, flags);
+    push_call(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("word_wrap_split(%s,%p,%p,%d,%d,%d,%d)"))))))), ses.*.name, textin, textout, wrap, start, end, flags);
     pti = blk: {
         const tmp = textin;
         lis = tmp;
@@ -8250,7 +8254,7 @@ pub export fn word_wrap_split(arg_ses: [*c]struct_session, arg_textin: [*c]u8, a
     if (wrap <= @as(c_int, 0)) {
         wrap = ses.*.wrap;
         if (ses.*.wrap == @as(c_int, 0)) {
-            print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("debug: word_wrap_split: wrap is 0\n"))));
+            print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("debug: word_wrap_split: wrap is 0\n"))))))));
             pop_call();
             return 1;
         }
@@ -8264,11 +8268,11 @@ pub export fn word_wrap_split(arg_ses: [*c]struct_session, arg_textin: [*c]u8, a
     cur_space = cur_col;
     pto.* = 0;
     if (((flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) and (end == @as(c_int, 0))) {
-        print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("debug: word_wrap_split: end point is 0."))));
+        print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("debug: word_wrap_split: end point is 0."))))))));
     }
     while ((@as(c_int, pti.*) != 0) and (@divExact(@as(c_long, @bitCast(@intFromPtr(pto) -% @intFromPtr(textout))), @sizeOf(u8)) < @as(c_long, BUFFER_SIZE - @as(c_int, 20)))) {
         if ((cur_height > @as(c_int, 10000)) or (cur_width > @as(c_int, 100000))) {
-            print_stdout(0, 0, @as([*c]u8, @ptrCast(@constCast("debug: word_wrap_split: wrap %d height %d width %d los %d start %d end %d\n"))), wrap, cur_height, cur_width, @divExact(@as(c_long, @bitCast(@intFromPtr(pto) -% @intFromPtr(los))), @sizeOf(u8)), start, end);
+            print_stdout(0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("debug: word_wrap_split: wrap %d height %d width %d los %d start %d end %d\n"))))))), wrap, cur_height, cur_width, @divExact(@as(c_long, @bitCast(@intFromPtr(pto) -% @intFromPtr(los))), @sizeOf(u8)), start, end);
             pop_call();
             return 1;
         }
@@ -8399,7 +8403,7 @@ pub export fn word_wrap_split(arg_ses: [*c]struct_session, arg_textin: [*c]u8, a
                 tab = wrap - cur_col;
             }
             if (!((flags & (@as(c_int, 1) << @intCast(@as(c_int, 2)))) != 0) or ((cur_height >= start) and (cur_height < end))) {
-                pto += @as(usize, @bitCast(@as(isize, @intCast(sprintf(pto, "%.*s", tab, @as([*c]u8, @ptrCast(@constCast("                "))))))));
+                pto += @as(usize, @bitCast(@as(isize, @intCast(sprintf(pto, "%.*s", tab, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("                "))))))))))));
             }
             pti += 1;
             cur_width += tab;
