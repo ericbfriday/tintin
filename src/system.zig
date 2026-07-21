@@ -328,7 +328,12 @@ pub const struct_timeval64 = tintin_c.struct_timeval64;
 pub const struct_tintin_data = tintin_c.struct_tintin_data;
 pub const struct_tm = tintin_c.struct_tm;
 pub const struct_window_data = tintin_c.struct_window_data;
-pub const struct_winsize = tintin_c.struct_winsize;
+pub const struct_winsize = extern struct {
+    ws_row: c_ushort = 0,
+    ws_col: c_ushort = 0,
+    ws_xpixel: c_ushort = 0,
+    ws_ypixel: c_ushort = 0,
+};
 pub const struct_z_stream_s = tintin_c.struct_z_stream_s;
 pub const sub_arg_in_braces = tintin_c.sub_arg_in_braces;
 pub fn syserr_printf(arg0: anytype, arg_format: [*c]const u8, args: anytype) void { @import("variadics.zig").syserr_printf(arg0, arg_format, args); }
@@ -665,7 +670,7 @@ pub extern fn logout([*c]const u8) c_int;
 pub extern fn logwtmp([*c]const u8, [*c]const u8, [*c]const u8) void;
 pub extern fn opendev([*c]u8, c_int, c_int, [*c][*c]u8) c_int;
 pub extern fn openpty([*c]c_int, [*c]c_int, [*c]u8, [*c]struct_termios, [*c]struct_winsize) c_int;
-pub extern fn fparseln([*c]FILE, [*c]usize, [*c]usize, [*c]const u8, c_int) [*c]u8;
+pub extern fn fparseln(?*FILE, [*c]usize, [*c]usize, [*c]const u8, c_int) [*c]u8;
 pub extern fn forkpty([*c]c_int, [*c]u8, [*c]struct_termios, [*c]struct_winsize) pid_t;
 pub const struct_lastlog = extern struct {
     ll_time: time_t = 0,
@@ -936,7 +941,7 @@ pub export fn do_script(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     _ = &buf;
     var tmp: [50000]u8 = undefined;
     _ = &tmp;
-    var script: [*c]FILE = undefined;
+    var script: ?*FILE = undefined;
     _ = &script;
     var index_1: c_int = undefined;
     _ = &index_1;
@@ -1029,7 +1034,7 @@ pub export fn do_textin(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     _ = &arg3;
     var arg4 = arg_arg4;
     _ = &arg4;
-    var fp: [*c]FILE = undefined;
+    var fp: ?*FILE = undefined;
     _ = &fp;
     var buffer: [50000]u8 = undefined;
     _ = &buffer;

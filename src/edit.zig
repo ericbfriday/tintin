@@ -471,7 +471,7 @@ pub export fn edit_read(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1: 
     _ = &arg2;
     var edit: [*c]struct_edit_data = gtd.*.ses.*.input.*.edit;
     _ = &edit;
-    var file: [*c]FILE = undefined;
+    var file: ?*FILE = undefined;
     _ = &file;
     var index_1: c_int = undefined;
     _ = &index_1;
@@ -593,7 +593,7 @@ pub export fn edit_write(arg_ses: [*c]struct_session, arg_arg: [*c]u8, arg_arg1:
     _ = &arg2;
     var edit: [*c]struct_edit_data = gtd.*.ses.*.input.*.edit;
     _ = &edit;
-    var file: [*c]FILE = undefined;
+    var file: ?*FILE = undefined;
     _ = &file;
     var index_1: c_int = undefined;
     _ = &index_1;
@@ -779,9 +779,9 @@ pub fn check_all_events(arg0: anytype, arg1: anytype, arg2: anytype, arg3: anyty
 pub extern fn mouse_handler(ses: [*c]struct_session, val1: c_int, val2: c_int, val3: c_int) void;
 pub extern fn do_read(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn do_write(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
-pub extern fn read_file(ses: [*c]struct_session, fp: [*c]FILE, filename: [*c]u8) [*c]struct_session;
-pub extern fn write_node(ses: [*c]struct_session, mode: c_int, node: [*c]struct_listnode, file: [*c]FILE) void;
-pub extern fn fread_one_line(str: [*c][*c]u8, fp: [*c]FILE) [*c]u8;
+pub extern fn read_file(ses: [*c]struct_session, fp: ?*FILE, filename: [*c]u8) [*c]struct_session;
+pub extern fn write_node(ses: [*c]struct_session, mode: c_int, node: [*c]struct_listnode, file: ?*FILE) void;
+pub extern fn fread_one_line(str: [*c][*c]u8, fp: ?*FILE) [*c]u8;
 pub extern fn do_help(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn do_history(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8, arg4: [*c]u8) [*c]struct_session;
 pub extern fn add_line_history(ses: [*c]struct_session, line: [*c]u8) void;
@@ -816,11 +816,11 @@ pub extern fn line_strip(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg
 pub extern fn line_substitute(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8) [*c]struct_session;
 pub extern fn line_verbatim(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8) [*c]struct_session;
 pub extern fn line_verbose(ses: [*c]struct_session, arg: [*c]u8, arg1: [*c]u8, arg2: [*c]u8, arg3: [*c]u8) [*c]struct_session;
-pub extern fn logheader(ses: [*c]struct_session, file: [*c]FILE, newline: c_int) void;
+pub extern fn logheader(ses: [*c]struct_session, file: ?*FILE, newline: c_int) void;
 pub extern fn init_log(ses: [*c]struct_session) void;
 pub extern fn free_log(ses: [*c]struct_session) void;
-pub extern fn logit(ses: [*c]struct_session, txt: [*c]u8, file: [*c]FILE, newline: c_int) void;
-pub extern fn write_html_header(ses: [*c]struct_session, fp: [*c]FILE) void;
+pub extern fn logit(ses: [*c]struct_session, txt: [*c]u8, file: ?*FILE, newline: c_int) void;
+pub extern fn write_html_header(ses: [*c]struct_session, fp: ?*FILE) void;
 pub extern fn vt102_to_html(ses: [*c]struct_session, txt: [*c]u8, out: [*c]u8) void;
 pub extern var gts: [*c]struct_session;
 pub extern var gtd: [*c]struct_tintin_data;

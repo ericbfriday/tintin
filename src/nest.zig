@@ -18877,7 +18877,7 @@ pub export fn add_nest_node_inner(arg_root: [*c]struct_listroot, arg_arg1: [*c]u
 pub export fn set_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]const u8, ...) [*c]struct_listnode {
     var args = @cVaStart();
     var arg2: [*c]u8 = null;
-    _ = vasprintf(&arg2, format, args);
+    _ = vasprintf(&arg2, format, @as(va_list, @ptrCast(&args)));
     @cVaEnd(&args);
     return set_nest_node_ses_inner(ses, arg1, arg2);
 }
@@ -18885,7 +18885,7 @@ pub export fn set_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [
 pub export fn add_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [*c]const u8, ...) [*c]struct_listnode {
     var args = @cVaStart();
     var arg2: [*c]u8 = null;
-    _ = vasprintf(&arg2, format, args);
+    _ = vasprintf(&arg2, format, @as(va_list, @ptrCast(&args)));
     @cVaEnd(&args);
     return add_nest_node_ses_inner(ses, arg1, arg2);
 }
@@ -18893,7 +18893,7 @@ pub export fn add_nest_node_ses(ses: [*c]struct_session, arg1: [*c]u8, format: [
 pub export fn set_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]const u8, ...) [*c]struct_listnode {
     var args = @cVaStart();
     var arg2: [*c]u8 = null;
-    _ = vasprintf(&arg2, format, args);
+    _ = vasprintf(&arg2, format, @as(va_list, @ptrCast(&args)));
     @cVaEnd(&args);
     return set_nest_node_inner(root, arg1, arg2);
 }
@@ -18901,7 +18901,7 @@ pub export fn set_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c
 pub export fn add_nest_node(root: [*c]struct_listroot, arg1: [*c]u8, format: [*c]const u8, ...) [*c]struct_listnode {
     var args = @cVaStart();
     var arg2: [*c]u8 = null;
-    _ = vasprintf(&arg2, format, args);
+    _ = vasprintf(&arg2, format, @as(va_list, @ptrCast(&args)));
     @cVaEnd(&args);
     return add_nest_node_inner(root, arg1, arg2);
 }

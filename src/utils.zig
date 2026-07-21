@@ -326,7 +326,7 @@ pub export fn cat_sprintf(arg_dest: [*c]u8, arg_fmt: [*c]const u8, ...) c_int {
     var args = @cVaStart();
     defer @cVaEnd(&args);
 
-    const size = vsprintf(&buf, arg_fmt, @as([*c]u8, @ptrCast(args)));
+    const size = vsprintf(&buf, arg_fmt, @ptrCast(&args));
     _ = strcat(arg_dest, &buf);
 
     return size;
@@ -341,7 +341,7 @@ pub export fn ins_sprintf(arg_dest: [*c]u8, arg_fmt: [*c]const u8, ...) void {
     defer @cVaEnd(&args);
 
     _ = strcpy(&tmp, arg_dest);
-    const len = vsprintf(arg_dest, arg_fmt, @as([*c]u8, @ptrCast(args)));
+    const len = vsprintf(arg_dest, arg_fmt, @ptrCast(&args));
     _ = strcpy(arg_dest + @as(usize, @intCast(len)), &tmp);
 }
 
@@ -353,7 +353,7 @@ pub export fn socket_printf(arg_ses: [*c]struct_session, arg_length: usize, arg_
     var args = @cVaStart();
     defer @cVaEnd(&args);
 
-    const size = vsprintf(&buf, arg_format, @as([*c]u8, @ptrCast(args)));
+    const size = vsprintf(&buf, arg_format, @ptrCast(&args));
 
     if (size != @as(c_int, @intCast(arg_length)) and (arg_ses.*.telopts & tintin_c.TELOPT_FLAG_DEBUG) != 0) {
         @import("variadics.zig").tintin_printf(arg_ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DEBUG TELNET: socket_printf size difference: %d vs %d"))))))))), .{size, @as(c_int, @intCast(arg_length))});
@@ -372,7 +372,7 @@ pub export fn telnet_printf(arg_ses: [*c]struct_session, arg_length: c_int, arg_
     var args = @cVaStart();
     defer @cVaEnd(&args);
 
-    const size = vsprintf(&buf, arg_format, @as([*c]u8, @ptrCast(args)));
+    const size = vsprintf(&buf, arg_format, @ptrCast(&args));
 
     if (arg_length != -1 and size != arg_length and (arg_ses.*.telopts & tintin_c.TELOPT_FLAG_DEBUG) != 0) {
         @import("variadics.zig").tintin_printf(arg_ses, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("DEBUG TELNET: telnet_printf size difference: %d vs %d"))))))))), .{size, arg_length});

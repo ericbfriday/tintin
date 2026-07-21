@@ -18608,7 +18608,7 @@ pub export fn command_inner(arg_ses: [*c]struct_session, arg_cmd: ?*const COMMAN
 pub export fn execute(ses: [*c]struct_session, format: [*c]const u8, ...) [*c]struct_session {
     var args = @cVaStart();
     var arg2: [*c]u8 = null;
-    _ = vasprintf(&arg2, format, args);
+    _ = vasprintf(&arg2, format, @as(va_list, @ptrCast(&args)));
     @cVaEnd(&args);
     return execute_inner(ses, @as([*c]u8, @ptrCast(@constCast(format))), arg2);
 }
@@ -18616,7 +18616,7 @@ pub export fn execute(ses: [*c]struct_session, format: [*c]const u8, ...) [*c]st
 pub export fn command(ses: [*c]struct_session, cmd: ?*const COMMAND, format: [*c]const u8, ...) [*c]struct_session {
     var args = @cVaStart();
     var arg2: [*c]u8 = null;
-    _ = vasprintf(&arg2, format, args);
+    _ = vasprintf(&arg2, format, @as(va_list, @ptrCast(&args)));
     @cVaEnd(&args);
     return command_inner(ses, cmd, @as([*c]u8, @ptrCast(@constCast(format))), arg2);
 }

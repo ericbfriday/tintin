@@ -566,7 +566,7 @@ pub export fn restringf(arg_point: [*c]u8, arg_fmt: [*c]const u8, ...) [*c]u8 {
     var args = @cVaStart();
     defer @cVaEnd(&args);
 
-    _ = tintin_c.vsprintf(&string, arg_fmt, @as([*c]u8, @ptrCast(args)));
+    _ = tintin_c.vsprintf(&string, arg_fmt, @ptrCast(&args));
 
     if (arg_point != null) {
         free(arg_point);
@@ -582,7 +582,7 @@ pub export fn str_dup_printf(arg_fmt: [*c]const u8, ...) [*c]u8 {
     var args = @cVaStart();
     defer @cVaEnd(&args);
 
-    const len: c_int = @intCast(tintin_c.vasprintf(&ptv, arg_fmt, @as([*c]u8, @ptrCast(args))));
+    const len: c_int = @intCast(tintin_c.vasprintf(&ptv, arg_fmt, @ptrCast(&args)));
 
     const str = str_alloc(len);
     _ = memcpy(str, ptv, @as(usize, @intCast(len)) + 1);
@@ -600,7 +600,7 @@ pub export fn str_cpy_printf(arg_str: [*c][*c]u8, arg_fmt: [*c]const u8, ...) [*
     var args = @cVaStart();
     defer @cVaEnd(&args);
 
-    const len: c_int = @intCast(tintin_c.vasprintf(&ptv, arg_fmt, @as([*c]u8, @ptrCast(args))));
+    const len: c_int = @intCast(tintin_c.vasprintf(&ptv, arg_fmt, @ptrCast(&args)));
 
     var str_ptr = get_str_ptr(arg_str.*);
     if (str_ptr.*.max <= len) {
@@ -624,7 +624,7 @@ pub export fn str_cat_printf(arg_str: [*c][*c]u8, arg_fmt: [*c]const u8, ...) [*
     var args = @cVaStart();
     defer @cVaEnd(&args);
 
-    const len: c_int = @intCast(tintin_c.vasprintf(&arg, arg_fmt, @as([*c]u8, @ptrCast(args))));
+    const len: c_int = @intCast(tintin_c.vasprintf(&arg, arg_fmt, @ptrCast(&args)));
 
     _ = str_cat_len(arg_str, arg, len);
     free(arg);
@@ -639,7 +639,7 @@ pub export fn str_ins_printf(arg_str: [*c][*c]u8, arg_index: c_int, arg_fmt: [*c
     var args = @cVaStart();
     defer @cVaEnd(&args);
 
-    const len: c_int = @intCast(tintin_c.vasprintf(&arg, arg_fmt, @as([*c]u8, @ptrCast(args))));
+    const len: c_int = @intCast(tintin_c.vasprintf(&arg, arg_fmt, @ptrCast(&args)));
 
     _ = str_ins_len(arg_str, arg_index, arg, len);
     free(arg);

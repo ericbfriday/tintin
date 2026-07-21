@@ -20577,7 +20577,7 @@ pub const iac_type = struct_iac_type;
 pub export fn client_telopt_debug(ses: [*c]struct_session, format: [*c]const u8, ...) void {
     var args = @cVaStart();
     var buf: [*c]u8 = null;
-    if (vasprintf(&buf, format, args) != -1) {
+    if (vasprintf(&buf, format, @as(va_list, @ptrCast(&args))) != -1) {
         client_telopt_debug_inner(ses, buf);
         @import("std").c.free(buf);
     }

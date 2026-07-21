@@ -86,3 +86,17 @@ The entry point remains in `main.c`, which calls into both remaining C logic and
 *   **Trigger/Action**: A script that runs automatically when specific text is received from the server.
 *   **Alias**: A shortcut command defined by the user.
 *   **Tick**: A periodic timer event.
+
+## Agent skills
+
+### Issue tracker
+
+Issues and PRDs are tracked in GitHub Issues for this repo. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+This repo uses the default five-role triage label vocabulary. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+This repo uses a single-context domain docs layout. See `docs/agents/domain.md`.
