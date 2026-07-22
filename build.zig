@@ -29,6 +29,7 @@ pub fn build(b: *std.Build) void {
         "src/missing_sort.c",
         "src/missing_variadics.c",
         "src/missing_goto.c",
+        "src/darwin_shim.c",
     };
 
     exe.root_module.addCSourceFiles(.{

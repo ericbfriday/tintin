@@ -51,8 +51,8 @@ The project uses `zig build`:
 
 The project is in the final stages of conversion. The vast majority of the core engine, network stack, parser, and scripting engine have been translated to Zig (`*.zig`).
 
-*   **Current State:** The build succeeds using Zig modules, with a few remaining C stubs (`missing_*.c`) for complex macros, regex, and variadics.
-*   **Current Focus (Phase 8):** Replacing legacy C variadic function calls (e.g., `tintin_printf`, `show_info`) with Zig tuple arguments, and translating the remaining manual C pieces.
+*   **Current State:** The build succeeds using Zig modules. Legacy C variadic functions have been replaced with Zig tuple implementations. Opaque pointers have been refactored. A C shim (`darwin_shim.c`) was added to resolve macOS libc symbols on Linux. The final compilation step succeeds, but the linker currently fails on Ubuntu 24.04+ due to an `.sframe` relocation incompatibility in Zig's built-in linker.
+*   **Current Focus (Phase 9):** Resolve the `.sframe` linker errors by either disabling unwind tables, linking with a system linker like `lld`, or waiting for an upstream Zig linker fix.
 
 ### Conversion Strategy
 
