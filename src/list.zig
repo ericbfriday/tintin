@@ -1,8 +1,6 @@
 const std = @import("std");
 
-pub const tintin_c = @cImport({
-    @cInclude("tintin.h");
-});
+pub const tintin_c = @import("tintin_c.zig");
 
 // --- TinTin++ struct type aliases ---
 pub const struct_session = tintin_c.struct_session;

@@ -1,9 +1,7 @@
 const std = @import("std");
 
-pub const tintin_c = @cImport({
-    @cInclude("tintin.h");
-    @cInclude("dict.h");
-});
+pub const tintin_c = @import("tintin_c.zig");
+pub const dict_c = @import("dict_c.zig");
 
 // --- TinTin++ struct type aliases ---
 pub const struct_session = tintin_c.struct_session;
@@ -33,7 +31,7 @@ pub const LIST_COMMAND: c_int = tintin_c.LIST_COMMAND;
 pub const BUFFER_SIZE: usize = @intCast(tintin_c.BUFFER_SIZE);
 
 // --- wordlist from dict.h (array of 26 char pointers, one per letter) ---
-pub const wordlist: *[26][*c]u8 = &tintin_c.wordlist;
+pub const wordlist: *[26][*c]u8 = &dict_c.wordlist;
 
 // --- Local dictionary data structure (matches the C struct in dict.c) ---
 const dictionary_data = extern struct {

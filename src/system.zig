@@ -1,8 +1,6 @@
 const std = @import("std");
 
-pub const tintin_c = @cImport({
-    @cInclude("tintin.h");
-});
+pub const tintin_c = @import("tintin_c.zig");
 
 
 pub const FILE = tintin_c.FILE;

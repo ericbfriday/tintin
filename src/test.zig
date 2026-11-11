@@ -1,9 +1,7 @@
 
 
 const std = @import("std");
-const stdc = @cImport({
-    @cInclude("tintin.h");
-});
+const stdc = @import("tintin_c.zig");
 
 pub export fn test_fn() void {
     const ses: *stdc.struct_session = @ptrCast(stdc.gtd.*.ses);

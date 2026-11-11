@@ -1,4 +1,4 @@
-const std = @import("std"); pub const tintin_c = @cImport({@cInclude("tintin.h");});
+const std = @import("std"); pub const tintin_c = @import("tintin_c.zig");
 pub const struct_math_node = extern struct {
     next: [*c]struct_math_node = @import("std").mem.zeroes([*c]struct_math_node),
     prev: [*c]struct_math_node = @import("std").mem.zeroes([*c]struct_math_node),
