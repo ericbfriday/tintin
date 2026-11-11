@@ -9040,9 +9040,7 @@ pub export fn process_do_mssp(arg_ses: [*c]struct_session, arg_buddy: [*c]struct
     _ = &src;
     var srclen = arg_srclen;
     _ = &srclen;
-    var buffer: [50000]u8 = [1]u8{
-        0,
-    } ++ [1]u8{0} ** 49999;
+    var buffer: [50000]u8 = @import("std").mem.zeroes([50000]u8);
     _ = &buffer;
     _ = cat_sprintf(@ptrCast(@alignCast(&buffer)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s%c%s"))))))), MSSP_VAR, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("NAME"))))))), MSSP_VAL, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("TINTIN COMMANDER"))))))));
     _ = cat_sprintf(@ptrCast(@alignCast(&buffer)), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("%c%s%c%d"))))))), MSSP_VAR, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PLAYERS"))))))), MSSP_VAL, ses.*.port.*.total);

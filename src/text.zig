@@ -8210,9 +8210,7 @@ pub export fn word_wrap_split(arg_ses: [*c]struct_session, arg_textin: [*c]u8, a
     _ = &height;
     var width = arg_width;
     _ = &width;
-    var color: [50]u8 = [1]u8{
-        0,
-    } ++ [1]u8{0} ** 49;
+    var color: [50]u8 = @import("std").mem.zeroes([50]u8);
     _ = &color;
     var pti: [*c]u8 = undefined;
     _ = &pti;

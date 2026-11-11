@@ -9505,9 +9505,7 @@ pub export fn string_to_stamp(arg_ses: [*c]struct_session, arg_flags: c_longlong
     _ = &buf3;
     var chr1: [5]u8 = undefined;
     _ = &chr1;
-    var color: [50]u8 = [1]u8{
-        0,
-    } ++ [1]u8{0} ** 49;
+    var color: [50]u8 = @import("std").mem.zeroes([50]u8);
     _ = &color;
     var skip: c_int = undefined;
     _ = &skip;

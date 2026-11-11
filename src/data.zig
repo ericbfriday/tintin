@@ -8077,7 +8077,7 @@ pub export fn init_list(arg_ses: [*c]struct_session, arg_type: c_int, arg_size: 
         syserr_fatal(-@as(c_int, 1), @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("init_list: calloc"))))))))))))));
     }
     listhead.*.ses = ses;
-    listhead.*.list = @ptrCast(@alignCast(calloc(@bitCast(@as(c_long, size)), @sizeOf([*c]struct_listnode))));
+    listhead.*.list = @ptrCast(@alignCast(calloc(@intCast(size), @sizeOf([*c]struct_listnode))));
     listhead.*.size = size;
     listhead.*.type = @truncate(@"type");
     listhead.*.flags = @truncate(list_table[@bitCast(@as(isize, @intCast(@"type")))].flags);

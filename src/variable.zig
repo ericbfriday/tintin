@@ -8570,7 +8570,7 @@ pub export fn format_string(arg_ses: [*c]struct_session, arg_format: [*c]u8, arg
                                         if (snip < strl) {
                                             var head: c_int = string_str_raw_len(ses, arglist[@bitCast(@as(isize, @intCast(i)))], 0, strl - snip);
                                             _ = &head;
-                                            _ = memmove(@ptrCast(@alignCast(arglist[@bitCast(@as(isize, @intCast(i)))])), @ptrCast(@alignCast(arglist[@bitCast(@as(isize, @intCast(i)))] + @as(usize, @bitCast(@as(isize, @intCast(head)))))), @bitCast(@as(c_long, (rawl - head) + @as(c_int, 1))));
+                                            _ = memmove(@ptrCast(@alignCast(arglist[@bitCast(@as(isize, @intCast(i)))])), @ptrCast(@alignCast(arglist[@bitCast(@as(isize, @intCast(i)))] + @as(usize, @bitCast(@as(isize, @intCast(head)))))), @intCast((rawl - head) + @as(c_int, 1)));
                                             strl = snip;
                                             rawl -= head;
                                         }
