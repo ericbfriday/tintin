@@ -26,7 +26,6 @@ pub fn build(b: *std.Build) void {
     };
 
     const src_files = &.{
-        "src/missing_phase9.c",
         "src/missing_sort.c",
         "src/missing_variadics.c",
         "src/missing_goto.c",
