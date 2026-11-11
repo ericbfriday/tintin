@@ -1,0 +1,9 @@
+# Regression coverage for the variadic bridge (src/variadics.zig):
+#  - #format exercises the string/format machinery (str_cpy_printf path)
+#  - #event + PROGRAM START exercises check_all_events forwarding
+#  - #delay exercises the mainloop timer path ending in tintin_printf/showme
+#  - #showme exercises do_showme -> tintin_puts3 -> print_lines -> print_stdout
+#format {vfmt} {%s+%d} {value} {42}
+#showme VARIADIC FORMAT: $vfmt
+#event {PROGRAM START} {#showme VARIADIC EVENT OK}
+#delay {0.5} {#showme VARIADIC DELAY OK;#end}

@@ -44,5 +44,16 @@ else
     exit 1
 fi
 
+echo "Running variadic bridge test..."
+OUTPUT=$(timeout 15 $TT_BIN -H "tests/variadic_test.tin" 2>&1)
+
+if echo "$OUTPUT" | grep -q "VARIADIC FORMAT: value+42" && echo "$OUTPUT" | grep -q "VARIADIC EVENT OK" && echo "$OUTPUT" | grep -q "VARIADIC DELAY OK"; then
+    echo "Variadic test passed!"
+else
+    echo "Variadic test failed. Output:"
+    echo "$OUTPUT"
+    exit 1
+fi
+
 echo "All tests completed successfully."
 exit 0
