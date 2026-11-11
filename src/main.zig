@@ -7856,6 +7856,9 @@ pub fn main(arg_argc: c_int, arg_argv: [*c][*c]u8) callconv(.c) c_int {
     }
     _ = check_all_events(gts, @as(c_int, 1) << @intCast(@as(c_int, 14)), 0, 0, @as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@as([*c]u8, @ptrCast(@constCast("PROGRAM START"))))))), .{});
     mainloop();
+    // Zig's exit path may skip glibc atexit handlers; flush C stdio explicitly
+    // so buffered output from C code (fputs etc.) is not lost.
+    _ = fflush(stdout());
     return 0;
 }
 pub export fn init_tintin(arg_greeting: c_int) void {

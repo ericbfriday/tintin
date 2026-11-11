@@ -1164,6 +1164,9 @@ struct tintin_data
 	struct memory_data    * memory;
 	struct system_data    * system;
 	struct termios          old_terminal;
+	// ABI pad: the Zig translate-c files embed a Darwin-sized termios (72 bytes);
+	// glibc's is 60. Pad the C layout so both agree on all following offsets.
+	char                    zig_abi_pad_tintin[8];
 	char                  * detach_file;
 	int                     detach_port;
 	struct process_data     detach_info;
@@ -1223,6 +1226,8 @@ struct session
 	z_stream              * mccp3;
 	gnutls_session_t        ssl;
 	struct termios          cur_terminal;
+	// ABI pad: see zig_abi_pad_tintin above (Darwin vs glibc termios size).
+	char                    zig_abi_pad_session[8];
 	struct log_data       * log;
 	struct scroll_data    * scroll;
 	struct split_data     * split;

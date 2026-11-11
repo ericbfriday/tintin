@@ -9,6 +9,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    exe_mod.addCMacro("_GNU_SOURCE", "1");
     exe_mod.addIncludePath(b.path("src"));
     exe_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     exe_mod.link_libc = true;
@@ -47,6 +48,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    banner_mod.addCMacro("_GNU_SOURCE", "1");
     banner_mod.addIncludePath(b.path("src"));
     banner_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     banner_mod.link_libc = true;
@@ -57,6 +59,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    base_mod.addCMacro("_GNU_SOURCE", "1");
     base_mod.addIncludePath(b.path("src"));
     base_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     base_mod.link_libc = true;
@@ -67,6 +70,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    buffer_mod.addCMacro("_GNU_SOURCE", "1");
     buffer_mod.addIncludePath(b.path("src"));
     buffer_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     buffer_mod.link_libc = true;
@@ -77,6 +81,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    chat_mod.addCMacro("_GNU_SOURCE", "1");
     chat_mod.addIncludePath(b.path("src"));
     chat_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     chat_mod.link_libc = true;
@@ -87,6 +92,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    class_mod.addCMacro("_GNU_SOURCE", "1");
     class_mod.addIncludePath(b.path("src"));
     class_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     class_mod.link_libc = true;
@@ -97,6 +103,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    command_mod.addCMacro("_GNU_SOURCE", "1");
     command_mod.addIncludePath(b.path("src"));
     command_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     command_mod.link_libc = true;
@@ -107,6 +114,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    config_mod.addCMacro("_GNU_SOURCE", "1");
     config_mod.addIncludePath(b.path("src"));
     config_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     config_mod.link_libc = true;
@@ -117,6 +125,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    cursor_mod.addCMacro("_GNU_SOURCE", "1");
     cursor_mod.addIncludePath(b.path("src"));
     cursor_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     cursor_mod.link_libc = true;
@@ -127,6 +136,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    daemon_mod.addCMacro("_GNU_SOURCE", "1");
     daemon_mod.addIncludePath(b.path("src"));
     daemon_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     daemon_mod.link_libc = true;
@@ -137,6 +147,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    data_mod.addCMacro("_GNU_SOURCE", "1");
     data_mod.addIncludePath(b.path("src"));
     data_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     data_mod.link_libc = true;
@@ -147,6 +158,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    debug_mod.addCMacro("_GNU_SOURCE", "1");
     debug_mod.addIncludePath(b.path("src"));
     debug_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     debug_mod.link_libc = true;
@@ -157,6 +169,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    dict_mod.addCMacro("_GNU_SOURCE", "1");
     dict_mod.addIncludePath(b.path("src"));
     dict_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     dict_mod.link_libc = true;
@@ -167,6 +180,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    draw_mod.addCMacro("_GNU_SOURCE", "1");
     draw_mod.addIncludePath(b.path("src"));
     draw_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     draw_mod.link_libc = true;
@@ -177,6 +191,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    edit_mod.addCMacro("_GNU_SOURCE", "1");
     edit_mod.addIncludePath(b.path("src"));
     edit_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     edit_mod.link_libc = true;
@@ -187,6 +202,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    event_mod.addCMacro("_GNU_SOURCE", "1");
     event_mod.addIncludePath(b.path("src"));
     event_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     event_mod.link_libc = true;
@@ -197,6 +213,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    files_mod.addCMacro("_GNU_SOURCE", "1");
     files_mod.addIncludePath(b.path("src"));
     files_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     files_mod.link_libc = true;
@@ -207,6 +224,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    forkpty_mod.addCMacro("_GNU_SOURCE", "1");
     forkpty_mod.addIncludePath(b.path("src"));
     forkpty_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     forkpty_mod.link_libc = true;
@@ -217,6 +235,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    help_mod.addCMacro("_GNU_SOURCE", "1");
     help_mod.addIncludePath(b.path("src"));
     help_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     help_mod.link_libc = true;
@@ -227,6 +246,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    history_mod.addCMacro("_GNU_SOURCE", "1");
     history_mod.addIncludePath(b.path("src"));
     history_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     history_mod.link_libc = true;
@@ -237,6 +257,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    input_mod.addCMacro("_GNU_SOURCE", "1");
     input_mod.addIncludePath(b.path("src"));
     input_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     input_mod.link_libc = true;
@@ -247,6 +268,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    line_mod.addCMacro("_GNU_SOURCE", "1");
     line_mod.addIncludePath(b.path("src"));
     line_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     line_mod.link_libc = true;
@@ -257,6 +279,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    list_mod.addCMacro("_GNU_SOURCE", "1");
     list_mod.addIncludePath(b.path("src"));
     list_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     list_mod.link_libc = true;
@@ -267,6 +290,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    log_mod.addCMacro("_GNU_SOURCE", "1");
     log_mod.addIncludePath(b.path("src"));
     log_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     log_mod.link_libc = true;
@@ -277,6 +301,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    mapper_mod.addCMacro("_GNU_SOURCE", "1");
     mapper_mod.addIncludePath(b.path("src"));
     mapper_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     mapper_mod.link_libc = true;
@@ -287,6 +312,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    math_mod.addCMacro("_GNU_SOURCE", "1");
     math_mod.addIncludePath(b.path("src"));
     math_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     math_mod.link_libc = true;
@@ -297,6 +323,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    mccp_mod.addCMacro("_GNU_SOURCE", "1");
     mccp_mod.addIncludePath(b.path("src"));
     mccp_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     mccp_mod.link_libc = true;
@@ -307,6 +334,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    memory_mod.addCMacro("_GNU_SOURCE", "1");
     memory_mod.addIncludePath(b.path("src"));
     memory_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     memory_mod.link_libc = true;
@@ -317,6 +345,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    misc_mod.addCMacro("_GNU_SOURCE", "1");
     misc_mod.addIncludePath(b.path("src"));
     misc_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     misc_mod.link_libc = true;
@@ -327,6 +356,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    missing_phase5_mod.addCMacro("_GNU_SOURCE", "1");
     missing_phase5_mod.addIncludePath(b.path("src"));
     missing_phase5_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     missing_phase5_mod.link_libc = true;
@@ -338,6 +368,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    missing_phase8_mod.addCMacro("_GNU_SOURCE", "1");
     missing_phase8_mod.addIncludePath(b.path("src"));
     missing_phase8_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     missing_phase8_mod.link_libc = true;
@@ -349,6 +380,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    missing_regex_mod.addCMacro("_GNU_SOURCE", "1");
     missing_regex_mod.addIncludePath(b.path("src"));
     missing_regex_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     missing_regex_mod.link_libc = true;
@@ -359,6 +391,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    missing_sort_tmpl_mod.addCMacro("_GNU_SOURCE", "1");
     missing_sort_tmpl_mod.addIncludePath(b.path("src"));
     missing_sort_tmpl_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     missing_sort_tmpl_mod.link_libc = true;
@@ -369,6 +402,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    msdp_mod.addCMacro("_GNU_SOURCE", "1");
     msdp_mod.addIncludePath(b.path("src"));
     msdp_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     msdp_mod.link_libc = true;
@@ -379,6 +413,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    nest_mod.addCMacro("_GNU_SOURCE", "1");
     nest_mod.addIncludePath(b.path("src"));
     nest_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     nest_mod.link_libc = true;
@@ -389,6 +424,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    net_mod.addCMacro("_GNU_SOURCE", "1");
     net_mod.addIncludePath(b.path("src"));
     net_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     net_mod.link_libc = true;
@@ -399,6 +435,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    parse_mod.addCMacro("_GNU_SOURCE", "1");
     parse_mod.addIncludePath(b.path("src"));
     parse_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     parse_mod.link_libc = true;
@@ -409,6 +446,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    path_mod.addCMacro("_GNU_SOURCE", "1");
     path_mod.addIncludePath(b.path("src"));
     path_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     path_mod.link_libc = true;
@@ -419,6 +457,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    port_mod.addCMacro("_GNU_SOURCE", "1");
     port_mod.addIncludePath(b.path("src"));
     port_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     port_mod.link_libc = true;
@@ -429,6 +468,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    regex_mod.addCMacro("_GNU_SOURCE", "1");
     regex_mod.addIncludePath(b.path("src"));
     regex_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     regex_mod.link_libc = true;
@@ -439,6 +479,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    scan_mod.addCMacro("_GNU_SOURCE", "1");
     scan_mod.addIncludePath(b.path("src"));
     scan_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     scan_mod.link_libc = true;
@@ -449,6 +490,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    screen_mod.addCMacro("_GNU_SOURCE", "1");
     screen_mod.addIncludePath(b.path("src"));
     screen_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     screen_mod.link_libc = true;
@@ -459,6 +501,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    session_mod.addCMacro("_GNU_SOURCE", "1");
     session_mod.addIncludePath(b.path("src"));
     session_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     session_mod.link_libc = true;
@@ -469,6 +512,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    show_mod.addCMacro("_GNU_SOURCE", "1");
     show_mod.addIncludePath(b.path("src"));
     show_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     show_mod.link_libc = true;
@@ -479,6 +523,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    sort_mod.addCMacro("_GNU_SOURCE", "1");
     sort_mod.addIncludePath(b.path("src"));
     sort_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     sort_mod.link_libc = true;
@@ -489,6 +534,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    split_mod.addCMacro("_GNU_SOURCE", "1");
     split_mod.addIncludePath(b.path("src"));
     split_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     split_mod.link_libc = true;
@@ -499,6 +545,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    ssl_mod.addCMacro("_GNU_SOURCE", "1");
     ssl_mod.addIncludePath(b.path("src"));
     ssl_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     ssl_mod.link_libc = true;
@@ -509,6 +556,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    string_mod.addCMacro("_GNU_SOURCE", "1");
     string_mod.addIncludePath(b.path("src"));
     string_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     string_mod.link_libc = true;
@@ -519,6 +567,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    substitute_mod.addCMacro("_GNU_SOURCE", "1");
     substitute_mod.addIncludePath(b.path("src"));
     substitute_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     substitute_mod.link_libc = true;
@@ -529,6 +578,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    system_mod.addCMacro("_GNU_SOURCE", "1");
     system_mod.addIncludePath(b.path("src"));
     system_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     system_mod.link_libc = true;
@@ -539,6 +589,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    tables_mod.addCMacro("_GNU_SOURCE", "1");
     tables_mod.addIncludePath(b.path("src"));
     tables_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     tables_mod.link_libc = true;
@@ -549,6 +600,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    telopt_client_mod.addCMacro("_GNU_SOURCE", "1");
     telopt_client_mod.addIncludePath(b.path("src"));
     telopt_client_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     telopt_client_mod.link_libc = true;
@@ -559,6 +611,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    telopt_server_mod.addCMacro("_GNU_SOURCE", "1");
     telopt_server_mod.addIncludePath(b.path("src"));
     telopt_server_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     telopt_server_mod.link_libc = true;
@@ -569,6 +622,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    terminal_mod.addCMacro("_GNU_SOURCE", "1");
     terminal_mod.addIncludePath(b.path("src"));
     terminal_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     terminal_mod.link_libc = true;
@@ -579,6 +633,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    test_mod.addCMacro("_GNU_SOURCE", "1");
     test_mod.addIncludePath(b.path("src"));
     test_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     test_mod.link_libc = true;
@@ -589,6 +644,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    text_mod.addCMacro("_GNU_SOURCE", "1");
     text_mod.addIncludePath(b.path("src"));
     text_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     text_mod.link_libc = true;
@@ -599,6 +655,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    tokenize_mod.addCMacro("_GNU_SOURCE", "1");
     tokenize_mod.addIncludePath(b.path("src"));
     tokenize_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     tokenize_mod.link_libc = true;
@@ -609,6 +666,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    trigger_mod.addCMacro("_GNU_SOURCE", "1");
     trigger_mod.addIncludePath(b.path("src"));
     trigger_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     trigger_mod.link_libc = true;
@@ -619,6 +677,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    update_a_mod.addCMacro("_GNU_SOURCE", "1");
     update_a_mod.addIncludePath(b.path("src"));
     update_a_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     update_a_mod.link_libc = true;
@@ -629,6 +688,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    update_b_mod.addCMacro("_GNU_SOURCE", "1");
     update_b_mod.addIncludePath(b.path("src"));
     update_b_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     update_b_mod.link_libc = true;
@@ -639,6 +699,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    utf8_mod.addCMacro("_GNU_SOURCE", "1");
     utf8_mod.addIncludePath(b.path("src"));
     utf8_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     utf8_mod.link_libc = true;
@@ -649,6 +710,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    utils_mod.addCMacro("_GNU_SOURCE", "1");
     utils_mod.addIncludePath(b.path("src"));
     utils_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     utils_mod.link_libc = true;
@@ -659,6 +721,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    variable_mod.addCMacro("_GNU_SOURCE", "1");
     variable_mod.addIncludePath(b.path("src"));
     variable_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     variable_mod.link_libc = true;
@@ -669,6 +732,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    vt102_a_mod.addCMacro("_GNU_SOURCE", "1");
     vt102_a_mod.addIncludePath(b.path("src"));
     vt102_a_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     vt102_a_mod.link_libc = true;
@@ -679,6 +743,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    vt102_b_mod.addCMacro("_GNU_SOURCE", "1");
     vt102_b_mod.addIncludePath(b.path("src"));
     vt102_b_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     vt102_b_mod.link_libc = true;
@@ -690,6 +755,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
+    test_runner_mod.addCMacro("_GNU_SOURCE", "1");
     test_runner_mod.addIncludePath(b.path("src"));
     test_runner_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
     test_runner_mod.link_libc = true;

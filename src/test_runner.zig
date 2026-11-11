@@ -5,7 +5,7 @@ pub const base = @import("base.zig");
 pub const buffer = @import("buffer.zig");
 pub const chat = @import("chat.zig");
 pub const class = @import("class.zig");
-pub fn command(arg0: anytype, arg1: anytype, arg_format: [*c]const u8, args: anytype) [*c]struct_session { return @ptrCast(@alignCast(@as(?*anyopaque, @ptrCast(@import("variadics.zig").command(arg0, arg1, arg_format, args))))); }
+pub const command = @import("command.zig");
 pub const config = @import("config.zig");
 pub const cursor = @import("cursor.zig");
 pub const daemon = @import("daemon.zig");
@@ -62,6 +62,7 @@ pub const variable = @import("variable.zig");
 pub const vt102_a = @import("vt102_a.zig");
 pub const vt102_b = @import("vt102_b.zig");
 pub const main = @import("main.zig");
+pub const missing_phase8 = @import("missing_phase8.zig");
 
 test {
     _ = banner;
@@ -131,4 +132,15 @@ test {
     _ = main.winch_handler;
     _ = main.quitmsg;
     _ = main.syserr_fatal;
+    _ = missing_phase8;
+    // Force emission of exports referenced across module boundaries so the
+    // test binary links (namespaces alone do not pull in pub export decls).
+    _ = &command.command;
+    _ = &command.execute;
+    _ = &command.init_commands;
+    _ = &command.command_table;
+    _ = &missing_phase8.port_call;
+    _ = &missing_phase8.daemon_attach;
+    _ = &missing_phase8.tintin2msdp;
+    _ = &missing_phase8.threaded_chat_call;
 }
