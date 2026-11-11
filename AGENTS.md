@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**TinTin++** is a classic, powerful command-line MUD (Multi-User Dungeon) client. This fork is currently in the process of being **converted from C to Zig**. The goal is to leverage Zig's modern features while maintaining compatibility with the existing C codebase.
+**TinTin++** is a classic, powerful command-line MUD (Multi-User Dungeon) client. This fork is being **converted from C to Zig**. The goal is to leverage Zig's modern features while maintaining compatibility with the existing C codebase.
 
 *   **Website:** https://tintin.mudhalla.net (Original C version)
 *   **License:** GPL 3
@@ -13,72 +13,82 @@
 
 ### Prerequisites
 
-To build this version of TinTin++, you need:
-
-*   **Zig Compiler** (0.13.0 or later recommended)
-*   **PCRE** (Perl Compatible Regular Expressions)
-*   **Zlib** (Compression)
-*   **GnuTLS** (SSL/TLS support)
+*   **Zig 0.16.x** — do NOT use 0.17+: `@cImport` (used by 11 modules) was removed in 0.17
+*   **PCRE2** (`libpcre2-dev` / `pcre2`) — build.zig links `pcre2-8`
+*   **Zlib** (`zlib1g-dev` / `zlib`)
+*   **GnuTLS** (`libgnutls28-dev` / `gnutls`)
 
 On macOS (Homebrew):
 ```bash
-brew install pcre zlib gnutls zig
+brew install pcre2 zlib gnutls zig@0.16
 ```
 
 On Linux (Ubuntu/Debian):
 ```bash
-sudo apt-get install libpcre3-dev zlib1g-dev gnutls-dev zig
+sudo apt-get install libpcre2-dev zlib1g-dev libgnutls28-dev
 ```
 
 ### Building
 
-The project uses `zig build`:
-
-1.  In the project root:
+1.  Generate `src/config.h` once per clone (gitignored):
+    ```bash
+    cd src && ./configure
+    ```
+2.  Build:
     ```bash
     zig build
     ```
+3.  The binary lands in `zig-out/bin/tt++`.
 
-2.  The resulting binary will be in `zig-out/bin/tt++`.
+**WSL2 notes (Windows hosts):**
+*   Never build on `/mnt/*` (drvfs breaks Zig's cache renames). Sync to ext4 first (e.g. `rsync -a --exclude .git --exclude .zig-cache --exclude zig-out . ~/tintin/`).
+*   Strip Windows paths from `PATH` before building: `export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin`. A Windows `pkg-config` shim in `WindowsApps` fails with `EACCES` and breaks Zig's library lookup at link time with a bare `error: AccessDenied` (this was previously misattributed to an `.sframe` linker bug).
 
-### Running
+### Running & Testing
 
 ```bash
-./zig-out/bin/tt++
+./zig-out/bin/tt++                       # interactive
+./zig-out/bin/tt++ -H tests/smoke_test.tin < /dev/null   # headless script
+bash tests/run_tests.sh                  # black-box suite (smoke, list, string, variadic)
+zig build test                           # compile/link test of all modules
 ```
 
 ## Zig Conversion Progress
 
-The project is in the final stages of conversion. The vast majority of the core engine, network stack, parser, and scripting engine have been translated to Zig (`*.zig`).
+The core engine, network stack, parser, and scripting engine are translated to Zig. Build and tests pass on Ubuntu 22.04 + Zig 0.16.0.
 
-*   **Current State:** The build succeeds using Zig modules. Legacy C variadic functions have been replaced with Zig tuple implementations. Opaque pointers have been refactored. A C shim (`darwin_shim.c`) was added to resolve macOS libc symbols on Linux. The final compilation step succeeds, but the linker currently fails on Ubuntu 24.04+ due to an `.sframe` relocation incompatibility in Zig's built-in linker.
-*   **Current Focus (Phase 9):** Resolve the `.sframe` linker errors by either disabling unwind tables, linking with a system linker like `lld`, or waiting for an upstream Zig linker fix.
+*   **Variadic bridge:** `src/variadics.zig` implements all 33 variadic wrappers (23 forward to the C-ABI implementations in `missing_variadics.c` / `command.zig` / `nest.zig`; 10 chat/port/msdp/arachnos functions ported from upstream). Zig callers reach it via local `pub fn` wrappers in each module.
+*   **Struct ABI invariant:** the raw translate-c files embed a Darwin-sized `struct termios` (72B) while glibc's is 60B; `tintin.h` carries `zig_abi_pad_tintin[8]`/`zig_abi_pad_session[8]` so C and `@cImport` layouts match the frozen Zig layouts. Any change to a shared struct must keep offsets aligned (audit with a generated offsetof comparison).
+*   **Remaining C:** `missing_variadics.c` (17 functions, now shadowed by the Zig wrappers), `missing_goto.c`, `missing_sort.c`, `darwin_shim.c` (supplies Darwin libc symbols on Linux).
+*   **Remaining work:** migrate the 11 `@cImport` modules off `@cImport` for Zig 0.17+; port the remaining C files; keep `master` synced with upstream scandum/tintin.
 
 ### Conversion Strategy
 
-1.  **Translate C to Zig:** Use `zig translate-c` on existing C implementation files.
-2.  **Expose to C:** Use `pub export fn` in Zig to keep functions available to the remaining C code.
-3.  **Link via `build.zig`:** Zig modules are compiled as objects and added to the main executable.
-4.  **Gradual Refactoring:** Once translated, the Zig code can be incrementally refactored to use idiomatic Zig features.
+1.  **Translate C to Zig:** `zig translate-c` on existing C implementation files.
+2.  **Expose to C:** `pub export fn` keeps functions available across module boundaries; `tintin.h` is the shared ABI contract (new/renamed functions need a prototype there).
+3.  **Link via `build.zig`:** each Zig module compiles as an object linked into `tt++` (mirroring the old C translation units).
+4.  **Gradual Refactoring:** translated code is refactored to idiomatic Zig incrementally; match the existing style of the file you are editing (raw translate-c vs. hand-cleaned).
 
 ## Project Structure
 
-*   **`src/`**: Contains the new Zig implementation files and the few remaining C files.
-*   **`build.zig`**: The main build configuration.
+*   **`src/`**: Zig implementation + remaining C files; `tintin.h` is the C/Zig ABI contract.
+*   **`build.zig`**: build configuration (per-module objects, C flags, `_GNU_SOURCE` macro).
+*   **`tests/`**: black-box `.tin` test scripts + `run_tests.sh`.
 *   **`docs/`**: Documentation files (HTML and text).
 *   **`mods/`**: Release notes and modification history.
-*   **`migration_artifacts/`**: AI migration scripts, temporary files, logs, and backups from the C-to-Zig conversion process.
+*   **`migration_artifacts/`**: archived AI migration scripts/logs (historical only).
 
 ## Architecture & Key Concepts
 
 ### Core Data Structures (`src/tintin.h`)
 
-*   **`struct session`**: Represents a connection to a MUD.
-*   **`struct listroot` / `struct listnode`**: A generic doubly-linked list implementation.
+*   **`struct session`**: one MUD connection; linked list via `next`/`prev`.
+*   **`struct listroot` / `struct listnode`**: the generic list backing aliases, actions, variables, etc.
+*   **`struct tintin_data` (`gtd`)**: the global client state, defined in `main.zig`.
 
 ### Execution Flow
 
-The entry point remains in `main.c`, which calls into both remaining C logic and new Zig logic. The main event loop is in `update.c`.
+Entry point is `pub fn main` in `src/main.zig` (there is no `main.c`). After `init_tintin`, the file/`-e` command runs, then `mainloop()` in `src/update_a.zig` drives the pulse-based event loop (input, sessions, delays, tickers, chat, port).
 
 ## Common Terms
 
