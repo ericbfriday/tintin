@@ -363,3 +363,16 @@ Changed: `delete_node_with_wild(+char *command)`, `close_chat` returns `struct c
 After every chunk: `zig build` + `bash tests/run_tests.sh`; after chunks 1, 3, 4: regenerate and
 compare the C-vs-Zig offsetof report (gtd/session/listnode/port_data/map_data/room_data/
 search_data/event_type/ttre_data).
+
+## Progress log
+
+- **Chunk 1 done** (ABI foundation): tintin.h/telnet.h merged to a4710ab state with both ABI pads
+  kept adjacent to the termios members (pad sits between old_terminal and the new pcre2
+  match_data/match_context/jit_stack trio so C and Zig offsets stay identical); all 53 frozen Zig
+  struct mirrors + 6 macro-only mirrors updated; zstd adopted (configure + config.h.in define
+  HAVE_ZSTD_H/HAVE_LIBZSTD, build.zig links zstd); struct audit 0 mismatches; build + unit tests +
+  all 5 black-box suites green. Known leftovers for later chunks: ~200 function-local literal
+  `[50000]u8`/`[100000]u8` stack buffers (old BUFFER_SIZE/STRING_SIZE) not yet doubled — belongs
+  with chunk 10's setrlimit/stack work; per-mirror `CLIENT_VERSION` consts in non-binding mirrors
+  still read "2.02.61 " (dead code; runtime-visible strings in main/data/chat updated); SCROLL/
+  VERBATIM were renamed to IS_SCROLL/IS_VERBATIM everywhere (zero Zig callers existed).

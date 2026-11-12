@@ -10806,16 +10806,16 @@ pub const DAEMON_DIR = "daemons";
 pub const TINTIN_DIR = ".tintin";
 pub const HISTORY_FILE = "history.txt";
 pub const MALLOC_SIZE = __helpers.promoteIntLiteral(c_int, 1000000, .decimal);
-pub const STRING_SIZE = __helpers.promoteIntLiteral(c_int, 100000, .decimal);
-pub const BUFFER_SIZE = __helpers.promoteIntLiteral(c_int, 50000, .decimal);
+pub const STRING_SIZE = __helpers.promoteIntLiteral(c_int, 200000, .decimal);
+pub const BUFFER_SIZE = __helpers.promoteIntLiteral(c_int, 100000, .decimal);
 pub const INPUT_SIZE = @as(c_int, 10000);
 pub const PATH_SIZE = @as(c_int, 4096);
 pub const STACK_SIZE = @as(c_int, 1000);
 pub const NAME_SIZE = @as(c_int, 256);
 pub const NUMBER_SIZE = @as(c_int, 100);
-pub const LEGEND_SIZE = @as(c_int, 50);
-pub const COLOR_SIZE = @as(c_int, 50);
-pub const CHAR_SIZE = @as(c_int, 5);
+pub const LEGEND_SIZE = @as(c_int, 48);
+pub const COLOR_SIZE = @as(c_int, 48);
+pub const CHAR_SIZE = @as(c_int, 8);
 pub const LIST_SIZE = @as(c_int, 2);
 pub const CLIENT_NAME = "TinTin++";
 pub const CLIENT_VERSION = "2.02.61 ";
@@ -11353,11 +11353,11 @@ pub inline fn IS_SPLIT(ses: anytype) @TypeOf(gtd.*.screen.*.rows != ses.*.split.
     _ = &ses;
     return gtd.*.screen.*.rows != ses.*.split.*.bot_row;
 }
-pub inline fn SCROLL(ses: anytype) @TypeOf(((ses.*.cur_row == @as(c_int, 0)) or ((ses.*.cur_row >= ses.*.split.*.top_row) and (ses.*.cur_row <= ses.*.split.*.bot_row))) or ((ses.*.cur_row >= ses.*.input.*.top_row) and (ses.*.cur_row <= ses.*.input.*.bot_row))) {
+pub inline fn IS_SCROLL(ses: anytype) @TypeOf(((ses.*.cur_row == @as(c_int, 0)) or ((ses.*.cur_row >= ses.*.split.*.top_row) and (ses.*.cur_row <= ses.*.split.*.bot_row))) or ((ses.*.cur_row >= ses.*.input.*.top_row) and (ses.*.cur_row <= ses.*.input.*.bot_row))) {
     _ = &ses;
     return ((ses.*.cur_row == @as(c_int, 0)) or ((ses.*.cur_row >= ses.*.split.*.top_row) and (ses.*.cur_row <= ses.*.split.*.bot_row))) or ((ses.*.cur_row >= ses.*.input.*.top_row) and (ses.*.cur_row <= ses.*.input.*.bot_row));
 }
-pub inline fn VERBATIM(ses: anytype) @TypeOf((gtd.*.level.*.verbatim != 0) or ((gtd.*.level.*.input == @as(c_int, 0)) and ((HAS_BIT(ses.*.config_flags, CONFIG_FLAG_VERBATIM) != 0) or (HAS_BIT(gtd.*.flags, TINTIN_FLAG_CHILDLOCK) != 0)))) {
+pub inline fn IS_VERBATIM(ses: anytype) @TypeOf((gtd.*.level.*.verbatim != 0) or ((gtd.*.level.*.input == @as(c_int, 0)) and ((HAS_BIT(ses.*.config_flags, CONFIG_FLAG_VERBATIM) != 0) or (HAS_BIT(gtd.*.flags, TINTIN_FLAG_CHILDLOCK) != 0)))) {
     _ = &ses;
     return (gtd.*.level.*.verbatim != 0) or ((gtd.*.level.*.input == @as(c_int, 0)) and ((HAS_BIT(ses.*.config_flags, CONFIG_FLAG_VERBATIM) != 0) or (HAS_BIT(gtd.*.flags, TINTIN_FLAG_CHILDLOCK) != 0)));
 }

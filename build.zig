@@ -39,6 +39,7 @@ pub fn build(b: *std.Build) void {
     exe.root_module.linkSystemLibrary("pcre2-8", .{});
     exe.root_module.linkSystemLibrary("z", .{});
     exe.root_module.linkSystemLibrary("gnutls", .{});
+    exe.root_module.linkSystemLibrary("zstd", .{});
     exe.root_module.linkSystemLibrary("util", .{});
 
     const banner_mod = b.createModule(.{
@@ -771,6 +772,7 @@ pub fn build(b: *std.Build) void {
     unit_tests.root_module.linkSystemLibrary("pcre2-8", .{});
     unit_tests.root_module.linkSystemLibrary("z", .{});
     unit_tests.root_module.linkSystemLibrary("gnutls", .{});
+    unit_tests.root_module.linkSystemLibrary("zstd", .{});
     unit_tests.root_module.linkSystemLibrary("util", .{});
 
     const run_unit_tests = b.addRunArtifact(unit_tests);

@@ -523,11 +523,11 @@ pub inline fn IS_SPLIT(ses: anytype) @TypeOf(gtd.*.screen.*.rows != ses.*.split.
     _ = &ses;
     return gtd.*.screen.*.rows != ses.*.split.*.bot_row;
 }
-pub inline fn SCROLL(ses: anytype) @TypeOf(((ses.*.cur_row == @as(c_int, 0)) or ((ses.*.cur_row >= ses.*.split.*.top_row) and (ses.*.cur_row <= ses.*.split.*.bot_row))) or ((ses.*.cur_row >= ses.*.input.*.top_row) and (ses.*.cur_row <= ses.*.input.*.bot_row))) {
+pub inline fn IS_SCROLL(ses: anytype) @TypeOf(((ses.*.cur_row == @as(c_int, 0)) or ((ses.*.cur_row >= ses.*.split.*.top_row) and (ses.*.cur_row <= ses.*.split.*.bot_row))) or ((ses.*.cur_row >= ses.*.input.*.top_row) and (ses.*.cur_row <= ses.*.input.*.bot_row))) {
     _ = &ses;
     return ((ses.*.cur_row == @as(c_int, 0)) or ((ses.*.cur_row >= ses.*.split.*.top_row) and (ses.*.cur_row <= ses.*.split.*.bot_row))) or ((ses.*.cur_row >= ses.*.input.*.top_row) and (ses.*.cur_row <= ses.*.input.*.bot_row));
 }
-pub inline fn VERBATIM(ses: anytype) @TypeOf((gtd.*.level.*.verbatim != 0) or ((gtd.*.level.*.input == @as(c_int, 0)) and ((HAS_BIT(ses.*.config_flags, CONFIG_FLAG_VERBATIM) != 0) or (HAS_BIT(gtd.*.flags, TINTIN_FLAG_CHILDLOCK) != 0)))) {
+pub inline fn IS_VERBATIM(ses: anytype) @TypeOf((gtd.*.level.*.verbatim != 0) or ((gtd.*.level.*.input == @as(c_int, 0)) and ((HAS_BIT(ses.*.config_flags, CONFIG_FLAG_VERBATIM) != 0) or (HAS_BIT(gtd.*.flags, TINTIN_FLAG_CHILDLOCK) != 0)))) {
     _ = &ses;
     return (gtd.*.level.*.verbatim != 0) or ((gtd.*.level.*.input == @as(c_int, 0)) and ((HAS_BIT(ses.*.config_flags, CONFIG_FLAG_VERBATIM) != 0) or (HAS_BIT(gtd.*.flags, TINTIN_FLAG_CHILDLOCK) != 0)));
 }

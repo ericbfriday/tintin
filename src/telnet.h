@@ -96,14 +96,18 @@
 #define     TELOPT_NEW_ENVIRON   39
 #define     TELOPT_CHARSET       42  /* Charset */
 #define     TELOPT_STARTTLS      46
+
 #define     TELOPT_MSDP          69  /* Mud Server Data Protocol */
 #define     TELOPT_MSSP          70  /* Mud Server Status Protocol */
 #define     TELOPT_MCCP1         85
 #define     TELOPT_MCCP2         86  /* Mud Client Compression Protocol v2 */
 #define     TELOPT_MCCP3         87  /* Mud Client Compression Protocol v3 */
+#define     TELOPT_MCCP4         88
 #define     TELOPT_MSP           90  /* Mud Sound Protocol */
 #define     TELOPT_MXP           91  /* Mud eXtention Protocol */
 #define     TELOPT_ZMP           93  /* Zenith Mud Protocol */
+                             // 102  // Aardwolf
+                             // 200  // Achaea
 #define     TELOPT_GMCP         201  /* Generic Mud Communication Protocol */
 #define     TELOPT_EXOPL        255
 
@@ -115,18 +119,22 @@
         Sub negotiation
 */
 
-#define	    ENV_IS                0
-#define	    ENV_SEND              1
-#define     ENV_INFO              2
+#define	    ENV_IS                  0
+#define	    ENV_SEND                1
+#define     ENV_INFO                2
 
-#define     ENV_VAR               0
-#define     ENV_VAL               1
-#define     ENV_ESC               2 /* Not implemented in tintin */
-#define     ENV_USR               3
+#define     ENV_VAR                 0
+#define     ENV_VAL                 1
+#define     ENV_ESC                 2 /* Not implemented in tintin */
+#define     ENV_USR                 3
 
-#define     CHARSET_REQUEST       1
-#define     CHARSET_ACCEPTED      2
-#define     CHARSET_REJECTED      3
+#define     CHARSET_REQUEST         1
+#define     CHARSET_ACCEPTED        2
+#define     CHARSET_REJECTED        3
+
+#define     MCCP4_ACCEPT_ENCODING   1
+#define     MCCP4_BEGIN_ENCODING    2
+#define     MCCP4_WONT            252
 /*
  TTABLE-IS ..................04
  TTABLE-REJECTED ............05
