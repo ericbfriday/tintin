@@ -59,8 +59,8 @@ The core engine, network stack, parser, and scripting engine are translated to Z
 
 *   **Variadic bridge:** `src/variadics.zig` implements all 33 variadic wrappers (23 forward to the C-ABI implementations in `missing_variadics.c` / `command.zig` / `nest.zig`; 10 chat/port/msdp/arachnos functions ported from upstream). Zig callers reach it via local `pub fn` wrappers in each module.
 *   **Struct ABI invariant:** the raw translate-c files embed a Darwin-sized `struct termios` (72B) while glibc's is 60B; `tintin.h` carries `zig_abi_pad_tintin[8]`/`zig_abi_pad_session[8]` so C and `@cImport` layouts match the frozen Zig layouts. Any change to a shared struct must keep offsets aligned (audit with a generated offsetof comparison).
-*   **Remaining C:** `missing_variadics.c` (17 functions, now shadowed by the Zig wrappers), `missing_goto.c`, `missing_sort.c`, `darwin_shim.c` (supplies Darwin libc symbols on Linux).
-*   **Remaining work:** migrate the 11 `@cImport` modules off `@cImport` for Zig 0.17+; port the remaining C files; keep `master` synced with upstream scandum/tintin.
+*   **Remaining C:** `missing_variadics.c` (17 functions, now shadowed by the Zig wrappers), `missing_goto.c`, `darwin_shim.c` (supplies Darwin libc symbols on Linux). (`missing_sort.c` was ported to `src/missing_sort.zig` in e16debb.)
+*   **Remaining work:** make the tree compile under Zig 0.17 (see `variadics.zig`); port the remaining C files; port the 2.02.62 upstream delta (manifest: `docs/agents/port-2.02.62.md`); keep `master` synced with upstream scandum/tintin.
 
 ### Conversion Strategy
 
