@@ -26,7 +26,6 @@ pub fn build(b: *std.Build) void {
     };
 
     const src_files = &.{
-        "src/missing_sort.c",
         "src/missing_variadics.c",
         "src/missing_goto.c",
         "src/darwin_shim.c",
@@ -385,17 +384,17 @@ pub fn build(b: *std.Build) void {
     missing_regex_mod.link_libc = true;
     const missing_regex_zig = b.addObject(.{ .name = "missing_regex_zig", .root_module = missing_regex_mod });
     exe.root_module.addObject(missing_regex_zig);
-    const missing_sort_tmpl_mod = b.createModule(.{
-        .root_source_file = b.path("src/missing_sort_tmpl.zig"),
+    const missing_sort_mod = b.createModule(.{
+        .root_source_file = b.path("src/missing_sort.zig"),
         .target = target,
         .optimize = optimize,
     });
-    missing_sort_tmpl_mod.addCMacro("_GNU_SOURCE", "1");
-    missing_sort_tmpl_mod.addIncludePath(b.path("src"));
-    missing_sort_tmpl_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
-    missing_sort_tmpl_mod.link_libc = true;
-    const missing_sort_tmpl_zig = b.addObject(.{ .name = "missing_sort_tmpl_zig", .root_module = missing_sort_tmpl_mod });
-    exe.root_module.addObject(missing_sort_tmpl_zig);
+    missing_sort_mod.addCMacro("_GNU_SOURCE", "1");
+    missing_sort_mod.addIncludePath(b.path("src"));
+    missing_sort_mod.addIncludePath(.{ .cwd_relative = "/opt/homebrew/include" });
+    missing_sort_mod.link_libc = true;
+    const missing_sort_zig = b.addObject(.{ .name = "missing_sort_zig", .root_module = missing_sort_mod });
+    exe.root_module.addObject(missing_sort_zig);
     const msdp_mod = b.createModule(.{
         .root_source_file = b.path("src/msdp.zig"),
         .target = target,

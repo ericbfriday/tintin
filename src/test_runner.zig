@@ -29,7 +29,7 @@ pub const mccp = @import("mccp.zig");
 pub const memory = @import("memory.zig");
 pub const misc = @import("misc.zig");
 pub const missing_regex = @import("missing_regex.zig");
-pub const missing_sort_tmpl = @import("missing_sort_tmpl.zig");
+pub const missing_sort = @import("missing_sort.zig");
 pub const msdp = @import("msdp.zig");
 pub const nest = @import("nest.zig");
 pub const net = @import("net.zig");
@@ -94,7 +94,7 @@ test {
     _ = memory;
     _ = misc;
     _ = missing_regex;
-    _ = missing_sort_tmpl;
+    _ = missing_sort;
     _ = msdp;
     _ = nest;
     _ = net;

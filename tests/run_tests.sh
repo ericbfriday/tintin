@@ -32,6 +32,23 @@ else
     exit 1
 fi
 
+echo "Running sort regression test..."
+OUTPUT=$($TT_BIN -H "tests/sort_test.tin" 2>&1)
+
+if echo "$OUTPUT" | grep -q "NUM256 OK" \
+&& echo "$OUTPUT" | grep -q "NUMREV OK" \
+&& echo "$OUTPUT" | grep -q "NUMSORT OK" \
+&& echo "$OUTPUT" | grep -q "NUM40 OK" \
+&& echo "$OUTPUT" | grep -q "NUMDUP OK" \
+&& echo "$OUTPUT" | grep -q "NUMTINY OK" \
+&& echo "$OUTPUT" | grep -q "STR64 OK"; then
+    echo "Sort regression test passed!"
+else
+    echo "Sort regression test failed. Output:"
+    echo "$OUTPUT"
+    exit 1
+fi
+
 # Add more tests here as they are developed
 echo "Running string regression test..."
 OUTPUT=$($TT_BIN -H "tests/string_regression.tin" 2>&1)
