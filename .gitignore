@@ -33,3 +33,6 @@ src/*.c.bak
 # Project-local docs (not for remote)
 GEMINI.md
 MIGRATION-TODO.md
+
+# Mimosa security plugin state
+.mimosa/
