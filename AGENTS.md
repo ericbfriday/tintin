@@ -76,7 +76,6 @@ The core engine, network stack, parser, and scripting engine are translated to Z
 *   **`tests/`**: black-box `.tin` test scripts + `run_tests.sh`.
 *   **`docs/`**: Documentation files (HTML and text).
 *   **`mods/`**: Release notes and modification history.
-*   **`migration_artifacts/`**: archived AI migration scripts/logs (historical only).
 
 ## Architecture & Key Concepts
 
